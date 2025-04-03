@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"lib": ["ESNEXT"],
+		"moduleResolution": "Node",
+		"strict": true,
+		"baseUrl": "../",
+		"esModuleInterop": true,
+		"paths": {
+			"@electron/*": ["./if_electron/src/*"],
+			"@shared/*": ["./shared/*"]
+		},
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
+	},
+	"include": ["src", "typings"],
+	"ts-node": {
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	}
+}
