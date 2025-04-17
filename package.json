@@ -11,7 +11,9 @@
 		"prettier": "prettier --parser=typescript --write \"**/*.ts?(x)\"",
 		"biome": "biome format --write ./packages"
 	},
-
+	"gitHooks": {
+		"pre-commit": "lint-staged --allow-empty"
+	},
 	"lint-staged": {
 		"*.{css,md}": ["prettier --write"],
 		"*.(j|t)s?(x)": ["biome format --write --changed ./packages"]
