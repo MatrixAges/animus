@@ -1,0 +1,66 @@
+{
+	"name": "shared",
+	"private": "true",
+	"keywords": ["react", "lexical", "editor", "rich-text"],
+	"license": "MIT",
+	"version": "0.16.1",
+	"dependencies": {
+		"react": "0.0.0-experimental-c3048aab4-20240326"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/facebook/lexical",
+		"directory": "packages/shared"
+	},
+	"sideEffects": false,
+	"exports": {
+		"./canUseDOM": {
+			"types": "./dist/canUseDOM.d.ts",
+			"development": "./dist/canUseDOM.dev.mjs",
+			"production": "./dist/canUseDOM.prod.mjs",
+			"default": "./dist/canUseDOM.prod.mjs"
+		},
+		"./caretFromPoint": {
+			"types": "./dist/caretFromPoint.d.ts",
+			"development": "./dist/caretFromPoint.dev.mjs",
+			"production": "./dist/caretFromPoint.prod.mjs",
+			"default": "./dist/caretFromPoint.prod.mjs"
+		},
+		"./environment": {
+			"types": "./dist/environment.d.ts",
+			"development": "./dist/environment.dev.mjs",
+			"production": "./dist/environment.prod.mjs",
+			"default": "./dist/environment.prod.mjs"
+		},
+		"./invariant": {
+			"types": "./dist/invariant.d.ts",
+			"development": "./dist/invariant.dev.mjs",
+			"production": "./dist/invariant.prod.mjs",
+			"default": "./dist/invariant.prod.mjs"
+		},
+		"./normalizeClassNames": {
+			"types": "./dist/normalizeClassNames.d.ts",
+			"development": "./dist/normalizeClassNames.dev.mjs",
+			"production": "./dist/normalizeClassNames.prod.mjs",
+			"default": "./dist/normalizeClassNames.prod.mjs"
+		},
+		"./simpleDiffWithCursor": {
+			"types": "./dist/simpleDiffWithCursor.d.ts",
+			"development": "./dist/simpleDiffWithCursor.dev.mjs",
+			"production": "./dist/simpleDiffWithCursor.prod.mjs",
+			"default": "./dist/simpleDiffWithCursor.prod.mjs"
+		},
+		"./useLayoutEffect": {
+			"types": "./dist/useLayoutEffect.d.ts",
+			"development": "./dist/useLayoutEffect.dev.mjs",
+			"production": "./dist/useLayoutEffect.prod.mjs",
+			"default": "./dist/useLayoutEffect.prod.mjs"
+		},
+		"./warnOnlyOnce": {
+			"types": "./dist/warnOnlyOnce.d.ts",
+			"development": "./dist/warnOnlyOnce.dev.mjs",
+			"production": "./dist/warnOnlyOnce.prod.mjs",
+			"default": "./dist/warnOnlyOnce.prod.mjs"
+		}
+	}
+}

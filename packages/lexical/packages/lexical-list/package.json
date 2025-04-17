@@ -1,0 +1,31 @@
+{
+	"name": "@lexical/list",
+	"description": "This package provides the list feature for Lexical.",
+	"keywords": ["lexical", "editor", "rich-text", "list"],
+	"license": "MIT",
+	"version": "0.16.1",
+	"main": "LexicalList.js",
+	"types": "index.d.ts",
+	"dependencies": {
+		"@lexical/utils": "workspace:*",
+		"lexical": "workspace:*",
+		"shared": "workspace:*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/facebook/lexical",
+		"directory": "packages/lexical-list"
+	},
+	"module": "LexicalList.mjs",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"development": "./dist/index.dev.mjs",
+				"production": "./dist/index.prod.mjs",
+				"default": "./dist/index.prod.mjs"
+			}
+		}
+	}
+}
