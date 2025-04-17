@@ -25,6 +25,7 @@ declare class InputEvent extends UIEvent {
 }
 
 declare type Segment = {
+;
 ;+index
 : number,
   +isWordLike: boolean,

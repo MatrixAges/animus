@@ -15,13 +15,13 @@ const getMediaConfig = (codec, video, audio) => ({
 		: {
 				contentType: codec,
 				...video
-		  },
+			},
 	audio: !/^audio/.test(codec)
 		? undefined
 		: {
 				contentType: codec,
 				...audio
-		  }
+			}
 })
 
 export const getMediaCapabilities = async () => {
@@ -405,7 +405,7 @@ export function webrtcHTML(webRTC, mediaDevices) {
 							'<br><br><strong>extensions</strong><br>' +
 							extensions.join('<br>'),
 						hashMini({ audio, video, extensions })
-				  )
+					)
 		}</div>
 		<div>stun connection:</div>
 		<div class="block-text unblurred">${stunConnection || HTMLNote.BLOCKED}</div>

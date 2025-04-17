@@ -9,19 +9,18 @@ export async function getSamples() {
 	if (samples) {
 		return {
 			samples: JSON.parse(samples),
-			samplesDidLoadFromSession: true,
+			samplesDidLoadFromSession: true
 		}
 	}
 
-	const url = (
-		/\.github\.io/.test(location.origin) ? './data/samples.json' :
-			'../docs/data/samples.json'
-	)
+	const url = /\.github\.io/.test(location.origin) ? './data/samples.json' : '../docs/data/samples.json'
 
-	const cloudSamples = await fetch(url).then((res) => res.json()).catch((error) => {
-		console.error(error)
-		return
-	})
+	const cloudSamples = await fetch(url)
+		.then(res => res.json())
+		.catch(error => {
+			console.error(error)
+			return
+		})
 
 	if (cloudSamples && window.sessionStorage) {
 		sessionStorage.setItem('samples', JSON.stringify(cloudSamples))
@@ -29,7 +28,7 @@ export async function getSamples() {
 
 	return {
 		samples: cloudSamples,
-		samplesDidLoadFromSession: false,
+		samplesDidLoadFromSession: false
 	}
 }
 
@@ -43,47 +42,59 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 		math: mathSamples,
 		error: errorSamples,
 		html: htmlSamples,
-		style: styleSamples,
+		style: styleSamples
 	} = samples || {}
 
 	const computeData = (hash, data) => {
 		let systems = []
 		let poolTotal = 0
-		const metricTotal = Object.keys(data).reduce((acc, item) => acc+= data[item].length, 0)
-		const decryption = Object.keys(data).find((key) => data[key].find((item) => {
-			if (!(item.id == hash)) {
-				return false
-			}
-			systems = item.systems
-			poolTotal = data[key].length
-			return true
-		}))
+		const metricTotal = Object.keys(data).reduce((acc, item) => (acc += data[item].length), 0)
+		const decryption = Object.keys(data).find(key =>
+			data[key].find(item => {
+				if (!(item.id == hash)) {
+					return false
+				}
+				systems = item.systems
+				poolTotal = data[key].length
+				return true
+			})
+		)
 
 		return {
 			systems,
 			poolTotal,
 			metricTotal,
-			decryption,
+			decryption
 		}
 	}
 	const decryptHash = (hash, data) => {
 		const { systems, poolTotal, metricTotal, decryption } = computeData(hash, data)
-		const getIcon = (name) => `<span class="icon ${name}"></span>`
-		const browserIcon = (
-			!decryption ? '' :
-				/edgios|edge/i.test(decryption) ? getIcon('edge') :
-					/brave/i.test(decryption) ? getIcon('brave') :
-						/vivaldi/i.test(decryption) ? getIcon('vivaldi') :
-							/duckduckgo/i.test(decryption) ? getIcon('duckduckgo') :
-								/yandex/i.test(decryption) ? getIcon('yandex') :
-									/opera/i.test(decryption) ? getIcon('opera') :
-										/crios|chrome/i.test(decryption) ? getIcon('chrome') :
-											/tor browser/i.test(decryption) ? getIcon('tor') :
-												/palemoon/i.test(decryption) ? getIcon('palemoon') :
-													/fxios|firefox/i.test(decryption) ? getIcon('firefox') :
-														/safari/i.test(decryption) ? getIcon('safari') :
-															''
-		)
+		const getIcon = name => `<span class="icon ${name}"></span>`
+		const browserIcon = !decryption
+			? ''
+			: /edgios|edge/i.test(decryption)
+				? getIcon('edge')
+				: /brave/i.test(decryption)
+					? getIcon('brave')
+					: /vivaldi/i.test(decryption)
+						? getIcon('vivaldi')
+						: /duckduckgo/i.test(decryption)
+							? getIcon('duckduckgo')
+							: /yandex/i.test(decryption)
+								? getIcon('yandex')
+								: /opera/i.test(decryption)
+									? getIcon('opera')
+									: /crios|chrome/i.test(decryption)
+										? getIcon('chrome')
+										: /tor browser/i.test(decryption)
+											? getIcon('tor')
+											: /palemoon/i.test(decryption)
+												? getIcon('palemoon')
+												: /fxios|firefox/i.test(decryption)
+													? getIcon('firefox')
+													: /safari/i.test(decryption)
+														? getIcon('safari')
+														: ''
 
 		const icon = {
 			blink: '<span class="icon blink"></span>',
@@ -97,69 +108,72 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 			linux: '<span class="icon linux"></span>',
 			apple: '<span class="icon apple"></span>',
 			windows: '<span class="icon windows"></span>',
-			android: '<span class="icon android"></span>',
+			android: '<span class="icon android"></span>'
 		}
-		const engineIcon = (
-			!decryption ? '' :
-				/SpiderMonkey/.test(decryption) ? icon.firefox :
-					/JavaScriptCore/.test(decryption) ? icon.webkit :
-						/V8/.test(decryption) ? icon.v8 :
-							''
-		)
-		const engineRendererIcon = (
-			!decryption ? '' :
-				/Gecko/.test(decryption) ? icon.gecko :
-					/WebKit/.test(decryption) ? icon.webkit :
-						/Blink/.test(decryption) ? icon.blink :
-							/Goanna/.test(decryption) ? icon.goanna :
-								''
-		)
-		const systemIcon = (
-			(!decryption || (systems.length != 1)) ? '' :
-				/windows/i.test(systems[0]) ? icon.windows :
-					/linux/i.test(systems[0]) ? icon.linux :
-						/ipad|iphone|ipod|ios|mac/i.test(systems[0]) ? icon.apple :
-							/android/i.test(systems[0]) ? icon.android :
-								/chrome os/i.test(systems[0]) ? icon.cros :
-									''
-		)
+		const engineIcon = !decryption
+			? ''
+			: /SpiderMonkey/.test(decryption)
+				? icon.firefox
+				: /JavaScriptCore/.test(decryption)
+					? icon.webkit
+					: /V8/.test(decryption)
+						? icon.v8
+						: ''
+		const engineRendererIcon = !decryption
+			? ''
+			: /Gecko/.test(decryption)
+				? icon.gecko
+				: /WebKit/.test(decryption)
+					? icon.webkit
+					: /Blink/.test(decryption)
+						? icon.blink
+						: /Goanna/.test(decryption)
+							? icon.goanna
+							: ''
+		const systemIcon =
+			!decryption || systems.length != 1
+				? ''
+				: /windows/i.test(systems[0])
+					? icon.windows
+					: /linux/i.test(systems[0])
+						? icon.linux
+						: /ipad|iphone|ipod|ios|mac/i.test(systems[0])
+							? icon.apple
+							: /android/i.test(systems[0])
+								? icon.android
+								: /chrome os/i.test(systems[0])
+									? icon.cros
+									: ''
 
-		const formatPercent = (n) => n.toFixed(2).replace('.00', '')
+		const formatPercent = n => n.toFixed(2).replace('.00', '')
 		return {
 			decryption: decryption || 'unknown',
-			browserHTML: (
-				!decryption ? undefined :
-					`${browserIcon}${decryption}`
-			),
-			engineHTML: (
-				!decryption ? undefined :
-					`${engineIcon}${decryption}`
-			),
-			engineRendererHTML: (
-				!decryption ? undefined :
-					`${engineRendererIcon}${decryption}`
-			),
-			engineRendererSystemHTML: (
-				!decryption ? undefined :
-					`${engineRendererIcon}${systemIcon}${decryption}${systems.length != 1 ? '' : ` on ${systems[0]}`}`
-			),
-			engineSystem: (
-				!decryption ? undefined :
-					`${engineIcon}${systemIcon}${decryption}${systems.length != 1 ? '' : ` on ${systems[0]}`}`
-			),
-			uniqueMetric: !decryption ? '0' : formatPercent(1/metricTotal*100),
-			uniqueEngine: !decryption ? '0' : formatPercent(1/poolTotal*100),
+			browserHTML: !decryption ? undefined : `${browserIcon}${decryption}`,
+			engineHTML: !decryption ? undefined : `${engineIcon}${decryption}`,
+			engineRendererHTML: !decryption ? undefined : `${engineRendererIcon}${decryption}`,
+			engineRendererSystemHTML: !decryption
+				? undefined
+				: `${engineRendererIcon}${systemIcon}${decryption}${systems.length != 1 ? '' : ` on ${systems[0]}`}`,
+			engineSystem: !decryption
+				? undefined
+				: `${engineIcon}${systemIcon}${decryption}${systems.length != 1 ? '' : ` on ${systems[0]}`}`,
+			uniqueMetric: !decryption ? '0' : formatPercent((1 / metricTotal) * 100),
+			uniqueEngine: !decryption ? '0' : formatPercent((1 / poolTotal) * 100)
 		}
 	}
 
-	const renderWindowSamples = (fp) => {
+	const renderWindowSamples = fp => {
 		const id = document.getElementById(`window-features-samples`)
 		if (!fp.windowFeatures || !id) {
 			return
 		}
-		const { windowFeatures: { $hash } } = fp
+		const {
+			windowFeatures: { $hash }
+		} = fp
 		const { browserHTML, uniqueEngine } = decryptHash($hash, windowSamples)
-		return patch(id, html`
+		return patch(
+			id,
+			html`
 			<div>
 				<style>
 					.window-features-class-rating {
@@ -168,17 +182,22 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 				</style>
 				<div class="window-features-class-rating">${uniqueEngine}% of ${browserHTML || HTMLNote.UNKNOWN}</div>
 			</div>
-		`)
+		`
+		)
 	}
 
-	const renderMathSamples = (fp) => {
+	const renderMathSamples = fp => {
 		const id = document.getElementById(`math-samples`)
 		if (!fp.maths || !id) {
 			return
 		}
-		const { maths: { $hash } } = fp
+		const {
+			maths: { $hash }
+		} = fp
 		const { engineHTML, uniqueEngine } = decryptHash($hash, mathSamples)
-		return patch(id, html`
+		return patch(
+			id,
+			html`
 			<div>
 				<style>
 					.math-class-rating {
@@ -187,17 +206,22 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 				</style>
 				<div class="math-class-rating">${uniqueEngine}% of ${engineHTML || HTMLNote.UNKNOWN}</div>
 			</div>
-		`)
+		`
+		)
 	}
 
-	const renderErrorSamples = (fp) => {
+	const renderErrorSamples = fp => {
 		const id = document.getElementById(`error-samples`)
 		if (!fp.consoleErrors || !id) {
 			return
 		}
-		const { consoleErrors: { $hash } } = fp
+		const {
+			consoleErrors: { $hash }
+		} = fp
 		const { engineHTML, uniqueEngine } = decryptHash($hash, errorSamples)
-		return patch(id, html`
+		return patch(
+			id,
+			html`
 			<div>
 				<style>
 					.console-errors-class-rating {
@@ -206,17 +230,22 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 				</style>
 				<div class="console-errors-class-rating">${uniqueEngine}% of ${engineHTML || HTMLNote.UNKNOWN}</div>
 			</div>
-		`)
+		`
+		)
 	}
 
-	const renderHTMLElementSamples = (fp) => {
+	const renderHTMLElementSamples = fp => {
 		const id = document.getElementById(`html-element-samples`)
 		if (!fp.htmlElementVersion || !id) {
 			return
 		}
-		const { htmlElementVersion: { $hash } } = fp
+		const {
+			htmlElementVersion: { $hash }
+		} = fp
 		const { engineRendererHTML, uniqueEngine } = decryptHash($hash, htmlSamples)
-		return patch(id, html`
+		return patch(
+			id,
+			html`
 			<div>
 				<style>
 					.html-element-version-class-rating {
@@ -225,7 +254,8 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 				</style>
 				<div class="html-element-version-class-rating">${uniqueEngine}% of ${engineRendererHTML || HTMLNote.UNKNOWN}</div>
 			</div>
-		`)
+		`
+		)
 	}
 
 	const renderSystemStylesSamples = (fp, styleSystemHash) => {
@@ -234,11 +264,14 @@ export default async function renderSamples(samples, { fp, styleSystemHash }) {
 			return
 		}
 		const { engineRendererSystemHTML } = decryptHash(styleSystemHash, styleSamples)
-		return patch(id, html`
+		return patch(
+			id,
+			html`
 			<div>
 				<div>${engineRendererSystemHTML || HTMLNote.UNKNOWN}</div>
 			</div>
-		`)
+		`
+		)
 	}
 
 	renderWindowSamples(fp)
@@ -271,7 +304,7 @@ export function getRawFingerprint(fp) {
 			timezone,
 			trash,
 			voices,
-			workerScope: wkr,
+			workerScope: wkr
 		} = fp || {}
 
 		const analysisFP = {
@@ -286,23 +319,25 @@ export function getRawFingerprint(fp) {
 					height || null,
 					typeof screenFp?.touch == 'boolean' ? screenFp.touch : null,
 					nav?.maxTouchPoints !== undefined ? nav.maxTouchPoints : null,
-					typeof nav?.bluetoothAvailability == 'boolean' ? nav.bluetoothAvailability : null,
+					typeof nav?.bluetoothAvailability == 'boolean' ? nav.bluetoothAvailability : null
 				]
 			})(),
 			voices: voices?.local?.slice(0, 3),
-			voicesDefault: voices?.defaultVoiceName ? [
-				voices?.defaultVoiceName,
-				voices?.defaultVoiceLang || null,
-			] : undefined,
+			voicesDefault: voices?.defaultVoiceName
+				? [voices?.defaultVoiceName, voices?.defaultVoiceLang || null]
+				: undefined,
 			headless: headless?.$hash?.slice(0, 16),
 			...(() => {
 				if (!headless) return {}
 				const { headless: hl, likeHeadless: ldl, stealth: s } = headless
 				const data = { ...hl, ...ldl, ...s }
-				return Object.keys(data).reduce((acc, key) => {
-					acc[`headless${key[0].toUpperCase()}${key.slice(1)}`] = data[key]
-					return acc
-				}, {} as Record<string, string>)
+				return Object.keys(data).reduce(
+					(acc, key) => {
+						acc[`headless${key[0].toUpperCase()}${key.slice(1)}`] = data[key]
+						return acc
+					},
+					{} as Record<string, string>
+				)
 			})(),
 			headlessRating: headless?.headlessRating,
 			headlessLikeRating: headless?.likeHeadlessRating,
@@ -326,14 +361,8 @@ export function getRawFingerprint(fp) {
 			emojiSetTextMetrics: canvas2d?.emojiSet?.join(''),
 			features: features?.version,
 			...(() => {
-				const vendor = (
-					wkr?.webglVendor ||
-					canvasWebgl?.parameters.UNMASKED_VENDOR_WEBGL
-				)
-				const renderer = (
-					wkr?.webglRenderer ||
-					canvasWebgl?.parameters.UNMASKED_RENDERER_WEBGL
-				)
+				const vendor = wkr?.webglVendor || canvasWebgl?.parameters.UNMASKED_VENDOR_WEBGL
+				const renderer = wkr?.webglRenderer || canvasWebgl?.parameters.UNMASKED_RENDERER_WEBGL
 				const gpu = [vendor || null, renderer || null]
 				const gpuBrand = getGpuBrand(renderer)
 
@@ -354,7 +383,7 @@ export function getRawFingerprint(fp) {
 					['orientation']: cssOrientation,
 					['pointer']: cssPointer,
 					['prefers-color-scheme']: cssColorScheme,
-					['prefers-reduced-motion']: cssReducedMotion,
+					['prefers-reduced-motion']: cssReducedMotion
 				} = cssMedia?.mediaCSS || {}
 				return {
 					cssMedia: cssMedia?.$hash?.slice(0, 16),
@@ -371,7 +400,7 @@ export function getRawFingerprint(fp) {
 					cssOrientation,
 					cssPointer,
 					cssColorScheme,
-					cssReducedMotion,
+					cssReducedMotion
 				}
 			})(),
 			fonts: fonts?.$hash?.slice(0, 16),
@@ -381,20 +410,13 @@ export function getRawFingerprint(fp) {
 			userAgentDevice: [
 				wkr?.device || nav?.device || null,
 				wkr?.platform || nav?.platform || null,
-				wkr?.system || nav?.system || null,
+				wkr?.system || nav?.system || null
 			],
 			userAgentData: (() => {
 				const data = wkr?.userAgentData || nav?.userAgentData
 				if (!data) return
 
-				const {
-					platform,
-					platformVersion,
-					bitness,
-					architecture,
-					model,
-					mobile,
-				} = data || {}
+				const { platform, platformVersion, bitness, architecture, model, mobile } = data || {}
 
 				return [
 					platform || null,
@@ -402,27 +424,21 @@ export function getRawFingerprint(fp) {
 					bitness || null,
 					architecture || null,
 					model || null,
-					typeof mobile == 'boolean' ? mobile : null,
+					typeof mobile == 'boolean' ? mobile : null
 				]
 			})(),
 			lies: lies?.totalLies !== 0 ? lies?.$hash?.slice(0, 16) : undefined,
 			lieKeys: lies?.totalLies !== 0 ? Object.keys(lies.data || {}) : undefined,
-			trash: (
-				trash?.trashBin.length !== 0 ?
-				trash?.trashBin
-					.map((x: { name: string, value: string }) => [x.name, x.value].join(': ')).slice(0, 10):
-					undefined
-			),
+			trash:
+				trash?.trashBin.length !== 0
+					? trash?.trashBin
+							.map((x: { name: string; value: string }) => [x.name, x.value].join(': '))
+							.slice(0, 10)
+					: undefined,
 			timezone: (() => {
 				if (!timezone) return
 
-				const {
-					location,
-					zone,
-					locationEpoch,
-					offset,
-					offsetComputed,
-				} = timezone || {}
+				const { location, zone, locationEpoch, offset, offsetComputed } = timezone || {}
 
 				const {
 					locale,
@@ -431,7 +447,7 @@ export function getRawFingerprint(fp) {
 					timezoneLocation,
 					timezoneOffset,
 					localeEntropyIsTrusty,
-					localeIntlEntropyIsTrusty,
+					localeIntlEntropyIsTrusty
 				} = wkr || {}
 
 				return [
@@ -444,21 +460,13 @@ export function getRawFingerprint(fp) {
 					language || null,
 					languages || null,
 					typeof localeEntropyIsTrusty == 'boolean' ? localeEntropyIsTrusty : null,
-					typeof localeIntlEntropyIsTrusty == 'boolean' ? localeIntlEntropyIsTrusty : null,
+					typeof localeIntlEntropyIsTrusty == 'boolean' ? localeIntlEntropyIsTrusty : null
 				]
 			})(),
 			screen: (() => {
 				if (!screenFp) return
 
-				const {
-					availHeight,
-					availWidth,
-					colorDepth,
-					height,
-					pixelDepth,
-					touch,
-					width,
-				} = screenFp || {}
+				const { availHeight, availWidth, colorDepth, height, pixelDepth, touch, width } = screenFp || {}
 				return [
 					width,
 					height,
@@ -468,13 +476,13 @@ export function getRawFingerprint(fp) {
 					pixelDepth,
 					touch,
 					nav?.maxTouchPoints !== undefined ? nav.maxTouchPoints : null,
-					window.devicePixelRatio || null,
+					window.devicePixelRatio || null
 				]
 			})(),
 			permDenied: nav?.permissions?.denied,
 			permGranted: nav?.permissions?.granted,
 			workerEnabled: WORKER_NAME,
-			...Analysis,
+			...Analysis
 		}
 
 		return analysisFP

@@ -2,12 +2,13 @@ import { hashSlice } from '../utils/helpers'
 import { modal } from '../utils/html'
 
 // Detect proxy behavior
-const proxyBehavior = (x) => typeof x == 'function' ? true : false
+const proxyBehavior = x => (typeof x == 'function' ? true : false)
 
-const GIBBERS = /[cC]f|[jJ][bcdfghlmprsty]|[qQ][bcdfghjklmnpsty]|[vV][bfhjkmpt]|[xX][dkrz]|[yY]y|[zZ][fr]|[cCxXzZ]j|[bBfFgGjJkKpPvVqQtTwWyYzZ]q|[cCfFgGjJpPqQwW]v|[jJqQvV]w|[bBcCdDfFgGhHjJkKmMpPqQsSvVwWxXzZ]x|[bBfFhHjJkKmMpPqQ]z/g
+const GIBBERS =
+	/[cC]f|[jJ][bcdfghlmprsty]|[qQ][bcdfghjklmnpsty]|[vV][bfhjkmpt]|[xX][dkrz]|[yY]y|[zZ][fr]|[cCxXzZ]j|[bBfFgGjJkKpPvVqQtTwWyYzZ]q|[cCfFgGjJpPqQwW]v|[jJqQvV]w|[bBcCdDfFgGhHjJkKmMpPqQsSvVwWxXzZ]x|[bBfFhHjJkKmMpPqQ]z/g
 
 // Detect gibberish
-const gibberish = (str: string, {strict = false} = {}): string[] => {
+const gibberish = (str: string, { strict = false } = {}): string[] => {
 	if (!str) return []
 
 	// test letter case sequence
@@ -18,9 +19,9 @@ const gibberish = (str: string, {strict = false} = {}): string[] => {
 		/([a-z][A-Z]{2,}[a-z])/g, // aBC...z
 		/([a-z][\d]{2,}[a-z])/g, // a##...b
 		/([A-Z][\d]{2,}[a-z])/g, // A##...b
-		/([a-z][\d]{2,}[A-Z])/g, // a##...B
+		/([a-z][\d]{2,}[A-Z])/g // a##...B
 	]
-	tests.forEach((regExp) => {
+	tests.forEach(regExp => {
 		const match = str.match(regExp)
 		if (match) {
 			return letterCaseSequenceGibbers.push(match.join(', '))
@@ -30,7 +31,12 @@ const gibberish = (str: string, {strict = false} = {}): string[] => {
 
 	// test letter sequence
 	const letterSequenceGibbers: string[] = []
-	const clean = str.replace(/\d|\W|_/g, ' ').replace(/\s+/g, ' ').trim().split(' ').join('_')
+	const clean = str
+		.replace(/\d|\W|_/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.split(' ')
+		.join('_')
 	const len = clean.length
 	const arr = [...clean]
 
@@ -47,8 +53,8 @@ const gibberish = (str: string, {strict = false} = {}): string[] => {
 
 	const gibbers = [
 		// ignore sequence if less than 3 exist
-		...(!strict && (letterSequenceGibbers.length < 3) ? [] : letterSequenceGibbers),
-		...(!strict && (letterCaseSequenceGibbers.length < 4) ? [] : letterCaseSequenceGibbers),
+		...(!strict && letterSequenceGibbers.length < 3 ? [] : letterSequenceGibbers),
+		...(!strict && letterCaseSequenceGibbers.length < 4 ? [] : letterCaseSequenceGibbers)
 	]
 
 	const allow = [
@@ -62,13 +68,13 @@ const gibberish = (str: string, {strict = false} = {}): string[] => {
 		'gx',
 		'PCIe',
 		'vm',
-		'NVIDIAGa',
+		'NVIDIAGa'
 	]
-	return gibbers.filter((x) => !allow.includes(x))
+	return gibbers.filter(x => !allow.includes(x))
 }
 
 // validate
-const isInt = (x) => typeof x == 'number' && x % 1 == 0
+const isInt = x => typeof x == 'number' && x % 1 == 0
 const trustInteger = (name, val) => {
 	const trusted = isInt(val)
 	return trusted ? val : sendToTrash(name, val)
@@ -78,18 +84,21 @@ const trustInteger = (name, val) => {
 function compressWebGLRenderer(x: string): string | undefined {
 	if (!x) return
 
-	return (''+x)
-	.replace(/ANGLE \(|\sDirect3D.+|\sD3D.+|\svs_.+\)|\((DRM|POLARIS|LLVM).+|Mesa.+|(ATI|INTEL)-.+|Metal\s-\s.+|NVIDIA\s[\d|\.]+/ig, '')
-	.replace(/(\s(ti|\d{1,2}GB|super)$)/ig, '')
-	.replace(/\s{2,}/g, ' ')
-	.trim()
-	.replace(/((r|g)(t|)(x|s|\d) |Graphics |GeForce |Radeon (HD |Pro |))(\d+)/i, (...args) => {
-		return `${args[1]}${args[6][0]}${args[6].slice(1).replace(/\d/g, '0')}s`
-	})
+	return ('' + x)
+		.replace(
+			/ANGLE \(|\sDirect3D.+|\sD3D.+|\svs_.+\)|\((DRM|POLARIS|LLVM).+|Mesa.+|(ATI|INTEL)-.+|Metal\s-\s.+|NVIDIA\s[\d|\.]+/gi,
+			''
+		)
+		.replace(/(\s(ti|\d{1,2}GB|super)$)/gi, '')
+		.replace(/\s{2,}/g, ' ')
+		.trim()
+		.replace(/((r|g)(t|)(x|s|\d) |Graphics |GeForce |Radeon (HD |Pro |))(\d+)/i, (...args) => {
+			return `${args[1]}${args[6][0]}${args[6].slice(1).replace(/\d/g, '0')}s`
+		})
 }
 
-const getWebGLRendererParts = (x) => {
-    const knownParts = [
+const getWebGLRendererParts = x => {
+	const knownParts = [
 		'AMD',
 		'ANGLE',
 		'ASUS',
@@ -150,25 +159,25 @@ const getWebGLRendererParts = (x) => {
 		'VirtualBox Graphics Adapter',
 		'Vulkan',
 		'Xe Graphics',
-		'llvmpipe',
-    ]
-    const parts = [...knownParts].filter((name) => (''+x).includes(name))
-    return [...new Set(parts)].sort().join(', ')
+		'llvmpipe'
+	]
+	const parts = [...knownParts].filter(name => ('' + x).includes(name))
+	return [...new Set(parts)].sort().join(', ')
 }
 
-const hardenWebGLRenderer = (x) => {
+const hardenWebGLRenderer = x => {
 	const gpuHasKnownParts = getWebGLRendererParts(x).length
 	return gpuHasKnownParts ? compressWebGLRenderer(x) : x
 }
 
-const getWebGLRendererConfidence = (x) => {
+const getWebGLRendererConfidence = x => {
 	if (!x) {
 		return
 	}
 	const parts = getWebGLRendererParts(x)
 	const hasKnownParts = parts.length
 	const hasBlankSpaceNoise = /\s{2,}|^\s|\s$/.test(x)
-	const hasBrokenAngleStructure = /^ANGLE/.test(x) && !(/^ANGLE \((.+)\)/.exec(x)||[])[1]
+	const hasBrokenAngleStructure = /^ANGLE/.test(x) && !(/^ANGLE \((.+)\)/.exec(x) || [])[1]
 
 	// https://chromium.googlesource.com/angle/angle/+/83fa18905d8fed4f394e4f30140a83a3e76b1577/src/gpu_info_util/SystemInfo.cpp
 	// https://chromium.googlesource.com/angle/angle/+/83fa18905d8fed4f394e4f30140a83a3e76b1577/src/gpu_info_util/SystemInfo.h
@@ -200,23 +209,13 @@ const getWebGLRendererConfidence = (x) => {
 	*/
 
 	const gibbers = gibberish(x, { strict: true }).join(', ')
-	const valid = (
-		hasKnownParts && !hasBlankSpaceNoise && !hasBrokenAngleStructure
-	)
-	const confidence = (
-		valid && !gibbers.length? 'high' :
-		valid && gibbers.length ? 'moderate' :
-			'low'
-	)
-	const grade = (
-		confidence == 'high' ? 'A' :
-			confidence == 'moderate' ? 'C' :
-				'F'
-	)
+	const valid = hasKnownParts && !hasBlankSpaceNoise && !hasBrokenAngleStructure
+	const confidence = valid && !gibbers.length ? 'high' : valid && gibbers.length ? 'moderate' : 'low'
+	const grade = confidence == 'high' ? 'A' : confidence == 'moderate' ? 'C' : 'F'
 
 	const warnings = new Set([
-		(hasBlankSpaceNoise ? 'found extra spaces' : undefined),
-		(hasBrokenAngleStructure ? 'broken angle structure' : undefined),
+		hasBlankSpaceNoise ? 'found extra spaces' : undefined,
+		hasBrokenAngleStructure ? 'broken angle structure' : undefined
 	])
 	warnings.delete(undefined)
 
@@ -225,21 +224,21 @@ const getWebGLRendererConfidence = (x) => {
 		warnings: [...warnings],
 		gibbers,
 		confidence,
-		grade,
+		grade
 	}
 }
 
 // Collect trash values
 const createTrashBin = () => {
 	const bin = []
-  return {
+	return {
 		getBin: () => bin,
 		sendToTrash: (name, val, response = undefined) => {
 			const proxyLike = proxyBehavior(val)
 			const value = !proxyLike ? val : 'proxy behavior detected'
 			bin.push({ name, value })
 			return response
-		},
+		}
 	}
 }
 
@@ -248,16 +247,32 @@ const { sendToTrash } = trashBin
 const getTrash = () => ({ trashBin: trashBin.getBin() })
 
 function trashHTML(fp, pointsHTML) {
-	const { trash: { trashBin, $hash } } = fp
+	const {
+		trash: { trashBin, $hash }
+	} = fp
 	const trashLen = trashBin.length
 	return `
-		<div class="${trashLen ? ' trash': ''}">trash (${!trashLen ? '0' : ''+trashLen }):${
-			!trashLen ? ' none' : modal(
-				'creep-trash',
-				trashBin.map((trash, i) => `${i+1}: ${trash.name}: ${trash.value}`).join('<br>'),
-				hashSlice($hash),
-			)
+		<div class="${trashLen ? ' trash' : ''}">trash (${!trashLen ? '0' : '' + trashLen}):${
+			!trashLen
+				? ' none'
+				: modal(
+						'creep-trash',
+						trashBin.map((trash, i) => `${i + 1}: ${trash.name}: ${trash.value}`).join('<br>'),
+						hashSlice($hash)
+					)
 		}${pointsHTML}</div>`
 }
 
-export { sendToTrash, proxyBehavior, gibberish, trustInteger, compressWebGLRenderer, getWebGLRendererParts, hardenWebGLRenderer, getWebGLRendererConfidence, trashBin, getTrash, trashHTML }
+export {
+	sendToTrash,
+	proxyBehavior,
+	gibberish,
+	trustInteger,
+	compressWebGLRenderer,
+	getWebGLRendererParts,
+	hardenWebGLRenderer,
+	getWebGLRendererConfidence,
+	trashBin,
+	getTrash,
+	trashHTML
+}

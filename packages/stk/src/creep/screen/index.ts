@@ -119,21 +119,21 @@ export function screenHTML(fp) {
 		const mediaOrientation = !window.matchMedia
 			? undefined
 			: matchMedia('(orientation: landscape)').matches
-			  ? 'landscape'
-			  : matchMedia('(orientation: portrait)').matches
-				  ? 'portrait'
-				  : undefined
+				? 'landscape'
+				: matchMedia('(orientation: portrait)').matches
+					? 'portrait'
+					: undefined
 		const displayMode = !window.matchMedia
 			? undefined
 			: matchMedia('(display-mode: fullscreen)').matches
-			  ? 'fullscreen'
-			  : matchMedia('(display-mode: standalone)').matches
-				  ? 'standalone'
-				  : matchMedia('(display-mode: minimal-ui)').matches
-					  ? 'minimal-ui'
-					  : matchMedia('(display-mode: browser)').matches
-						  ? 'browser'
-						  : undefined
+				? 'fullscreen'
+				: matchMedia('(display-mode: standalone)').matches
+					? 'standalone'
+					: matchMedia('(display-mode: minimal-ui)').matches
+						? 'minimal-ui'
+						: matchMedia('(display-mode: browser)').matches
+							? 'browser'
+							: undefined
 
 		const getDeviceDimensions = (width, height, diameter = 180) => {
 			const aspectRatio = width / height

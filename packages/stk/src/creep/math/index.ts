@@ -42,10 +42,10 @@ export default function getMaths() {
 				prop == 'cos'
 					? [1e308]
 					: prop == 'acos' || prop == 'asin' || prop == 'atanh'
-					  ? [0.5]
-					  : prop == 'pow' || prop == 'atan2'
-						  ? [Math.PI, 2]
-						  : [Math.PI]
+						? [0.5]
+						: prop == 'pow' || prop == 'atan2'
+							? [Math.PI, 2]
+							: [Math.PI]
 			const res1 = Math[prop](...test)
 			const res2 = Math[prop](...test)
 			const matching = isNaN(res1) && isNaN(res2) ? true : res1 == res2

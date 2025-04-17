@@ -98,4 +98,3 @@ const buildModule = async (modules: Array<string>) => {
 }
 
 await buildModule(modules.concat(split_modules))
-

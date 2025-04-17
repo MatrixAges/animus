@@ -1,1 +1,27 @@
-{"name":"@lexical/link","description":"This package contains the functionality for Lexical links.","keywords":["lexical","editor","rich-text","link"],"license":"MIT","version":"0.16.1","main":"LexicalLink.js","types":"index.d.ts","dependencies":{"@lexical/utils":"workspace:*","lexical":"workspace:*"},"repository":{"type":"git","url":"https://github.com/facebook/lexical","directory":"packages/lexical-link"},"module":"LexicalLink.mjs","sideEffects":false,"exports":{".":{"import":{"types":"./dist/index.d.ts","development":"./dist/index.dev.mjs","production":"./dist/index.prod.mjs","default":"./dist/index.prod.mjs"}}}}
+{
+	"name": "@lexical/link",
+	"description": "This package contains the functionality for Lexical links.",
+	"keywords": ["lexical", "editor", "rich-text", "link"],
+	"license": "MIT",
+	"version": "0.16.1",
+	"main": "LexicalLink.js",
+	"types": "index.d.ts",
+	"dependencies": { "@lexical/utils": "workspace:*", "lexical": "workspace:*" },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/facebook/lexical",
+		"directory": "packages/lexical-link"
+	},
+	"module": "LexicalLink.mjs",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"development": "./dist/index.dev.mjs",
+				"production": "./dist/index.prod.mjs",
+				"default": "./dist/index.prod.mjs"
+			}
+		}
+	}
+}

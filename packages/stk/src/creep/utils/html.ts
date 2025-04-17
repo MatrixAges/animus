@@ -1,4 +1,3 @@
-
 // template views
 function patch(oldEl: HTMLElement | null, newEl: DocumentFragment, fn?: () => any) {
 	if (!oldEl) return null
@@ -17,17 +16,17 @@ const HTMLNote = {
 	UNSUPPORTED: '<span class="blocked">unsupported</span>',
 	BLOCKED: '<span class="blocked">blocked</span>',
 	LIED: '<span class="lies">lied</span>',
-	SECRET: '<span class="blocked">secret</span>',
+	SECRET: '<span class="blocked">secret</span>'
 }
 
-const pluralify = (len) => len > 1 ? 's' : ''
-const count = (arr) => arr && arr.constructor.name === 'Array' ? '' + (arr.length) : '0'
+const pluralify = len => (len > 1 ? 's' : '')
+const count = arr => (arr && arr.constructor.name === 'Array' ? '' + arr.length : '0')
 
-const getDiffs = ({ stringA, stringB, charDiff = false, decorate = (diff) => `[${diff}]` }) => {
-	if (!stringA || !stringB) return;
+const getDiffs = ({ stringA, stringB, charDiff = false, decorate = diff => `[${diff}]` }) => {
+	if (!stringA || !stringB) return
 	const splitter = charDiff ? '' : ' '
-	const listA = (''+stringA).split(splitter)
-	const listB = (''+stringB).split(splitter)
+	const listA = ('' + stringA).split(splitter)
+	const listB = ('' + stringB).split(splitter)
 	const listBWithDiffs = listB.map((x, i) => {
 		const matcher = listA[i]
 		const match = x == matcher

@@ -375,8 +375,8 @@ function createLieDetector(scope: Window & typeof globalThis) {
 						obj.name
 							? obj.name
 							: objectNameString.test(obj)
-							  ? objectNameString.exec(obj)?.[1]
-							  : undefined
+								? objectNameString.exec(obj)?.[1]
+								: undefined
 					}.${name}`
 					propsSearched.push(apiName)
 					try {
@@ -872,7 +872,7 @@ function liesHTML(fp: LiesFingerprint, pointsHTML: string): string {
 						})
 						.join(''),
 					hashSlice($hash)
-			  )
+				)
 	}${pointsHTML}</div>`
 }
 

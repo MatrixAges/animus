@@ -6,20 +6,21 @@ import { HTMLNote, count, modal } from '../utils/html'
 // inspired by
 // - https://privacycheck.sec.lrz.de/active/fp_cpt/fp_can_play_type.html
 // - https://arkenfox.github.io/TZP
-const getMimeTypeShortList = () => [
-	'audio/ogg; codecs="vorbis"',
-	'audio/mpeg',
-	'audio/mpegurl',
-	'audio/wav; codecs="1"',
-	'audio/x-m4a',
-	'audio/aac',
-	'video/ogg; codecs="theora"',
-	'video/quicktime',
-	'video/mp4; codecs="avc1.42E01E"',
-	'video/webm; codecs="vp8"',
-	'video/webm; codecs="vp9"',
-	'video/x-matroska',
-].sort()
+const getMimeTypeShortList = () =>
+	[
+		'audio/ogg; codecs="vorbis"',
+		'audio/mpeg',
+		'audio/mpegurl',
+		'audio/wav; codecs="1"',
+		'audio/x-m4a',
+		'audio/aac',
+		'video/ogg; codecs="theora"',
+		'video/quicktime',
+		'video/mp4; codecs="avc1.42E01E"',
+		'video/webm; codecs="vp8"',
+		'video/webm; codecs="vp9"',
+		'video/x-matroska'
+	].sort()
 
 export default async function getMedia() {
 	const getMimeTypes = () => {
@@ -34,7 +35,7 @@ export default async function getMedia() {
 					audioPlayType: audioEl.canPlayType(type),
 					videoPlayType: videoEl.canPlayType(type),
 					mediaSource: MediaSource.isTypeSupported(type),
-					mediaRecorder: isMediaRecorderSupported ? MediaRecorder.isTypeSupported(type) : false,
+					mediaRecorder: isMediaRecorderSupported ? MediaRecorder.isTypeSupported(type) : false
 				}
 				if (!data.audioPlayType && !data.videoPlayType && !data.mediaSource && !data.mediaRecorder) {
 					return acc
@@ -63,7 +64,6 @@ export default async function getMedia() {
 	}
 }
 
-
 export function mediaHTML(fp) {
 	if (!fp.media) {
 		return `
@@ -74,10 +74,7 @@ export function mediaHTML(fp) {
 		`
 	}
 	const {
-		media: {
-			mimeTypes,
-			$hash,
-		},
+		media: { mimeTypes, $hash }
 	} = fp
 
 	const header = `
@@ -118,12 +115,14 @@ export function mediaHTML(fp) {
 		</div>
 	`
 	const invalidMimeTypes = !mimeTypes || !mimeTypes.length
-	const mimes = invalidMimeTypes ? undefined : mimeTypes.map((type) => {
-		const { mimeType, audioPlayType, videoPlayType, mediaSource, mediaRecorder } = type
-		return `
-			${audioPlayType == 'probably' ? '<span class="audiop pb">P</span>' : audioPlayType == 'maybe' ? '<span class="audiop mb">M</span>': '<span class="blank-false">-</span>'}${videoPlayType == 'probably' ? '<span class="videop pb">P</span>' : videoPlayType == 'maybe' ? '<span class="videop mb">M</span>': '<span class="blank-false">-</span>'}${mediaSource ? '<span class="medias tr">T</span>' : '<span class="blank-false">-</span>'}${mediaRecorder ? '<span class="mediar tr">T</span>' : '<span class="blank-false">-</span>'}: ${mimeType}
+	const mimes = invalidMimeTypes
+		? undefined
+		: mimeTypes.map(type => {
+				const { mimeType, audioPlayType, videoPlayType, mediaSource, mediaRecorder } = type
+				return `
+			${audioPlayType == 'probably' ? '<span class="audiop pb">P</span>' : audioPlayType == 'maybe' ? '<span class="audiop mb">M</span>' : '<span class="blank-false">-</span>'}${videoPlayType == 'probably' ? '<span class="videop pb">P</span>' : videoPlayType == 'maybe' ? '<span class="videop mb">M</span>' : '<span class="blank-false">-</span>'}${mediaSource ? '<span class="medias tr">T</span>' : '<span class="blank-false">-</span>'}${mediaRecorder ? '<span class="mediar tr">T</span>' : '<span class="blank-false">-</span>'}: ${mimeType}
 		`
-	})
+			})
 	const mimesListLen = getMimeTypeShortList().length
 
 	return `
@@ -131,12 +130,9 @@ export function mediaHTML(fp) {
 			<span class="aside-note">${performanceLogger.getLog().media}</span>
 			<strong>Media</strong><span class="hash">${hashSlice($hash)}</span>
 			<div class="help" title="HTMLMediaElement.canPlayType()\nMediaRecorder.isTypeSupported()\nMediaSource.isTypeSupported()">mimes (${count(mimeTypes)}/${mimesListLen}): ${
-				invalidMimeTypes ? HTMLNote.BLOCKED :
-				modal(
-					'creep-media-mimeTypes',
-					header+mimes.join('<br>'),
-					hashMini(mimeTypes),
-				)
+				invalidMimeTypes
+					? HTMLNote.BLOCKED
+					: modal('creep-media-mimeTypes', header + mimes.join('<br>'), hashMini(mimeTypes))
 			}</div>
 		</div>
 	`

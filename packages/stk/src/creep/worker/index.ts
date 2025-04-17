@@ -254,8 +254,8 @@ export async function spawnWorker() {
 		globalThis.ServiceWorkerGlobalScope
 			? onEvent('message', e => send(e.source))
 			: globalThis.SharedWorkerGlobalScope
-			  ? onEvent('connect', e => send(e.ports[0]))
-			  : send(self) // DedicatedWorkerGlobalScope
+				? onEvent('connect', e => send(e.ports[0]))
+				: send(self) // DedicatedWorkerGlobalScope
 	}
 
 	return IS_WORKER_SCOPE ? Scope.WORKER : Scope.WINDOW
@@ -430,10 +430,10 @@ export default async function getBestWorkerScope() {
 			/safari/i.test(decryptedName) || /iphone|ipad/i.test(userAgent)
 				? 'JavaScriptCore'
 				: /firefox/i.test(userAgent)
-				  ? 'SpiderMonkey'
-				  : /chrome/i.test(userAgent)
-					  ? 'V8'
-					  : undefined
+					? 'SpiderMonkey'
+					: /chrome/i.test(userAgent)
+						? 'V8'
+						: undefined
 		if (userAgentEngine != JS_ENGINE) {
 			workerScope.lied = true
 			workerScope.lies.engine = `${JS_ENGINE} JS runtime and ${userAgentEngine} user agent do not match`
@@ -581,8 +581,8 @@ export function workerScopeHTML(fp) {
 				locale === language
 					? ''
 					: localeIntlEntropyIsTrusty
-					  ? ` ${locale}`
-					  : ` <span class="bold-fail">${locale}</span>`
+						? ` ${locale}`
+						: ` <span class="bold-fail">${locale}</span>`
 			}
 			<br>${timezoneLocation} (${'' + timezoneOffset})
 		</div>
@@ -596,7 +596,7 @@ export function workerScopeHTML(fp) {
 			confidence
 				? `\nWebGLRenderingContext.getParameter()\ngpu compressed: ${compressedGPU}\nknown parts: ${
 						parts || 'none'
-				  }\ngibberish: ${gibbers || 'none'}\nwarnings: ${warnings.join(', ') || 'none'}`
+					}\ngibberish: ${gibbers || 'none'}\nwarnings: ${warnings.join(', ') || 'none'}`
 				: 'WebGLRenderingContext.getParameter()'
 		}">
 			${webglVendor ? webglVendor : ''}
@@ -621,10 +621,10 @@ export function workerScopeHTML(fp) {
 				hardwareConcurrency && deviceMemory
 					? `<br>cores: ${hardwareConcurrency}, ram: ${deviceMemory}`
 					: hardwareConcurrency && !deviceMemory
-					  ? `<br>cores: ${hardwareConcurrency}`
-					  : !hardwareConcurrency && deviceMemory
-						  ? `<br>ram: ${deviceMemory}`
-						  : ''
+						? `<br>cores: ${hardwareConcurrency}`
+						: !hardwareConcurrency && deviceMemory
+							? `<br>ram: ${deviceMemory}`
+							: ''
 			}
 		</div>
 

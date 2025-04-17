@@ -467,13 +467,13 @@ export function audioHTML(fp: any) {
 			!sampleSum
 				? HTMLNote.BLOCKED
 				: !validAudio || matchesKnownAudio
-				  ? sampleSum
-				  : getDiffs({
+					? sampleSum
+					: getDiffs({
 							stringA: knownSums[0],
 							stringB: sampleSum,
 							charDiff: true,
 							decorate: diff => `<span class="bold-fail">${diff}</span>`
-					  })
+						})
 		}</div>
 		<div class="help" title="DynamicsCompressorNode.reduction">gain: ${
 			compressorGainReduction || HTMLNote.BLOCKED
@@ -492,7 +492,7 @@ export function audioHTML(fp: any) {
 						stringB: noise,
 						charDiff: true,
 						decorate: diff => `<span class="bold-fail">${diff}</span>`
-				  })
+					})
 		}</div>
 		<div>unique: ${totalUniqueSamples}</div>
 		<div class="help" title="AudioBuffer.getChannelData()">data:${

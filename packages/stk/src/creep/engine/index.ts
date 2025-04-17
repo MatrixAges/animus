@@ -1,10 +1,11 @@
-import { captureError } from '../errors';
-import { createTimer, logTestResult, performanceLogger, hashSlice } from '../utils/helpers';
-import { HTMLNote, modal } from '../utils/html';
+import { captureError } from '../errors'
+import { createTimer, logTestResult, performanceLogger, hashSlice } from '../utils/helpers'
+import { HTMLNote, modal } from '../utils/html'
 
 function getErrors(errFns) {
 	const errors = []
-	let i; const len = errFns.length
+	let i
+	const len = errFns.length
 	for (i = 0; i < len; i++) {
 		try {
 			errFns[i]()
@@ -28,7 +29,7 @@ export default function getConsoleErrors() {
 			() => new Function('(1).toString(1000)')(),
 			() => new Function('[...undefined].length')(),
 			() => new Function('var x = new Array(-1)')(),
-			() => new Function('const a=1; const a=2;')(),
+			() => new Function('const a=1; const a=2;')()
 		]
 		const errors = getErrors(errorTests)
 		logTestResult({ time: timer.stop(), test: 'console errors', passed: true })
@@ -52,15 +53,12 @@ export function consoleErrorsHTML(fp) {
 		</div>`
 	}
 	const {
-		consoleErrors: {
-			$hash,
-			errors,
-		},
+		consoleErrors: { $hash, errors }
 	} = fp
 
-	const results = Object.keys(errors).map((key) => {
+	const results = Object.keys(errors).map(key => {
 		const value = errors[key]
-		return `${+key+1}: ${value}`
+		return `${+key + 1}: ${value}`
 	})
 	return `
 	<div class="relative col-six">

@@ -149,24 +149,24 @@ const getOS = userAgent => {
 		/windows phone/gi.test(userAgent)
 			? 'Windows Phone'
 			: /win(dows|16|32|64|95|98|nt)|wow64/gi.test(userAgent)
-			  ? 'Windows'
-			  : /android/gi.test(userAgent)
-				  ? 'Android'
-				  : /cros/gi.test(userAgent)
-					  ? 'Chrome OS'
-					  : /linux/gi.test(userAgent)
-						  ? 'Linux'
-						  : /ipad/gi.test(userAgent)
-							  ? 'iPad'
-							  : /iphone/gi.test(userAgent)
-								  ? 'iPhone'
-								  : /ipod/gi.test(userAgent)
-									  ? 'iPod'
-									  : /ios/gi.test(userAgent)
-										  ? 'iOS'
-										  : /mac/gi.test(userAgent)
-											  ? 'Mac'
-											  : 'Other'
+				? 'Windows'
+				: /android/gi.test(userAgent)
+					? 'Android'
+					: /cros/gi.test(userAgent)
+						? 'Chrome OS'
+						: /linux/gi.test(userAgent)
+							? 'Linux'
+							: /ipad/gi.test(userAgent)
+								? 'iPad'
+								: /iphone/gi.test(userAgent)
+									? 'iPhone'
+									: /ipod/gi.test(userAgent)
+										? 'iPod'
+										: /ios/gi.test(userAgent)
+											? 'iOS'
+											: /mac/gi.test(userAgent)
+												? 'Mac'
+												: 'Other'
 	return os
 }
 
@@ -177,10 +177,10 @@ function getReportedPlatform(userAgent: string, platform?: string): PlatformClas
 		/win(dows|16|32|64|95|98|nt)|wow64/gi.test(userAgent)
 			? PlatformClassifier.WINDOWS
 			: /android|linux|cros/gi.test(userAgent)
-			  ? PlatformClassifier.LINUX
-			  : /(i(os|p(ad|hone|od)))|mac/gi.test(userAgent)
-				  ? PlatformClassifier.APPLE
-				  : PlatformClassifier.OTHER
+				? PlatformClassifier.LINUX
+				: /(i(os|p(ad|hone|od)))|mac/gi.test(userAgent)
+					? PlatformClassifier.APPLE
+					: PlatformClassifier.OTHER
 
 	if (!platform) return [userAgentOS]
 
@@ -189,10 +189,10 @@ function getReportedPlatform(userAgent: string, platform?: string): PlatformClas
 		/win/gi.test(platform)
 			? PlatformClassifier.WINDOWS
 			: /android|arm|linux/gi.test(platform)
-			  ? PlatformClassifier.LINUX
-			  : /(i(os|p(ad|hone|od)))|mac/gi.test(platform)
-				  ? PlatformClassifier.APPLE
-				  : PlatformClassifier.OTHER
+				? PlatformClassifier.LINUX
+				: /(i(os|p(ad|hone|od)))|mac/gi.test(platform)
+					? PlatformClassifier.APPLE
+					: PlatformClassifier.OTHER
 	return [userAgentOS, platformOS]
 }
 const { userAgent: navUserAgent, platform: navPlatform } = self.navigator || {}
@@ -219,16 +219,16 @@ const decryptUserAgent = ({ ua, os, isBrave }) => {
 		const like = isOpera
 			? ' Opera'
 			: isVivaldi
-			  ? ' Vivaldi'
-			  : isDuckDuckGo
-				  ? ' DuckDuckGo'
-				  : isYandex
-					  ? ' Yandex'
-					  : edge
-						  ? ' Edge'
-						  : isBrave
-							  ? ' Brave'
-							  : ''
+				? ' Vivaldi'
+				: isDuckDuckGo
+					? ' DuckDuckGo'
+					: isYandex
+						? ' Yandex'
+						: edge
+							? ' Edge'
+							: isBrave
+								? ' Brave'
+								: ''
 		return `${browser} ${version}${like}`
 	} else if (edgios) {
 		const browser = edge[1]
@@ -311,22 +311,22 @@ const getUserAgentPlatform = ({ userAgent, excludeBuild = true }) => {
 					return version == '10.0'
 						? ' 10'
 						: version == '6.3'
-						  ? ' 8.1'
-						  : version == '6.2'
-							  ? ' 8'
-							  : version == '6.1'
-								  ? ' 7'
-								  : version == '6.0'
-									  ? ' Vista'
-									  : version == '5.2'
-										  ? ' XP Pro'
-										  : version == '5.1'
-											  ? ' XP'
-											  : version == '5.0'
-												  ? ' 2000'
-												  : version == '4.0'
-													  ? match
-													  : ' ' + version
+							? ' 8.1'
+							: version == '6.2'
+								? ' 8'
+								: version == '6.1'
+									? ' 7'
+									: version == '6.0'
+										? ' Vista'
+										: version == '5.2'
+											? ' XP Pro'
+											: version == '5.1'
+												? ' XP'
+												: version == '5.0'
+													? ' 2000'
+													: version == '4.0'
+														? match
+														: ' ' + version
 				})
 				.replace(windows64bitCPU, '(64-bit)')
 				.trim()
@@ -425,8 +425,8 @@ const computeWindowsRelease = ({ platform, platformVersion, fontPlatformVersion 
 		platformVersionNumber >= 13
 			? '11'
 			: platformVersionNumber == 0 && oldFontPlatformVersionNumber
-			  ? oldFontPlatformVersionNumber
-			  : release[platformVersion] || 'Unknown'
+				? oldFontPlatformVersionNumber
+				: release[platformVersion] || 'Unknown'
 	return `Windows ${version} [${platformVersion}]`
 }
 
@@ -704,8 +704,8 @@ function getGpuBrand(gpu: string): string | null {
 	const brand = /radeon/i.test(gpu)
 		? 'AMD'
 		: /geforce/i.test(gpu)
-		  ? 'NVIDIA'
-		  : (gpuBrandMatcher.exec(gpu)?.[0] || 'other').toLocaleUpperCase()
+			? 'NVIDIA'
+			: (gpuBrandMatcher.exec(gpu)?.[0] || 'other').toLocaleUpperCase()
 
 	return brand
 }

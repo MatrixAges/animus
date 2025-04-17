@@ -275,13 +275,13 @@ export default async function getNavigator(workerScope) {
 				}
 				const response = plugins
 					? // @ts-ignore
-					  [...plugins].map(p => ({
+						[...plugins].map(p => ({
 							name: p.name,
 							description: p.description,
 							filename: p.filename,
 							// @ts-ignore
 							version: p.version
-					  }))
+						}))
 					: []
 
 				const { lies } = getPluginLies(plugins, navigator.mimeTypes)
@@ -415,7 +415,7 @@ export default async function getNavigator(workerScope) {
 							getPermissionState('screen-wake-lock'),
 							getPermissionState('speaker'),
 							getPermissionState('speaker-selection')
-					  ])
+						])
 							.then(permissions =>
 								permissions.reduce((acc, perm) => {
 									const { state, name } = perm || {}
@@ -594,7 +594,7 @@ export function navigatorHTML(fp) {
 							)
 							.join(''),
 						hashMini(permissions)
-				  )
+					)
 		}</div>
 		<div>plugins (${count(plugins)}): ${
 			!blocked['' + plugins]
@@ -624,7 +624,7 @@ export function navigatorHTML(fp) {
 					`
 						})(webgpu),
 						hashMini(webgpu)
-				  )
+					)
 		}</div>
 		<div>userAgentData:</div>
 		<div class="block-text help" title="Navigator.userAgentData\nNavigatorUAData.getHighEntropyValues()">
@@ -667,10 +667,10 @@ export function navigatorHTML(fp) {
 				hardwareConcurrency && deviceMemory
 					? `<br>cores: ${hardwareConcurrency}, ram: ${deviceMemory}`
 					: hardwareConcurrency && !deviceMemory
-					  ? `<br>cores: ${hardwareConcurrency}`
-					  : !hardwareConcurrency && deviceMemory
-						  ? `<br>ram: ${deviceMemory}`
-						  : ''
+						? `<br>cores: ${hardwareConcurrency}`
+						: !hardwareConcurrency && deviceMemory
+							? `<br>ram: ${deviceMemory}`
+							: ''
 			}${typeof maxTouchPoints != 'undefined' ? `, touch: ${'' + maxTouchPoints}` : ''}${
 				bluetoothAvailability ? `, bluetooth` : ''
 			}

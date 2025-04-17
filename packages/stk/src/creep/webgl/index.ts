@@ -351,7 +351,7 @@ export default async function getCanvasWebgl() {
 				: {
 						UNMASKED_VENDOR_WEBGL: gl.getParameter(ext.UNMASKED_VENDOR_WEBGL),
 						UNMASKED_RENDERER_WEBGL: gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)
-				  }
+					}
 		}
 
 		const getSupportedExtensions = gl => {
@@ -762,7 +762,7 @@ export default async function getCanvasWebgl() {
 							.flat()
 							.map(val => Number(val))
 					)
-			  ].sort((a, b) => a - b)
+				].sort((a, b) => a - b)
 
 		const gpuBrand = getGpuBrand(data.parameters?.UNMASKED_RENDERER_WEBGL)
 		const webglParamsStr = '' + webglParams
@@ -839,7 +839,7 @@ export function webglHTML(fp) {
 						!dataURI2 || dataURI == dataURI2
 							? ''
 							: `<span class="sub-hash">${hashMini(dataURI2)}</span>`
-				  }`
+					}`
 		}</div>
 		<div>pixels:${
 			!pixels
@@ -848,7 +848,7 @@ export function webglHTML(fp) {
 						!pixels2 || pixels == pixels2
 							? ''
 							: `<span class="sub-hash">${hashSlice(pixels2)}</span>`
-				  }`
+					}`
 		}</div>
 		<div>params (${count(paramKeys)}): ${
 			!paramKeys.length
@@ -857,7 +857,7 @@ export function webglHTML(fp) {
 						`${id}-parameters`,
 						paramKeys.map(key => `${key}: ${parameters[key]}`).join('<br>'),
 						hashMini(parameters)
-				  )
+					)
 		}</div>
 		<div>exts (${count(extensions)}): ${
 			!extensions.length
@@ -874,7 +874,7 @@ export function webglHTML(fp) {
 			confidence
 				? `\nWebGLRenderingContext.getParameter()\ngpu compressed: ${compressedGPU}\nknown parts: ${
 						parts || 'none'
-				  }\ngibberish: ${gibbers || 'none'}\nwarnings: ${warnings.join(', ') || 'none'}`
+					}\ngibberish: ${gibbers || 'none'}\nwarnings: ${warnings.join(', ') || 'none'}`
 				: 'WebGLRenderingContext.getParameter()'
 		}">
 			<div>

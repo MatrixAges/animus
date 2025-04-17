@@ -274,8 +274,8 @@ export function statusHTML(status: Status) {
 			chargingTime === Infinity
 				? 'discharging'
 				: chargingTime === 0
-				  ? 'fully charged'
-				  : `${+(chargingTime! / 60).toFixed(1)} min.`
+					? 'fully charged'
+					: `${+(chargingTime! / 60).toFixed(1)} min.`
 		}</div>
         <div>discharge time: ${
 			dischargingTime === Infinity ? 'charging' : `${+(dischargingTime! / 60).toFixed(1)} min.`

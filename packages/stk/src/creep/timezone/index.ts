@@ -463,18 +463,16 @@ export default function getTimezone() {
 		'Pacific/Tarawa',
 		'Pacific/Tongatapu',
 		'Pacific/Wake',
-		'Pacific/Wallis',
+		'Pacific/Wallis'
 	]
 
 	const getTimezoneOffset = () => {
-		const [year, month, day] = JSON.stringify(new Date())
-			.slice(1, 11)
-			.split('-')
+		const [year, month, day] = JSON.stringify(new Date()).slice(1, 11).split('-')
 		const dateString = `${month}/${day}/${year}`
 		const dateStringUTC = `${year}-${month}-${day}`
 		const now = +new Date(dateString)
 		const utc = +new Date(dateStringUTC)
-		const offset = +((now - utc)/60000)
+		const offset = +((now - utc) / 60000)
 		return ~~offset
 	}
 
@@ -486,14 +484,15 @@ export default function getTimezone() {
 			day: 'numeric',
 			hour: 'numeric',
 			minute: 'numeric',
-			second: 'numeric',
+			second: 'numeric'
 		}
 		const minute = 60000
-		let formatter; let summer
+		let formatter
+		let summer
 		if (city) {
 			const options = {
 				...format,
-				timeZone: city,
+				timeZone: city
 			}
 			// @ts-ignore
 			formatter = new Intl.DateTimeFormat('en', options)
@@ -517,22 +516,17 @@ export default function getTimezone() {
 	const decryptLocation = ({ year, timeZone }) => {
 		const system = getTimezoneOffsetHistory({ year })
 		const resolvedOptions = getTimezoneOffsetHistory({ year, city: timeZone })
-		const filter = (cities) => cities
-			.filter((city) => system == getTimezoneOffsetHistory({ year, city }))
+		const filter = cities => cities.filter(city => system == getTimezoneOffsetHistory({ year, city }))
 
 		// get city region set
-		const decryption = (
-			system == resolvedOptions ? [timeZone] : binarySearch(cities, filter)
-		)
+		const decryption = system == resolvedOptions ? [timeZone] : binarySearch(cities, filter)
 
 		// reduce set to one city
-		const decrypted = (
-			decryption.length == 1 && decryption[0] == timeZone ? timeZone : hashMini(decryption)
-		)
+		const decrypted = decryption.length == 1 && decryption[0] == timeZone ? timeZone : hashMini(decryption)
 		return decrypted
 	}
 
-	const formatLocation = (x) => {
+	const formatLocation = x => {
 		try {
 			return x.replace(/_/, ' ').split('/').join(', ')
 		} catch (error) {}
@@ -543,11 +537,11 @@ export default function getTimezone() {
 		const timer = createTimer()
 		timer.start()
 
-		const lied = (
+		const lied =
 			lieProps['Date.getTimezoneOffset'] ||
 			lieProps['Intl.DateTimeFormat.resolvedOptions'] ||
-			lieProps['Intl.RelativeTimeFormat.resolvedOptions']
-		) || false
+			lieProps['Intl.RelativeTimeFormat.resolvedOptions'] ||
+			false
 
 		const year = 1113
 		// eslint-disable-next-line new-cap
@@ -556,13 +550,13 @@ export default function getTimezone() {
 		const locationEpoch = +new Date(new Date(`7/1/${year}`))
 		const notWithinParentheses = /.*\(|\).*/g
 		const data = {
-			zone: (''+new Date()).replace(notWithinParentheses, ''),
+			zone: ('' + new Date()).replace(notWithinParentheses, ''),
 			location: formatLocation(timeZone),
 			locationMeasured: formatLocation(decrypted),
 			locationEpoch,
 			offset: new Date().getTimezoneOffset(),
 			offsetComputed: getTimezoneOffset(),
-			lied,
+			lied
 		}
 		logTestResult({ time: timer.stop(), test: 'timezone', passed: true })
 		return { ...data }
@@ -582,16 +576,7 @@ export function timezoneHTML(fp) {
 		</div>`
 	}
 	const {
-		timezone: {
-			$hash,
-			zone,
-			location,
-			locationMeasured,
-			locationEpoch,
-			offset,
-			offsetComputed,
-			lied,
-		},
+		timezone: { $hash, zone, location, locationMeasured, locationEpoch, offset, offsetComputed, lied }
 	} = fp
 	return `
 	<div class="relative col-six${lied ? ' rejected' : ''}">

@@ -1,1 +1,27 @@
-{"name":"@lexical/overflow","description":"This package contains selection overflow helpers and nodes for Lexical.","keywords":["lexical","editor","rich-text","overflow"],"license":"MIT","version":"0.16.1","main":"LexicalOverflow.js","types":"index.d.ts","repository":{"type":"git","url":"https://github.com/facebook/lexical","directory":"packages/lexical-overflow"},"module":"LexicalOverflow.mjs","sideEffects":false,"exports":{".":{"import":{"types":"./dist/index.d.ts","development":"./dist/index.dev.mjs","production":"./dist/index.prod.mjs","default":"./dist/index.prod.mjs"}}},"dependencies":{"lexical":"workspace:*"}}
+{
+	"name": "@lexical/overflow",
+	"description": "This package contains selection overflow helpers and nodes for Lexical.",
+	"keywords": ["lexical", "editor", "rich-text", "overflow"],
+	"license": "MIT",
+	"version": "0.16.1",
+	"main": "LexicalOverflow.js",
+	"types": "index.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/facebook/lexical",
+		"directory": "packages/lexical-overflow"
+	},
+	"module": "LexicalOverflow.mjs",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"development": "./dist/index.dev.mjs",
+				"production": "./dist/index.prod.mjs",
+				"default": "./dist/index.prod.mjs"
+			}
+		}
+	},
+	"dependencies": { "lexical": "workspace:*" }
+}

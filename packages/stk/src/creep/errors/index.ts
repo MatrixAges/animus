@@ -24,8 +24,8 @@ const createErrorsCaptured = () => {
 			const trustedMessage = !hasInnerSpace(message)
 				? undefined
 				: !customMessage
-				  ? message
-				  : `${message} [${customMessage}]`
+					? message
+					: `${message} [${customMessage}]`
 			const trustedName = type[name] ? name : undefined
 			errors.push({ trustedName, trustedMessage })
 			return undefined
@@ -110,7 +110,7 @@ const errorsHTML = (fp, pointsHTML) => {
 						)
 						.join('<br>'),
 					hashSlice($hash)
-			  )
+				)
 	}${pointsHTML}</div>`
 }
 

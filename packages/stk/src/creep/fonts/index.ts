@@ -412,26 +412,30 @@ export function fontsHTML(fp) {
 			'' + FONT_LIST.length
 		}): ${
 			`Like ${platformVersion}` ||
-			(fonts => {
-				return !(fonts || []).length
-					? ''
-					: (('' + fonts).match(/Lucida Console/) || []).length
-					  ? `${icon.Windows}Like Windows`
-					  : (('' + fonts).match(/Droid Sans Mono|Noto Color Emoji|Roboto/g) || []).length == 3
-						  ? `${icon.Linux}${icon.Android}Like Linux Android`
-						  : (('' + fonts).match(/Droid Sans Mono|Roboto/g) || []).length == 2
-							  ? `${icon.Android}Like Android`
-							  : (('' + fonts).match(/Noto Color Emoji|Roboto/g) || []).length == 2
-								  ? `${icon.CrOS}Like Chrome OS`
-								  : (('' + fonts).match(/Noto Color Emoji/) || []).length
-									  ? `${icon.Linux}Like Linux`
-									  : (('' + fonts).match(/Arimo/) || []).length
-										  ? `${icon.Linux}Like Linux`
-										  : (('' + fonts).match(/Helvetica Neue/g) || []).length ==
-												  2
-											  ? `${icon.Apple}Like Apple`
-											  : `${(fonts || [])[0]}...`
-			})(fontFaceLoadFonts)
+			(
+				fonts => {
+					return !(fonts || []).length
+						? ''
+						: (('' + fonts).match(/Lucida Console/) || []).length
+							? `${icon.Windows}Like Windows`
+							: (('' + fonts).match(/Droid Sans Mono|Noto Color Emoji|Roboto/g) || [])
+										.length == 3
+								? `${icon.Linux}${icon.Android}Like Linux Android`
+								: (('' + fonts).match(/Droid Sans Mono|Roboto/g) || []).length == 2
+									? `${icon.Android}Like Android`
+									: (('' + fonts).match(/Noto Color Emoji|Roboto/g) || []).length ==
+											2
+										? `${icon.CrOS}Like Chrome OS`
+										: (('' + fonts).match(/Noto Color Emoji/) || []).length
+											? `${icon.Linux}Like Linux`
+											: (('' + fonts).match(/Arimo/) || []).length
+												? `${icon.Linux}Like Linux`
+												: (('' + fonts).match(/Helvetica Neue/g) || [])
+															.length == 2
+													? `${icon.Apple}Like Apple`
+													: `${(fonts || [])[0]}...`
+				}
+			)(fontFaceLoadFonts)
 		}</div>
 		<div>apps: ${(apps || []).length ? apps.join(', ') : HTMLNote.UNSUPPORTED}</div>
 		<div class="block-text-large help relative" title="FontFace.load()\nFontFaceSet.check()">

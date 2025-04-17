@@ -99,10 +99,10 @@ export default async function getResistance() {
 			data.mode = braveMode.allow
 				? 'allow'
 				: braveMode.standard
-				  ? 'standard'
-				  : braveMode.strict
-					  ? 'strict'
-					  : ''
+					? 'standard'
+					: braveMode.strict
+						? 'strict'
+						: ''
 		}
 
 		const { protection } = timerPrecision || {}
@@ -559,16 +559,16 @@ export function resistanceHTML(fp) {
 	const browserIcon = /brave/i.test(privacy)
 		? '<span class="icon brave"></span>'
 		: /tor/i.test(privacy)
-		  ? '<span class="icon tor"></span>'
-		  : /firefox/i.test(privacy)
-			  ? '<span class="icon firefox"></span>'
-			  : ''
+			? '<span class="icon tor"></span>'
+			: /firefox/i.test(privacy)
+				? '<span class="icon firefox"></span>'
+				: ''
 
 	const extensionIcon = /blink/i.test(engine)
 		? '<span class="icon chrome-extension"></span>'
 		: /gecko/i.test(engine)
-		  ? '<span class="icon firefox-addon"></span>'
-		  : ''
+			? '<span class="icon firefox-addon"></span>'
+			: ''
 
 	return `
 	<div class="relative col-six">
@@ -585,7 +585,7 @@ export function resistanceHTML(fp) {
 								.map(key => `${key}: ${'' + securitySettings[key]}`)
 								.join('<br>'),
 						hashMini(security)
-				  )
+					)
 		}</div>
 		<div>mode: ${mode || HTMLNote.UNKNOWN}</div>
 		<div>extension: ${
@@ -598,7 +598,7 @@ export function resistanceHTML(fp) {
 								.map(key => `${key}: ${'' + extensionHashPattern[key]}`)
 								.join('<br>'),
 						extension ? `${extensionIcon}${extension}` : hashMini(extensionHashPattern)
-				  )
+					)
 		}</div>
 	</div>
 	`

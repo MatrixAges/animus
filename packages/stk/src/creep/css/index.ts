@@ -8,13 +8,15 @@ export default function getCSS() {
 	const computeStyle = (type, { require: [captureError] }) => {
 		try {
 			// get CSSStyleDeclaration
-			const cssStyleDeclaration = (
-				type == 'getComputedStyle' ? getComputedStyle(document.body) :
-					type == 'HTMLElement.style' ? document.body.style :
-						// @ts-ignore
-						type == 'CSSRuleList.style' ? document.styleSheets[0].cssRules[0].style :
-							undefined
-			)
+			const cssStyleDeclaration =
+				type == 'getComputedStyle'
+					? getComputedStyle(document.body)
+					: type == 'HTMLElement.style'
+						? document.body.style
+						: // @ts-ignore
+							type == 'CSSRuleList.style'
+							? document.styleSheets[0].cssRules[0].style
+							: undefined
 			if (!cssStyleDeclaration) {
 				throw new TypeError('invalid argument string')
 			}
@@ -23,7 +25,7 @@ export default function getCSS() {
 			const prototypeProperties = Object.getOwnPropertyNames(proto)
 			const ownEnumerablePropertyNames = []
 			const cssVar = /^--.*$/
-			Object.keys(cssStyleDeclaration).forEach((key) => {
+			Object.keys(cssStyleDeclaration).forEach(key => {
 				const numericKey = !isNaN(+key)
 				const value = cssStyleDeclaration[key]
 				const customPropKey = cssVar.test(key)
@@ -37,11 +39,11 @@ export default function getCSS() {
 			})
 			// get properties in prototype chain (required only in chrome)
 			const propertiesInPrototypeChain = {}
-			const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
-			const uncapitalize = (str) => str.charAt(0).toLowerCase() + str.slice(1)
-			const removeFirstChar = (str) => str.slice(1)
+			const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
+			const uncapitalize = str => str.charAt(0).toLowerCase() + str.slice(1)
+			const removeFirstChar = str => str.slice(1)
 			const caps = /[A-Z]/g
-			ownEnumerablePropertyNames.forEach((key) => {
+			ownEnumerablePropertyNames.forEach(key => {
 				if (propertiesInPrototypeChain[key]) {
 					return
 				}
@@ -52,21 +54,20 @@ export default function getCSS() {
 				const firstChar = key.charAt(0)
 				const isPrefixedName = isNamedAttribute && firstChar == '-'
 				const isCapitalizedAlias = isAliasAttribute && firstChar == firstChar.toUpperCase()
-				key = (
-					isPrefixedName ? removeFirstChar(key) :
-						isCapitalizedAlias ? uncapitalize(key) :
-							key
-				)
+				key = isPrefixedName ? removeFirstChar(key) : isCapitalizedAlias ? uncapitalize(key) : key
 				// find counterpart in CSSStyleDeclaration object or its prototype chain
 				if (isNamedAttribute) {
-					const aliasAttribute = key.split('-').map((word, index) => index == 0 ? word : capitalize(word)).join('')
+					const aliasAttribute = key
+						.split('-')
+						.map((word, index) => (index == 0 ? word : capitalize(word)))
+						.join('')
 					if (aliasAttribute in cssStyleDeclaration) {
 						propertiesInPrototypeChain[aliasAttribute] = true
 					} else if (capitalize(aliasAttribute) in cssStyleDeclaration) {
 						propertiesInPrototypeChain[capitalize(aliasAttribute)] = true
 					}
 				} else if (isAliasAttribute) {
-					const namedAttribute = key.replace(caps, (char) => '-' + char.toLowerCase())
+					const namedAttribute = key.replace(caps, char => '-' + char.toLowerCase())
 					if (namedAttribute in cssStyleDeclaration) {
 						propertiesInPrototypeChain[namedAttribute] = true
 					} else if (`-${namedAttribute}` in cssStyleDeclaration) {
@@ -80,8 +81,8 @@ export default function getCSS() {
 				...new Set([
 					...prototypeProperties,
 					...ownEnumerablePropertyNames,
-					...Object.keys(propertiesInPrototypeChain),
-				]),
+					...Object.keys(propertiesInPrototypeChain)
+				])
 			]
 			// @ts-ignore
 			const interfaceName = ('' + proto).match(/\[object (.+)\]/)[1]
@@ -93,7 +94,7 @@ export default function getCSS() {
 		}
 	}
 
-	const getSystemStyles = (el) => {
+	const getSystemStyles = el => {
 		try {
 			const colors = [
 				'ActiveBorder',
@@ -133,31 +134,24 @@ export default function getCSS() {
 				'VisitedText',
 				'Window',
 				'WindowFrame',
-				'WindowText',
+				'WindowText'
 			]
-			const fonts = [
-				'caption',
-				'icon',
-				'menu',
-				'message-box',
-				'small-caption',
-				'status-bar',
-			]
+			const fonts = ['caption', 'icon', 'menu', 'message-box', 'small-caption', 'status-bar']
 
-			const getStyles = (el) => ({
-				colors: colors.map((color) => {
+			const getStyles = el => ({
+				colors: colors.map(color => {
 					el.setAttribute('style', `background-color: ${color} !important`)
 					return {
-						[color]: getComputedStyle(el).backgroundColor,
+						[color]: getComputedStyle(el).backgroundColor
 					}
 				}),
-				fonts: fonts.map((font) => {
+				fonts: fonts.map(font => {
 					el.setAttribute('style', `font: ${font} !important`)
 					const computedStyle = getComputedStyle(el)
 					return {
-						[font]: `${computedStyle.fontSize} ${computedStyle.fontFamily}`,
+						[font]: `${computedStyle.fontSize} ${computedStyle.fontFamily}`
 					}
-				}),
+				})
 			})
 
 			if (!el) {
@@ -182,7 +176,7 @@ export default function getCSS() {
 		logTestResult({ time: timer.stop(), test: 'computed style', passed: true })
 		return {
 			computedStyle,
-			system,
+			system
 		}
 	} catch (error) {
 		logTestResult({ test: 'computed style', passed: false })
@@ -204,23 +198,17 @@ export function cssHTML(fp) {
 			<div class="gradient"></div>
 		</div>`
 	}
-	const {
-		css: data,
-	} = fp
-	const {
-		$hash,
-		computedStyle,
-		system,
-	} = data
+	const { css: data } = fp
+	const { $hash, computedStyle, system } = data
 
 	const colorsLen = system.colors.length
 	const gradientColors = system.colors.map((color, index) => {
 		const name = Object.values(color)[0]
-		return (
-			index == 0 ? `${name}, ${name} ${((index+1)/colorsLen*100).toFixed(2)}%` :
-			index == colorsLen-1 ? `${name} ${((index-1)/colorsLen*100).toFixed(2)}%, ${name} 100%` :
-			`${name} ${(index/colorsLen*100).toFixed(2)}%, ${name} ${((index+1)/colorsLen*100).toFixed(2)}%`
-		)
+		return index == 0
+			? `${name}, ${name} ${(((index + 1) / colorsLen) * 100).toFixed(2)}%`
+			: index == colorsLen - 1
+				? `${name} ${(((index - 1) / colorsLen) * 100).toFixed(2)}%, ${name} 100%`
+				: `${name} ${((index / colorsLen) * 100).toFixed(2)}%, ${name} ${(((index + 1) / colorsLen) * 100).toFixed(2)}%`
 	})
 	const id = 'creep-css-style-declaration-version'
 	return `
@@ -228,34 +216,33 @@ export function cssHTML(fp) {
 		<span class="aside-note">${performanceLogger.getLog()['computed style']}</span>
 		<strong>Computed Style</strong><span class="hash">${hashSlice($hash)}</span>
 		<div>keys (${!computedStyle ? '0' : count(computedStyle.keys)}): ${
-			!computedStyle ? HTMLNote.BLOCKED :
-			modal(
-				'creep-computed-style',
-				computedStyle.keys.join(', '),
-				hashMini(computedStyle),
-			)
+			!computedStyle
+				? HTMLNote.BLOCKED
+				: modal('creep-computed-style', computedStyle.keys.join(', '), hashMini(computedStyle))
 		}</div>
 		<div>system styles: ${
-			system && system.colors ? modal(
-				`${id}-system-styles`,
-				[
-					...system.colors.map((color) => {
-						const key = Object.keys(color)[0]
-						const val = color[key]
-						return `
+			system && system.colors
+				? modal(
+						`${id}-system-styles`,
+						[
+							...system.colors.map(color => {
+								const key = Object.keys(color)[0]
+								const val = color[key]
+								return `
 							<div><span style="display:inline-block;border:1px solid #eee;border-radius:3px;width:12px;height:12px;background:${val}"></span> ${key}: ${val}</div>
 						`
-					}),
-					...system.fonts.map((font) => {
-						const key = Object.keys(font)[0]
-						const val = font[key]
-						return `
+							}),
+							...system.fonts.map(font => {
+								const key = Object.keys(font)[0]
+								const val = font[key]
+								return `
 							<div>${key}: <span style="padding:0 5px;border-radius:3px;font:${val}">${val}</span></div>
 						`
-					}),
-				].join(''),
-				hashMini(system),
-			) : HTMLNote.BLOCKED
+							})
+						].join(''),
+						hashMini(system)
+					)
+				: HTMLNote.BLOCKED
 		}</div>
 		<div class="blurred" id="system-style-samples">
 			<div>system</div>
