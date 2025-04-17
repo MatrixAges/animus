@@ -9,14 +9,14 @@
 		"dev:app": "turbo run dev --filter=app",
 		"build:app": "turbo run build --filter=app",
 		"prettier": "prettier --parser=typescript --write \"**/*.ts?(x)\"",
-		"biome": "biome format --write ./packages"
+		"biome": "biome format --write --changed --no-errors-on-unmatched ./packages"
 	},
 	"gitHooks": {
 		"pre-commit": "lint-staged --allow-empty"
 	},
 	"lint-staged": {
 		"*.{css,md}": ["prettier --write"],
-		"*.(j|t)s?(x)": ["biome format --write --changed ./packages"]
+		"*.(j|t)s?(x)": ["biome format --write --changed --no-errors-on-unmatched ./packages"]
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
