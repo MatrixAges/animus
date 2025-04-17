@@ -1,0 +1,29 @@
+{
+	"lang": {
+		"title": "Language",
+		"en": "English",
+		"zh-cn": "简体中文"
+	},
+	"download": {
+		"desktop": {
+			"macos": {
+				"platform": "darwin",
+				"arm64": {
+					"title": "macOS (Apple Silicon)",
+					"type": "arm64"
+				},
+				"x64": {
+					"title": "macOS (Intel)",
+					"type": "x64"
+				}
+			},
+			"windows": {
+				"platform": "win32",
+				"x64": {
+					"title": "Windows (x64)",
+					"type": "x64"
+				}
+			}
+		}
+	}
+}

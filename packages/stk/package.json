@@ -1,13 +1,13 @@
 {
-	"name": "@openages/stk",
+	"name": "stk",
 	"version": "1.0.0",
 	"description": "Shared tookkit for web apps.",
 	"author": "Whatreal",
 	"license": "MIT",
-	"homepage": "https://github.com/openages/stk",
+	"homepage": "https://github.com/openages/animus/packages/stk",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/openages/stk.git"
+		"url": "git+https://github.com/openages/animus.git"
 	},
 	"sideEffects": false,
 	"files": ["./dist", "./package.json", "./README.md"],

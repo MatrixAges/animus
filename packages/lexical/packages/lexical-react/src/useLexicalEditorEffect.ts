@@ -1,7 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 import { useLayoutEffect, useRef } from 'react'
-
-import { deepEqual } from '@openages/stk/react'
+import { deepEqual } from 'stk/react'
 
 import type { DependencyList } from 'react'
 import type { LexicalEditor } from 'lexical'

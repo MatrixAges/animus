@@ -1,0 +1,14 @@
+._local {
+	padding-top: 60px;
+	padding-bottom: 180px;
+	background-color: rgba(var(--color_bg_rgb), 0.9);
+	font-family: var(--font_serif);
+	font-size: 21px;
+	backdrop-filter: var(--blur);
+
+	:global {
+		h1 {
+			text-align: center;
+		}
+	}
+}

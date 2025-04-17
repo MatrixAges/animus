@@ -1,0 +1,12 @@
+._local {
+	width: 90px;
+
+	:global {
+		.if-select-selector {
+			.if-select-selection-item {
+				color: var(--color_text_sub);
+				font-size: 12px !important;
+			}
+		}
+	}
+}

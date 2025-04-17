@@ -1,0 +1,21 @@
+._local {
+	line-height: 1;
+
+	:global {
+		.name {
+			font-size: 21px;
+			font-weight: 500;
+			margin-block: 0;
+		}
+
+		.slogan {
+			max-width: 720px;
+			line-height: 1.2;
+			margin: 0;
+			margin-bottom: 36px;
+			text-align: center;
+			font-family: var(--font_serif);
+			font-size: 72px;
+		}
+	}
+}

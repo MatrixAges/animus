@@ -1,0 +1,6 @@
+@import './Input.css';
+@import './Message.css';
+
+.if {
+	color: var(--color_text);
+}

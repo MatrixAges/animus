@@ -12,7 +12,7 @@
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"paths": {
-			"@website/*": ["./if_website/*"],
+			"@website/*": ["./website/*"],
 			"@shared/*": ["./shared/*"]
 		},
 		"emitDecoratorMetadata": true,

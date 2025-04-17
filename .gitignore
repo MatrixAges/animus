@@ -5,6 +5,10 @@ npm-debug.log*
 
 # production
 **/dist
+.next
+.open-next
+.vercel
+.wrangler
 
 # misc
 .DS_Store

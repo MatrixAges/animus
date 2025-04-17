@@ -1,0 +1,35 @@
+{
+	"header": {
+		"toptext": "Brand",
+		"title": "IF Brand Guidelines",
+		"desc": "Resources for presenting the IF brand consistently and professionally.",
+		"btn_download": "Download Brand Assets"
+	},
+	"naming": {
+		"title": "Naming",
+		"line_1": "\"IF\" is a single word, always displayed with capital letters \"IF\". It is the brand name of the application (not \"IF gtd\"). When referring to specific modules of IF, we request that they be written as proper nouns and capitalized (e.g. \"IF Note\").",
+		"line_2": "The name \"IF\" is inspired by programming. When creating IF, I drew inspiration from programming to create a flexible, programmable, locally-first, scalable content creation app with infinite possibilities. \"IF\" does not mean \"if\", but rather represents a forward-looking state—a prediction and realization of the future."
+	},
+	"usage": {
+		"title": "Usage",
+		"line_1": "Ensure there is ample space around IF assets. Whether you size them up or down, make sure they have enough breathing room. They should never appear crowded or overly busy.",
+		"line_2": "You may use the IF brand and intellectual property at your discretion, provided it does not damage the integrity of the IF brand and is factually accurate. You may modify the relevant materials provided by IF, as long as it does not alter the brand's image. You may use the IF brand logo as part of your own product, but only if your product is part of the IF ecosystem. Otherwise, you are not permitted to display the IF brand logo in any commercial activities. Without prior permission, the IF brand logo must be used independently and should not be combined with other graphics. If you have any questions, please contact us."
+	},
+	"logo": {
+		"title": "Logo",
+		"desc": "The logo of IF represents both IF and its text, serving as a concise way to refer to IF. Use it with discretion depending on your audience, as the IF logo requires more white space to display effectively in borderless contexts."
+	},
+	"icon": {
+		"title": "Icon",
+		"desc": "The IF icon consists of a rounded rectangle enclosing the IF logo. If you are introducing IF on social media, please use this icon as it provides better contrast and does not require additional typography."
+	},
+	"colors": {
+		"title": "Colors",
+		"desc": "The brand color of IF is pure red, which symbolizes passion and vitality for an efficiency and creativity application. Red is the color of blood, representing life, and time is the measure of life. Through the use of a pure red theme, IF brings positive energy to users, while also emphasizing the limited nature of time to make people confront the finite nature of life."
+	},
+	"font": {
+		"title": "Font",
+		"desc": "IF uses IBMPlexSans as its primary font. IBMPlexSans features unique curves, combining the easy readability of a sans-serif font with the refined elegance of a serif font.",
+		"text": "Beauty is eternal."
+	}
+}
