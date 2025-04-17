@@ -9,7 +9,7 @@
 		"baseUrl": "../",
 		"esModuleInterop": true,
 		"paths": {
-			"@electron/*": ["./if_electron/src/*"],
+			"@desktop/*": ["./desktop/src/*"],
 			"@shared/*": ["./shared/*"]
 		},
 		"emitDecoratorMetadata": true,
