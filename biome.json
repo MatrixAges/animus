@@ -10,7 +10,6 @@
 		"enabled": false
 	},
 	"files": {
-		"include": ["packages/app", "packages/website"],
 		"ignore": ["node_modules/**", "**/dist/**", "**/.vercel/**", "**/.next/**"],
 		"ignoreUnknown": true
 	},
