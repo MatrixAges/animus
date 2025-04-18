@@ -1,5 +1,4 @@
 ._local {
-	padding-bottom: 180px;
 	font-family: var(--font_serif);
 	font-size: 21px;
 
@@ -19,7 +18,8 @@
 			}
 		}
 
-		.md_container_wrap {
+		.small_container_wrap {
+			padding-bottom: 180px;
 			margin-top: 48px;
 			background-color: rgba(var(--color_bg_rgb), 1);
 

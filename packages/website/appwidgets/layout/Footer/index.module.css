@@ -1,0 +1,27 @@
+._local {
+	padding: 18px;
+
+	:global {
+		.theme_toggle {
+			padding: 2px;
+			border-radius: 48px;
+			gap: 3px;
+
+			.theme_item {
+				padding: 3px;
+				border-radius: 48px;
+				color: var(--color_text_softlight);
+				transition:
+					color ease 0.3s,
+					background-color ease 0.3s;
+				font-size: 14px;
+
+				&.active,
+				&:hover {
+					color: var(--color_text_greylight);
+					background-color: var(--color_bg_2);
+				}
+			}
+		}
+	}
+}

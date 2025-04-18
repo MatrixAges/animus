@@ -1,7 +1,7 @@
 :root {
 	--dirtree_width: 270px;
 	--container_width: 1024px;
-	--md_container_width: 810px;
+	--small_container_width: 810px;
 	--container_padding: 48px;
 	--radius: 6px;
 	--radius_small: 4px;
@@ -41,7 +41,7 @@
 
 @media (max-width: 720px) {
 	:root {
+		--small_container_width: 100%;
 		--container_padding: 24px;
-		--md_container_wrap: 24px;
 	}
 }

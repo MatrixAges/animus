@@ -2,10 +2,11 @@
 	width: 90px;
 
 	:global {
-		.if-select-selector {
-			.if-select-selection-item {
-				color: var(--color_text_sub);
-				font-size: 12px !important;
+		.ani-select-selector {
+			border: none !important;
+
+			.ani-select-selection-item {
+				color: var(--color_text_greylight) !important;
 			}
 		}
 	}

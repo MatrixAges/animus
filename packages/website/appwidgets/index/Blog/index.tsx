@@ -1,10 +1,8 @@
 'use client'
 
-import { useEventListener, useInViewport, useMemoizedFn } from 'ahooks'
+import { useEventListener, useMemoizedFn } from 'ahooks'
 import { throttle } from 'lodash-es'
-import { useInView } from 'motion/react'
-import { useTranslations } from 'next-intl'
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import Markdown from 'react-markdown'
 
 import md_styles from '@website/styles/markdown.module.css'
@@ -16,7 +14,6 @@ import type { IPropsBlog } from '../types'
 
 const Index = (props: IPropsBlog) => {
 	const { content } = props
-	const t = useTranslations('index')
 	const [top, setTop] = useState<number>()
 
 	const scroll = useMemoizedFn(
@@ -48,7 +45,7 @@ const Index = (props: IPropsBlog) => {
 			}
 
 		const value = 120 * top
-		const hide = value <= 30
+		const hide = value <= 18
 
 		return {
 			hide,
@@ -69,7 +66,7 @@ const Index = (props: IPropsBlog) => {
 				className={$.cx('skyline absolute top_0', radius.hide && 'hide')}
 				style={{ borderRadius: radius.percent }}
 			></div>
-			<div className={$.cx('md_container_wrap relative', radius.hide && 'blur')}>
+			<div className={$.cx('small_container_wrap relative', radius.hide && 'blur')}>
 				<Markdown>{content}</Markdown>
 			</div>
 		</div>

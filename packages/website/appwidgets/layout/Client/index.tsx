@@ -9,7 +9,7 @@ import { ProgressProvider } from '@bprogress/next/app'
 import { LOCALE, THEME } from '@website/appdata'
 import { $ } from '@website/utils'
 
-import { Cookie, Progress } from '../'
+import { Cookie, Footer, Menu, Progress } from '../'
 import styles from './index.module.css'
 
 import type { App } from '@website/types'
@@ -60,7 +60,9 @@ const Index = (props: IPropsClient) => {
 		<div className={$.cx('w_100 flex flex_column', styles._local)}>
 			<Cookie></Cookie>
 			<Progress></Progress>
+			<Menu></Menu>
 			<ProgressProvider {...props_bar}>{children}</ProgressProvider>
+			<Footer></Footer>
 		</div>
 	)
 }

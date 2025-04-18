@@ -23,9 +23,9 @@
 	margin: 0 auto;
 }
 
-.md_container_wrap {
+.small_container_wrap {
 	width: 100%;
-	max-width: var(--md_container_width);
+	max-width: var(--small_container_width);
 	box-sizing: border-box;
 	padding: 0 var(--container_padding);
 	margin: 0 auto;

@@ -32,7 +32,7 @@ const Index = async (props: PropsWithChildren) => {
 	}
 
 	return (
-		<html suppressHydrationWarning>
+		<html lang={locale} data-theme={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
 			<head>
 				<meta charSet='UTF-8' />
 

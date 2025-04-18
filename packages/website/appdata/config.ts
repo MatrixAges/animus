@@ -3,3 +3,5 @@ export const THEME = 'IF_WEBSITE_THEME'
 
 export const locales = ['en', 'zh-cn'] as const
 export const default_locale = 'en' as const
+
+export const themes = ['light', 'dark'] as const

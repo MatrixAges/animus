@@ -1,0 +1,34 @@
+._local {
+	z-index: 999;
+	top: 18px;
+	right: 18px;
+	font-size: 18px;
+
+	:global {
+		.btn_wrap {
+			opacity: 0;
+			transition: opacity ease 0.3s;
+
+			&.visible {
+				opacity: 1;
+			}
+		}
+
+		.menu_items {
+			line-height: 1;
+			margin-top: 15px;
+			font-family: var(--font_serif);
+			font-size: 13px;
+			gap: 12px;
+
+			.menu_item {
+				color: var(--color_text);
+				text-align: end;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}

@@ -19,3 +19,5 @@ export const getJoinArray = <T>(arr: Array<T>, ...join: Array<any>) => {
 export const getArray = (length: number) => Array.from({ length })
 
 export const UpperFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+
+export const getOptions = <T>(arr: Array<T>) => arr.map(item => ({ label: item, value: item }))

@@ -1,15 +1,14 @@
 'use client'
 
 import '../appdata/mobx'
+import '@ant-design/v5-patch-for-react-19'
 
-import { useMemoizedFn } from 'ahooks'
 import { ConfigProvider } from 'antd'
-import { useLayoutEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { memo } from 'stk/react'
 
 import { useAntdLocale } from '@website/hooks'
 import { getAntdTheme } from '@website/theme'
-import retryUntil from '@website/utils/retryUntil'
 
 import type { PropsWithChildren } from 'react'
 
@@ -24,25 +23,7 @@ interface IProps extends PropsWithChildren {
 const Index = (props: IProps) => {
 	const { children, locale, theme } = props
 	const app_locale = useAntdLocale(locale)
-	const [app_theme, setAppTheme] = useState(() => getAntdTheme(theme))
-
-	const onChangeTheme = useMemoizedFn(({ detail }: any) => {
-		const target_theme = getAntdTheme(detail)
-
-		setAppTheme(target_theme)
-	})
-
-	useLayoutEffect(() => {
-		retryUntil(
-			() => {
-				window.__theme_emitter.addEventListener('changeTheme', onChangeTheme)
-				window.__theme_listened = true
-			},
-			() => window.__theme_emitter
-		)
-
-		return () => window.__theme_emitter.removeEventListener('changeTheme', onChangeTheme)
-	}, [])
+	const app_theme = useMemo(() => getAntdTheme(theme), [theme])
 
 	const props_config_provider: ConfigProviderProps = {
 		prefixCls: 'ani',

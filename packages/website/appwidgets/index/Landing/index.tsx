@@ -1,7 +1,5 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-
 import { slogan } from '@website/appdata'
 import { Logo } from '@website/components'
 import { $ } from '@website/utils'
@@ -9,8 +7,6 @@ import { $ } from '@website/utils'
 import styles from './index.module.css'
 
 const Index = () => {
-	const t = useTranslations('layout')
-
 	return (
 		<div
 			className={$.cx(

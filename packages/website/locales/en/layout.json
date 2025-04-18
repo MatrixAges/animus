@@ -1,4 +1,8 @@
 {
+	"theme": {
+		"light": "Light",
+		"dark": "Dark"
+	},
 	"Cookie": {
 		"desc": "We use cookies solely to record user theme and language preferences.",
 		"btn_get": "Get"
