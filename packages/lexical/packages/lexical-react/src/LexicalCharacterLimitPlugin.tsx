@@ -50,8 +50,8 @@ export function CharacterLimitPlugin({
 		remainingCharacters
 	}: {
 		remainingCharacters: number
-	}) => JSX.Element
-}): JSX.Element {
+	}) => React.JSX.Element
+}): React.JSX.Element {
 	const [editor] = useLexicalComposerContext()
 
 	const [remainingCharacters, setRemainingCharacters] = useState(maxLength)

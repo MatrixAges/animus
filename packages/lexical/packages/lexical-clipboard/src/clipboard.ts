@@ -25,7 +25,6 @@ import invariant from 'shared/invariant'
 
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
 import { $isListNode } from '@lexical/list'
-import { $isHeadingNode } from '@lexical/rich-text'
 import { $addNodeStyle, $cloneWithProperties, $sliceSelectedTextNodeContent } from '@lexical/selection'
 import { $findMatchingParent, $isSelectionInCode, objectKlassEquals } from '@lexical/utils'
 
@@ -105,7 +104,7 @@ export function $insertDataTransferForPlainText(dataTransfer: DataTransfer, sele
 
 function getTextModeNodes(nodes: Array<LexicalNode>) {
 	return nodes.map(node => {
-		if ($isListNode(node) || $isHeadingNode(node)) {
+		if ($isListNode(node) || node.getType() === 'heading') {
 			const p = $createParagraphNode()
 			const text = $createTextNode(node.getTextContent())
 

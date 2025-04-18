@@ -41,12 +41,12 @@ export function ContentEditableElement({
 	tabIndex,
 	'data-testid': testid,
 	...rest
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
 	const [editor] = useLexicalComposerContext()
 	const [isEditable, setEditable] = useState(false)
 	const [unmounted, setUnmounted] = useState<() => void>()
 
-	const root = useRef<HTMLElement>()
+	const root = useRef<HTMLElement>(null)
 
 	const onChangeRef = useCallback(
 		(rootElement: null | HTMLElement) => {

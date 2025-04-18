@@ -9,7 +9,7 @@ export type SerializedDecoratorBlockNode = Spread<
 	SerializedLexicalNode
 >
 
-export class DecoratorBlockNode extends DecoratorNode<JSX.Element> {
+export class DecoratorBlockNode extends DecoratorNode<React.JSX.Element> {
 	__format: ElementFormatType
 
 	constructor(format?: ElementFormatType, key?: NodeKey) {

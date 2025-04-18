@@ -15,7 +15,7 @@ interface Args {
 export default (args: Args) => {
 	const { mounted, unmounted, editor, deps } = args
 	const ref_dom = useRef<HTMLDivElement | null>(null)
-	const ref_deps = useRef<DependencyList>()
+	const ref_deps = useRef<DependencyList>(null)
 	const id = editor.refs.id
 
 	const setDom = useMemoizedFn((v: HTMLDivElement) => {

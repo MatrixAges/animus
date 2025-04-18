@@ -56,7 +56,7 @@ export type MenuRenderFn<TOption extends MenuOption> = (
 		options: Array<TOption>
 	},
 	matchingString: string | null
-) => ReactPortal | JSX.Element | null
+) => ReactPortal | React.JSX.Element | null
 
 const scrollIntoViewIfNeeded = (target: HTMLElement) => {
 	const typeaheadContainerNode = document.getElementById('typeahead-menu')
@@ -244,7 +244,7 @@ export function LexicalMenu<TOption extends MenuOption>({
 		matchingString: string
 	) => void
 	commandPriority?: CommandListenerPriority
-}): JSX.Element | null {
+}): React.JSX.Element | null {
 	const [selectedIndex, setHighlightedIndex] = useState<null | number>(null)
 
 	const matchingString = resolution.match && resolution.match.matchingString

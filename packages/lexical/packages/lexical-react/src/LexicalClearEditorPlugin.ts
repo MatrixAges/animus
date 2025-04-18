@@ -14,7 +14,7 @@ type Props = Readonly<{
 	onClear?: () => void
 }>
 
-export function ClearEditorPlugin({ onClear }: Props): JSX.Element | null {
+export function ClearEditorPlugin({ onClear }: Props): React.JSX.Element | null {
 	const [editor] = useLexicalComposerContext()
 
 	useLayoutEffect(() => {

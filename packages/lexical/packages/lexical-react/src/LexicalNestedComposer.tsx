@@ -24,7 +24,7 @@ export function LexicalNestedComposer({
 	initialEditor: LexicalEditor
 	initialTheme?: EditorThemeClasses
 	initialNodes?: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement>
-}): JSX.Element {
+}): React.JSX.Element {
 	const [unmounted, setUnmounted] = useState<() => void>()
 	const parentContext = useContext(LexicalComposerContext)
 

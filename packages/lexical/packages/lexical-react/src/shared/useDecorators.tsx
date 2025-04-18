@@ -6,22 +6,22 @@ import useLexicalEditorEffect from '../useLexicalEditorEffect'
 import type { LexicalEditor, NodeKey } from 'lexical'
 
 type ErrorBoundaryProps = {
-	children: JSX.Element
+	children: React.JSX.Element
 	onError: (error: Error) => void
 }
 
 export type ErrorBoundaryType = React.ComponentClass<ErrorBoundaryProps> | React.FC<ErrorBoundaryProps>
 
-export function useDecorators(editor: LexicalEditor, ErrorBoundary: ErrorBoundaryType): Array<JSX.Element> {
-	const [decorators, setDecorators] = useState<Record<NodeKey, JSX.Element>>(() =>
-		editor.getDecorators<JSX.Element>()
+export function useDecorators(editor: LexicalEditor, ErrorBoundary: ErrorBoundaryType): Array<React.JSX.Element> {
+	const [decorators, setDecorators] = useState<Record<NodeKey, React.JSX.Element>>(() =>
+		editor.getDecorators<React.JSX.Element>()
 	)
 	const [unmounted, setUnmounted] = useState<() => void>()
 
 	useLexicalEditorEffect({
 		mounted: () => {
 			setUnmounted(() =>
-				editor.registerDecoratorListener<JSX.Element>(nextDecorators => {
+				editor.registerDecoratorListener<React.JSX.Element>(nextDecorators => {
 					flushSync(() => {
 						setDecorators(nextDecorators)
 					})

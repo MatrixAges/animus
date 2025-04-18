@@ -2,11 +2,11 @@ import * as React from 'react'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
 
 export type LexicalErrorBoundaryProps = {
-	children: JSX.Element
+	children: React.JSX.Element
 	onError: (error: Error) => void
 }
 
-export function LexicalErrorBoundary({ children, onError }: LexicalErrorBoundaryProps): JSX.Element {
+export function LexicalErrorBoundary({ children, onError }: LexicalErrorBoundaryProps): React.JSX.Element {
 	return (
 		<ReactErrorBoundary
 			fallback={

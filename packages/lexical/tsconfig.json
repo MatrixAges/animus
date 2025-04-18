@@ -122,7 +122,8 @@
 			"@lexical/text/src": ["./packages/lexical-text/src"],
 			"@lexical/utils/src": ["./packages/lexical-utils/src"],
 			"shared/src": ["./packages/shared/src"]
-		}
+		},
+            "types": ["react", "react-dom"],
 	},
 	"include": ["./libdefs", "./packages"],
 	"exclude": ["./libdefs/*.js", "**/dist/**", "**/npm/**", "**/node_modules/**"],

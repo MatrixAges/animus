@@ -30,7 +30,7 @@ type Props = Readonly<{
 	}>
 }>
 
-export function BlockWithAlignableContents({ children, format, nodeKey, className }: Props): JSX.Element {
+export function BlockWithAlignableContents({ children, format, nodeKey, className }: Props): React.JSX.Element {
 	const [editor] = useLexicalComposerContext()
 
 	const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey)

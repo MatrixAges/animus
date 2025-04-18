@@ -9,6 +9,7 @@ npm-debug.log*
 .open-next
 .vercel
 .wrangler
+.turbo
 
 # misc
 .DS_Store

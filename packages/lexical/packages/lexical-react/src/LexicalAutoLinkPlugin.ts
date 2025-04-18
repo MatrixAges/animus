@@ -423,7 +423,7 @@ export function AutoLinkPlugin({
 }: {
 	matchers: Array<LinkMatcher>
 	onChange?: ChangeHandler
-}): JSX.Element | null {
+}): React.JSX.Element | null {
 	const [editor] = useLexicalComposerContext()
 
 	useAutoLink(editor, matchers, onChange)

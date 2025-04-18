@@ -120,10 +120,10 @@ function $getPreviousHeading(node: HeadingNode): HeadingNode | null {
 }
 
 type Props = {
-	children: (values: Array<TableOfContentsEntry>, editor: LexicalEditor) => JSX.Element
+	children: (values: Array<TableOfContentsEntry>, editor: LexicalEditor) => React.JSX.Element
 }
 
-export function TableOfContentsPlugin({ children }: Props): JSX.Element {
+export function TableOfContentsPlugin({ children }: Props): React.JSX.Element {
 	const [tableOfContents, setTableOfContents] = useState<Array<TableOfContentsEntry>>([])
 	const [editor] = useLexicalComposerContext()
 	useEffect(() => {

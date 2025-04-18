@@ -185,7 +185,7 @@ export function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>({
 	commandPriority = COMMAND_PRIORITY_LOW,
 	parent,
 	showOnTop
-}: TypeaheadMenuPluginProps<TOption>): JSX.Element | null {
+}: TypeaheadMenuPluginProps<TOption>): React.JSX.Element | null {
 	const [editor] = useLexicalComposerContext()
 	const [resolution, setResolution] = useState<MenuResolution | null>(null)
 	const anchorElementRef = useMenuAnchorRef(resolution, setResolution, anchorClassName, parent, showOnTop)

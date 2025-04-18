@@ -42,7 +42,7 @@ type Props = React.PropsWithChildren<{
 	initialConfig: InitialConfigType
 }>
 
-export function LexicalComposer({ initialConfig, children }: Props): JSX.Element {
+export function LexicalComposer({ initialConfig, children }: Props): React.JSX.Element {
 	const composerContext: [LexicalEditor, LexicalComposerContextType] = useMemo(() => {
 		const {
 			refs,

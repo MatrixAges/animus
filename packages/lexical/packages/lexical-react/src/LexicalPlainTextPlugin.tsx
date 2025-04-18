@@ -13,10 +13,10 @@ export function PlainTextPlugin({
 	placeholder = null,
 	ErrorBoundary
 }: {
-	contentEditable: JSX.Element
-	placeholder?: ((isEditable: boolean) => null | JSX.Element) | null | JSX.Element
+	contentEditable: React.JSX.Element
+	placeholder?: ((isEditable: boolean) => null | React.JSX.Element) | null | React.JSX.Element
 	ErrorBoundary: ErrorBoundaryType
-}): JSX.Element {
+}): React.JSX.Element {
 	const [editor] = useLexicalComposerContext()
 	const decorators = useDecorators(editor, ErrorBoundary)
 	usePlainTextSetup(editor)
@@ -34,8 +34,8 @@ export function PlainTextPlugin({
 function Placeholder({
 	content
 }: {
-	content: ((isEditable: boolean) => null | JSX.Element) | null | JSX.Element
-}): null | JSX.Element {
+	content: ((isEditable: boolean) => null | React.JSX.Element) | null | React.JSX.Element
+}): null | React.JSX.Element {
 	const [editor] = useLexicalComposerContext()
 	const showPlaceholder = useCanShowPlaceholder(editor)
 	const editable = useLexicalEditable()

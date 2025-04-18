@@ -74,7 +74,7 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>({
 	getMenuOptions,
 	menuRenderFn,
 	menuCommandPriority = COMMAND_PRIORITY_LOW
-}: LexicalAutoEmbedPluginProps<TEmbedConfig>): JSX.Element | null {
+}: LexicalAutoEmbedPluginProps<TEmbedConfig>): React.JSX.Element | null {
 	const [editor] = useLexicalComposerContext()
 
 	const [nodeKey, setNodeKey] = useState<NodeKey | null>(null)
