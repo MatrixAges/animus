@@ -1,11 +1,7 @@
 import createNextIntlPlugin from 'next-intl/plugin'
 import withRspack from 'next-rspack'
 
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
-
 import type { NextConfig } from 'next'
-
-initOpenNextCloudflareForDev()
 
 const withIntl = createNextIntlPlugin('./i18n.ts')
 
@@ -29,14 +25,14 @@ const config: NextConfig = {
 
 		return config
 	},
-	// turbopack: {
-	// 	rules: {
-	// 		'*.inline.svg': {
-	// 			loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
-	// 			as: '*.js'
-	// 		}
-	// 	}
-	// },
+	turbopack: {
+		rules: {
+			'*.inline.svg': {
+				loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
+				as: '*.js'
+			}
+		}
+	},
 	experimental: {}
 }
 

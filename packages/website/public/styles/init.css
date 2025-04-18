@@ -1,8 +1,8 @@
-[data-theme="light"] {
+[data-theme='light'] {
 	--from: 100% 0 0 0;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
 	--from: 0 0 100% 0;
 
 	::selection {
@@ -59,7 +59,7 @@ body {
 }
 
 ::-webkit-input-placeholder,
-.if-select-selection-placeholder {
+.ani-select-selection-placeholder {
 	color: var(--color_text_light) !important;
 }
 

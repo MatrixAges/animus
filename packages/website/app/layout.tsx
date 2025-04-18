@@ -57,7 +57,7 @@ const Index = async (props: PropsWithChildren) => {
 				<NextIntlClientProvider messages={messages}>
 					<AntdRegistry>
 						<ConfigProvider locale={locale} theme={theme}>
-							<App prefixCls='if'>
+							<App prefixCls='ani'>
 								<Client {...props_client}>{children}</Client>
 							</App>
 						</ConfigProvider>
