@@ -1,0 +1,7 @@
+._local {
+	z-index: 99999999;
+	height: 3px;
+	border-radius: 1.5px;
+	background-color: var(--color_text);
+	transition: width ease-out 0.3s;
+}

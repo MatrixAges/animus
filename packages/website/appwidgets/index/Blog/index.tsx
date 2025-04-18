@@ -1,6 +1,10 @@
 'use client'
 
+import { useEventListener, useInViewport, useMemoizedFn } from 'ahooks'
+import { throttle } from 'lodash-es'
+import { useInView } from 'motion/react'
 import { useTranslations } from 'next-intl'
+import { useMemo, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
 
 import md_styles from '@website/styles/markdown.module.css'
@@ -13,17 +17,59 @@ import type { IPropsBlog } from '../types'
 const Index = (props: IPropsBlog) => {
 	const { content } = props
 	const t = useTranslations('index')
+	const [top, setTop] = useState<number>()
+
+	const scroll = useMemoizedFn(
+		throttle(
+			() => {
+				const client_height = document.documentElement.clientHeight
+				const distance = client_height - document.documentElement.scrollTop
+
+				if (distance > 0) {
+					const scrolled = distance / client_height
+
+					setTop(scrolled)
+				} else {
+					setTop(0)
+				}
+			},
+			120,
+			{ leading: false }
+		)
+	)
+
+	useEventListener('scroll', scroll)
+
+	const radius = useMemo(() => {
+		if (top === undefined)
+			return {
+				value: 81,
+				percent: '81%'
+			}
+
+		const value = 120 * top
+		const hide = value <= 30
+
+		return {
+			hide,
+			percent: `calc(120% * ${top})`
+		}
+	}, [top])
 
 	return (
 		<div
 			className={$.cx(
-				'flex flex_column align_center justify_center relative',
+				'flex flex_column align_center relative',
 				styles._local,
 				md_styles.md,
 				md_styles.serif
 			)}
 		>
-			<div className='md_container_wrap'>
+			<div
+				className={$.cx('skyline absolute top_0', radius.hide && 'hide')}
+				style={{ borderRadius: radius.percent }}
+			></div>
+			<div className={$.cx('md_container_wrap relative', radius.hide && 'blur')}>
 				<Markdown>{content}</Markdown>
 			</div>
 		</div>

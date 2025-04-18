@@ -1,14 +1,37 @@
 ._local {
-	padding-top: 60px;
 	padding-bottom: 180px;
-	background-color: rgba(var(--color_bg_rgb), 0.9);
 	font-family: var(--font_serif);
 	font-size: 21px;
-	backdrop-filter: var(--blur);
 
 	:global {
-		h1 {
-			text-align: center;
+		.skyline {
+			left: -50%;
+			width: 200%;
+			border-top: 1.8px solid rgba(var(--color_text_rgb), 0.99);
+			background-color: rgba(var(--color_bg_rgb), 1);
+			transition:
+				border-radius ease 0.3s,
+				opacity ease 0.3s;
+			aspect-ratio: 1 / 0.72;
+
+			&.hide {
+				opacity: 0;
+			}
+		}
+
+		.md_container_wrap {
+			margin-top: 48px;
+			background-color: rgba(var(--color_bg_rgb), 1);
+
+			&.blur {
+				background-color: rgba(var(--color_bg_rgb), 0.9);
+				backdrop-filter: var(--blur);
+			}
+
+			h1 {
+				margin-bottom: 1.2em;
+				text-align: center;
+			}
 		}
 	}
 }
