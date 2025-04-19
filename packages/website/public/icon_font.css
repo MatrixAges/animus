@@ -1,41 +1,23 @@
 /** WorkSans */
 @font-face {
-	font-family: 'WorkSans';
+	font-family: "WorkSans";
 	font-style: normal;
-	src:
-		local('WorkSans'),
-		url('./font/WorkSans/WorkSans.ttf') format('truetype');
+	src: local("WorkSans"), url("./font/WorkSans/WorkSans.ttf") format("truetype");
 }
 @font-face {
-	font-family: 'WorkSans';
+	font-family: "WorkSans";
 	font-style: italic;
-	src:
-		local('WorkSans'),
-		url('./font/WorkSans/WorkSans-Italic.ttf') format('truetype');
+	src: local("WorkSans"), url("./font/WorkSans/WorkSans-Italic.ttf") format("truetype");
 }
 
 /** STIXTwoText */
 @font-face {
-	font-family: 'STIXTwoText';
+	font-family: "STIXTwoText";
 	font-style: normal;
-	src:
-		local('STIXTwoText'),
-		url('./font/STIXTwoText/STIXTwoText.ttf') format('truetype');
+	src: local("STIXTwoText"), url("./font/STIXTwoText/STIXTwoText.ttf") format("truetype");
 }
 @font-face {
-	font-family: 'STIXTwoText';
+	font-family: "STIXTwoText";
 	font-style: italic;
-	src:
-		local('STIXTwoText'),
-		url('./font/STIXTwoText/STIXTwoText-Italic.ttf') format('truetype');
-}
-
-/** GeistMono */
-@font-face {
-	font-family: 'GeistMono';
-	font-style: normal;
-	font-weight: 400;
-	src:
-		local('WorkSans'),
-		url('./font/GeistMono/GeistMono-Regular.ttf') format('truetype');
+	src: local("STIXTwoText"), url("./font/STIXTwoText/STIXTwoText-Italic.ttf") format("truetype");
 }

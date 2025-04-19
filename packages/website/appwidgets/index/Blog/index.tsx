@@ -3,9 +3,8 @@
 import { useEventListener, useMemoizedFn } from 'ahooks'
 import { throttle } from 'lodash-es'
 import { useMemo, useState } from 'react'
-import Markdown from 'react-markdown'
 
-import md_styles from '@website/styles/markdown.module.css'
+import { Markdown } from '@website/components'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -54,20 +53,13 @@ const Index = (props: IPropsBlog) => {
 	}, [top])
 
 	return (
-		<div
-			className={$.cx(
-				'flex flex_column align_center relative',
-				styles._local,
-				md_styles.md,
-				md_styles.serif
-			)}
-		>
+		<div className={$.cx('flex flex_column align_center relative', styles._local)}>
 			<div
 				className={$.cx('skyline absolute top_0', radius.hide && 'hide')}
 				style={{ borderRadius: radius.percent }}
 			></div>
 			<div className={$.cx('small_container_wrap relative', radius.hide && 'blur')}>
-				<Markdown>{content}</Markdown>
+				<Markdown md={content}></Markdown>
 			</div>
 		</div>
 	)

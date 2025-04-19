@@ -11,7 +11,7 @@ interface IProps {
 
 const Index = async ({ params }: IProps) => {
 	const id = (await params).id
-	const { err, md, toc } = await getMd('blog', id, true)
+	const { err, md, toc, fm } = await getMd('blog', id, true)
 
 	if (err) {
 		return (
@@ -25,7 +25,7 @@ const Index = async ({ params }: IProps) => {
 
 	return (
 		<div className={$.cx('w_100', styles._local)}>
-			<DocContentPage md={md} toc={toc}></DocContentPage>
+			<DocContentPage md={md} toc={toc} fm={fm}></DocContentPage>
 		</div>
 	)
 }

@@ -1,9 +1,9 @@
 import { deepEqual } from 'fast-equals'
 import { memo } from 'react'
 
-import type { JSX } from 'react'
+import type { JSX, ReactNode } from 'react'
 
-type Element = JSX.Element | null
+type Element = JSX.Element | ReactNode | null
 
 type Memo = <T>(el: (props: T) => Element) => React.MemoExoticComponent<(props: T) => Element>
 

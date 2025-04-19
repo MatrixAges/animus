@@ -1,12 +1,11 @@
 'use client'
 
-import { useLocalStorageState, useMemoizedFn, useToggle } from 'ahooks'
+import { useLocalStorageState, useMemoizedFn } from 'ahooks'
 import { useLayoutEffect, useState } from 'react'
 
 import { Sidebar } from '@phosphor-icons/react'
 import { Markdown, Toc } from '@website/components'
 import { useUserMove } from '@website/hooks'
-import md_styles from '@website/styles/markdown.module.css'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -16,13 +15,14 @@ import type { AnchorProps } from 'antd'
 interface IProps {
 	md: string
 	toc: AnchorProps['items']
+	fm?: any
 	className?: string
 }
 
 export const toc_emitter = new EventTarget()
 
 const Index = (props: IProps) => {
-	const { md, toc, className } = props
+	const { md, toc, className, fm } = props
 	const [open_toc, setOpenToc] = useState(false)
 	const [blog_open_toc, setBlogOpenToc] = useLocalStorageState<boolean>('blog_open_toc')
 	const move = useUserMove()
@@ -44,15 +44,8 @@ const Index = (props: IProps) => {
 			>
 				<Sidebar></Sidebar>
 			</div>
-			<div
-				className={$.cx(
-					'small_container_wrap',
-					className,
-					styles._local,
-					md_styles.md,
-					md_styles.serif
-				)}
-			>
+			<div className={$.cx('small_container_wrap', className, fm?.date && 'has_date')}>
+				{fm?.date && <div className='date w_100 text_center'>{fm.date}</div>}
 				<Markdown md={md}></Markdown>
 			</div>
 			<div

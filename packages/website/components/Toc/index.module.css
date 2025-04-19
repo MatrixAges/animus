@@ -30,13 +30,13 @@
 						margin-bottom: 9px;
 						text-overflow: clip;
 
-						&:has(span[data-level='1']) {
+						&:has(span[data-level="1"]) {
 							display: none;
 						}
 
 						&-active {
 							span {
-								font-weight: 500;
+								font-weight: bolder;
 							}
 						}
 					}

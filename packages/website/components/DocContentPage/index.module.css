@@ -24,6 +24,10 @@
 				opacity: 1;
 			}
 		}
+
+		.date {
+			font-size: 15px;
+		}
 	}
 }
 

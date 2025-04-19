@@ -1,0 +1,54 @@
+'use client'
+
+import { useMemoizedFn } from 'ahooks'
+import { useLayoutEffect, useRef, useState } from 'react'
+
+import { Check, Copy } from '@phosphor-icons/react'
+import { useTheme } from '@website/hooks'
+import { $ } from '@website/utils'
+import { highlight } from '@website/utils/shiki'
+
+import styles from './index.module.css'
+
+import type { ReactNode } from 'react'
+import type { BundledLanguage } from 'shiki/bundle/web'
+
+interface IProps {
+	children: ReactNode
+	language: BundledLanguage
+}
+
+const Index = (props: IProps) => {
+	const { children, language } = props
+	const { theme } = useTheme()
+	const [html, setHTML] = useState<string>('')
+	const [copyied, setCopyied] = useState(false)
+	const lang = useRef<BundledLanguage>(null)
+	const code = useRef(null)
+
+	useLayoutEffect(() => {
+		highlight(children as string, language, theme).then(setHTML)
+	}, [children, language, theme])
+
+	const copy = useMemoizedFn(() => {
+		setCopyied(true)
+
+		navigator.clipboard.writeText(code.current!)
+
+		setTimeout(() => {
+			setCopyied(false)
+		}, 3000)
+	})
+
+	return (
+		<div className={$.cx('w_100 border_box relative', styles._local)}>
+			<span className='lang absolute'>{lang.current}</span>
+			<button className='btn_copy flex justify_center align_center absolute clickable' onClick={copy}>
+				{copyied ? <Check></Check> : <Copy></Copy>}
+			</button>
+			<div className='w_100 flex' dangerouslySetInnerHTML={{ __html: html }}></div>
+		</div>
+	)
+}
+
+export default $.memo(Index)

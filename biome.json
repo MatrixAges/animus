@@ -5,6 +5,7 @@
 	},
 	"vcs": {
 		"enabled": true,
+		"defaultBranch": "master",
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},

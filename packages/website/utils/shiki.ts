@@ -1,13 +1,19 @@
 import { createHighlighter } from 'shiki/bundle/web'
 
 import type { BundledLanguage } from 'shiki/bundle/web'
+import type { App } from '@website/types'
 
-export const highlight = async (code: string, lang: BundledLanguage) => {
+export const highlight = async (code: string, lang: BundledLanguage, theme: App.Theme) => {
 	const highlighter = await createHighlighter({
 		langs: ['typescript', 'javascript'],
-		themes: ['github-dark']
+		themes: ['github-light', 'github-dark']
 	})
-	const code_text = highlighter.codeToHtml(code, { lang, theme: 'github-dark', structure: 'inline' })
+
+	const code_text = highlighter.codeToHtml(code, {
+		lang,
+		theme: theme === 'dark' ? 'github-dark' : 'github-light',
+		structure: 'inline'
+	})
 
 	const lines = code.split('\n')
 	const length = lines.length

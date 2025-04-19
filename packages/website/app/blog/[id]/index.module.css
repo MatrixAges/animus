@@ -1,5 +1,5 @@
 ._local {
-	padding-top: 36px;
+	padding-top: 72px;
 
 	:global {
 		.icon_wrap {
@@ -10,6 +10,12 @@
 		.small_container_wrap {
 			font-family: var(--font_serif);
 			font-size: 18px;
+
+			&.has_date {
+				h1 {
+					margin-block-start: 12px;
+				}
+			}
 
 			h1 {
 				margin-bottom: 1.2em;
