@@ -1,7 +1,10 @@
 .md {
+	line-height: 1.8;
 	text-align: justify;
 
 	&.serif {
+		font-family: var(--font_serif);
+
 		:global {
 			h1,
 			h2,
@@ -23,7 +26,7 @@
 		p {
 			padding-inline-start: var(--editor_padding_x);
 			padding-inline-end: var(--editor_padding_x);
-			margin-block-start: var(--editor_padding_y);
+			margin-block-start: 0;
 			margin-block-end: var(--editor_padding_y);
 			margin-inline-start: 0;
 			margin-inline-end: 0;
@@ -51,29 +54,37 @@
 			}
 		}
 
+		h1 {
+			font-size: 1.8em;
+		}
+
 		h1,
 		h2,
 		h3,
 		h4,
 		h5,
 		h6 {
-			margin-block-start: 1em;
-			margin-block-end: 0.6em;
 			color: var(--color_text);
 			font-weight: 500;
 		}
 
+		h1,
+		h2 {
+			margin-block-start: 1.8em;
+			margin-block-end: 0.9em;
+		}
+
+		h3,
+		h4,
 		h5,
 		h6 {
-			line-height: 1;
-			margin-block-start: 1em;
+			margin-block-start: 1.2em;
 			margin-block-end: 1em;
 		}
 
 		ul,
 		ol {
 			padding-inline-start: 13px;
-			margin-block-start: var(--editor_padding_y);
 			margin-block-end: var(--editor_padding_y);
 
 			::marker {
@@ -96,32 +107,12 @@
 		}
 
 		blockquote {
-			padding: calc(var(--editor_padding_y) * 0.5) 0;
+			padding-left: 18px;
+			margin-block-end: var(--editor_padding_y);
 			margin-inline-start: var(--editor_padding_x);
 			margin-inline-end: var(--editor_padding_x);
-			border: var(--border_light);
-			border-radius: var(--radius);
-			color: var(--color_text_grey);
-			background-color: rgba(var(--color_bg_1_rgb), 0.48);
-			font-size: 13px;
-
-			&::before {
-				display: block;
-				width: 24px;
-				height: 16px;
-				box-sizing: border-box;
-				margin-top: calc(var(--editor_padding_y) * 0.5);
-				margin-bottom: -3px;
-				margin-left: 1.2em;
-				background-image: url("data:image/svg+xml,%3Csvg width='18' height='16' viewBox='0 0 24 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.406 8.663l-.014-.023L19.144.428a.858.858 0 0 1 1.171-.313.866.866 0 0 1 .322 1.176L17.8 6.329a5.425 5.425 0 0 1 1.058-.103c2.84 0 5.143 2.188 5.143 4.887C24 13.812 21.697 16 18.857 16s-5.143-2.188-5.143-4.887c0-.893.252-1.73.692-2.45zM.613 8.796l-.02-.027L5.43.429A.859.859 0 0 1 6.601.114a.866.866 0 0 1 .322 1.176L4.085 6.329a5.425 5.425 0 0 1 1.058-.103c2.84 0 5.143 2.188 5.143 4.887 0 2.699-2.303 4.887-5.143 4.887S0 13.812 0 11.113c0-.838.222-1.627.613-2.317z' fill='%23ccc' fill-rule='evenodd'/%3E%3C/svg%3E");
-				background-repeat: no-repeat;
-				content: "";
-			}
-
-			* {
-				--editor_padding_y: 0.45em;
-				--editor_padding_x: 1.2em;
-			}
+			border-left: 3px solid var(--color_border_light);
+			color: var(--color_text_greylight);
 		}
 
 		video {

@@ -1,54 +1,36 @@
 'use client'
 
-import { useEventListener, useMemoizedFn, useToggle } from 'ahooks'
-import { throttle } from 'lodash-es'
+import { useToggle } from 'ahooks'
 import Link from 'next/link'
-import { useRef, useState } from 'react'
 
 import { List, X } from '@phosphor-icons/react'
+import { nav_links } from '@website/appdata'
+import { useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
 
 const Index = () => {
-	const [open, { toggle, setLeft }] = useToggle()
-	const [visible, setVisible] = useState(false)
-	const timer = useRef<NodeJS.Timeout>(null)
-
-	const move = useMemoizedFn(
-		throttle(
-			() => {
-				if (timer.current) clearTimeout(timer.current)
-
-				setVisible(true)
-
-				timer.current = setTimeout(() => {
-					setVisible(false)
-					setLeft()
-				}, 3000)
-			},
-			300,
-			{ leading: false }
-		)
-	)
-
-	useEventListener('mousemove', move)
+	const [visible, { toggle, setLeft }] = useToggle()
+	const move = useUserMove({ idle: setLeft })
 
 	return (
-		<div className={$.cx('fixed flex flex_column align_end', styles._local)}>
-			<div className={$.cx('btn_wrap flex clickable', visible && 'visible')} onClick={toggle}>
-				{open ? <X></X> : <List></List>}
+		<div className={$.cx('fixed flex flex_column align_end', styles._local, visible && styles.visible)}>
+			<div className={$.cx('btn_wrap flex clickable', move && 'visible')} onClick={toggle}>
+				{visible ? <X></X> : <List></List>}
 			</div>
-			{open && (
-				<div className='menu_items flex flex_column justify_end'>
-					<Link className='menu_item clickable' href='/'>
-						Home
+			<nav className={$.cx('menu_items flex flex_column justify_end', visible && 'visible')}>
+				{nav_links.map(item => (
+					<Link
+						className='menu_item clickable'
+						href={item.href}
+						target={item.href.indexOf('https') !== -1 ? '_blank' : '_self'}
+						key={item.title}
+					>
+						{item.title}
 					</Link>
-					<Link className='menu_item clickable' href='/doc'>
-						Doc
-					</Link>
-				</div>
-			)}
+				))}
+			</nav>
 		</div>
 	)
 }

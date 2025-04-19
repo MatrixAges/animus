@@ -18,7 +18,7 @@ interface IProps {
 
 const Index = (props: IProps) => {
 	const { prev, next } = props
-	const t = useTranslations('doc')
+	const t = useTranslations('docs')
 
 	return (
 		<div className={$.cx('w_100 border_box', styles._local)}>

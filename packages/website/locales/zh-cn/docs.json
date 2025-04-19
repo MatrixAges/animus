@@ -1,0 +1,22 @@
+{
+	"header": {
+		"title": "文档",
+		"btn_search": "在文档中搜索"
+	},
+	"search": {
+		"loading_index": "加载索引中...",
+		"loading_items": "搜索中...",
+		"placeholder": "在文档中搜索",
+		"to_navigate": "切换",
+		"to_select": "选择",
+		"to_close": "关闭",
+		"history": "搜索历史"
+	},
+	"toc": {
+		"title": "页面大纲"
+	},
+	"BottomLink": {
+		"prev": "上一篇",
+		"next": "下一篇"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"header": {
+		"title": "Docs",
+		"btn_search": "Search in docs"
+	},
+	"search": {
+		"loading_index": "Loading index...",
+		"loading_items": "Searching...",
+		"placeholder": "Search in documents",
+		"to_navigate": "to navigate",
+		"to_select": "to select",
+		"to_close": "to close",
+		"history": "Search history"
+	},
+	"toc": {
+		"title": "On this page"
+	},
+	"BottomLink": {
+		"prev": "Prev",
+		"next": "Next"
+	}
+}

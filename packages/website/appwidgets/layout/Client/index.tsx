@@ -48,7 +48,7 @@ const Index = (props: IPropsClient) => {
 		Cookies.set(THEME, theme, { expires: 360 })
 	}, [theme, theme_cookie_exsit])
 
-	// const show_layout = useMemo(() => !excludes.some(item => pathname.indexOf(item) !== -1), [pathname])
+	const show_layout = useMemo(() => !excludes.some(item => pathname.indexOf(item) !== -1), [pathname])
 
 	const props_bar: AppProgressProviderProps = {
 		height: '1.5px',
@@ -60,9 +60,9 @@ const Index = (props: IPropsClient) => {
 		<div className={$.cx('w_100 flex flex_column', styles._local)}>
 			<Cookie></Cookie>
 			<Progress></Progress>
-			<Menu></Menu>
+			{show_layout && <Menu></Menu>}
 			<ProgressProvider {...props_bar}>{children}</ProgressProvider>
-			<Footer></Footer>
+			{show_layout && <Footer></Footer>}
 		</div>
 	)
 }

@@ -1,3 +1,4 @@
+import to from 'await-to-js'
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { toc as genToc } from 'mdast-util-toc'
 
@@ -7,7 +8,9 @@ import { getPublic } from '@website/utils/ofetch'
 
 export default async (type: 'blog', id: string, with_toc?: boolean) => {
 	const { locale } = await getUserLocale()
-	const md = await getPublic(`/${type}/${id}/${locale}.md`, { parseResponse: txt => txt })
+	const [err, md] = await to(getPublic(`/${type}/${id}/${locale}.md`, { parseResponse: txt => txt }))
+
+	if (err) return { err }
 
 	if (with_toc) {
 		const ast = fromMarkdown(md)

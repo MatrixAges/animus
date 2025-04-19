@@ -4,10 +4,17 @@
 	right: 18px;
 	font-size: 18px;
 
+	&.visible {
+		padding-bottom: 12px;
+		padding-left: 12px;
+		backdrop-filter: var(--blur);
+	}
+
 	:global {
 		.btn_wrap {
 			opacity: 0;
 			transition: opacity ease 0.3s;
+			backdrop-filter: var(--blur);
 
 			&.visible {
 				opacity: 1;
@@ -16,10 +23,19 @@
 
 		.menu_items {
 			line-height: 1;
+			padding-right: 3px;
 			margin-top: 15px;
+			opacity: 0;
+			transition: opacity ease 0.3s;
 			font-family: var(--font_serif);
-			font-size: 13px;
+			font-size: 14px;
+			pointer-events: none;
 			gap: 12px;
+
+			&.visible {
+				opacity: 1;
+				pointer-events: unset;
+			}
 
 			.menu_item {
 				color: var(--color_text);

@@ -1,8 +1,8 @@
 :root {
-	--dirtree_width: 270px;
+	--dirtree_width: 240px;
 	--container_width: 1024px;
 	--small_container_width: 810px;
-	--container_padding: 48px;
+	--container_padding: 60px;
 	--radius: 6px;
 	--radius_small: 4px;
 	--radius_small_0: 3px;
@@ -22,6 +22,7 @@
 	--border: 1px solid var(--color_border);
 	--border_light: 1px solid var(--color_border_light);
 	--border_soft: 1px solid var(--color_border_soft);
+	--border_softlight: 1px solid var(--color_border_softlight);
 
 	--editor_padding_y: 1.8em;
 	--editor_padding_x: 0;
@@ -42,6 +43,6 @@
 @media (max-width: 720px) {
 	:root {
 		--small_container_width: 100%;
-		--container_padding: 24px;
+		--container_padding: 30px;
 	}
 }

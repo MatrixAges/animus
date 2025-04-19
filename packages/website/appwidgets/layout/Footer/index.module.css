@@ -1,25 +1,77 @@
+.backtop {
+	right: 18px !important;
+	bottom: 18px !important;
+	width: auto !important;
+	height: auto !important;
+	box-shadow: none !important;
+	transition: bottom ease 0.3s !important;
+
+	&.move {
+		:global {
+			.ani-float-btn-body {
+				opacity: 0.72;
+			}
+		}
+	}
+
+	&.visible_footer {
+		bottom: 60px !important;
+
+		:global {
+			.ani-float-btn-body {
+				opacity: 0;
+			}
+		}
+	}
+
+	:global {
+		.ani-float-btn-body {
+			border-radius: 0 !important;
+			opacity: 0;
+			background-color: transparent !important;
+			transition: opacity ease 0.3s !important;
+			backdrop-filter: var(--blur);
+
+			&:hover {
+				opacity: 1;
+
+				.ani-float-btn-content {
+					.ani-float-btn-icon {
+						color: var(--color_text) !important;
+					}
+				}
+			}
+
+			.ani-float-btn-content {
+				min-height: unset !important;
+				padding: 0 !important;
+
+				.ani-float-btn-icon {
+					color: var(--color_text_softlight) !important;
+				}
+			}
+		}
+	}
+}
+
 ._local {
 	padding: 18px;
 
 	:global {
 		.theme_toggle {
-			padding: 2px;
-			border-radius: 48px;
-			gap: 3px;
+			gap: 12px;
 
 			.theme_item {
-				padding: 3px;
 				border-radius: 48px;
 				color: var(--color_text_softlight);
 				transition:
 					color ease 0.3s,
 					background-color ease 0.3s;
-				font-size: 14px;
+				font-size: 18px;
 
 				&.active,
 				&:hover {
-					color: var(--color_text_greylight);
-					background-color: var(--color_bg_2);
+					color: var(--color_text);
 				}
 			}
 		}

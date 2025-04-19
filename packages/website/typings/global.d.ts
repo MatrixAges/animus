@@ -37,15 +37,6 @@ declare var cookieStore = {
 
 declare global {
 	interface Window {
-		__search_index__: FlexDocument<
-			{
-				id: string
-				link: string
-				type: 'heading' | 'content'
-				headings: string
-				content: string
-			},
-			true
-		>
+		__search_index__: FlexDocument
 	}
 }

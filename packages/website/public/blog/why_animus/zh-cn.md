@@ -1,73 +1,41 @@
-# 为何做 Animus
+# Why Animus
 
-有些事情我们几乎可以立即得到答案：“今天星期几？”另一些则需要更多的脑力，比如解开一个神秘的填字游戏或调试一段复杂的代码。我们可以根据手头的任务选择投入或多或少的认知努力。
+The phrase "Nothing is true, everything is permitted" is often associated with the philosophical and historical order of the Assassins, a group known for their clandestine operations and the pursuit of freedom. 
 
-现在，Claude 也拥有了同样的灵活性。通过新的 Claude 3.7 Sonnet，用户可以开启或关闭“扩展思考模式”，指示模型更深入地思考更棘手的问题1。开发者甚至可以设置一个“思考预算”，精确控制 Claude 在一个问题上花费的时间。
+However, this phrase can also be seen as a reflection of the core tenets of liberalism, which advocates for individual liberty, autonomy, and the rejection of absolute truths. 
 
-扩展思考模式并非切换到具有不同策略的另一个模型的选项。相反，它允许同一个模型给自己更多的时间，并投入更多的精力来得出答案。
+In this essay, we will explore the paradoxical nature of this statement from a liberal perspective, dividing our discussion into three parts: the rejection of absolutes, the affirmation of individual freedom, and the implications of such a philosophy on society.
 
-Claude 新的扩展思考能力使其智能水平得到了令人印象深刻的提升。但对于那些对 AI 模型如何工作、如何评估它们以及如何提高其安全性感兴趣的人来说，这也提出了许多重要问题。在这篇文章中，我们将分享我们获得的一些见解。
+## The Rejection of Absolutes
 
-可见的思考过程
-除了让 Claude 能够思考更长时间从而回答更难的问题之外，我们还决定以原始形式使其思考过程可见。这有几个好处：
+### Liberalism
 
-信任。能够观察 Claude 的思考方式，使其更容易理解和检查其答案——并可能帮助用户获得更好的输出。
-对齐。在我们之前的一些对齐科学研究中，我们利用模型内心想法与外在言语之间的矛盾来识别它何时可能参与欺骗等令人担忧的行为。
-兴趣。观察 Claude 思考通常很有趣。我们一些具有数学和物理背景的研究人员注意到，Claude 的思考过程与他们自己推理难题的方式惊人地相似：探索许多不同的角度和推理分支，并反复检查答案。
+Liberalism, as a political and moral philosophy, is grounded in skepticism towards absolutes. The idea that "nothing is true" challenges the notion of objective reality and absolute truth, suggesting that what we perceive as truth is often a construct of our individual or collective experiences. 
 
-但可见的思考过程也有几个缺点。首先，用户可能会注意到，所揭示的思考比 Claude 的默认输出更客观、听起来不那么个人化。这是因为我们没有对模型的思考过程进行标准的角色训练。我们希望给予 Claude 最大的自由度来思考任何必要的想法以得出答案——就像人类思考一样，Claude 有时会在过程中发现自己有一些不正确、误导性或不成熟的想法。许多用户会觉得这很有用；其他人可能会觉得这（以及思考过程中不那么具有角色特点的内容）令人沮丧。
+This skepticism is not a call to nihilism, but rather an invitation to critical thinking and the acceptance of multiple perspectives. It encourages individuals to question established norms and to recognize the subjective nature of truth.
 
-另一个问题是所谓的“忠实性”——我们无法确定思考过程中的内容是否真正代表了模型头脑中发生的事情（例如，思考过程中显示的英语单词可能根本无法描述模型为何表现出特定行为）。忠实性问题——以及如何确保它——是我们积极研究的领域之一。到目前为止，我们的结果表明，模型通常基于它们在思考过程中没有明确讨论的因素做出决策。这意味着我们不能依赖监控当前模型的思考来对其安全性做出强有力的论证2。
+## Rejection
 
-第三，它带来了一些安全和安保方面的担忧。恶意行为者可能能够利用可见的思考过程来构建更好的策略来越狱 Claude。更具推测性的是，如果模型在训练期间了解到其内部想法将被展示出来，它们可能会被激励以不同、更不可预测的方式思考——或者故意隐藏某些想法。
+The rejection of absolutes in liberalism is not a denial of truth, but a recognition of its complexity. It acknowledges that truth is not a fixed entity but a dynamic concept that evolves with human understanding. This approach allows for the possibility of change and growth, as it does not confine us to a single, unyielding interpretation of reality.
 
-对于未来能力更强的 Claude 版本——如果未对齐将构成更大风险的版本——这些后者的担忧将尤为突出。我们将权衡未来版本揭示思考过程的利弊3。与此同时，Claude 3.7 Sonnet 中的可见思考过程应被视为研究预览版。
+## The Affirmation of Individual Freedom
 
-对 Claude 思维的新测试
-Claude 作为一个智能体
-Claude 3.7 Sonnet 受益于我们所谓的“行动扩展”——一种改进的能力，使其能够迭代调用函数，响应环境变化，并持续进行直到完成一个开放式任务。这类任务的一个例子是使用计算机：Claude 可以发出虚拟鼠标点击和键盘按压来代表用户解决任务。与其前身相比，Claude 3.7 Sonnet 可以为计算机使用任务分配更多的轮次——以及更多的时间和计算能力——其结果通常更好。
+The second part of our discussion focuses on the affirmation of individual freedom, encapsulated by the phrase "everything is permitted." While this may initially seem to suggest a license for anarchy or moral relativism, within the context of liberalism, it is a call for the recognition of individual autonomy and the right to self-determination.
 
-我们可以从 Claude 3.7 Sonnet 在 OSWorld 上的改进中看到这一点，这是一个衡量多模态 AI 智能体能力的评估。Claude 3.7 Sonnet 起步时略好一些，但随着模型继续与虚拟计算机交互，性能差异会随着时间的推移而增大。
+Liberalism asserts that each person has the right to make choices about their own life, free from undue interference from the state or other individuals. This includes the freedom of thought, expression, and the pursuit of one's own happiness. It is the belief that individuals are best positioned to understand their own needs and desires and should be allowed to act in accordance with them, within the bounds of respect for the rights of others.
 
-一张图表显示了 Claude 3.5 Sonnet（新）与 Claude 3.7 在 OSWorld 评估上的性能对比。X 轴是步数；Y 轴是得分。两个模型起初得分相近，随着步数增加得分都提高，但 Claude 3.7 Sonnet 提高得更快。
-Claude 3.7 Sonnet 与其前代模型在 OSWorld 评估上的性能对比，测试多模态计算机使用技能。“Pass @ 1”：模型只有一次尝试解决特定问题的机会，才能算作通过。
-Claude 玩宝可梦
-结合起来，Claude 的扩展思考和智能体训练帮助它在许多标准评估（如 OSWorld）上表现更好。但它们也使其在其他一些或许更意想不到的任务上获得了重大提升。
+This affirmation of freedom is not without its challenges. It requires a delicate balance between individual rights and the common good, necessitating a robust system of laws and social norms that protect individual liberties while maintaining social order.
 
-玩宝可梦——具体来说，是 Game Boy 经典游戏《宝可梦 红》——就是这样一个任务。我们为 Claude 配备了基本内存、屏幕像素输入以及用于按下按钮和在屏幕上导航的函数调用，使其能够持续玩宝可梦，超越其通常的上下文限制，通过数万次交互维持游戏进程。
+## The Implications for Society
 
-在下图中，我们绘制了 Claude 3.7 Sonnet 与之前没有扩展思考选项的 Claude Sonnet 版本的宝可梦游戏进度。正如你所看到的，之前的版本在游戏初期就卡住了，Claude 3.0 Sonnet 甚至未能离开故事开始的真新镇的房子。
+The final part of our discussion examines the implications of the philosophy "Nothing is true, everything is permitted" on society. When applied to the collective, this philosophy can lead to a society that values diversity, creativity, and innovation. It encourages a culture of open-mindedness and tolerance, where differing opinions and lifestyles are not only accepted but celebrated.
 
-但 Claude 3.7 Sonnet 改进的智能体能力帮助它前进了更多，成功挑战了三个宝可梦道馆馆主（游戏中的 Boss）并赢得了他们的徽章。Claude 3.7 Sonnet 在尝试多种策略和质疑先前假设方面非常有效，这使其能够在游戏进程中提升自身能力。
+However, the implications are not without their complexities. A society that rejects absolutes and affirms individual freedom must also grapple with the potential for moral ambiguity and the absence of a shared moral compass. It must find ways to foster a sense of community and shared values without resorting to enforced conformity or dogmatism.
 
-一张图表显示了各种 Claude Sonnet 模型在玩宝可梦时的表现。X 轴是 AI 执行的动作数量；Y 轴是游戏中达到的里程碑。Claude 3.7 Sonnet 在实现游戏里程碑方面是迄今为止最成功的。
-Claude 3.7 Sonnet 证明了它是迄今为止所有 Sonnet 模型中最擅长玩《宝可梦 红》的。X 轴是 Claude 在玩游戏过程中完成的交互次数；Y 轴是游戏中涉及收集特定物品、导航到特定区域以及击败特定游戏 Boss 的重要里程碑。
-宝可梦是欣赏 Claude 3.7 Sonnet 能力的一种有趣方式，但我们预计这些能力将在游戏之外产生真实的现实世界影响。该模型保持专注并完成开放式目标的能力将帮助开发者构建各种最先进的 AI 智能体。
+Moreover, the liberal society must ensure that the freedom it espouses does not lead to the exploitation or harm of the vulnerable. It must establish safeguards against the abuse of power and the erosion of rights, ensuring that freedom is not merely a privilege of the few but a reality for all.
 
-串行和并行测试时计算扩展
-当 Claude 3.7 Sonnet 使用其扩展思考能力时，可以描述为受益于“串行测试时计算”。也就是说，它在产生最终输出之前使用多个顺序推理步骤，并在过程中增加更多的计算资源。总的来说，这以一种可预测的方式提高了其性能：例如，它在数学问题上的准确性随着允许其采样的“思考词元”数量呈对数增长。
+## Conclusion
 
-一张图表显示了 Claude 3.7 Sonnet 的数学表现与其思考过程中使用的词元数量的关系。X 轴是词元数量；Y 轴是准确率。更多的词元与更高的准确率相关。
-Claude 3.7 Sonnet 在 2024 年美国数学邀请赛问题上的表现，取决于每个问题允许使用的思考词元数量。请注意，即使我们允许 Claude 使用整个思考预算，它通常也会提前停止。我们在图中包含了用于总结最终答案所采样的词元。
-我们的研究人员也一直在尝试使用并行测试时计算来提高模型的性能。他们通过采样多个独立的思考过程，并在不知道真实答案的情况下选择最佳答案来实现这一点。一种方法是使用多数或共识投票；选择最常出现的答案作为“最佳”答案。另一种方法是使用另一个语言模型（例如 Claude 的第二个副本）被要求检查其工作或使用学习到的评分函数，并选择它认为最好的答案。像这样的策略（以及类似的工作）已在其他几个 AI 模型的评估结果中报告过。
+In conclusion, the phrase "Nothing is true, everything is permitted" when viewed through the lens of liberalism, presents a paradox that challenges us to question the nature of truth and the extent of individual freedom. It is a philosophy that demands a society that is open to change, respects individual autonomy, and is vigilant in protecting the rights of all its members. While it may seem to offer a radical departure from traditional values, it is, in essence, a call for a society that is more inclusive, more adaptable, and more attuned to the evolving needs of its people.
 
-我们在 GPQA 评估（一组常用的关于生物学、化学和物理学的挑战性问题）上使用并行测试时计算扩展取得了显著的改进。使用相当于 256 个独立样本的计算量、一个学习到的评分模型和一个最大 64k 词元的思考预算，Claude 3.7 Sonnet 取得了 84.8% 的 GPQA 分数（包括 96.5% 的物理学子分数），并且在超越多数投票限制后继续受益于扩展。我们在下面报告了我们的评分模型方法和多数投票方法的结果。
-
-四张图表显示了 Claude 3.7 Sonnet 在使用并行测试时计算扩展时在 GPQA 评估上的表现。从左上角顺时针方向，它们分别显示了在完整考试、生物部分、物理部分和化学部分的表现。根据评估方式的不同，显示了多条线。
-使用并行测试时计算扩展来提高 Claude 3.7 Sonnet 在 GPQA 评估上性能的实验结果。不同的线指的是不同的评分方法。“Majority @ N”：针对同一提示从模型生成多个输出，并将多数票作为最终答案；“scoring model”：用于评估被评估模型性能的单独模型；“pass @ N”：如果给定次数的任何一次尝试成功，则模型“通过”测试。
-像这样的方法使我们能够提高 Claude 答案的质量，通常无需等待它完成思考。Claude 可以同时拥有多个不同的扩展思考过程，使其能够考虑更多解决问题的方法，并最终更频繁地得出正确答案。并行测试时计算扩展在我们新部署的模型中尚不可用，但我们正在继续研究这些方法以备将来使用。
-
-Claude 3.7 Sonnet 的安全机制
-AI 安全级别。Anthropic 的负责任扩展政策承诺我们，除非我们实施了适当的安全和安保措施，否则不会训练或部署模型。我们的前沿红队和对齐压力测试团队对 Claude 3.7 Sonnet 进行了广泛测试，以确定它是否需要与我们之前的模型相同的部署和安全保障级别——即所谓的 AI 安全级别 (ASL) 2 标准——还是需要更强的措施。
-
-我们对 Claude 3.7 Sonnet 的全面评估证实，我们当前的 ASL-2 安全标准仍然适用。与此同时，该模型在所有领域都表现出更高的复杂性和增强的能力。在检查与生产化学、生物、放射性和核 (CBRN) 武器相关任务的对照研究中，我们观察到模型辅助参与者相比非辅助参与者存在一些性能“提升”。也就是说，参与者能够比仅使用在线可用信息更接近成功。然而，所有执行这些任务的尝试都包含关键性失败，完全阻碍了成功。
-
-该模型的专家红队测试产生了混合反馈。尽管一些专家注意到模型在 CBRN 流程某些领域的知识有所改进，但他们也发现关键性失败的频率太高，无法成功完成端到端的任务。我们正在通过加速开发和部署有针对性的分类器和监控系统来主动加强我们的 ASL-2 措施。
-
-此外，我们未来模型的能力可能要求我们进入下一阶段：ASL-3 安全保障。我们最近在宪法分类器方面的工作以防止越狱，以及其他努力，使我们有能力在不久的将来实施 ASL-3 标准的要求。
-
-可见的思考过程。即使在 ASL-2 级别，Claude 3.7 Sonnet 的可见扩展思考功能也是新的，因此需要新的、适当的安全保障措施。在极少数情况下，Claude 的思考过程可能包含潜在有害的内容（主题包括儿童安全、网络攻击和危险武器）。在这种情况下，我们将加密思考过程：这不会阻止 Claude 在其思考过程中包含这些内容（这对于最终产生完全良性的响应仍然可能很重要），但思考过程的相关部分将对用户不可见。取而代之的是，他们将看到消息“此响应的其余思考过程不可用”。我们的目标是让这种加密很少发生，并且仅在潜在危害性很高的情况下发生。
-
-计算机使用。最后，我们加强了 Claude 计算机使用能力的安全措施（我们在上面讨论过：它允许 Claude 查看用户的计算机屏幕并代表他们采取行动）。我们在防御“提示注入”攻击方面取得了实质性进展，即恶意第三方将秘密消息隐藏在 Claude 使用计算机时可能看到的地方，从而可能诱骗其采取用户不希望的操作。通过新的训练来抵抗提示注入、一个新的系统提示（包含忽略这些攻击的指令）以及一个在模型遇到潜在提示注入时触发的分类器，我们现在可以阻止 88% 的此类攻击4，高于没有这些缓解措施时的 74%。
-
-以上只是我们对 Claude 3.7 Sonnet 进行的大量安全工作的部分简要总结。有关更多信息、分析结果以及安全措施实际应用的几个示例，请参阅我们的完整系统卡片。
+This essay has explored the complexities and nuances of this philosophy, highlighting its potential to foster a more open and free society, while also acknowledging the challenges it presents. As we continue to navigate the ever-changing landscape of human experience, the principles of liberalism offer a framework for understanding and embracing the paradox of freedom.

@@ -1,0 +1,53 @@
+._local {
+	:global {
+		.ani-anchor-wrapper {
+			max-height: unset !important;
+			padding-block-start: 0;
+			margin-block-start: 0;
+
+			.ani-anchor {
+				padding-inline-start: 0 !important;
+
+				&::before {
+					display: none;
+				}
+
+				& > .ani-anchor-link {
+					padding-inline-start: 0 !important;
+				}
+
+				.ani-anchor-ink {
+					display: none !important;
+					color: #d2d2d2;
+				}
+
+				.ani-anchor-link {
+					line-height: 1;
+					padding-inline-start: 12px;
+					padding-block: 0 !important;
+
+					.ani-anchor-link-title {
+						margin-bottom: 9px;
+						text-overflow: clip;
+
+						&:has(span[data-level='1']) {
+							display: none;
+						}
+
+						&-active {
+							span {
+								font-weight: 500;
+							}
+						}
+					}
+				}
+
+				span {
+					transition: color ease 0.3s;
+					font-family: var(--font_serif);
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+.wrap {
+	transition: padding ease 0.3s;
+
+	&.open_toc {
+		padding-left: var(--dirtree_width);
+	}
+
+	:global {
+		.btn_toc {
+			top: 18px;
+			left: 18px;
+			opacity: 0;
+			color: var(--color_text_softlight);
+			user-select: none;
+			transition: opacity ease 0.3s;
+			font-size: 18px;
+			backdrop-filter: var(--blur);
+
+			&:hover {
+				color: var(--color_text);
+			}
+
+			&.visible {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.toc {
+	overflow-y: scroll;
+	width: var(--dirtree_width);
+	padding: 48px 0 48px var(--container_padding);
+	transition: transform ease 0.3s;
+	transform: translateX(-100%);
+
+	&.open {
+		transform: translateX(0);
+	}
+}

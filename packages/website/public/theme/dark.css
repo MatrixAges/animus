@@ -1,16 +1,16 @@
-[data-theme="dark"] {
+[data-theme='dark'] {
 	--color_std: black;
 	--color_std_rgb: 0, 0, 0;
 	--color_contrast: white;
 	--color_contrast_rgb: 255, 255, 255;
-	--color_text: #f6f6f6;
-	--color_text_rgb: 246, 246, 246;
-	--color_text_sub: rgba(246, 246, 246, 0.9);
-	--color_text_sublight: rgba(246, 246, 246, 0.81);
-	--color_text_grey: rgba(246, 246, 246, 0.72);
-	--color_text_greylight: rgba(246, 246, 246, 0.6);
-	--color_text_light: rgba(246, 246, 246, 0.48);
-	--color_text_softlight: rgba(246, 246, 246, 0.36);
+	--color_text: #d2d2d2;
+	--color_text_rgb: 210, 210, 210;
+	--color_text_sub: rgba(210, 210, 210, 0.9);
+	--color_text_sublight: rgba(210, 210, 210, 0.81);
+	--color_text_grey: rgba(210, 210, 210, 0.72);
+	--color_text_greylight: rgba(210, 210, 210, 0.6);
+	--color_text_light: rgba(210, 210, 210, 0.48);
+	--color_text_softlight: rgba(210, 210, 210, 0.36);
 	--color_bg: #060606;
 	--color_bg_rgb: 6, 6, 6;
 	--color_bg_1: #121212;
@@ -20,6 +20,7 @@
 	--color_border: rgba(255, 255, 255, 0.09);
 	--color_border_light: rgba(255, 255, 255, 0.06);
 	--color_border_soft: rgba(255, 255, 255, 0.036);
+	--color_border_softlight: rgba(255, 255, 255, 0.021);
 	--shadow: 0 0 48px rgba(var(--color_std_rgb), 0.36);
 	--shadow_left: -6px 6px 30px rgba(var(--color_std_rgb), 0.36);
 	--shadow_right: 6px 0 30px rgba(var(--color_std_rgb), 0.36);
