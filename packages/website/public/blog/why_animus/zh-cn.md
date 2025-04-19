@@ -1,41 +1,41 @@
-# Why Animus
+# 为何做 Animus
 
-The phrase "Nothing is true, everything is permitted" is often associated with the philosophical and historical order of the Assassins, a group known for their clandestine operations and the pursuit of freedom. 
+“万物皆虚，万事皆允”这句话通常与刺客组织的哲学和历史联系在一起，这是一个以秘密行动和追求自由而闻名的团体。
 
-However, this phrase can also be seen as a reflection of the core tenets of liberalism, which advocates for individual liberty, autonomy, and the rejection of absolute truths. 
+然而，这句话也可以被看作是自由主义核心信条的反映，自由主义倡导个人自由、自主和对绝对真理的否定。
 
-In this essay, we will explore the paradoxical nature of this statement from a liberal perspective, dividing our discussion into three parts: the rejection of absolutes, the affirmation of individual freedom, and the implications of such a philosophy on society.
+在本文中，我们将从自由主义的角度探讨这一说法的悖论性质，并将讨论分为三个部分：对绝对的否定、对个人自由的肯定，以及这种哲学对社会的影响。
 
-## The Rejection of Absolutes
+## 对绝对的否定
 
-### Liberalism
+### 自由主义
 
-Liberalism, as a political and moral philosophy, is grounded in skepticism towards absolutes. The idea that "nothing is true" challenges the notion of objective reality and absolute truth, suggesting that what we perceive as truth is often a construct of our individual or collective experiences. 
+自由主义作为一种政治和道德哲学，其基础是对绝对主义的怀疑。“万物皆虚”的观点挑战了客观现实和绝对真理的概念，暗示我们所感知的真理通常是我们个人或集体经验的建构。
 
-This skepticism is not a call to nihilism, but rather an invitation to critical thinking and the acceptance of multiple perspectives. It encourages individuals to question established norms and to recognize the subjective nature of truth.
+这种怀疑并非号召虚无主义，而是鼓励批判性思维和接受多元视角。它鼓励个人质疑既定规范，并认识到真理的主观性。
 
-## Rejection
+## 否定
 
-The rejection of absolutes in liberalism is not a denial of truth, but a recognition of its complexity. It acknowledges that truth is not a fixed entity but a dynamic concept that evolves with human understanding. This approach allows for the possibility of change and growth, as it does not confine us to a single, unyielding interpretation of reality.
+自由主义对绝对的否定并非否认真理，而是承认其复杂性。它承认真理不是一个固定的实体，而是一个随着人类理解而发展的动态概念。这种方法允许变化和成长的可能性，因为它不将我们局限于对现实的单一、僵化的解释。
 
-## The Affirmation of Individual Freedom
+## 对个人自由的肯定
 
-The second part of our discussion focuses on the affirmation of individual freedom, encapsulated by the phrase "everything is permitted." While this may initially seem to suggest a license for anarchy or moral relativism, within the context of liberalism, it is a call for the recognition of individual autonomy and the right to self-determination.
+我们讨论的第二部分侧重于对个人自由的肯定，体现在“万事皆允”这句话中。虽然这最初可能看似暗示着无政府状态或道德相对主义的许可，但在自由主义的背景下，它是对承认个人自主和自决权的呼吁。
 
-Liberalism asserts that each person has the right to make choices about their own life, free from undue interference from the state or other individuals. This includes the freedom of thought, expression, and the pursuit of one's own happiness. It is the belief that individuals are best positioned to understand their own needs and desires and should be allowed to act in accordance with them, within the bounds of respect for the rights of others.
+自由主义主张，每个人都有权对自己的生活做出选择，不受国家或其他个人的不当干涉。这包括思想自由、表达自由以及追求个人幸福的自由。它相信个人最了解自身的需求和愿望，并应被允许在尊重他人权利的范围内据此行事。
 
-This affirmation of freedom is not without its challenges. It requires a delicate balance between individual rights and the common good, necessitating a robust system of laws and social norms that protect individual liberties while maintaining social order.
+这种对自由的肯定并非没有挑战。它需要在个人权利和公共利益之间取得微妙的平衡，需要一个健全的法律和社会规范体系来保护个人自由，同时维护社会秩序。
 
-## The Implications for Society
+## 对社会的影响
 
-The final part of our discussion examines the implications of the philosophy "Nothing is true, everything is permitted" on society. When applied to the collective, this philosophy can lead to a society that values diversity, creativity, and innovation. It encourages a culture of open-mindedness and tolerance, where differing opinions and lifestyles are not only accepted but celebrated.
+我们讨论的最后一部分审视了“万物皆虚，万事皆允”这一哲学对社会的影响。当应用于集体时，这种哲学可以导向一个重视多样性、创造力和创新的社会。它鼓励一种开放和宽容的文化，在这种文化中，不同的观点和生活方式不仅被接受，而且受到颂扬。
 
-However, the implications are not without their complexities. A society that rejects absolutes and affirms individual freedom must also grapple with the potential for moral ambiguity and the absence of a shared moral compass. It must find ways to foster a sense of community and shared values without resorting to enforced conformity or dogmatism.
+然而，其影响并非没有复杂性。一个否定绝对、肯定个人自由的社会，也必须应对潜在的道德模糊性和缺乏共同道德指南针的问题。它必须找到在不诉诸强制性遵从或教条主义的情况下，培养社群感和共同价值观的方法。
 
-Moreover, the liberal society must ensure that the freedom it espouses does not lead to the exploitation or harm of the vulnerable. It must establish safeguards against the abuse of power and the erosion of rights, ensuring that freedom is not merely a privilege of the few but a reality for all.
+此外，自由主义社会必须确保其所倡导的自由不会导致对弱势群体的剥削或伤害。它必须建立防止权力滥用和权利侵蚀的保障措施，确保自由不仅仅是少数人的特权，而是所有人的现实。
 
-## Conclusion
+## 结论
 
-In conclusion, the phrase "Nothing is true, everything is permitted" when viewed through the lens of liberalism, presents a paradox that challenges us to question the nature of truth and the extent of individual freedom. It is a philosophy that demands a society that is open to change, respects individual autonomy, and is vigilant in protecting the rights of all its members. While it may seem to offer a radical departure from traditional values, it is, in essence, a call for a society that is more inclusive, more adaptable, and more attuned to the evolving needs of its people.
+总之，从自由主义的视角来看，“万物皆虚，万事皆允”这句话呈现出一个悖论，挑战我们去质疑真理的本质和个人自由的范围。这是一种要求社会对变化持开放态度、尊重个人自主并警惕保护所有成员权利的哲学。虽然它似乎提供了一种与传统价值观的彻底背离，但其本质上是呼吁建立一个更具包容性、适应性更强、更贴合其人民不断变化需求的社会。
 
-This essay has explored the complexities and nuances of this philosophy, highlighting its potential to foster a more open and free society, while also acknowledging the challenges it presents. As we continue to navigate the ever-changing landscape of human experience, the principles of liberalism offer a framework for understanding and embracing the paradox of freedom.
+本文探讨了这一哲学的复杂性和细微之处，强调了其促进更开放、更自由社会的潜力，同时也承认了它所带来的挑战。在我们不断探索人类经验变幻莫测的图景时，自由主义的原则为理解和拥抱自由的悖论提供了一个框架。
