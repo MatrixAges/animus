@@ -82,6 +82,8 @@ export const highlight = async (code: string, lang: BundledLanguage) => {
 
 ## Math
 
+This is an inline formula $E = mc^2$.
+
 $$
 \boxed{\int_{\Omega} \nabla \cdot \mathbf{F} \, d\Omega + \int_{\partial \Omega} \mathbf{F} \cdot \mathbf{n} \, d\partial \Omega = \iiint_{V} \nabla \cdot \mathbf{G} \, dV + \iint_{\partial V} \mathbf{G} \cdot \mathbf{n} \, d\partial V}
 $$

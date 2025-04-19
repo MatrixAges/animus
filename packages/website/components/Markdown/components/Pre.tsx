@@ -1,6 +1,7 @@
 import { $ } from '@website/utils'
 
 import Code from './Code'
+import Math from './Math'
 import Mermaid from './Mermaid'
 
 import type { HTMLAttributes } from 'react'
@@ -19,6 +20,10 @@ const Index = (props: HTMLAttributes<HTMLPreElement> & ExtraProps) => {
 
 	if (language === 'mermaid') {
 		return <Mermaid>{content}</Mermaid>
+	}
+
+	if (language === 'math') {
+		return <Math>{content}</Math>
 	}
 
 	return <Code language={language as BundledLanguage}>{content}</Code>

@@ -23,6 +23,15 @@
 			background-color: var(--color_text);
 		}
 
+		.md_block {
+			padding-inline-start: var(--editor_padding_x);
+			padding-inline-end: var(--editor_padding_x);
+			margin-block-start: 0;
+			margin-block-end: var(--editor_padding_y);
+			margin-inline-start: 0;
+			margin-inline-end: 0;
+		}
+
 		p {
 			padding-inline-start: var(--editor_padding_x);
 			padding-inline-end: var(--editor_padding_x);
@@ -221,14 +230,12 @@
 			background-color: var(--color_border_light);
 		}
 
-		.mermaid_wrap {
-			padding-inline-start: var(--editor_padding_x);
-			padding-inline-end: var(--editor_padding_x);
-			margin-block-start: 0;
-			margin-block-end: var(--editor_padding_y);
-			margin-inline-start: 0;
-			margin-inline-end: 0;
-			text-align: center;
+		.math_wrap {
+			&.inline {
+				.katex {
+					font-size: 1em;
+				}
+			}
 		}
 
 		.footnotes {

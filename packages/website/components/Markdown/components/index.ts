@@ -5,6 +5,7 @@ import h3 from './H3'
 import h4 from './H4'
 import h5 from './H5'
 import h6 from './H6'
+import code from './InlineCode'
 import pre from './Pre'
 
 import type { Components } from 'react-markdown'
@@ -17,5 +18,6 @@ export default {
 	h5,
 	h6,
 	a,
-	pre
+	pre,
+	code
 } as Components

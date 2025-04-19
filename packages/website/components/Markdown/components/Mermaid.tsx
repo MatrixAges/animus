@@ -28,7 +28,7 @@ const Index = (props: PropsWithChildren) => {
 			}
 		>
 			<div
-				className='mermaid_wrap w_100 border_box justify_center'
+				className='mermaid_wrap md_block w_100 text_center border_box justify_center'
 				ref={ref}
 				role='button'
 				spellCheck={false}

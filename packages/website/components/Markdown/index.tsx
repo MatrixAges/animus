@@ -1,10 +1,6 @@
 'use client'
 
-import 'katex/dist/katex.min.css'
-
 import Markdown from 'react-markdown'
-import katex from 'rehype-katex'
-import katex_notranslate from 'rehype-katex-notranslate'
 import slug from 'rehype-slug'
 import breaks from 'remark-breaks'
 import frontmatter from 'remark-frontmatter'
@@ -30,7 +26,7 @@ const Index = (props: IProps) => {
 		<article className={$.cx(styles._local, md_styles.md, md_styles.serif)}>
 			<Markdown
 				remarkPlugins={[gfm, breaks, math, frontmatter, images]}
-				rehypePlugins={[slug, figure, katex, katex_notranslate]}
+				rehypePlugins={[slug, figure]}
 				components={components}
 			>
 				{md}

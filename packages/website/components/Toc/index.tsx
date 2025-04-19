@@ -20,7 +20,7 @@ const Index = (props: IProps) => {
 
 	return (
 		<div className={$.cx('w_100 border_box flex flex_column', styles._local, className)}>
-			<Anchor items={list} affix={false}></Anchor>
+			<Anchor items={list} affix={false} offsetTop={450}></Anchor>
 		</div>
 	)
 }
