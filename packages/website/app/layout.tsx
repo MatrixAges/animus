@@ -89,9 +89,9 @@ export const metadata: Metadata = {
 }
 
 // edge for cloudflare
-// export const runtime = 'edge'
+export const runtime = 'edge'
 
 //nodejs for nextjs dev
-export const runtime = 'nodejs'
+// export const runtime = 'nodejs'
 
 export default Index
