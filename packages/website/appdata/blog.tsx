@@ -1,11 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const blogs = [
-	{
-		id: 'why_animus',
-		date: '2025-04-20'
-	}
-]
+import blogs from '../appmeta/blog'
 
 export const landing_blog = blogs[0].id
 

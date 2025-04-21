@@ -22,7 +22,6 @@ const Index = (props: IProps) => {
 	const { theme } = useTheme()
 	const [html, setHTML] = useState<string>('')
 	const [copyied, setCopyied] = useState(false)
-	const lang = useRef<BundledLanguage>(null)
 
 	useLayoutEffect(() => {
 		highlight(children, language, theme).then(setHTML)
@@ -40,7 +39,7 @@ const Index = (props: IProps) => {
 
 	return (
 		<div className={$.cx('w_100 border_box relative', styles._local)}>
-			<span className='lang absolute'>{lang.current}</span>
+			<span className='lang absolute'>{language}</span>
 			<button className='btn_copy flex justify_center align_center absolute clickable' onClick={copy}>
 				{copyied ? <Check></Check> : <Copy></Copy>}
 			</button>

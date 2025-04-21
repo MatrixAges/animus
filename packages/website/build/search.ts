@@ -2,8 +2,6 @@ import { Document } from 'flexsearch'
 import { readFileSync, writeFileSync } from 'fs'
 import { compressToUTF16 } from 'lz-string'
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { mdxFromMarkdown } from 'mdast-util-mdx'
-import { mdxjs } from 'micromark-extension-mdxjs'
 import { nanoid } from 'nanoid'
 import { globSync } from 'tinyglobby'
 
@@ -76,7 +74,7 @@ mds.forEach(async mds_item => {
 	mds_item.docs.forEach(async item => {
 		const link = item.replace(`/${mds_item.locale}.mdx`, '')
 		const doc = readFileSync(`${docs_dir}/${item}`)
-		const ast = fromMarkdown(doc, { extensions: [mdxjs()], mdastExtensions: [mdxFromMarkdown()] })
+		const ast = fromMarkdown(doc)
 		const items = ast.children
 
 		let headings = [] as Array<{ title: string; level: number }>

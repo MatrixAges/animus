@@ -2,6 +2,7 @@
 
 import { useIsomorphicLayoutEffect } from 'ahooks'
 import Cookies from 'js-cookie'
+import { minimatch } from 'minimatch'
 import { usePathname } from 'next/navigation'
 import { useLayoutEffect, useMemo, PropsWithChildren } from 'react'
 
@@ -16,6 +17,7 @@ import type { App } from '@website/types'
 import type { AppProgressProviderProps } from '@bprogress/next'
 
 const excludes = ['/docs']
+const progress_path = ['/', '/blog/*']
 
 export interface IPropsClient extends PropsWithChildren {
 	locale: App.Locales
@@ -49,6 +51,7 @@ const Index = (props: IPropsClient) => {
 	}, [theme, theme_cookie_exsit])
 
 	const show_layout = useMemo(() => !excludes.some(item => pathname.indexOf(item) !== -1), [pathname])
+	const show_progress = useMemo(() => progress_path.some(item => minimatch(pathname, item)), [pathname])
 
 	const props_bar: AppProgressProviderProps = {
 		height: '1.5px',
@@ -59,7 +62,7 @@ const Index = (props: IPropsClient) => {
 	return (
 		<div className={$.cx('w_100 flex flex_column', styles._local)}>
 			<Cookie></Cookie>
-			<Progress></Progress>
+			{show_progress && <Progress></Progress>}
 			{show_layout && <Menu></Menu>}
 			<ProgressProvider {...props_bar}>{children}</ProgressProvider>
 			{show_layout && <Footer></Footer>}

@@ -10,7 +10,8 @@
 		"up": "pnpm run transform && pnpm run deploy",
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
 		"build:theme": "bun ./build/theme",
-		"build:sitemap": "bun ./build/sitemap"
+		"build:sitemap": "bun ./build/sitemap",
+		"build:blog": "bun ./build/blog"
 	},
 	"keywords": [],
 	"dependencies": {
@@ -44,6 +45,7 @@
 		"mdast-util-toc": "^7.1.0",
 		"mermaid": "^11.6.0",
 		"micromark-extension-frontmatter": "^2.0.0",
+		"minimatch": "^10.0.1",
 		"mobx": "^6.13.7",
 		"mobx-react-lite": "^4.1.0",
 		"motion": "^12.7.3",
@@ -59,6 +61,7 @@
 		"react-i18next": "^15.4.1",
 		"react-markdown": "^10.1.0",
 		"react-type-animation": "^3.2.0",
+		"rehype-callouts": "^2.0.2",
 		"rehype-slug": "^6.0.0",
 		"remark-breaks": "^4.0.0",
 		"remark-frontmatter": "^5.0.0",

@@ -1,6 +1,9 @@
 'use client'
 
+import 'katex/dist/katex.min.css'
+
 import Markdown from 'react-markdown'
+import callouts from 'rehype-callouts'
 import slug from 'rehype-slug'
 import breaks from 'remark-breaks'
 import frontmatter from 'remark-frontmatter'
@@ -23,10 +26,10 @@ const Index = (props: IProps) => {
 	const { md } = props
 
 	return (
-		<article className={$.cx(styles._local, md_styles.md, md_styles.serif)}>
+		<article className={$.cx(styles._local, md_styles.md, md_styles.callout, md_styles.serif)}>
 			<Markdown
 				remarkPlugins={[gfm, breaks, math, frontmatter, images]}
-				rehypePlugins={[slug, figure]}
+				rehypePlugins={[slug, figure, [callouts, { theme: 'vitepress' }]]}
 				components={components}
 			>
 				{md}

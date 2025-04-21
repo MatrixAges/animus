@@ -1,5 +1,6 @@
 ._local {
-	padding-top: 72px;
+	min-height: 100vh;
+	padding-top: 36px;
 
 	:global {
 		.icon_wrap {

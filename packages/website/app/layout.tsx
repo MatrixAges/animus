@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { GoogleAnalytics } from '@next/third-parties/google'
-import { description, slogan } from '@website/appdata'
+import { description, name, slogan } from '@website/appdata'
 import { Client } from '@website/appwidgets/layout'
 import { ConfigProvider } from '@website/components'
 import { getUserLocale, getUserTheme } from '@website/services'
@@ -84,11 +84,11 @@ const Index = async (props: PropsWithChildren) => {
 }
 
 export const metadata: Metadata = {
-	title: `Animus - ${slogan}.`,
+	title: `${name} - ${slogan}.`,
 	description: `${description}.`
 }
 
 // edge for cloudflare
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 export default Index

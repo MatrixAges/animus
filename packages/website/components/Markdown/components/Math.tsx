@@ -1,7 +1,5 @@
 'use client'
 
-import 'katex/dist/katex.min.css'
-
 import katex from 'katex'
 import { useLayoutEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'

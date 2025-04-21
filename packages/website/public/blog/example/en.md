@@ -29,7 +29,6 @@ ___This is bold italic___.
 | Data 1   | Very Long Text Data 1 | Text Data 3| Some Text 4 | 
 | Data 1   | Very Long Text Data 1 | Text Data 3| Some Text 4 | 
 
-
 ## Tasklist
 
 - [ ] Prepare notes for tomorrow's math class
@@ -38,6 +37,35 @@ ___This is bold italic___.
 - [x] Solve puzzles from the physics class
 - [ ] Check emails for new homework instructions or notifications
 - [x] Preview the chemistry class content for next week
+
+## Quote
+
+> "The only way to do great work is to love what you do." - Steve Jobs
+
+## Callouts
+
+> [!NOTE] This is `NOTE` callout
+> Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! 
+
+> [!TIP] This is `TIP` callout
+> Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! 
+
+> [!IMPORTANT] This is `IMPORTANT` callout
+> Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! 
+
+> [!WARNING] This is `WARNING` callout
+> Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! 
+
+> [!CAUTION] This is `CAUTION` callout
+> Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! Some content is displayed directly! 
+
+### Collapsible
+
+> [!NOTE]- This is a **collapsible** callout
+> Some content shown after opening!
+
+> [!NOTE]+ This is a **uncollapsible** callout
+> Some content shown after opening!
 
 ## Footnote
 
