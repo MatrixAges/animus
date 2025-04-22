@@ -130,11 +130,14 @@
 		}
 
 		blockquote {
+			line-height: 1.5;
+			box-sizing: border-box;
 			padding-left: 18px;
 			margin-block-end: var(--editor_padding_y);
 			margin-inline-start: var(--editor_padding_x);
 			margin-inline-end: var(--editor_padding_x);
-			border-left: 2.4px solid var(--color_border_light);
+			border-left: 3.6px solid var(--color_border_light);
+			font-size: 0.72em;
 		}
 
 		video {
@@ -280,7 +283,6 @@
 
 		.callout {
 			--rc-color-default: #888;
-
 			width: 100%;
 			line-height: 1.5;
 			box-sizing: border-box;
@@ -289,8 +291,8 @@
 			margin-block-end: var(--editor_padding_y);
 			margin-inline-start: 0;
 			margin-inline-end: 0;
-			border-left: 2.4px solid rgb(from var(--rc-color-light, var(--rc-color-default)) r g b / 0.6);
-			font-size: inherit;
+			border-left: 3.6px solid rgb(from var(--rc-color-light, var(--rc-color-default)) r g b / 0.6);
+			font-size: 0.72em;
 
 			&[data-collapsible="false"] {
 				padding-top: 6px;
