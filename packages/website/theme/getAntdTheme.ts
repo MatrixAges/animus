@@ -26,7 +26,7 @@ export default (theme: App.Theme) => {
 			colorBgContainer: vars.color_bg,
 			colorBgElevated: vars.color_bg,
 			colorBgLayout: vars.color_bg_1,
-			colorBorder: vars.color_border_light,
+			colorBorder: vars.color_border,
 			colorBorderSecondary: vars.color_border_light,
 			controlItemBgActive: vars.color_bg_2,
 			switchHeight: 34,
@@ -59,11 +59,6 @@ export default (theme: App.Theme) => {
 			Input: {
 				colorPrimary: vars.color_text,
 				colorPrimaryHover: vars.color_text_grey
-			},
-			Select: {
-				colorPrimary: vars.color_text,
-				optionActiveBg: vars.color_bg_2,
-				colorPrimaryHover: vars.color_text_light
 			},
 			Segmented: {
 				borderRadiusSM: 6,

@@ -14,13 +14,25 @@
 		.table_wrap {
 			border-collapse: collapse;
 
+			th,
+			td {
+				box-sizing: border-box;
+				padding: 0px 8px;
+				border-bottom: var(--border);
+
+				&:first-child {
+					padding-left: 12px;
+				}
+
+				&:last-child {
+					padding-right: 4px;
+				}
+			}
+
 			thead {
 				tr {
 					th {
 						height: 40px;
-						box-sizing: border-box;
-						padding: 0px 8px;
-						border-bottom: var(--border);
 						text-align: left;
 						white-space: nowrap;
 						font-weight: 500;
@@ -36,14 +48,15 @@
 						}
 					}
 
-					td {
-						box-sizing: border-box;
-						padding: 12px 8px;
-						border-bottom: var(--border);
-
-						&.sorting {
+					&:hover {
+						td {
 							background-color: var(--color_bg_1);
 						}
+					}
+
+					td {
+						height: 48px;
+						white-space: nowrap;
 					}
 				}
 			}

@@ -1,4 +1,11 @@
 ._local {
 	:global {
+		.ani-input-number {
+			width: unset !important;
+
+			.ani-input-number-input {
+				padding: 0;
+			}
+		}
 	}
 }

@@ -2,6 +2,8 @@ export * from './components'
 
 export namespace Omnitable {
 	export interface Config {
+		// 主键，默认为 'id'
+		primary?: string
 		// 支持mustache语法 /delete/{{id}} => /delete/3
 		actions: {
 			baseurl: string
@@ -48,7 +50,18 @@ export namespace Omnitable {
 
 	export type Field = { bind: string } & FieldComponent
 
-	export type FieldComponent = Text | Input | InputNumber | Select | Date | DatePicker | Priority | StatusIndicator
+	export type FieldComponent =
+		| Text
+		| Input
+		| InputNumber
+		| Select
+		| Date
+		| DatePicker
+		| Priority
+		| Status
+		| HttpCode
+		| HttpCodeIndicator
+		| Operation
 
 	export type Text = {
 		type: 'text'
@@ -77,8 +90,13 @@ export namespace Omnitable {
 		type: 'select'
 		props: {
 			placeholder?: string
-			options: Array<{ label: string; value: string | number | boolean } | string>
+			options: Array<SelectOption | string>
 		}
+	}
+
+	export interface SelectOption {
+		label: string
+		value: string | number | boolean
 	}
 
 	export type Date = {
@@ -100,8 +118,23 @@ export namespace Omnitable {
 		props?: {}
 	}
 
-	export type StatusIndicator = {
-		type: 'status_indicator'
+	export type Status = {
+		type: 'status'
+		props?: {}
+	}
+
+	export type HttpCode = {
+		type: 'http_code'
+		props?: {}
+	}
+
+	export type HttpCodeIndicator = {
+		type: 'http_code_indicator'
+		props?: {}
+	}
+
+	export type Operation = {
+		type: 'operation'
 		props?: {}
 	}
 

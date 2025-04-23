@@ -1,6 +1,7 @@
 import type { Omnitable } from './types'
 
 export const config = {
+	primary: 'id',
 	actions: {
 		baseurl: '',
 		query: ''
@@ -18,12 +19,13 @@ export const config = {
 	table: {
 		columns: [
 			{ name: 'Task', readonly: true },
-			{ name: 'Labels' },
-			{ name: 'Title' },
-			{ name: 'Status' },
 			{ name: 'Priority' },
-			{ name: 'Est. Hours' },
-			{ name: 'Created At' }
+			{ name: 'Title', width: 540 },
+			{ name: 'Labels' },
+			{ name: 'Status' },
+			{ name: 'Est. Hours', width: 90 },
+			{ name: 'Created At', width: 150 },
+			{ name: 'Operation' }
 		]
 	},
 	fields: {
@@ -34,27 +36,8 @@ export const config = {
 			},
 			Status: {
 				bind: 'status',
-				type: 'select',
-				props: {
-					options: [
-						{
-							label: 'Todo',
-							value: 3
-						},
-						{
-							label: 'In-progress',
-							value: 2
-						},
-						{
-							label: 'Done',
-							value: 1
-						},
-						{
-							label: 'Canceled',
-							value: 0
-						}
-					]
-				}
+				type: 'status',
+				props: {}
 			},
 			Labels: {
 				bind: 'labels',
@@ -74,8 +57,12 @@ export const config = {
 				props: {}
 			},
 			'Created At': {
-				bind: 'created_at',
-				type: 'date'
+				bind: 'createdAt',
+				type: 'date_picker'
+			},
+			Operation: {
+				bind: '_',
+				type: 'operation'
 			}
 		},
 		filter: {},

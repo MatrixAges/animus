@@ -6,6 +6,7 @@ export interface IPropsFilter {
 }
 
 export interface IPropsTable {
+	primary: Model['primary']
 	table_columns: Model['table_columns']
 	data: Omnitable.List['data']
 	editing_info: Model['editing_info']
@@ -41,10 +42,13 @@ export interface IPropsComponent {
 	editing: boolean
 	onFocus?: (v?: any) => void
 	onBlur?: () => void
+	onChange?: (v: any) => void
 }
 
-export interface ComponentType extends Pick<IPropsComponent, 'value' | 'editing' | 'onFocus' | 'onBlur'> {
-	self_props: any
+export interface ComponentType<T = {}>
+	extends Pick<IPropsComponent, 'value' | 'editing' | 'onFocus' | 'onBlur' | 'onChange'> {
+	width?: number
+	self_props: T
 }
 
 export interface IPropsPagination {}

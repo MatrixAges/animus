@@ -6,7 +6,7 @@ Since ancient times, humans have held a special belief in "gods." So, what const
 
 That which humans cannot do, is attributed to gods.
 
-Human belief in "gods" stems from the worship of "capable strong ones." This mode of thinking originates from humanity's firm belief in its own intelligence and spirituality—so small in stature, yet distinctly different from other creatures in nature, possessing unique "wisdom" and "spirituality," capable of building powerful civilizations that have lasted for millennia. Humanity's uniqueness in nature and its faith in its own wisdom and abilities have constructed an image within the collective unconscious, which it calls—"God."
+Human belief in "gods" stems from the worship of "capable strong ones." This mode of thinking originates from us's firm belief in its own intelligence and spirituality—so small in stature, yet distinctly different from other creatures in nature, possessing unique "wisdom" and "spirituality," capable of building powerful civilizations that have lasted for millennia. Humanity's uniqueness in nature and its faith in its own wisdom and abilities have constructed an image within the collective unconscious, which it calls—"God."
 
 Today, our pursuit of AI is akin to ancient humans' pursuit of "gods." Both are pursuits of the boundaries of human capability, exploring humanity itself by leveraging external forms. Therefore, when researching AI, it's beneficial to return to humanity itself. By studying human specificity and deconstructing human traits, we can achieve AGI (Artificial General Intelligence) of equivalent or even superior levels to humans.
 

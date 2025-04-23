@@ -2,11 +2,12 @@
 
 import { makeAutoObservable } from 'mobx'
 
-import data from './data.json'
+import data from './mock_tasks'
 
 import type { Omnitable } from './types'
 
 export default class Index {
+	primary = 'id'
 	config = null as unknown as Omnitable.Config
 	filter_columns = [] as Array<Omnitable.BaseColumn & Omnitable.Field>
 	table_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
@@ -15,10 +16,12 @@ export default class Index {
 	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
 
 	constructor() {
-		makeAutoObservable(this, { config: false }, { autoBind: true })
+		makeAutoObservable(this, { primary: false, config: false }, { autoBind: true })
 	}
 
 	init(config: Index['config']) {
+		if (config.primary) this.primary = config.primary
+
 		this.config = config
 
 		this.make()
@@ -38,7 +41,9 @@ export default class Index {
 		})
 	}
 
-	onChange(index: number, v: any) {}
+	onChange(index: number, v: any) {
+		this.list!.data[index] = { ...this.list?.data[index], ...v }
+	}
 
 	onSort(field: string) {}
 }

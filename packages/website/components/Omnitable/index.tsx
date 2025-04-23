@@ -14,6 +14,7 @@ import styles from './index.module.css'
 import Model from './model'
 
 import type { Omnitable, IPropsFilter, IPropsTable, IPropsPagination } from './types'
+
 const Index = (config: Omnitable.Config) => {
 	const [x] = useState(() => container.resolve(Model))
 
@@ -26,6 +27,7 @@ const Index = (config: Omnitable.Config) => {
 	}
 
 	const props_table: IPropsTable = {
+		primary: x.primary,
 		table_columns: $.copy(x.table_columns),
 		data: $.copy(x.list ? x.list.data : []),
 		sort_params: $.copy(x.sort_params),

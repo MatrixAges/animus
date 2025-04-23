@@ -1,9 +1,9 @@
 import { Select } from 'antd'
 import { useMemo } from 'react'
 
+import { CheckCircle, Question, Timer, XCircle } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import Icon from './Icon'
 import styles from './index.module.css'
 
 import type { Omnitable, ComponentType } from '../../types'
@@ -12,26 +12,8 @@ const options = [
 	{
 		label: (
 			<span className='flex align_center'>
-				<Icon value={0}></Icon>
-				No priority
-			</span>
-		),
-		value: 0
-	},
-	{
-		label: (
-			<span className='flex align_center'>
-				<Icon value={4}></Icon>
-				Urgent
-			</span>
-		),
-		value: 4
-	},
-	{
-		label: (
-			<span className='flex align_center'>
-				<Icon value={3}></Icon>
-				High
+				<Question className='mr_4' size={16}></Question>
+				Todo
 			</span>
 		),
 		value: 3
@@ -39,8 +21,8 @@ const options = [
 	{
 		label: (
 			<span className='flex align_center'>
-				<Icon value={2}></Icon>
-				Medium
+				<Timer className='mr_4' size={16}></Timer>
+				In-progress
 			</span>
 		),
 		value: 2
@@ -48,11 +30,20 @@ const options = [
 	{
 		label: (
 			<span className='flex align_center'>
-				<Icon value={1}></Icon>
-				Low
+				<CheckCircle className='mr_4' size={16}></CheckCircle>
+				Done
 			</span>
 		),
 		value: 1
+	},
+	{
+		label: (
+			<span className='flex align_center'>
+				<XCircle className='mr_4' size={16}></XCircle>
+				Canceled
+			</span>
+		),
+		value: 0
 	}
 ]
 

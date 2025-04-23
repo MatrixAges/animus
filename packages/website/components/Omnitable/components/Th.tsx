@@ -9,6 +9,7 @@ const Index = (props: IPropsTh) => {
 	const { name, bind, sort } = column
 
 	const onClick = useMemoizedFn(() => (sort ? () => onSort?.(bind) : undefined))
+	const text = column.type === 'operation' ? '' : name
 
 	return (
 		<th className={$.cx('form_table_th', sort && 'sorting')} onClick={onClick}>
@@ -28,7 +29,7 @@ const Index = (props: IPropsTh) => {
 					</div>
 				</div>
 			) : (
-				name
+				text
 			)}
 		</th>
 	)

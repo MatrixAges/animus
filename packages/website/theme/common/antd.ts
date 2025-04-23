@@ -9,7 +9,7 @@ export default {
 		colorError: common.color_danger,
 		controlHeightLG: 38,
 		controlHeight: 30,
-		controlHeightSM: 24,
+		controlHeightSM: 26,
 		controlHeightXS: 18,
 		lineHeight: common.line_height,
 		fontFamily: 'var(--font_family)',

@@ -6,9 +6,8 @@ import Th from './Th'
 import type { IPropsTable } from '../types'
 
 const Index = (props: IPropsTable) => {
-	const { table_columns, data, editing_info, sort_params, setEditingInfo, onChange, onSort } = props
+	const { primary, table_columns, data, editing_info, sort_params, setEditingInfo, onChange, onSort } = props
 
-	// console.log(table_columns)
 	return (
 		<table className='table_wrap w_100'>
 			<thead>
@@ -38,7 +37,7 @@ const Index = (props: IPropsTable) => {
 						}
 						setEditingInfo={setEditingInfo}
 						onChange={onChange}
-						key={item.id}
+						key={item[primary]}
 					></Row>
 				))}
 			</tbody>
