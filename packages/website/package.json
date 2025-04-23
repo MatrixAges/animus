@@ -28,6 +28,7 @@
 		"ahooks": "^3.8.4",
 		"antd": "^5.24.7",
 		"await-to-js": "^3.0.0",
+		"change-case": "^5.4.4",
 		"classix": "^2.2.2",
 		"dayjs": "^1.11.13",
 		"detect-gpu": "^5.0.70",
