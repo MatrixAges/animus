@@ -1,7 +1,9 @@
+import { useMemoizedFn } from 'ahooks'
 import { Dropdown } from 'antd'
 import { Ellipsis } from 'lucide-react'
+import { useRef } from 'react'
 
-import { Eye, PencilSimple, Trash } from '@phosphor-icons/react'
+import { Eye, PencilSimpleLine, Trash } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -18,7 +20,7 @@ const items: MenuProps['items'] = [
 	{
 		key: 'edit',
 		label: 'Edit',
-		icon: <PencilSimple size={16}></PencilSimple>
+		icon: <PencilSimpleLine size={16}></PencilSimpleLine>
 	},
 	{
 		type: 'divider'
@@ -32,6 +34,14 @@ const items: MenuProps['items'] = [
 
 const Index = (props: ComponentType<Omnitable.Operation['props']>) => {
 	const { editing, onFocus, onChange } = props
+	const signal = useRef(0)
+
+	const onClick = useMemoizedFn(({ key }) => {
+		// 添加一个动态值，以通过form的相同值校验，触发onValuesChange
+		signal.current++
+
+		onChange?.({ key, signal: signal.current })
+	})
 
 	const Btn = (
 		<div className='btn_wrap flex justify_center align_center clickable'>
@@ -40,13 +50,14 @@ const Index = (props: ComponentType<Omnitable.Operation['props']>) => {
 	)
 
 	return (
-		<button className={$.cx(styles._local)} onFocus={onFocus}>
+		<button className={$.cx('flex', styles._local)} onFocus={onFocus}>
 			{editing ? (
 				<Dropdown
 					rootClassName={styles.dropdown}
 					trigger={['click']}
 					destroyPopupOnHide
-					menu={{ items, onFocus }}
+					getPopupContainer={() => document.body}
+					menu={{ items, onClick, onFocus }}
 				>
 					<div>{Btn}</div>
 				</Dropdown>

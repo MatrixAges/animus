@@ -1,10 +1,16 @@
 ._local {
+	width: 26px;
+	height: 26px;
+	padding: 0;
+	color: var(--color_text_greylight);
+	background-color: transparent;
+	text-align: left;
+
 	:global {
 		.btn_wrap {
 			width: 26px;
 			height: 26px;
 			border-radius: var(--radius);
-			color: var(--color_text_greylight);
 
 			&:hover,
 			&:active {
@@ -24,12 +30,14 @@
 
 .dropdown {
 	:global {
-		.ani-dropdown-menu-item {
-			min-width: 120px;
-			padding: 3px 6px !important;
+		.ani-dropdown-menu {
+			.ani-dropdown-menu-item {
+				min-width: 108px;
+				padding: 3px 6px !important;
 
-			.ani-dropdown-menu-item-icon {
-				margin-inline-end: 4px !important;
+				.ani-dropdown-menu-item-icon {
+					margin-inline-end: 6px !important;
+				}
 			}
 		}
 	}

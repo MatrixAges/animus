@@ -13,7 +13,7 @@ const { Item } = Form
 
 const Index = (props: IPropsCol) => {
 	const { column, value, row_index, focus, setEditingField } = props
-	const { bind, readonly } = column
+	const { type, bind, readonly } = column
 	const ref = useRef<HTMLTableCellElement>(null)
 	const [hover, setHover] = useState(false)
 
@@ -60,7 +60,7 @@ const Index = (props: IPropsCol) => {
 	const Content = useDeepMemo(() => <Component {...props_component}></Component>, [props_component])
 
 	return (
-		<td className='form_table_td' width={column.width} ref={ref}>
+		<td className={$.cx('form_table_td', type === 'operation' && 'operation')} width={column.width} ref={ref}>
 			{props_component.editing ? (
 				<Item name={bind} noStyle>
 					{Content}

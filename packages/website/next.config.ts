@@ -36,4 +36,4 @@ const config: NextConfig = {
 	experimental: {}
 }
 
-export default withIntl(config)
+export default withRspack(withIntl(config))

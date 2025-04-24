@@ -20,11 +20,11 @@ export const config = {
 		columns: [
 			{ name: 'Task', readonly: true },
 			{ name: 'Priority' },
-			{ name: 'Title', width: 540 },
+			{ name: 'Title', width: 540, span: 24 },
 			{ name: 'Labels' },
 			{ name: 'Status' },
-			{ name: 'Est. Hours', width: 90 },
-			{ name: 'Created At', width: 150 },
+			{ name: 'Est. Hours', width: 72 },
+			{ name: 'Created At', width: 150, readonly: true },
 			{ name: 'Operation' }
 		]
 	},
@@ -61,7 +61,7 @@ export const config = {
 				type: 'date_picker'
 			},
 			Operation: {
-				bind: '_',
+				bind: '_operation',
 				type: 'operation'
 			}
 		},
@@ -70,6 +70,15 @@ export const config = {
 			Task: {
 				bind: 'id',
 				type: 'text'
+			}
+		},
+		form: {
+			Title: {
+				bind: 'title',
+				type: 'textarea',
+				props: {
+					rows: 3
+				}
 			}
 		}
 	}

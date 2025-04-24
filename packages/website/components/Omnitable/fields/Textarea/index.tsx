@@ -6,22 +6,19 @@ import styles from './index.module.css'
 
 import type { Omnitable, ComponentType } from '../../types'
 
-const Index = (props: ComponentType<Omnitable.Input['props']>) => {
-	const { self_props, width, value, editing, use_by_form, disabled, onFocus, onBlur, onChange } = props
+const { TextArea } = Input
+
+const Index = (props: ComponentType<Omnitable.Textarea['props']>) => {
+	const { self_props, width, value, editing, use_by_form, onFocus, onBlur, onChange } = props
 	const {} = self_props || {}
 
 	return (
 		<div
-			className={$.cx(
-				'w_100 flex align_center',
-				styles._local,
-				use_by_form && styles.use_by_form,
-				disabled && styles.disabled
-			)}
+			className={$.cx('w_100 flex align_center', styles._local, use_by_form && styles.use_by_form)}
 			style={{ width }}
 		>
 			{editing ? (
-				<Input
+				<TextArea
 					{...self_props}
 					className='w_100 line_clamp_1'
 					variant='borderless'
@@ -29,9 +26,9 @@ const Index = (props: ComponentType<Omnitable.Input['props']>) => {
 					onFocus={onFocus}
 					onBlur={onBlur}
 					onChange={onChange}
-				></Input>
+				></TextArea>
 			) : (
-				<span className='text_wrap line_clamp_1 border_box'>{value}</span>
+				<span className='text_wrap border_box'>{value}</span>
 			)}
 		</div>
 	)

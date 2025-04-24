@@ -1,8 +1,8 @@
-[data-theme='light'] {
+[data-theme="light"] {
 	--from: 100% 0 0 0;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
 	--from: 0 0 100% 0;
 
 	::selection {
@@ -47,6 +47,18 @@ body {
 
 body {
 	box-sizing: border-box;
+}
+
+body[data-scroll-locked] {
+	position: relative !important;
+	overflow: hidden !important;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	margin-top: 0;
+	margin-right: 0px !important;
+	margin-left: 0;
+	overscroll-behavior: contain;
 }
 
 ::-webkit-scrollbar-thumb {

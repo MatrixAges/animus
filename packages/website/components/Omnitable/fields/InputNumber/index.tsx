@@ -7,11 +7,14 @@ import styles from './index.module.css'
 import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.InputNumber['props']>) => {
-	const { self_props, width, value, editing, onFocus, onBlur, onChange } = props
+	const { self_props, width, value, editing, use_by_form, disabled, onFocus, onBlur, onChange } = props
 	const {} = self_props || {}
 
 	return (
-		<div className={$.cx(styles._local)} style={{ width }}>
+		<div
+			className={$.cx(styles._local, use_by_form && styles.use_by_form, disabled && styles.disabled)}
+			style={{ width }}
+		>
 			{editing ? (
 				<InputNumber
 					{...self_props}

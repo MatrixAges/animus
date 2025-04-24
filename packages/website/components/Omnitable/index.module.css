@@ -1,7 +1,4 @@
 ._local {
-	overflow-x: auto;
-	border: var(--border);
-	border-radius: var(--radius);
 	outline: none;
 
 	:global {
@@ -12,7 +9,10 @@
 		}
 
 		.table_wrap {
-			border-collapse: collapse;
+			overflow-x: auto;
+			width: 100%;
+			border-spacing: 0;
+			border-collapse: separate;
 
 			th,
 			td {
@@ -22,17 +22,42 @@
 
 				&:first-child {
 					padding-left: 12px;
+					border-left: var(--border);
 				}
 
 				&:last-child {
-					padding-right: 4px;
+					padding-left: 12px;
+					border-right: var(--border);
 				}
 			}
 
 			thead {
 				tr {
+					&:first-child {
+						th {
+							&:first-child {
+								border-top-left-radius: var(--radius);
+							}
+
+							&:last-child {
+								border-top-right-radius: var(--radius);
+							}
+						}
+					}
+
+					&.selected {
+						th {
+							border-bottom-color: var(--color_text);
+						}
+					}
+
 					th {
+						position: sticky;
+						z-index: 101;
+						top: 0;
 						height: 40px;
+						border-top: var(--border);
+						background-color: var(--color_bg);
 						text-align: left;
 						white-space: nowrap;
 						font-weight: 500;
@@ -44,19 +69,59 @@
 				tr {
 					&:last-child {
 						td {
-							border-bottom: none;
+							&:first-child {
+								border-bottom-left-radius: var(--radius);
+							}
+
+							&:last-child {
+								border-bottom-right-radius: var(--radius);
+							}
+
+							&.selected {
+								border-bottom-color: var(--color_text);
+							}
 						}
 					}
 
 					&:hover {
 						td {
 							background-color: var(--color_bg_1);
+
+							&.operation {
+								background-color: var(--color_bg_1);
+							}
+						}
+					}
+
+					&.selected,
+					&.selected_prev {
+						td {
+							border-bottom-color: var(--color_text);
+						}
+					}
+
+					&.selected {
+						td {
+							&:first-child {
+								border-left: 1px solid var(--color_text);
+							}
+
+							&:last-child {
+								border-right: 1px solid var(--color_text);
+							}
 						}
 					}
 
 					td {
 						height: 48px;
 						white-space: nowrap;
+
+						&.operation {
+							position: sticky;
+							z-index: 100;
+							right: 0;
+							background-color: var(--color_bg);
+						}
 					}
 				}
 			}
@@ -73,6 +138,39 @@
 					box-shadow: none;
 				}
 			}
+		}
+	}
+}
+
+.Detail {
+	padding: 18px !important;
+
+	:global {
+		.ani-form-item {
+			margin-bottom: 18px;
+
+			&-label {
+				font-weight: 500;
+			}
+		}
+
+		.ani-select {
+			&-selector {
+				border: none !important;
+			}
+		}
+
+		.ani-picker {
+			height: 32px;
+			line-height: 32px;
+			border: none !important;
+		}
+
+		.actions_wrap {
+			padding: 9px 0;
+
+			background-color: var(--color_bg);
+			gap: 12px;
 		}
 	}
 }

@@ -1,0 +1,20 @@
+._local {
+	&.use_by_form {
+		:global {
+			.ani-input {
+				background-color: var(--color_bg_1);
+			}
+		}
+	}
+
+	:global {
+		.ani-input {
+			resize: none;
+			white-space: wrap;
+
+			&-disabled {
+				background-color: var(--color_border_soft);
+			}
+		}
+	}
+}

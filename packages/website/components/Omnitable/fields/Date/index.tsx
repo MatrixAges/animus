@@ -7,10 +7,14 @@ import styles from './index.module.css'
 import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Date['props']>) => {
-	const { self_props, value } = props
-	const { format } = self_props || {}
+	const { self_props, value, use_by_form, disabled } = props
+	const { format = 'MMMM D, YYYY' } = self_props || {}
 
-	return <span className={$.cx(styles._local)}>{dayjs(value).format(format || 'YYYY-MM-DD')}</span>
+	return (
+		<span className={$.cx(styles._local, use_by_form && styles.use_by_form, disabled && styles.disabled)}>
+			{dayjs(value).format(format || 'YYYY-MM-DD')}
+		</span>
+	)
 }
 
 export default $.memo(Index)

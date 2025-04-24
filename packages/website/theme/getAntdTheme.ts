@@ -28,6 +28,7 @@ export default (theme: App.Theme) => {
 			colorBgLayout: vars.color_bg_1,
 			colorBorder: vars.color_border,
 			colorBorderSecondary: vars.color_border_light,
+			colorBgContainerDisabled: vars.color_border_soft,
 			controlItemBgActive: vars.color_bg_2,
 			switchHeight: 34,
 			boxShadow: vars.shadow,

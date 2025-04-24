@@ -1,4 +1,24 @@
 ._local {
+	&.use_by_form {
+		:global {
+			.ani-input-number {
+				width: 100% !important;
+				height: 32px;
+				line-height: 32px;
+				padding: 0 7px;
+				background-color: var(--color_bg_1);
+			}
+		}
+	}
+
+	&.disabled {
+		:global {
+			.ani-input-number {
+				background-color: var(--color_border_soft);
+			}
+		}
+	}
+
 	:global {
 		.ani-input-number {
 			width: unset !important;

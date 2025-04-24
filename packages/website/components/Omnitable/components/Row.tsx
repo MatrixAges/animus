@@ -14,7 +14,7 @@ import type { FormProps } from 'antd'
 const { useForm } = Form
 
 const Index = (props: IPropsRow) => {
-	const { table_columns, item, index, editing_info, setEditingInfo, onChange } = props
+	const { table_columns, modal_index, item, index, editing_info, setEditingInfo, onChange } = props
 	const [form] = useForm()
 	const { setFieldsValue, getFieldsValue } = form
 
@@ -37,7 +37,13 @@ const Index = (props: IPropsRow) => {
 
 	return (
 		<Form form={form} component={false} onValuesChange={onValuesChange}>
-			<tr className='form_table_tr'>
+			<tr
+				className={$.cx(
+					'form_table_tr',
+					modal_index === index + 1 && 'selected_prev',
+					modal_index === index && 'selected'
+				)}
+			>
 				{table_columns.map(col => (
 					<Column
 						column={col}

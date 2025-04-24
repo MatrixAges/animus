@@ -11,6 +11,7 @@ export interface IPropsTable {
 	data: Omnitable.List['data']
 	editing_info: Model['editing_info']
 	sort_params: Model['sort_params']
+	modal_index: Model['modal_index']
 	setEditingInfo: (v: Model['editing_info']) => void
 	onSort: Model['onSort']
 	onChange: Model['onChange']
@@ -22,7 +23,8 @@ export interface IPropsTh {
 	onSort?: Model['onSort']
 }
 
-export interface IPropsRow extends Pick<IPropsTable, 'table_columns' | 'editing_info' | 'setEditingInfo' | 'onChange'> {
+export interface IPropsRow
+	extends Pick<IPropsTable, 'table_columns' | 'editing_info' | 'modal_index' | 'setEditingInfo' | 'onChange'> {
 	item: Omnitable.List['data'][number]
 	index: number
 }
@@ -45,10 +47,27 @@ export interface IPropsComponent {
 	onChange?: (v: any) => void
 }
 
+export interface IPropsFormComponent {
+	column: Model['table_columns'][number]
+	disabled?: boolean
+	value?: any
+	onChange?: (v: any) => void
+}
+
 export interface ComponentType<T = {}>
 	extends Pick<IPropsComponent, 'value' | 'editing' | 'onFocus' | 'onBlur' | 'onChange'> {
 	width?: number
+	disabled?: boolean
+	use_by_form?: boolean
 	self_props: T
 }
 
 export interface IPropsPagination {}
+
+export interface IPropsDetail {
+	form_columns: Model['form_columns']
+	modal_type: Model['modal_type']
+	item: any
+	onChange: Model['onChange']
+	onClose: () => void
+}

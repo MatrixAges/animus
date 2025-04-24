@@ -6,12 +6,13 @@ import Th from './Th'
 import type { IPropsTable } from '../types'
 
 const Index = (props: IPropsTable) => {
-	const { primary, table_columns, data, editing_info, sort_params, setEditingInfo, onChange, onSort } = props
+	const { primary, table_columns, data, editing_info, sort_params, modal_index, setEditingInfo, onChange, onSort } =
+		props
 
 	return (
 		<table className='table_wrap w_100'>
 			<thead>
-				<tr>
+				<tr className={$.cx(modal_index === 0 && 'selected')}>
 					{table_columns.map(item => (
 						<Th
 							column={item}
@@ -30,6 +31,7 @@ const Index = (props: IPropsTable) => {
 				{data.map((item, index) => (
 					<Row
 						table_columns={table_columns}
+						modal_index={modal_index}
 						item={item}
 						index={index}
 						editing_info={
