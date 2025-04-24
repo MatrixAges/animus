@@ -19,12 +19,12 @@ export const config = {
 	table: {
 		columns: [
 			{ name: 'Task', readonly: true },
-			{ name: 'Priority' },
+			{ name: 'Priority', sort: true },
 			{ name: 'Title', width: 540, span: 24 },
 			{ name: 'Labels' },
-			{ name: 'Status' },
-			{ name: 'Est. Hours', width: 72 },
-			{ name: 'Created At', width: 150, readonly: true },
+			{ name: 'Status', sort: true },
+			{ name: 'Est. Hours', width: 72, sort: true },
+			{ name: 'Created At', width: 150, readonly: true, sort: true },
 			{ name: 'Operation' }
 		]
 	},

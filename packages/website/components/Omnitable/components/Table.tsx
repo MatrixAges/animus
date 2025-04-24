@@ -1,3 +1,5 @@
+import { useMemoizedFn } from 'ahooks'
+
 import { $ } from '@website/utils'
 
 import Row from './Row'
@@ -9,6 +11,12 @@ const Index = (props: IPropsTable) => {
 	const { primary, table_columns, data, editing_info, sort_params, modal_index, setEditingInfo, onChange, onSort } =
 		props
 
+	const getOrder = useMemoizedFn((item: IPropsTable['table_columns'][number]) => {
+		if (!item.sort || !sort_params.length) return
+
+		return sort_params.find(s => s.field === item.bind)?.order
+	})
+
 	return (
 		<table className='table_wrap w_100'>
 			<thead>
@@ -16,11 +24,7 @@ const Index = (props: IPropsTable) => {
 					{table_columns.map(item => (
 						<Th
 							column={item}
-							sorting_params={
-								item.sort && sort_params?.field === item.bind && sort_params.order
-									? sort_params
-									: undefined
-							}
+							order={getOrder(item)}
 							onSort={item.sort ? onSort : undefined}
 							key={item.name}
 						></Th>

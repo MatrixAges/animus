@@ -2,6 +2,105 @@
 	outline: none;
 
 	:global {
+		.header_wrap {
+			margin-bottom: 12px;
+
+			.ani-popover-inner {
+				padding: 16px !important;
+			}
+
+			.header_btn_wrap {
+				height: 30px;
+				line-height: 30px;
+				padding: 0 12px;
+				border: var(--border);
+				border-radius: var(--radius);
+				outline: none;
+				background-color: unset;
+				box-shadow: none;
+				transition: all ease 0.3s;
+
+				&:hover {
+					border-color: var(--color_text);
+				}
+
+				.icon {
+					font-size: 16px;
+				}
+
+				.label {
+					margin-right: 6px;
+					margin-left: 4px;
+					font-weight: 500;
+				}
+
+				.counts {
+					height: 16px;
+					padding: 0 4.8px;
+					border-radius: var(--radius_small_0);
+					background-color: var(--color_bg_1);
+					font-size: 12px;
+				}
+			}
+
+			.popover_wrap {
+				&.sort_popover {
+					width: 360px;
+				}
+
+				.title {
+					line-height: 1;
+					font-size: 16px;
+					font-weight: 500;
+				}
+
+				.desc {
+					margin-top: 3px;
+					color: var(--color_text_greylight);
+				}
+
+				.form_list_items {
+					gap: 8px;
+
+					.form_list_item {
+						margin-bottom: 0;
+						gap: 8px;
+
+						&:first-child {
+							margin-top: 16px;
+						}
+
+						.ani-form-item {
+							margin-bottom: 0;
+						}
+
+						.field_name {
+							flex: 1;
+						}
+
+						.sort_value {
+							width: 96px;
+						}
+
+						.btn {
+							width: 30px;
+							padding: 0;
+							font-size: 16px;
+						}
+					}
+				}
+
+				.form_list_actions {
+					margin-top: 8px;
+					gap: 8px;
+
+					&.has_items {
+						margin-top: 16px;
+					}
+				}
+			}
+		}
+
 		.table_loading_wrap {
 			z-index: 101;
 			min-height: 300px;
@@ -61,6 +160,38 @@
 						text-align: left;
 						white-space: nowrap;
 						font-weight: 500;
+
+						&.sort {
+							&:hover {
+								background-color: var(--color_bg_1);
+							}
+
+							&:active {
+								background-color: var(--color_bg_2);
+							}
+						}
+
+						.table_sort {
+							display: inline-flex;
+							margin-left: 6px;
+							color: var(--color_text_greylight);
+							font-size: 10px;
+
+							&.order {
+								.asc,
+								.desc {
+									margin: 0;
+								}
+							}
+
+							.asc {
+								margin-bottom: -2px;
+							}
+
+							.desc {
+								margin-top: -2px;
+							}
+						}
 					}
 				}
 			}
@@ -154,16 +285,9 @@
 			}
 		}
 
-		.ani-select {
-			&-selector {
-				border: none !important;
-			}
-		}
-
 		.ani-picker {
 			height: 32px;
 			line-height: 32px;
-			border: none !important;
 		}
 
 		.actions_wrap {

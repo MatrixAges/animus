@@ -4,8 +4,8 @@
 		height: 32px;
 		line-height: 32px;
 		padding: 0 7px;
+		border: var(--border);
 		border-radius: var(--radius);
-		background-color: var(--color_bg_1);
 	}
 
 	&.disabled {

@@ -11,11 +11,11 @@ import { container } from 'tsyringe'
 import { Drawer } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Filter, Pagination, Table } from './components'
+import { Detail, Filter, Pagination, Sort, Table } from './components'
 import styles from './index.module.css'
 import Model from './model'
 
-import type { Omnitable, IPropsFilter, IPropsTable, IPropsPagination, IPropsDetail } from './types'
+import type { Omnitable, IPropsSort, IPropsFilter, IPropsTable, IPropsPagination, IPropsDetail } from './types'
 
 const { useApp } = App
 
@@ -27,13 +27,19 @@ const Index = (config: Omnitable.Config) => {
 		x.init({ config, antd })
 	}, [config, antd])
 
+	const props_sort: IPropsSort = {
+		sort_field_options: $.copy(x.sort_field_options),
+		sort_params: $.copy(x.sort_params),
+		onChangeSort: x.onChangeSort
+	}
+
 	const props_filter: IPropsFilter = {
 		filter_columns: $.copy(x.filter_columns)
 	}
 
 	const props_table: IPropsTable = {
 		primary: x.primary,
-		table_columns: $.copy(x.table_columns),
+		table_columns: $.copy(x.table_columns.filter(item => x.visible_columns.includes(item.name))),
 		data: $.copy(x.list ? x.list.data : []),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
@@ -58,7 +64,12 @@ const Index = (config: Omnitable.Config) => {
 
 	return (
 		<div className={$.cx(styles._local)}>
-			<Filter {...props_filter}></Filter>
+			<div className='header_wrap w_100 flex justify_between'>
+				<div className='flex'>
+					<Sort {...props_sort}></Sort>
+					<Filter {...props_filter}></Filter>
+				</div>
+			</div>
 			<Table {...props_table}></Table>
 			<Pagination></Pagination>
 			<Drawer

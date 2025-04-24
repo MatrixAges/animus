@@ -2,7 +2,7 @@
 	&.use_by_form {
 		:global {
 			.ani-input {
-				background-color: var(--color_bg_1);
+				border: var(--border);
 			}
 		}
 	}

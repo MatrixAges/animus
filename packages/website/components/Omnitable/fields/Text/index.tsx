@@ -8,7 +8,14 @@ const Index = (props: ComponentType<Omnitable.Text['props']>) => {
 	const { value, use_by_form, disabled } = props
 
 	return (
-		<span className={$.cx(styles._local, use_by_form && styles.use_by_form, disabled && styles.disabled)}>
+		<span
+			className={$.cx(
+				'border_box',
+				styles._local,
+				use_by_form && styles.use_by_form,
+				disabled && styles.disabled
+			)}
+		>
 			{value}
 		</span>
 	)

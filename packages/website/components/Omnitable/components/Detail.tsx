@@ -35,8 +35,7 @@ const Index = (props: IPropsDetail) => {
 			theme={{
 				token: {
 					controlHeight: 32,
-					controlHeightSM: 32,
-					colorBgContainer: 'var(--color_bg_1)'
+					controlHeightSM: 32
 				}
 			}}
 		>

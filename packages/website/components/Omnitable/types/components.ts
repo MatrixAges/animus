@@ -1,6 +1,17 @@
 import type Model from '../model'
 import type { Omnitable } from '../types'
 
+export interface IPropsSort {
+	sort_field_options: Model['sort_field_options']
+	sort_params: Model['sort_params']
+	onChangeSort: Model['onChangeSort']
+}
+
+export interface IPropsSortItem {
+	sort_field_options: Model['sort_field_options']
+	remove: (index: number | number[]) => void
+}
+
 export interface IPropsFilter {
 	filter_columns: Model['filter_columns']
 }
@@ -19,7 +30,7 @@ export interface IPropsTable {
 
 export interface IPropsTh {
 	column: Model['table_columns'][number]
-	sorting_params?: Model['sort_params']
+	order?: Model['sort_params'][number]['order']
 	onSort?: Model['onSort']
 }
 

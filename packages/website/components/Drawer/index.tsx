@@ -174,7 +174,7 @@ const Index = (props: IProps) => {
 											className='btn_close flex justify_center align_center clickable'
 											onClick={onCancel}
 										>
-											<X size={14}></X>
+											<X size={16}></X>
 										</span>
 									)}
 								</div>
