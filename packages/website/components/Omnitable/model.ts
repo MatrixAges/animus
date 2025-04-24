@@ -9,12 +9,12 @@ import data from './mock_tasks'
 
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
-import type { OptionProps } from 'antd/es/select/index'
+
 export default class Index {
 	antd = null as unknown as useAppProps
 	primary = 'id'
 	config = null as unknown as Omnitable.Config
-	filter_columns = [] as Array<Omnitable.BaseColumn & Omnitable.Field>
+	filter_columns = [] as Array<Omnitable.FilterColumn & Omnitable.Field>
 	table_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
 	form_columns = [] as Array<Omnitable.FormColumn & Omnitable.Field>
 	editing_info = null as null | { row_index: number; field: string; focus: boolean }
@@ -25,7 +25,8 @@ export default class Index {
 	sort_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
 	sort_field_options = [] as Array<{ label: string; value: any; disabled?: boolean }>
 	sort_params = [] as Array<{ field: string; order: 'desc' | 'asc' }>
-	filter_params = {} as { type: 'add' | 'or'; params: Array<{ field: string; express: string; value: any }> }
+	filter_relation = 'and' as 'and' | 'or'
+	filter_params = [] as Array<{ field: string; expression: string; value: any }>
 	visible_columns = [] as Array<string>
 
 	constructor() {
@@ -130,12 +131,6 @@ export default class Index {
 		}
 	}
 
-	onChangeSort(v: Index['sort_params']) {
-		this.sort_params = v
-
-		this.getSortFieldOptions()
-	}
-
 	getSortFieldOptions() {
 		const options = [] as Index['sort_field_options']
 		const disabled_options = [] as Index['sort_field_options']
@@ -169,5 +164,18 @@ export default class Index {
 		}
 
 		this.sort_params = $.copy(this.sort_params)
+	}
+
+	onChangeSort(v: Index['sort_params']) {
+		this.sort_params = v
+
+		this.getSortFieldOptions()
+	}
+
+	onChangeFilter(args: { filter_relation?: Index['filter_relation']; filter_params?: Index['filter_params'] }) {
+		const { filter_relation, filter_params } = args
+
+		if (filter_relation) this.filter_relation = filter_relation
+		if (filter_params) this.filter_params = filter_params
 	}
 }

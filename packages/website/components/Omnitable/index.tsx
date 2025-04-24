@@ -34,7 +34,10 @@ const Index = (config: Omnitable.Config) => {
 	}
 
 	const props_filter: IPropsFilter = {
-		filter_columns: $.copy(x.filter_columns)
+		filter_columns: $.copy(x.filter_columns),
+		filter_relation: x.filter_relation,
+		filter_params: $.copy(x.filter_params),
+		onChangeFilter: x.onChangeFilter
 	}
 
 	const props_table: IPropsTable = {
@@ -67,7 +70,7 @@ const Index = (config: Omnitable.Config) => {
 			<div className='header_wrap w_100 flex justify_between'>
 				<div className='flex'>
 					<Sort {...props_sort}></Sort>
-					<Filter {...props_filter}></Filter>
+					{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
 				</div>
 			</div>
 			<Table {...props_table}></Table>

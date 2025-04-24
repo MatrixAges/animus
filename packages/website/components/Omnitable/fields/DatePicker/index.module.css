@@ -1,4 +1,13 @@
 ._local {
+	&.use_by_form {
+		:global {
+			.ani-picker {
+				height: 30px;
+				line-height: 30px;
+			}
+		}
+	}
+
 	:global {
 		.ani-picker {
 			height: 26px;

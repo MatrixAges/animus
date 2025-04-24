@@ -8,12 +8,12 @@ export const config = {
 	},
 	filter: {
 		columns: [
-			{ name: 'Title' },
-			{ name: 'Status' },
-			{ name: 'Labels' },
-			{ name: 'Priority' },
-			{ name: 'Est. Hours' },
-			{ name: 'Created At' }
+			{ name: 'Title', datatype: 'string' },
+			{ name: 'Status', datatype: 'array' },
+			{ name: 'Labels', datatype: 'array' },
+			{ name: 'Priority', datatype: 'array' },
+			{ name: 'Est. Hours', datatype: 'number' },
+			{ name: 'Created At', datatype: 'date' }
 		]
 	},
 	table: {
@@ -32,33 +32,46 @@ export const config = {
 		common: {
 			Title: {
 				bind: 'title',
-				type: 'input'
+				type: 'input',
+				props: {
+					placeholder: 'Search titles'
+				}
 			},
 			Status: {
 				bind: 'status',
 				type: 'status',
-				props: {}
+				props: {
+					placeholder: 'Select status'
+				}
 			},
 			Labels: {
 				bind: 'labels',
 				type: 'select',
 				props: {
-					options: ['Bug', 'Feature', 'Improvement']
+					options: ['Bug', 'Feature', 'Improvement'],
+					placeholder: 'Select labels'
 				}
 			},
 			Priority: {
 				bind: 'priority',
 				type: 'priority',
-				props: {}
+				props: {
+					placeholder: 'Select priorities'
+				}
 			},
 			'Est. Hours': {
 				bind: 'estimatedHours',
 				type: 'input_number',
-				props: {}
+				props: {
+					placeholder: 'Enter a value'
+				}
 			},
 			'Created At': {
 				bind: 'createdAt',
-				type: 'date_picker'
+				type: 'date_picker',
+				props: {
+					placeholder: 'Select date'
+				}
 			},
 			Operation: {
 				bind: '_operation',

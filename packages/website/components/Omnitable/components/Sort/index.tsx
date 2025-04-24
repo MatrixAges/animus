@@ -101,7 +101,7 @@ const Index = (props: IPropsSort) => {
 								</Button>
 								{counts > 0 && (
 									<Button className='clickable' onClick={onReset}>
-										Reset Sorting
+										Reset sorting
 									</Button>
 								)}
 							</div>
@@ -115,7 +115,7 @@ const Index = (props: IPropsSort) => {
 	return (
 		<Popover trigger={['click']} placement='bottomLeft' content={Content} forceRender>
 			<div>
-				<button className='header_btn_wrap border_box flex align_center clickable'>
+				<button className='header_btn_wrap border_box flex align_center clickable mr_8'>
 					<ArrowsDownUp className='icon'></ArrowsDownUp>
 					<span className='label'>Sort</span>
 					{counts > 0 && <span className='counts flex align_center'>{counts}</span>}

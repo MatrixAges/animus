@@ -24,7 +24,7 @@ const Index = (props: ComponentType<Omnitable.Input['props']>) => {
 				<Input
 					{...self_props}
 					className='w_100 line_clamp_1'
-					variant='borderless'
+					variant={use_by_form ? 'outlined' : 'borderless'}
 					value={value}
 					onFocus={onFocus}
 					onBlur={onBlur}

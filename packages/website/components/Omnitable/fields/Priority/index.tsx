@@ -57,7 +57,7 @@ const options = [
 ]
 
 const Index = (props: ComponentType<Omnitable.Status['props']>) => {
-	const { width, value, editing, onFocus, onBlur, onChange } = props
+	const { self_props, width, value, editing, use_by_form, use_by_filter, onFocus, onBlur, onChange } = props
 
 	const target_option = useMemo(() => {
 		return options.find(item => item.value === value)?.label
@@ -67,11 +67,13 @@ const Index = (props: ComponentType<Omnitable.Status['props']>) => {
 		<div className={$.cx(styles._local)} style={{ width }}>
 			{editing ? (
 				<Select
+					{...self_props}
 					popupClassName={styles.popup}
-					size='small'
+					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
 					virtual={false}
 					suffixIcon={null}
+					mode={use_by_filter ? 'multiple' : undefined}
 					options={options}
 					value={value}
 					getPopupContainer={() => document.body}

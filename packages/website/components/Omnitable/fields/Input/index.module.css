@@ -3,10 +3,9 @@
 		:global {
 			.ani-input {
 				width: 100%;
-				height: 32px;
-				line-height: 32px;
+				height: 30px;
+				line-height: 30px;
 				padding: 0 7px;
-				background-color: var(--color_bg_1);
 			}
 		}
 	}

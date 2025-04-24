@@ -8,8 +8,8 @@ import styles from './index.module.css'
 import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Select['props']>) => {
-	const { self_props, width, value, editing, onFocus, onBlur, onChange } = props
-	const { options } = self_props
+	const { self_props, width, value, editing, use_by_form, use_by_filter, onFocus, onBlur, onChange } = props
+	const { options, ...rest_props } = self_props
 
 	const target_options = useMemo(() => {
 		if (typeof options[0] === 'object') return options as Array<Omnitable.SelectOption>
@@ -27,11 +27,13 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 		<div className={$.cx(styles._local)} style={{ width }}>
 			{editing ? (
 				<Select
+					{...rest_props}
 					popupClassName={styles.popup}
-					size='small'
+					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
 					virtual={false}
 					suffixIcon={null}
+					mode={use_by_filter ? 'multiple' : undefined}
 					options={target_options}
 					value={value}
 					getPopupContainer={() => document.body}

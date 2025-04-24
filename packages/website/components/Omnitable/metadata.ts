@@ -9,6 +9,17 @@ export const sort_options = [
 	}
 ]
 
+export const filter_relation_options = [
+	{
+		label: 'and',
+		value: 'and'
+	},
+	{
+		label: 'or',
+		value: 'or'
+	}
+]
+
 export const common_expressions = ['is empty', 'is not empty']
 
 export const filter_expressions = {

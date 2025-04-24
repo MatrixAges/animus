@@ -44,9 +44,7 @@
 			}
 
 			.popover_wrap {
-				&.sort_popover {
-					width: 360px;
-				}
+				min-width: 360px;
 
 				.title {
 					line-height: 1;
@@ -76,10 +74,19 @@
 
 						.field_name {
 							flex: 1;
+							min-width: 132px;
 						}
 
 						.sort_value {
-							width: 96px;
+							min-width: 96px;
+						}
+
+						.expression_value {
+							min-width: 120px;
+						}
+
+						.filter_value {
+							width: 150px;
 						}
 
 						.btn {
@@ -96,6 +103,18 @@
 
 					&.has_items {
 						margin-top: 16px;
+					}
+				}
+
+				.relation_wrap {
+					width: 72px;
+					margin-top: 16px;
+					margin-right: 8px;
+					color: var(--color_text_greylight);
+					gap: 8px;
+
+					.relation_item {
+						height: 30px;
 					}
 				}
 			}
@@ -162,6 +181,8 @@
 						font-weight: 500;
 
 						&.sort {
+							user-select: none;
+
 							&:hover {
 								background-color: var(--color_bg_1);
 							}
@@ -286,8 +307,8 @@
 		}
 
 		.ani-picker {
-			height: 32px;
-			line-height: 32px;
+			height: 30px;
+			line-height: 30px;
 		}
 
 		.actions_wrap {

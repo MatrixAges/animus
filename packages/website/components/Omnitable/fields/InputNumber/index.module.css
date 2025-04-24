@@ -3,8 +3,8 @@
 		:global {
 			.ani-input-number {
 				width: 100% !important;
-				height: 32px;
-				line-height: 32px;
+				height: 30px;
+				line-height: 30px;
 				padding: 0 7px;
 				border: var(--border);
 			}

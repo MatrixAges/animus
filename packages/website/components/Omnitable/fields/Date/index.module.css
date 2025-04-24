@@ -1,8 +1,8 @@
 ._local {
 	&.use_by_form {
 		display: flex;
-		height: 32px;
-		line-height: 32px;
+		height: 30px;
+		line-height: 30px;
 		padding: 0 7px;
 		border-radius: var(--radius);
 		background-color: var(--color_bg_1);

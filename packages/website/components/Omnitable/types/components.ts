@@ -14,6 +14,16 @@ export interface IPropsSortItem {
 
 export interface IPropsFilter {
 	filter_columns: Model['filter_columns']
+	filter_relation: Model['filter_relation']
+	filter_params: Model['filter_params']
+	onChangeFilter: Model['onChangeFilter']
+}
+
+export interface IPropsFilterItem {
+	filter_field_options: Array<{ label: string; value: any }>
+	filter_columns: Model['filter_columns']
+	filter_param: Model['filter_params'][number]
+	remove: (index: number | number[]) => void
 }
 
 export interface IPropsTable {
@@ -62,6 +72,7 @@ export interface IPropsFormComponent {
 	column: Model['table_columns'][number]
 	disabled?: boolean
 	value?: any
+	use_by_filter?: boolean
 	onChange?: (v: any) => void
 }
 
@@ -70,6 +81,7 @@ export interface ComponentType<T = {}>
 	width?: number
 	disabled?: boolean
 	use_by_form?: boolean
+	use_by_filter?: boolean
 	self_props: T
 }
 

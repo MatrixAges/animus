@@ -34,8 +34,8 @@ const Index = (props: IPropsDetail) => {
 		<ConfigProvider
 			theme={{
 				token: {
-					controlHeight: 32,
-					controlHeightSM: 32
+					controlHeight: 30,
+					controlHeightSM: 30
 				}
 			}}
 		>

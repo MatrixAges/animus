@@ -20,12 +20,13 @@ export namespace Omnitable {
 			query: string
 		}
 		filter: {
-			columns: Array<BaseColumn>
+			columns: Array<FilterColumn>
+			props?: {}
 			flat?: boolean
 		}
 		table: {
 			columns: Array<TableColumn>
-			props?: TableProps
+			props?: {}
 			delete_tips?: { title?: string; content?: string }
 		}
 		// 可选 form，如果不写就使用 table 的 columns 配置
@@ -45,13 +46,15 @@ export namespace Omnitable {
 		}
 	}
 
-	export interface TableProps {}
-
 	export interface BaseColumn {
 		name: string
 		width?: number
 		// form 24栅格，span表示跨度
 		span?: number
+	}
+
+	export interface FilterColumn extends BaseColumn {
+		datatype: 'string' | 'number' | 'date' | 'array'
 	}
 
 	export interface TableColumn extends BaseColumn {

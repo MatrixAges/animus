@@ -19,7 +19,7 @@ const Index = (props: ComponentType<Omnitable.InputNumber['props']>) => {
 				<InputNumber
 					{...self_props}
 					className='w_100'
-					variant='borderless'
+					variant={use_by_form ? 'outlined' : 'borderless'}
 					value={value}
 					onFocus={onFocus}
 					onBlur={onBlur}
