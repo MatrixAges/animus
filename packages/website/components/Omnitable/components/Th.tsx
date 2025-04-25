@@ -7,13 +7,22 @@ import type { IPropsTh } from '../types'
 
 const Index = (props: IPropsTh) => {
 	const { column, order, onSort } = props
-	const { name, bind, sort } = column
+	const { type, name, bind, sort } = column
+	const is_operation = type === 'operation'
+	const text = is_operation ? '' : name
 
 	const onClick = useMemoizedFn(() => onSort?.(bind))
-	const text = column.type === 'operation' ? '' : name
 
 	return (
-		<th className={$.cx('form_table_th', sort && 'sort cursor_point')} onClick={sort ? onClick : undefined}>
+		<th
+			className={$.cx(
+				'form_table_th',
+				sort && 'sort cursor_point',
+				column.sticky && 'sticky left_0',
+				is_operation && 'sticky right_0'
+			)}
+			onClick={sort ? onClick : undefined}
+		>
 			{sort ? (
 				<div className='inline_flex align_center'>
 					<span>{name}</span>

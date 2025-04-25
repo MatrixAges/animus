@@ -1,5 +1,5 @@
 import { useMemoizedFn } from 'ahooks'
-import { Button, Form, Popover, Select } from 'antd'
+import { Button, Form, Popover } from 'antd'
 import { useLayoutEffect, useMemo } from 'react'
 import { deepEqual } from 'stk/react'
 
@@ -8,7 +8,7 @@ import { verticalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
 import { FunnelSimple } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import { filter_expressions, filter_relation_options } from '../../metadata'
+import { filter_expressions } from '../../metadata'
 import FilterItem from './Item'
 
 import type { IPropsFilter } from '../../types'
@@ -73,30 +73,6 @@ const Index = (props: IPropsFilter) => {
 			<span className='title'>{counts ? 'Filters' : 'No filters applied'}</span>
 
 			<div className='w_100 flex'>
-				{counts > 0 && (
-					<div className='relation_wrap flex flex_column'>
-						<span className='relation_item flex justify_center align_center'>where</span>
-						{counts > 1 && (
-							<span className='relation_item'>
-								<Select
-									className='w_100'
-									options={filter_relation_options}
-									value={filter_relation}
-									onChange={onChangeRelation}
-								></Select>
-							</span>
-						)}
-						{counts > 2 &&
-							Array.from({ length: counts - 2 }).map((_, index) => (
-								<span
-									className='relation_item  flex justify_center align_center'
-									key={index}
-								>
-									{filter_relation}
-								</span>
-							))}
-					</div>
-				)}
 				<Form
 					className='flex align_center'
 					form={form}
@@ -138,8 +114,9 @@ const Index = (props: IPropsFilter) => {
 												}))}
 												strategy={verticalListSortingStrategy}
 											>
-												{items.map((args, index) => (
+												{items.map(args => (
 													<FilterItem
+														filter_relation={filter_relation}
 														filter_columns={filter_columns}
 														filter_field_options={
 															filter_field_options
@@ -148,6 +125,7 @@ const Index = (props: IPropsFilter) => {
 															filter_params[args.name] ||
 															default_option
 														}
+														onChangeRelation={onChangeRelation}
 														remove={remove}
 														{...args}
 														key={args.key}
@@ -164,6 +142,7 @@ const Index = (props: IPropsFilter) => {
 										'form_list_actions flex',
 										items.length > 0 && 'has_items'
 									)}
+									style={{ paddingLeft: items.length > 0 ? 80 : 0 }}
 								>
 									<Button
 										className='clickable'

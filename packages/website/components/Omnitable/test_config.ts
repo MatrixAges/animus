@@ -1,6 +1,7 @@
 import type { Omnitable } from './types'
 
 export const config = {
+	name: 'omnitable_test_table',
 	primary: 'id',
 	actions: {
 		baseurl: '',
@@ -18,7 +19,7 @@ export const config = {
 	},
 	table: {
 		columns: [
-			{ name: 'Task', readonly: true },
+			{ name: 'Task', readonly: true, sticky: true },
 			{ name: 'Priority', sort: true },
 			{ name: 'Title', width: 540, span: 24 },
 			{ name: 'Labels' },

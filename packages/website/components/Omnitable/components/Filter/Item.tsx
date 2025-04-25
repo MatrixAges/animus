@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { DotsSixVertical, Trash } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import { filter_expressions } from '../../metadata'
+import { filter_expressions, filter_relation_options } from '../../metadata'
 import FormComponent from '../FormComponent'
 
 import type { IPropsFilterItem } from '../../types'
@@ -15,7 +15,16 @@ import type { FormListFieldData } from 'antd'
 const { Item } = Form
 
 const Index = (props: IPropsFilterItem & FormListFieldData) => {
-	const { filter_columns, filter_field_options, filter_param, name, remove, ...rest } = props
+	const {
+		filter_columns,
+		filter_field_options,
+		filter_relation,
+		filter_param,
+		name,
+		onChangeRelation,
+		remove,
+		...rest
+	} = props
 	const { attributes, listeners, transform, transition, setNodeRef, setActivatorNodeRef } = useSortable({
 		id: name
 	})
@@ -35,11 +44,27 @@ const Index = (props: IPropsFilterItem & FormListFieldData) => {
 			ref={setNodeRef}
 			{...attributes}
 		>
+			<div className='relation_wrap'>
+				{name === 0 && <span className='relation_item flex justify_center align_center'>where</span>}
+				{name === 1 && (
+					<span className='relation_item'>
+						<Select
+							className='w_100'
+							options={filter_relation_options}
+							value={filter_relation}
+							onChange={onChangeRelation}
+						></Select>
+					</span>
+				)}
+				{name > 1 && (
+					<span className='relation_item flex justify_center align_center'>{filter_relation}</span>
+				)}
+			</div>
 			<Item {...rest} className='field_name' name={[name, 'field']}>
 				<Select showSearch options={filter_field_options}></Select>
 			</Item>
 			<Item {...rest} className='expression_value' name={[name, 'expression']}>
-				<Select options={expression_options}></Select>
+				<Select popupMatchSelectWidth={false} options={expression_options}></Select>
 			</Item>
 			<Item {...rest} className='filter_value' name={[name, 'value']}>
 				<FormComponent column={column} disabled={false} use_by_filter></FormComponent>

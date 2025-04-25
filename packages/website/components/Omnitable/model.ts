@@ -1,7 +1,9 @@
 'use client'
 
+import to from 'await-to-js'
 import { uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
+import { ofetch } from 'ofetch'
 
 import { $ } from '@website/utils'
 
@@ -13,12 +15,12 @@ import type { useAppProps } from 'antd/es/app/context'
 export default class Index {
 	antd = null as unknown as useAppProps
 	primary = 'id'
+	props = null as unknown as Omnitable.Props
 	config = null as unknown as Omnitable.Config
 	filter_columns = [] as Array<Omnitable.FilterColumn & Omnitable.Field>
 	table_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
 	form_columns = [] as Array<Omnitable.FormColumn & Omnitable.Field>
 	editing_info = null as null | { row_index: number; field: string; focus: boolean }
-	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
 	modal_type = 'view' as 'view' | 'edit'
 	modal_index = null as any
 	modal_visible = false
@@ -27,22 +29,36 @@ export default class Index {
 	sort_params = [] as Array<{ field: string; order: 'desc' | 'asc' }>
 	filter_relation = 'and' as 'and' | 'or'
 	filter_params = [] as Array<{ field: string; expression: string; value: any }>
-	visible_columns = [] as Array<string>
+	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
+	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
 
 	constructor() {
-		makeAutoObservable(this, { antd: false, primary: false, config: false }, { autoBind: true })
+		makeAutoObservable(this, { antd: false, primary: false, props: false, config: false }, { autoBind: true })
 	}
 
-	init(args: { config: Index['config']; antd: Index['antd'] }) {
-		const { config, antd } = args
+	async init(args: { props: Index['props']; antd: Index['antd'] }) {
+		const { props, antd } = args
 
 		this.antd = antd
-		this.config = config
 
-		if (config.primary) this.primary = config.primary
+		if ('config_url' in props) {
+			await this.getConfig(props.config_url)
+		} else {
+			this.config = props
+		}
+
+		if (this.config.primary) this.primary = this.config.primary
 
 		this.make()
 		this.getSortFieldOptions()
+	}
+
+	async getConfig(config_url: string) {
+		const [err, res] = await to<Index['config']>(ofetch(config_url))
+
+		if (err) return this.antd.message.error(`配置请求出错 ${err.message}`)
+
+		this.config = res
 	}
 
 	make() {
@@ -58,7 +74,7 @@ export default class Index {
 
 			if (item.sort) this.sort_columns.push(column)
 
-			this.visible_columns.push(item.name)
+			this.visible_columns.push({ name: column.name, id: column.bind, visible: true })
 
 			return column
 		})
@@ -177,5 +193,9 @@ export default class Index {
 
 		if (filter_relation) this.filter_relation = filter_relation
 		if (filter_params) this.filter_params = filter_params
+	}
+
+	onChangeVisibleColumns(v: Index['visible_columns']) {
+		this.visible_columns = v
 	}
 }

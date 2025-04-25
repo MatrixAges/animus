@@ -21,9 +21,22 @@ export interface IPropsFilter {
 
 export interface IPropsFilterItem {
 	filter_field_options: Array<{ label: string; value: any }>
+	filter_relation: Model['filter_relation']
 	filter_columns: Model['filter_columns']
 	filter_param: Model['filter_params'][number]
+	onChangeRelation: (v: Model['filter_relation']) => void
 	remove: (index: number | number[]) => void
+}
+
+export interface IPropsFields {
+	visible_columns: Model['visible_columns']
+	onChangeVisibleColumns: (v: Model['visible_columns']) => void
+}
+
+export interface IPropsFieldsItem {
+	item: Model['visible_columns'][number]
+	index: number
+	onChange: (index: number, visible: boolean) => void
 }
 
 export interface IPropsTable {

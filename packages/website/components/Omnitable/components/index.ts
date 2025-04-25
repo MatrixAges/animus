@@ -1,5 +1,6 @@
 export { default as Sort } from './Sort'
 export { default as Filter } from './Filter'
+export { default as Fields } from './Fields'
 export { default as Table } from './Table'
 export { default as Pagination } from './Pagination'
 export { default as Detail } from './Detail'

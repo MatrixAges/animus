@@ -37,6 +37,11 @@ export default (theme: App.Theme) => {
 			borderRadius: 6
 		},
 		components: {
+			Checkbox: {
+				borderRadiusXS: 3,
+				borderRadiusSM: 3,
+				borderRadius: 3
+			},
 			Switch: {
 				colorPrimary: vars.color_text,
 				controlHeight: 24,

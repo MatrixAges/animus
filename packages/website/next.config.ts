@@ -5,6 +5,8 @@ import type { NextConfig } from 'next'
 
 const withIntl = createNextIntlPlugin('./i18n.ts')
 
+const is_dev = process.env.NODE_ENV === 'development'
+
 const config: NextConfig = {
 	devIndicators: false,
 	reactStrictMode: false,
@@ -36,4 +38,5 @@ const config: NextConfig = {
 	experimental: {}
 }
 
-export default withRspack(withIntl(config))
+// 生产版本不要使用rspack，会导致几倍产物
+export default is_dev ? withRspack(withIntl(config)) : withIntl(config)

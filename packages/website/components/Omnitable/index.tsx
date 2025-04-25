@@ -11,21 +11,29 @@ import { container } from 'tsyringe'
 import { Drawer } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Filter, Pagination, Sort, Table } from './components'
+import { Detail, Fields, Filter, Pagination, Sort, Table } from './components'
 import styles from './index.module.css'
 import Model from './model'
 
-import type { Omnitable, IPropsSort, IPropsFilter, IPropsTable, IPropsPagination, IPropsDetail } from './types'
+import type {
+	Omnitable,
+	IPropsSort,
+	IPropsFilter,
+	IPropsFields,
+	IPropsTable,
+	IPropsPagination,
+	IPropsDetail
+} from './types'
 
 const { useApp } = App
 
-const Index = (config: Omnitable.Config) => {
+const Index = (props: Omnitable.Props) => {
 	const [x] = useState(() => container.resolve(Model))
 	const antd = useApp()
 
 	useLayoutEffect(() => {
-		x.init({ config, antd })
-	}, [config, antd])
+		x.init({ props, antd })
+	}, [props, antd])
 
 	const props_sort: IPropsSort = {
 		sort_field_options: $.copy(x.sort_field_options),
@@ -40,9 +48,22 @@ const Index = (config: Omnitable.Config) => {
 		onChangeFilter: x.onChangeFilter
 	}
 
+	const props_fields: IPropsFields = {
+		visible_columns: $.copy(x.visible_columns),
+		onChangeVisibleColumns: useMemoizedFn(v => (x.visible_columns = v))
+	}
+
 	const props_table: IPropsTable = {
 		primary: x.primary,
-		table_columns: $.copy(x.table_columns.filter(item => x.visible_columns.includes(item.name))),
+		table_columns: $.copy(
+			x.visible_columns
+				.map(item => {
+					const column = x.table_columns.find(c => c.bind === item.id)!
+
+					return item.visible ? column : null
+				})
+				.filter(item => item !== null)
+		),
 		data: $.copy(x.list ? x.list.data : []),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
@@ -72,6 +93,7 @@ const Index = (config: Omnitable.Config) => {
 					<Sort {...props_sort}></Sort>
 					{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
 				</div>
+				<Fields {...props_fields}></Fields>
 			</div>
 			<Table {...props_table}></Table>
 			<Pagination></Pagination>

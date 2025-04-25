@@ -60,7 +60,15 @@ const Index = (props: IPropsCol) => {
 	const Content = useDeepMemo(() => <Component {...props_component}></Component>, [props_component])
 
 	return (
-		<td className={$.cx('form_table_td', type === 'operation' && 'operation')} width={column.width} ref={ref}>
+		<td
+			className={$.cx(
+				'form_table_td',
+				type === 'operation' && 'operation',
+				column.sticky && 'sticky left_0'
+			)}
+			width={column.width}
+			ref={ref}
+		>
 			{props_component.editing ? (
 				<Item name={bind} noStyle>
 					{Content}

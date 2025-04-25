@@ -1,0 +1,71 @@
+import { useMemoizedFn } from 'ahooks'
+import { Popover } from 'antd'
+
+import { DndContext } from '@dnd-kit/core'
+import { arrayMove, verticalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
+import { SlidersHorizontal } from '@phosphor-icons/react'
+import { $ } from '@website/utils'
+
+import Item from './Item'
+
+import type { IPropsFields } from '../../types'
+import type { DragEndEvent } from '@dnd-kit/core'
+
+const Index = (props: IPropsFields) => {
+	const { visible_columns, onChangeVisibleColumns } = props
+
+	const onChange = useMemoizedFn((index, visible) => {
+		const columns = $.copy(visible_columns)
+
+		columns[index]['visible'] = !visible
+
+		onChangeVisibleColumns(columns)
+	})
+
+	const onDragEnd = useMemoizedFn(({ active, over }: DragEndEvent) => {
+		if (!over) return
+
+		let active_index: number
+		let over_index: number
+
+		visible_columns.forEach((item, index) => {
+			if (item.id === active.id) active_index = index
+			if (item.id === over.id) over_index = index
+		})
+
+		const target_columns = arrayMove(visible_columns, active_index!, over_index!)
+
+		onChangeVisibleColumns(target_columns)
+	})
+
+	const Content = (
+		<div className='popover_wrap fields_wrap sort_popover flex flex_column'>
+			<DndContext onDragEnd={onDragEnd}>
+				<SortableContext items={visible_columns} strategy={verticalListSortingStrategy}>
+					{visible_columns.map((item, index) => (
+						<Item item={item} index={index} onChange={onChange} key={item.id}></Item>
+					))}
+				</SortableContext>
+			</DndContext>
+		</div>
+	)
+
+	return (
+		<Popover
+			rootClassName='fields_popover'
+			trigger={['click']}
+			placement='bottomRight'
+			content={Content}
+			destroyTooltipOnHide
+		>
+			<div>
+				<button className='header_btn_wrap border_box flex align_center clickable'>
+					<SlidersHorizontal className='icon'></SlidersHorizontal>
+					<span className='label'>Fields</span>
+				</button>
+			</div>
+		</Popover>
+	)
+}
+
+export default $.memo(Index)

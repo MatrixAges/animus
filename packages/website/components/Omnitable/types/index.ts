@@ -4,7 +4,15 @@ import type { TextAreaProps } from 'antd/es/input'
 export * from './components'
 
 export namespace Omnitable {
+	export type Props = LowCodeConfig | Config
+
+	export interface LowCodeConfig {
+		config_url: string
+	}
+
 	export interface Config {
+		// 表名称，用于本地存储的前缀（请保持唯一）
+		name: string
 		// 主键，默认为 'id'
 		primary?: string
 		// 支持mustache语法 /delete/{{id}} => /delete/3
@@ -60,6 +68,7 @@ export namespace Omnitable {
 	export interface TableColumn extends BaseColumn {
 		sort?: boolean
 		readonly?: boolean
+		sticky?: boolean
 	}
 
 	export interface FormColumn extends BaseColumn {
