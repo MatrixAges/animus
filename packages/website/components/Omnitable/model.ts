@@ -217,6 +217,8 @@ export default class Index {
 
 		if (operation) {
 			if (operation.key === 'delete') {
+				this.modal_index = index
+
 				this.antd.modal.confirm({
 					title: this.config.table.delete_tips?.title || 'Are you absolutely sure?',
 					content:
@@ -234,10 +236,15 @@ export default class Index {
 
 						const res = await this.delete(target_item[this.primary])
 
+						this.modal_index = -2
+
 						if (res === undefined) return
 
 						// 更新出错，重新插入数据
 						this.list!.data.splice(index, 0, target_item)
+					},
+					onCancel: () => {
+						this.modal_index = -2
 					}
 				})
 			} else {
@@ -322,7 +329,12 @@ export default class Index {
 		if (filter_relation) this.filter_relation = filter_relation
 		if (filter_params) this.filter_params = filter_params
 
+		const target_filter_params = this.filter_params.filter(item => item.value)
+
 		this.clearApplyView()
+
+		if (!target_filter_params.length) return
+
 		this.query()
 	}
 

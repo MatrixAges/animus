@@ -27,6 +27,14 @@ export namespace Omnitable {
 			// POST
 			delete?: string
 		}
+		hooks?: {
+			// 处理数据查询到的数据
+			afterQuery?: (v: any) => any
+			// 处理要创建的数据
+			beforeCreate?: (v: any) => any
+			// 处理要变更的数据
+			beforeUpdate?: (v: any) => any
+		}
 		filter: {
 			columns: Array<FilterColumn>
 			props?: {}
@@ -69,6 +77,7 @@ export namespace Omnitable {
 		sort?: boolean
 		readonly?: boolean
 		sticky?: boolean
+		stat?: 'SUM' | 'AVG' | 'COUNT' | 'MAX' | 'MIN'
 	}
 
 	export interface FormColumn extends BaseColumn {

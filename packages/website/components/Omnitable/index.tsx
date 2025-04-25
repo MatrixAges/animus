@@ -4,6 +4,7 @@ import '@website/appdata/mobx'
 
 import { useMemoizedFn } from 'ahooks'
 import { App, Button } from 'antd'
+import { debounce } from 'lodash-es'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useState } from 'react'
 import { container } from 'tsyringe'
@@ -49,7 +50,7 @@ const Index = (props: Omnitable.Props) => {
 		filter_columns,
 		filter_relation: x.filter_relation,
 		filter_params: $.copy(x.filter_params),
-		onChangeFilter: x.onChangeFilter
+		onChangeFilter: useMemoizedFn(debounce(x.onChangeFilter, 300))
 	}
 
 	const props_fields: IPropsFields = {
