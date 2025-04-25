@@ -8,6 +8,7 @@ import { verticalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
 import { ArrowsDownUp } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
+import styles from '../../index.module.css'
 import SortItem from './Item'
 
 import type { IPropsSort } from '../../types'
@@ -15,7 +16,7 @@ import type { IPropsSort } from '../../types'
 const { useForm, List } = Form
 
 const Index = (props: IPropsSort) => {
-	const { sort_params, sort_field_options, onChangeSort } = props
+	const { sort_params, sort_field_options, use_by_view, onChangeSort } = props
 	const [form] = useForm()
 	const counts = sort_params.length
 	const { setFieldsValue, getFieldsValue } = form
@@ -49,7 +50,7 @@ const Index = (props: IPropsSort) => {
 	})
 
 	const Content = (
-		<div className='popover_wrap sort_popover flex flex_column'>
+		<div className={$.cx('flex flex_column', styles.popover_wrap)}>
 			<span className='title'>{counts ? 'Sort By' : 'No sorting applied'}</span>
 			<Form className='flex align_center' form={form} onValuesChange={onValuesChange}>
 				<List name='items'>
@@ -111,6 +112,8 @@ const Index = (props: IPropsSort) => {
 			</Form>
 		</div>
 	)
+
+	if (use_by_view) return Content
 
 	return (
 		<Popover trigger={['click']} placement='bottomLeft' content={Content} forceRender>

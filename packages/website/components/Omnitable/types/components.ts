@@ -4,6 +4,7 @@ import type { Omnitable } from '../types'
 export interface IPropsSort {
 	sort_field_options: Model['sort_field_options']
 	sort_params: Model['sort_params']
+	use_by_view?: boolean
 	onChangeSort: Model['onChangeSort']
 }
 
@@ -16,6 +17,7 @@ export interface IPropsFilter {
 	filter_columns: Model['filter_columns']
 	filter_relation: Model['filter_relation']
 	filter_params: Model['filter_params']
+	use_by_view?: boolean
 	onChangeFilter: Model['onChangeFilter']
 }
 
@@ -30,6 +32,7 @@ export interface IPropsFilterItem {
 
 export interface IPropsFields {
 	visible_columns: Model['visible_columns']
+	use_by_view?: boolean
 	onChangeVisibleColumns: (v: Model['visible_columns']) => void
 }
 
@@ -37,6 +40,21 @@ export interface IPropsFieldsItem {
 	item: Model['visible_columns'][number]
 	index: number
 	onChange: (index: number, visible: boolean) => void
+}
+
+export interface IPropsView {
+	filter_columns: Model['filter_columns']
+	views: Model['views']
+	getSortFieldOptions: Model['getSortFieldOptions']
+	onApplyView: Model['onApplyView']
+	onChangeViews: (v: Model['views']) => void
+}
+
+export interface IPropsViewItem extends Pick<IPropsView, 'filter_columns' | 'getSortFieldOptions' | 'onApplyView'> {
+	view: Model['views'][number]
+	view_index: number
+	onChangeView: (index: number, v: Model['views'][number]) => void
+	remove: (index: number) => void
 }
 
 export interface IPropsTable {

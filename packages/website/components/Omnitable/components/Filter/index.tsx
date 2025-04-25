@@ -8,6 +8,7 @@ import { verticalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
 import { FunnelSimple } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
+import styles from '../../index.module.css'
 import { filter_expressions } from '../../metadata'
 import FilterItem from './Item'
 
@@ -16,7 +17,7 @@ import type { IPropsFilter } from '../../types'
 const { useForm, List } = Form
 
 const Index = (props: IPropsFilter) => {
-	const { filter_columns, filter_relation, filter_params, onChangeFilter } = props
+	const { filter_columns, filter_relation, filter_params, use_by_view, onChangeFilter } = props
 	const [form] = useForm()
 	const counts = filter_params.length
 	const { setFieldsValue, getFieldsValue } = form
@@ -69,12 +70,11 @@ const Index = (props: IPropsFilter) => {
 	})
 
 	const Content = (
-		<div className='popover_wrap filter_popover flex flex_column'>
+		<div className={$.cx('flex flex_column', styles.popover_wrap)}>
 			<span className='title'>{counts ? 'Filters' : 'No filters applied'}</span>
-
 			<div className='w_100 flex'>
 				<Form
-					className='flex align_center'
+					className='w_100 flex'
 					form={form}
 					onValuesChange={onValuesChange}
 					onFieldsChange={fields => {
@@ -139,7 +139,7 @@ const Index = (props: IPropsFilter) => {
 								</div>
 								<div
 									className={$.cx(
-										'form_list_actions flex',
+										'form_list_actions filter_actions flex',
 										items.length > 0 && 'has_items'
 									)}
 									style={{ paddingLeft: items.length > 0 ? 80 : 0 }}
@@ -164,6 +164,8 @@ const Index = (props: IPropsFilter) => {
 			</div>
 		</div>
 	)
+
+	if (use_by_view) return Content
 
 	return (
 		<Popover trigger={['click']} placement='bottomLeft' content={Content} forceRender>

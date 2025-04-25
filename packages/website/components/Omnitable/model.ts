@@ -3,7 +3,9 @@
 import to from 'await-to-js'
 import { uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
+import { nanoid } from 'nanoid'
 import { ofetch } from 'ofetch'
+import { setStorageWhenChange } from 'stk/mobx'
 
 import { $ } from '@website/utils'
 
@@ -11,6 +13,7 @@ import data from './mock_tasks'
 
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
+import type { IReactionDisposer, Lambda } from 'mobx'
 
 export default class Index {
 	antd = null as unknown as useAppProps
@@ -21,19 +24,37 @@ export default class Index {
 	table_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
 	form_columns = [] as Array<Omnitable.FormColumn & Omnitable.Field>
 	editing_info = null as null | { row_index: number; field: string; focus: boolean }
-	modal_type = 'view' as 'view' | 'edit'
-	modal_index = null as any
-	modal_visible = false
+
 	sort_columns = [] as Array<Omnitable.TableColumn & Omnitable.Field>
 	sort_field_options = [] as Array<{ label: string; value: any; disabled?: boolean }>
 	sort_params = [] as Array<{ field: string; order: 'desc' | 'asc' }>
 	filter_relation = 'and' as 'and' | 'or'
 	filter_params = [] as Array<{ field: string; expression: string; value: any }>
 	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
+	views = [] as Array<{
+		name: string
+		sort_params: Index['sort_params']
+		filter_relation: Index['filter_relation']
+		filter_params: Index['filter_params']
+		visible_columns: Index['visible_columns']
+	}>
+	apply_view_name = ''
+
+	modal_type = 'view' as 'view' | 'edit'
+	modal_index = null as any
+	modal_visible = false
+	modal_view_visible = false
+
 	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
 
+	disposers = [] as Array<IReactionDisposer | Lambda>
+
 	constructor() {
-		makeAutoObservable(this, { antd: false, primary: false, props: false, config: false }, { autoBind: true })
+		makeAutoObservable(
+			this,
+			{ antd: false, primary: false, props: false, config: false, disposers: false },
+			{ autoBind: true }
+		)
 	}
 
 	async init(args: { props: Index['props']; antd: Index['antd'] }) {
@@ -46,6 +67,8 @@ export default class Index {
 		} else {
 			this.config = props
 		}
+
+		this.disposers = [setStorageWhenChange([{ [`${this.config.name}:views`]: 'views' }], this)]
 
 		if (this.config.primary) this.primary = this.config.primary
 
@@ -60,6 +83,8 @@ export default class Index {
 
 		this.config = res
 	}
+
+	async query() {}
 
 	make() {
 		this.filter_columns = this.config.filter.columns.map(item => {
@@ -147,21 +172,26 @@ export default class Index {
 		}
 	}
 
-	getSortFieldOptions() {
+	getSortFieldOptions(v?: Index['sort_params']) {
 		const options = [] as Index['sort_field_options']
 		const disabled_options = [] as Index['sort_field_options']
+		const sort_params = v || this.sort_params
 
 		this.sort_columns.forEach(item => {
 			const target_item = { label: item.name, value: item.bind }
 
-			if (this.sort_params.find(s => s.field === item.bind)) {
+			if (sort_params.find(s => s.field === item.bind)) {
 				disabled_options.push({ ...target_item, disabled: true })
 			} else {
 				options.push(target_item)
 			}
 		})
 
-		this.sort_field_options = [...options, ...disabled_options]
+		const sort_field_options = [...options, ...disabled_options]
+
+		if (v) return sort_field_options
+
+		this.sort_field_options = sort_field_options
 	}
 
 	onSort(field: string) {
@@ -186,6 +216,8 @@ export default class Index {
 		this.sort_params = v
 
 		this.getSortFieldOptions()
+		this.clearApplyView()
+		this.query()
 	}
 
 	onChangeFilter(args: { filter_relation?: Index['filter_relation']; filter_params?: Index['filter_params'] }) {
@@ -193,9 +225,40 @@ export default class Index {
 
 		if (filter_relation) this.filter_relation = filter_relation
 		if (filter_params) this.filter_params = filter_params
+
+		this.clearApplyView()
+		this.query()
 	}
 
-	onChangeVisibleColumns(v: Index['visible_columns']) {
-		this.visible_columns = v
+	onAddView() {
+		this.views.unshift({
+			name: 'Table view ' + nanoid(3),
+			sort_params: this.sort_params,
+			filter_relation: this.filter_relation,
+			filter_params: this.filter_params,
+			visible_columns: this.visible_columns
+		})
+
+		this.views = $.copy(this.views)
+	}
+
+	onApplyView(view: Index['views'][number]) {
+		this.apply_view_name = view.name
+		this.sort_params = view.sort_params
+		this.filter_relation = view.filter_relation
+		this.filter_params = view.filter_params
+		this.visible_columns = view.visible_columns
+		this.modal_view_visible = false
+
+		this.query()
+	}
+
+	clearApplyView() {
+		this.apply_view_name = ''
+	}
+
+	off() {
+		this.disposers.map(item => item())
+		this.disposers = []
 	}
 }

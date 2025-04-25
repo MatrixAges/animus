@@ -26,6 +26,7 @@ interface IProps {
 	disablePadding?: boolean
 	hideClose?: boolean
 	zIndex?: number
+	header_actions?: ReactNode
 	onCancel?: (e?: MouseEvent<HTMLElement>) => void
 	getContainer?: () => Element
 	getRef?: (v: HTMLElement | null) => void
@@ -46,6 +47,7 @@ const Index = (props: IProps) => {
 		disablePadding,
 		hideClose,
 		zIndex,
+		header_actions,
 		onCancel,
 		getContainer,
 		getRef
@@ -165,18 +167,20 @@ const Index = (props: IProps) => {
 								<div
 									className={$.cx(
 										styles.header,
-										'w_100 border_box flex justify_between align_center'
+										'w_100 border_box flex justify_between align_center relative'
 									)}
 								>
 									<span className='title'>{title}</span>
-									{!hideClose && (
-										<span
-											className='btn_close flex justify_center align_center clickable'
-											onClick={onCancel}
-										>
-											<X size={16}></X>
-										</span>
-									)}
+									{header_actions
+										? header_actions
+										: !!hideClose && (
+												<span
+													className='btn_close flex justify_center align_center clickable'
+													onClick={onCancel}
+												>
+													<X size={16}></X>
+												</span>
+											)}
 								</div>
 							)}
 							<div

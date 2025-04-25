@@ -24,7 +24,7 @@ export default (theme: App.Theme) => {
 			colorTextBase: vars.color_text,
 			colorBgBase: vars.color_bg,
 			colorBgContainer: vars.color_bg,
-			colorBgElevated: vars.color_bg,
+			colorBgElevated: theme === 'dark' ? vars.color_bg_2 : vars.color_bg,
 			colorBgLayout: vars.color_bg_1,
 			colorBorder: vars.color_border,
 			colorBorderSecondary: vars.color_border_light,

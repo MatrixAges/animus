@@ -101,7 +101,7 @@
 		"cross-env": "^7.0.3",
 		"hast": "^1.0.0",
 		"lz-string": "^1.5.0",
-		"next-rspack": "15.4.0-canary.7",
+		"next-rspack": "15.4.0-canary.9",
 		"postcss-calc": "^10.1.1",
 		"postcss-import": "^16.1.0",
 		"postcss-loader": "^8.1.1",

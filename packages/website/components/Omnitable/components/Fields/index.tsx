@@ -6,13 +6,14 @@ import { arrayMove, verticalListSortingStrategy, SortableContext } from '@dnd-ki
 import { SlidersHorizontal } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
+import styles from '../../index.module.css'
 import Item from './Item'
 
 import type { IPropsFields } from '../../types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 const Index = (props: IPropsFields) => {
-	const { visible_columns, onChangeVisibleColumns } = props
+	const { visible_columns, use_by_view, onChangeVisibleColumns } = props
 
 	const onChange = useMemoizedFn((index, visible) => {
 		const columns = $.copy(visible_columns)
@@ -39,7 +40,7 @@ const Index = (props: IPropsFields) => {
 	})
 
 	const Content = (
-		<div className='popover_wrap fields_wrap sort_popover flex flex_column'>
+		<div className={$.cx('flex flex_column', styles.popover_wrap, styles.fields_wrap)}>
 			<DndContext onDragEnd={onDragEnd}>
 				<SortableContext items={visible_columns} strategy={verticalListSortingStrategy}>
 					{visible_columns.map((item, index) => (
@@ -49,6 +50,8 @@ const Index = (props: IPropsFields) => {
 			</DndContext>
 		</div>
 	)
+
+	if (use_by_view) return Content
 
 	return (
 		<Popover
