@@ -9,25 +9,28 @@ import styles from '../index.module.css'
 import FormComponent from './FormComponent'
 
 import type { IPropsDetail } from '../types'
+
 const { useForm, Item } = Form
 
 const Index = (props: IPropsDetail) => {
-	const { form_columns, modal_type, item, onChange, onClose } = props
+	const { form_columns, modal_type, item, loading, onSubmit, onClose } = props
 	const [form] = useForm()
-	const { setFieldsValue, getFieldsValue } = form
+	const { setFieldsValue, getFieldsValue, resetFields } = form
 
 	const disabled = modal_type === 'view'
 
 	useLayoutEffect(() => {
+		if (modal_type === 'add') return resetFields()
+
 		const form_item = getFieldsValue()
 
 		if (deepEqual(item, form_item)) return
 
 		setFieldsValue(item)
-	}, [item])
+	}, [item, modal_type])
 
 	const onFinish = useMemoizedFn(values => {
-		onChange(-1, values)
+		onSubmit(values)
 	})
 
 	return (
@@ -52,10 +55,10 @@ const Index = (props: IPropsDetail) => {
 						</Col>
 					))}
 				</Row>
-				{modal_type === 'edit' && (
+				{modal_type !== 'view' && (
 					<div className='actions_wrap w_100 border_box flex justify_end sticky bottom_0'>
 						<Button onClick={onClose}>Cancel</Button>
-						<Button type='primary' htmlType='submit'>
+						<Button type='primary' htmlType='submit' loading={loading}>
 							Save
 						</Button>
 					</div>

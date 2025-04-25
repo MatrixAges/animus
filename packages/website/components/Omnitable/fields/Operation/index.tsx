@@ -50,21 +50,23 @@ const Index = (props: ComponentType<Omnitable.Operation['props']>) => {
 	)
 
 	return (
-		<button className={$.cx('flex', styles._local)} onFocus={onFocus}>
-			{editing ? (
-				<Dropdown
-					rootClassName={styles.dropdown}
-					trigger={['click']}
-					destroyPopupOnHide
-					getPopupContainer={() => document.body}
-					menu={{ items, onClick, onFocus }}
-				>
-					<div>{Btn}</div>
-				</Dropdown>
-			) : (
-				Btn
-			)}
-		</button>
+		<div className='flex justify_end'>
+			<button className={$.cx('flex', styles._local)} onFocus={onFocus}>
+				{editing ? (
+					<Dropdown
+						rootClassName={styles.dropdown}
+						trigger={['click']}
+						destroyPopupOnHide
+						getPopupContainer={() => document.body}
+						menu={{ items, onClick, onFocus }}
+					>
+						<div>{Btn}</div>
+					</Dropdown>
+				) : (
+					Btn
+				)}
+			</button>
+		</div>
 	)
 }
 

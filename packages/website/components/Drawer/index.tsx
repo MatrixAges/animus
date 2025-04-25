@@ -24,7 +24,6 @@ interface IProps {
 	maskClosable?: boolean
 	disableOverflow?: boolean
 	disablePadding?: boolean
-	hideClose?: boolean
 	zIndex?: number
 	header_actions?: ReactNode
 	onCancel?: (e?: MouseEvent<HTMLElement>) => void
@@ -45,7 +44,6 @@ const Index = (props: IProps) => {
 		maskClosable,
 		disableOverflow,
 		disablePadding,
-		hideClose,
 		zIndex,
 		header_actions,
 		onCancel,
@@ -171,16 +169,16 @@ const Index = (props: IProps) => {
 									)}
 								>
 									<span className='title'>{title}</span>
-									{header_actions
-										? header_actions
-										: !!hideClose && (
-												<span
-													className='btn_close flex justify_center align_center clickable'
-													onClick={onCancel}
-												>
-													<X size={16}></X>
-												</span>
-											)}
+									{header_actions ? (
+										header_actions
+									) : (
+										<span
+											className='btn_close flex justify_center align_center clickable'
+											onClick={onCancel}
+										>
+											<X size={16}></X>
+										</span>
+									)}
 								</div>
 							)}
 							<div

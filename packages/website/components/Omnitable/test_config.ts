@@ -5,7 +5,10 @@ export const config = {
 	primary: 'id',
 	actions: {
 		baseurl: '',
-		query: ''
+		query: '',
+		create: '',
+		update: '',
+		delete: ''
 	},
 	filter: {
 		columns: [

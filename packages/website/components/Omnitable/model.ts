@@ -3,6 +3,7 @@
 import to from 'await-to-js'
 import { uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
+import mustache from 'mustache'
 import { nanoid } from 'nanoid'
 import { ofetch } from 'ofetch'
 import { setStorageWhenChange } from 'stk/mobx'
@@ -40,12 +41,14 @@ export default class Index {
 	}>
 	apply_view_name = ''
 
-	modal_type = 'view' as 'view' | 'edit'
+	modal_type = 'view' as 'view' | 'edit' | 'add'
 	modal_index = null as any
 	modal_visible = false
 	modal_view_visible = false
+	loading = false
 
 	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
+	pagination = { page: 1, pagesize: 10, total: 0 } as { page: number; pagesize: number; total: number }
 
 	disposers = [] as Array<IReactionDisposer | Lambda>
 
@@ -84,7 +87,80 @@ export default class Index {
 		this.config = res
 	}
 
-	async query() {}
+	async query() {
+		const [err, res] = await to<Index['list']>(
+			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
+				method: 'POST',
+				body: {
+					sort_params: this.sort_params,
+					filter_relation: this.filter_relation,
+					filter_params: this.filter_params,
+					page: this.pagination.page,
+					pagesize: this.pagination.pagesize
+				}
+			})
+		)
+
+		if (err) return this.antd.message.error(`Query error: ${err.message}`)
+
+		// this.list = res
+	}
+
+	async create(v: any) {
+		this.loading = true
+
+		const [err] = await to<Index['list']>(
+			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
+				method: 'POST',
+				body: v
+			})
+		)
+
+		this.loading = false
+
+		if (err) return this.antd.message.error(`Create error: ${err.message}`)
+
+		this.query()
+	}
+
+	async update(primary_value: number | string, v: any) {
+		this.loading = true
+
+		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.update}`, {
+			[this.primary]: primary_value
+		})
+
+		const [err] = await to<Index['list']>(ofetch(url, { method: 'POST', body: v }))
+
+		this.loading = false
+
+		if (err) return this.antd.message.error(`Update error: ${err.message}`)
+
+		this.query()
+	}
+
+	async delete(primary_value: number | string) {
+		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.delete}`, {
+			[this.primary]: primary_value
+		})
+
+		const [err] = await to<Index['list']>(ofetch(url, { method: 'POST' }))
+
+		if (err) return this.antd.message.error(`Update error: ${err.message}`)
+
+		this.query()
+	}
+
+	onSubmit(v: any) {
+		switch (this.modal_type) {
+			case 'add':
+				this.create(v)
+				break
+			case 'edit':
+				this.onChange(-1, v)
+				break
+		}
+	}
 
 	make() {
 		this.filter_columns = this.config.filter.columns.map(item => {
@@ -133,7 +209,7 @@ export default class Index {
 		}
 	}
 
-	onChange(index: number, v: any) {
+	async onChange(index: number, v: any) {
 		if (!this.list?.data) return
 
 		const operation = v._operation
@@ -151,8 +227,17 @@ export default class Index {
 					icon: null,
 					destroyOnClose: true,
 					getContainer: () => document.body,
-					onOk: () => {
+					onOk: async () => {
+						const target_item = this.list!.data[index]
+
 						this.list!.data.splice(index, 1)
+
+						const res = await this.delete(target_item[this.primary])
+
+						if (res === undefined) return
+
+						// 更新出错，重新插入数据
+						this.list!.data.splice(index, 0, target_item)
 					}
 				})
 			} else {
@@ -162,13 +247,21 @@ export default class Index {
 			}
 		} else {
 			const target_index = from_modal ? this.modal_index : index
+			const target_item = this.list.data[target_index]
 
-			this.list.data[target_index] = { ...this.list.data[target_index], ...v }
+			this.list.data[target_index] = { ...target_item, ...v }
 
 			if (from_modal) {
 				this.modal_visible = false
 				this.modal_index = -2
 			}
+
+			const res = await this.update(target_item[this.primary], v)
+
+			if (res === undefined) return
+
+			// 更新出错，还原数据
+			this.list.data[target_index] = target_item
 		}
 	}
 
@@ -210,6 +303,9 @@ export default class Index {
 		}
 
 		this.sort_params = $.copy(this.sort_params)
+
+		this.clearApplyView()
+		this.query()
 	}
 
 	onChangeSort(v: Index['sort_params']) {
@@ -255,6 +351,12 @@ export default class Index {
 
 	clearApplyView() {
 		this.apply_view_name = ''
+	}
+
+	onChangePagination(page: number, pagesize: number) {
+		this.pagination = { ...this.pagination, page, pagesize }
+
+		this.query()
 	}
 
 	off() {

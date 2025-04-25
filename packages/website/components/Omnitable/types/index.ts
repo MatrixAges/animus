@@ -19,13 +19,13 @@ export namespace Omnitable {
 		actions: {
 			baseurl: string
 			// POST
+			query: string
+			// POST
 			create?: string
 			// POST
-			delete?: string
-			// POST
 			update?: string
-			// GET
-			query: string
+			// POST
+			delete?: string
 		}
 		filter: {
 			columns: Array<FilterColumn>

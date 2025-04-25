@@ -25,6 +25,7 @@ const Index = (props: IPropsFields) => {
 
 	const onDragEnd = useMemoizedFn(({ active, over }: DragEndEvent) => {
 		if (!over) return
+		if (over.id === '_operation') return
 
 		let active_index: number
 		let over_index: number

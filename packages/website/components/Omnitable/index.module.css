@@ -326,13 +326,17 @@
 }
 
 .Pagination {
+	padding: 12px 0;
+
 	:global {
-		.if-pagination-options {
-			.if-select {
-				.if-select-dropdown {
-					border: var(--border);
-					box-shadow: none;
-				}
+		.ani-pagination {
+			position: relative;
+			align-items: center;
+
+			.ani-pagination-total-text {
+				position: absolute;
+				left: 0;
+				color: var(--color_text_greylight);
 			}
 		}
 	}

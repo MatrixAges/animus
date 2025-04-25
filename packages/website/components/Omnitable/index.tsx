@@ -3,13 +3,12 @@
 import '@website/appdata/mobx'
 
 import { useMemoizedFn } from 'ahooks'
-import { App } from 'antd'
-import { omit } from 'lodash-es'
+import { App, Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useState } from 'react'
 import { container } from 'tsyringe'
 
-import { Eyes, PlusCircle } from '@phosphor-icons/react'
+import { Eyes, Plus } from '@phosphor-icons/react'
 import { Drawer } from '@website/components'
 import { $ } from '@website/utils'
 
@@ -36,6 +35,8 @@ const Index = (props: Omnitable.Props) => {
 
 	useLayoutEffect(() => {
 		x.init({ props, antd })
+
+		return () => x.off()
 	}, [props, antd])
 
 	const props_sort: IPropsSort = {
@@ -80,13 +81,17 @@ const Index = (props: Omnitable.Props) => {
 		setEditingInfo: useMemoizedFn(v => (x.editing_info = v))
 	}
 
-	const props_pagination: IPropsPagination = {}
+	const props_pagination: IPropsPagination = {
+		pagination: $.copy(x.pagination),
+		onChangePagination: x.onChangePagination
+	}
 
 	const props_detail: IPropsDetail = {
 		form_columns: $.copy(x.form_columns),
 		modal_type: x.modal_type,
-		item: $.copy(x.list!.data[x.modal_index]),
-		onChange: x.onChange,
+		item: $.copy(x.list!.data?.at(x.modal_index)),
+		loading: x.loading,
+		onSubmit: x.onSubmit,
 		onClose: useMemoizedFn(() => {
 			x.modal_visible = false
 			x.modal_index = -2
@@ -103,9 +108,14 @@ const Index = (props: Omnitable.Props) => {
 
 	const onToggleView = useMemoizedFn(() => (x.modal_view_visible = !x.modal_view_visible))
 
+	const onCreate = useMemoizedFn(() => {
+		x.modal_type = 'add'
+		x.modal_visible = true
+	})
+
 	return (
 		<div className={$.cx(styles._local)}>
-			<div className={$.cx('header_wrap w_100 flex justify_between', styles.header_wrap)}>
+			<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
 				<div className='flex'>
 					<button
 						className='header_btn_wrap border_box flex align_center clickable mr_8'
@@ -120,27 +130,45 @@ const Index = (props: Omnitable.Props) => {
 					<Sort {...props_sort}></Sort>
 					{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
 				</div>
-				<Fields {...props_fields}></Fields>
+				<div className='flex'>
+					<Fields {...props_fields}></Fields>
+					<Button
+						className='flex justify_center align_center clickable ml_8'
+						type='primary'
+						onClick={onCreate}
+					>
+						<Plus className='icon' weight='bold'></Plus>
+						<span>Create</span>
+					</Button>
+				</div>
 			</div>
-			{/* <Table {...props_table}></Table>
-			<Pagination></Pagination> */}
+			<Table {...props_table}></Table>
+			<Pagination {...props_pagination}></Pagination>
 			<Drawer
 				className={styles.Drawer}
 				open={x.modal_visible || x.modal_view_visible}
-				title={x.modal_view_visible ? 'Table views' : props_detail.item?.[x.primary]}
-				width={x.modal_view_visible ? 'min(90vw,660px)' : 450}
+				title={
+					x.modal_view_visible
+						? 'Table views'
+						: x.modal_type === 'add'
+							? 'Create'
+							: props_detail.item?.[x.primary]
+				}
+				width={x.modal_view_visible ? 'min(90vw,660px)' : 'min(100vw,450px)'}
 				placement={x.modal_view_visible ? 'left' : 'right'}
 				maskClosable={x.modal_type === 'view' || x.modal_view_visible}
 				disablePadding={x.modal_visible}
 				onCancel={x.modal_view_visible ? onToggleView : props_detail.onClose}
 				header_actions={
-					<button
-						className='btn_add_view flex justify_center align_center absolute clickable'
-						onClick={x.onAddView}
-					>
-						<PlusCircle className='icon' weight='bold'></PlusCircle>
-						<span>Add</span>
-					</button>
+					x.modal_view_visible && (
+						<button
+							className='btn_add_view flex justify_center align_center absolute clickable'
+							onClick={x.onAddView}
+						>
+							<Plus className='icon' weight='bold'></Plus>
+							<span>Add</span>
+						</button>
+					)
 				}
 			>
 				{x.modal_view_visible ? <View {...props_view}></View> : <Detail {...props_detail}></Detail>}

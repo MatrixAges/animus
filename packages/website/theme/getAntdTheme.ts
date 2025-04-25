@@ -15,16 +15,20 @@ export default (theme: App.Theme) => {
 		.with('dark', () => dark)
 		.exhaustive()
 
+	const is_dark = theme === 'dark'
+
 	return {
 		hashed: false,
 		token: {
 			...common_antd.token,
-			colorPrimary: `rgb(${common_vars.color_main_rgb})`,
+			...(is_dark ? { boxShadowSecondary: vars.shadow } : {}),
+			colorPrimary: `rgb(${vars.color_contrast_rgb})`,
+			colorWhite: `rgb(${vars.color_std_rgb})`,
 			colorText: vars.color_text,
 			colorTextBase: vars.color_text,
 			colorBgBase: vars.color_bg,
 			colorBgContainer: vars.color_bg,
-			colorBgElevated: theme === 'dark' ? vars.color_bg_2 : vars.color_bg,
+			colorBgElevated: is_dark ? vars.color_bg_1 : vars.color_bg,
 			colorBgLayout: vars.color_bg_1,
 			colorBorder: vars.color_border,
 			colorBorderSecondary: vars.color_border_light,
@@ -37,6 +41,9 @@ export default (theme: App.Theme) => {
 			borderRadius: 6
 		},
 		components: {
+			Button: {
+				primaryColor: vars.color_bg
+			},
 			Checkbox: {
 				borderRadiusXS: 3,
 				borderRadiusSM: 3,

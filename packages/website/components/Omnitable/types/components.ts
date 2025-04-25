@@ -116,12 +116,16 @@ export interface ComponentType<T = {}>
 	self_props: T
 }
 
-export interface IPropsPagination {}
+export interface IPropsPagination {
+	pagination: Model['pagination']
+	onChangePagination: Model['onChangePagination']
+}
 
 export interface IPropsDetail {
 	form_columns: Model['form_columns']
 	modal_type: Model['modal_type']
 	item: any
-	onChange: Model['onChange']
+	loading: Model['loading']
+	onSubmit: Model['onSubmit']
 	onClose: () => void
 }
