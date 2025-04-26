@@ -60,7 +60,7 @@ export interface IPropsViewItem extends Pick<IPropsView, 'filter_columns' | 'get
 export interface IPropsTable {
 	primary: Model['primary']
 	table_columns: Model['table_columns']
-	data: Omnitable.List['data']
+	data: Omnitable.List['items']
 	editing_info: Model['editing_info']
 	sort_params: Model['sort_params']
 	modal_index: Model['modal_index']
@@ -77,7 +77,7 @@ export interface IPropsTh {
 
 export interface IPropsRow
 	extends Pick<IPropsTable, 'table_columns' | 'editing_info' | 'modal_index' | 'setEditingInfo' | 'onChange'> {
-	item: Omnitable.List['data'][number]
+	item: Omnitable.List['items'][number]
 	index: number
 }
 
@@ -86,6 +86,7 @@ export interface IPropsCol {
 	value: any
 	row_index: number
 	focus: boolean | null
+	item?: any
 	setEditingField?: IPropsTable['setEditingInfo']
 }
 
@@ -94,6 +95,7 @@ export interface IPropsComponent {
 	value?: any
 	row_index: number
 	editing: boolean
+	item?: any
 	onFocus?: (v?: any) => void
 	onBlur?: () => void
 	onChange?: (v: any) => void
@@ -113,6 +115,7 @@ export interface ComponentType<T = {}>
 	disabled?: boolean
 	use_by_form?: boolean
 	use_by_filter?: boolean
+	item?: boolean
 	self_props: T
 }
 

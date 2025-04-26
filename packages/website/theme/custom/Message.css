@@ -12,7 +12,6 @@
 				padding: 3px 6px;
 				border-radius: 4px;
 				outline: var(--border);
-				background-color: var(--color_bg_1);
 				font-size: 12px;
 
 				.ani-message-custom-content {
@@ -21,6 +20,7 @@
 
 					.ani-icon {
 						margin-inline-end: 4px;
+						color: var(--color_text);
 						font-size: 12px;
 					}
 				}

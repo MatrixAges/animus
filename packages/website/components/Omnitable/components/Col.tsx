@@ -12,7 +12,7 @@ import type { IPropsCol, IPropsComponent } from '../types'
 const { Item } = Form
 
 const Index = (props: IPropsCol) => {
-	const { column, value, row_index, focus, setEditingField } = props
+	const { column, value, row_index, focus, item, setEditingField } = props
 	const { type, bind, readonly } = column
 	const ref = useRef<HTMLTableCellElement>(null)
 	const [hover, setHover] = useState(false)
@@ -56,6 +56,8 @@ const Index = (props: IPropsCol) => {
 	} else {
 		props_component['value'] = value
 	}
+
+	if (item) props_component['item'] = item
 
 	const Content = useDeepMemo(() => <Component {...props_component}></Component>, [props_component])
 

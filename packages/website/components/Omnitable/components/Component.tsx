@@ -16,7 +16,7 @@ import Text from '../fields/Text'
 import type { IPropsComponent } from '../types'
 
 const Index = (props: IPropsComponent) => {
-	const { column, value, editing, onFocus, onBlur, onChange } = props
+	const { column, value, editing, item, onFocus, onBlur, onChange } = props
 	const { type, width, props: self_props } = column
 
 	const Component = useMemo(() => {
@@ -46,7 +46,7 @@ const Index = (props: IPropsComponent) => {
 	}, [type])
 
 	// @ts-ignore
-	return <Component {...{ self_props, width, value, editing, onFocus, onBlur, onChange }} />
+	return <Component {...{ self_props, width, value, editing, item, onFocus, onBlur, onChange }} />
 }
 
 export default $.memo(Index)

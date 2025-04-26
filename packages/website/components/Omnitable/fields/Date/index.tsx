@@ -12,7 +12,7 @@ const Index = (props: ComponentType<Omnitable.Date['props']>) => {
 
 	return (
 		<span className={$.cx(styles._local, use_by_form && styles.use_by_form, disabled && styles.disabled)}>
-			{dayjs(value).format(format || 'YYYY-MM-DD')}
+			{value ? dayjs(value).format(format || 'YYYY-MM-DD') : '-'}
 		</span>
 	)
 }

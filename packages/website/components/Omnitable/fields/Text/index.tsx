@@ -1,3 +1,5 @@
+import mustache from 'mustache'
+
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -5,7 +7,8 @@ import styles from './index.module.css'
 import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Text['props']>) => {
-	const { value, use_by_form, disabled } = props
+	const { value, use_by_form, disabled, item, self_props } = props
+	const { format } = self_props || {}
 
 	return (
 		<span
@@ -16,7 +19,7 @@ const Index = (props: ComponentType<Omnitable.Text['props']>) => {
 				disabled && styles.disabled
 			)}
 		>
-			{value}
+			{format ? mustache.render(format, item || {}) : value}
 		</span>
 	)
 }

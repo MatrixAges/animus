@@ -50,6 +50,7 @@ const Index = (props: IPropsRow) => {
 						value={pick(item, col.bind)[col.bind]}
 						row_index={index}
 						focus={!col.readonly && editing_info && col.bind === editing_info.field}
+						item={col.type === 'text' && col.props?.format ? item : undefined}
 						setEditingField={col.readonly ? undefined : setEditingField}
 						key={col.name}
 					></Column>

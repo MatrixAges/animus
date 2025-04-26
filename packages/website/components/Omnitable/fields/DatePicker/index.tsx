@@ -30,14 +30,14 @@ const Index = (props: ComponentType<Omnitable.DatePicker['props']>) => {
 					allowClear={false}
 					format={format}
 					getPopupContainer={() => document.body}
-					value={dayjs(value)}
+					value={value ? dayjs(value) : undefined}
 					onFocus={onFocus}
 					onBlur={onBlur}
 					onChange={onChangeDate}
 				></DatePicker>
 			) : (
 				<span className='text_wrap w_100 line_clamp_1 border_box inline_flex align_center'>
-					{dayjs(value).format(format)}
+					{value ? dayjs(value).format(format) : '-'}
 				</span>
 			)}
 		</div>

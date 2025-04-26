@@ -276,11 +276,7 @@
 
 					&:hover {
 						td {
-							background-color: var(--color_bg_1);
-
-							&.operation {
-								background-color: var(--color_bg_1);
-							}
+							background-color: var(--color_bg_1) !important;
 						}
 					}
 
@@ -304,7 +300,8 @@
 					}
 
 					td {
-						height: 48px;
+						padding-top: 10px;
+						padding-bottom: 10px;
 						white-space: nowrap;
 
 						&.operation {

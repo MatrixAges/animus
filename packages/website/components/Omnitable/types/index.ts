@@ -49,10 +49,11 @@ export namespace Omnitable {
 		// 可选 form，如果不写就使用 table 的 columns 配置
 		form?: {
 			// columns中 的字段会覆盖 bind 相同的 table_columns 中的字段
-			columns: Array<FormColumn>
+			columns?: Array<FormColumn>
 			props?: {}
 			// 在table_columns的基础上扩展
 			use_table_columns?: boolean
+			exclude_table_columns?: Array<string>
 		}
 		fields: {
 			// filter和table可覆盖common中定义的字段
@@ -107,6 +108,7 @@ export namespace Omnitable {
 	export type Text = {
 		type: 'text'
 		props?: {
+			// 开启format的情况下，会传入整个item作为参数
 			format?: string
 			prefix?: string | { text: string; light_color: boolean }
 			suffix?: string | { text: string; light_color: boolean }
@@ -131,8 +133,9 @@ export namespace Omnitable {
 	export type Select = {
 		type: 'select'
 		props: {
-			placeholder?: string
 			options: Array<SelectOption | string>
+			mode?: 'multiple' | 'tags'
+			placeholder?: string
 		}
 	}
 
@@ -176,8 +179,15 @@ export namespace Omnitable {
 		props?: {}
 	}
 
+	export interface Error {
+		error: string
+		message: string
+	}
+
+	export type MutationResponse = Error | { id: number }
+
 	export interface List {
-		data: Array<any>
+		items: Array<any>
 		page: number
 		pagesize: number
 		total: number

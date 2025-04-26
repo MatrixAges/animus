@@ -74,7 +74,7 @@ const Index = (props: Omnitable.Props) => {
 				})
 				.filter(item => item !== null)
 		),
-		data: $.copy(x.list ? x.list.data : []),
+		data: $.copy(x.items),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
 		modal_index: x.modal_index,
@@ -91,7 +91,7 @@ const Index = (props: Omnitable.Props) => {
 	const props_detail: IPropsDetail = {
 		form_columns: $.copy(x.form_columns),
 		modal_type: x.modal_type,
-		item: $.copy(x.list!.data?.at(x.modal_index)),
+		item: $.copy(x.items?.at(x.modal_index)),
 		loading: x.loading,
 		onSubmit: x.onSubmit,
 		onClose: useMemoizedFn(() => {

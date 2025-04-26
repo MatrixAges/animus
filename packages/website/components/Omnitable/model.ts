@@ -1,7 +1,7 @@
 'use client'
 
 import to from 'await-to-js'
-import { uniqBy } from 'lodash-es'
+import { omit, uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
 import mustache from 'mustache'
 import { nanoid } from 'nanoid'
@@ -9,8 +9,6 @@ import { ofetch } from 'ofetch'
 import { setStorageWhenChange } from 'stk/mobx'
 
 import { $ } from '@website/utils'
-
-import data from './mock_tasks'
 
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
@@ -47,7 +45,7 @@ export default class Index {
 	modal_view_visible = false
 	loading = false
 
-	list = { data, page: 1, pagesize: 10, total: 50 } as null | Omnitable.List
+	items = [] as Array<any>
 	pagination = { page: 1, pagesize: 10, total: 0 } as { page: number; pagesize: number; total: number }
 
 	disposers = [] as Array<IReactionDisposer | Lambda>
@@ -77,6 +75,8 @@ export default class Index {
 
 		this.make()
 		this.getSortFieldOptions()
+
+		this.query()
 	}
 
 	async getConfig(config_url: string) {
@@ -88,7 +88,9 @@ export default class Index {
 	}
 
 	async query() {
-		const [err, res] = await to<Index['list']>(
+		const close = this.antd.message.loading('querying...', 0)
+
+		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
 			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
 				method: 'POST',
 				body: {
@@ -101,29 +103,49 @@ export default class Index {
 			})
 		)
 
+		close()
+
 		if (err) {
-			this.antd.message.error(`Query error: ${err.message}`)
+			this.antd.message.error(`Query error: ${err?.message}`)
 
 			return false
 		}
 
-		// this.list =this.config.hooks?.afterQuery? this.config.hooks.afterQuery(res):res
+		if ('error' in res) {
+			this.antd.message.error(`${res.error}: ${res.message}`)
+
+			return false
+		}
+
+		this.items = this.config.hooks?.afterQuery ? this.config.hooks.afterQuery(res.data.items) : res.data.items
+		this.pagination = omit(res.data, 'items')
 	}
 
 	async create(v: any) {
+		const close = this.antd.message.loading('creating...', 0)
+
 		this.loading = true
 
-		const [err] = await to<Index['list']>(
-			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
+		const [err, res] = await to<Omnitable.MutationResponse>(
+			ofetch(`${this.config.actions.baseurl}${this.config.actions.create}`, {
 				method: 'POST',
 				body: this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v
 			})
 		)
 
+		close()
+
 		this.loading = false
+		this.modal_visible = false
 
 		if (err) {
 			this.antd.message.error(`Create error: ${err.message}`)
+
+			return false
+		}
+
+		if ('error' in res) {
+			this.antd.message.error(`${res.error}: ${res.message}`)
 
 			return false
 		}
@@ -132,23 +154,34 @@ export default class Index {
 	}
 
 	async update(primary_value: number | string, v: any) {
+		const close = this.antd.message.loading('updating...', 0)
+
 		this.loading = true
 
 		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.update}`, {
 			[this.primary]: primary_value
 		})
 
-		const [err] = await to<Index['list']>(
+		const [err, res] = await to<Omnitable.MutationResponse>(
 			ofetch(url, {
 				method: 'POST',
 				body: this.config.hooks?.beforeUpdate ? this.config.hooks.beforeUpdate(v) : v
 			})
 		)
 
+		close()
+
 		this.loading = false
+		this.modal_visible = false
 
 		if (err) {
 			this.antd.message.error(`Update error: ${err.message}`)
+
+			return false
+		}
+
+		if ('error' in res) {
+			this.antd.message.error(`${res.error}: ${res.message}`)
 
 			return false
 		}
@@ -157,14 +190,24 @@ export default class Index {
 	}
 
 	async delete(primary_value: number | string) {
+		const close = this.antd.message.loading('deleting...', 0)
+
 		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.delete}`, {
 			[this.primary]: primary_value
 		})
 
-		const [err] = await to<Index['list']>(ofetch(url, { method: 'POST' }))
+		const [err, res] = await to<Omnitable.MutationResponse>(ofetch(url, { method: 'POST' }))
+
+		close()
 
 		if (err) {
 			this.antd.message.error(`Delete error: ${err.message}`)
+
+			return false
+		}
+
+		if ('error' in res) {
+			this.antd.message.error(`${res.error}: ${res.message}`)
 
 			return false
 		}
@@ -203,7 +246,9 @@ export default class Index {
 
 		if (!this.config.form || this.config.form?.use_table_columns) {
 			const target_columns = this.config.form
-				? uniqBy([...this.config.form.columns, ...this.config.table.columns], 'name')
+				? uniqBy([...(this.config.form?.columns || []), ...this.config.table.columns], 'name').filter(
+						item => !(this.config.form?.exclude_table_columns || []).includes(item.name)
+					)
 				: this.config.table.columns
 
 			const form_columns = target_columns
@@ -222,7 +267,7 @@ export default class Index {
 			this.form_columns = uniqBy(form_columns, 'bind')
 		} else {
 			this.form_columns =
-				this.config.form?.columns.map(item => {
+				this.config.form?.columns?.map(item => {
 					const field = this.config.fields.form?.[item.name] || this.config.fields.common[item.name]
 
 					return { ...item, ...field }
@@ -231,8 +276,6 @@ export default class Index {
 	}
 
 	async onChange(index: number, v: any) {
-		if (!this.list?.data) return
-
 		const operation = v._operation
 		const from_modal = index === -1
 
@@ -251,9 +294,9 @@ export default class Index {
 					destroyOnClose: true,
 					getContainer: () => document.body,
 					onOk: async () => {
-						const target_item = this.list!.data[index]
+						const target_item = this.items[index]
 
-						this.list!.data.splice(index, 1)
+						this.items.splice(index, 1)
 
 						const res = await this.delete(target_item[this.primary])
 
@@ -265,7 +308,7 @@ export default class Index {
 
 						console.log('error')
 						// 更新出错，重新插入数据
-						this.list!.data.splice(index, 0, target_item)
+						this.items.splice(index, 0, target_item)
 					},
 					onCancel: () => {
 						this.modal_index = -2
@@ -278,9 +321,9 @@ export default class Index {
 			}
 		} else {
 			const target_index = from_modal ? this.modal_index : index
-			const target_item = this.list.data[target_index]
+			const target_item = this.items[target_index]
 
-			this.list.data[target_index] = { ...target_item, ...v }
+			this.items[target_index] = { ...target_item, ...v }
 
 			const res = await this.update(target_item[this.primary], v)
 
@@ -294,7 +337,7 @@ export default class Index {
 			}
 
 			// 更新出错，还原数据
-			this.list.data[target_index] = target_item
+			this.items[target_index] = target_item
 		}
 	}
 
@@ -359,7 +402,7 @@ export default class Index {
 
 		this.clearApplyView()
 
-		if (!target_filter_params.length) return
+		if (filter_params?.length && !target_filter_params.length) return
 
 		this.query()
 	}

@@ -9,7 +9,8 @@ import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const { self_props, width, value, editing, use_by_form, use_by_filter, onFocus, onBlur, onChange } = props
-	const { options, ...rest_props } = self_props
+	const { options, mode, ...rest_props } = self_props
+	const multiple = mode !== undefined
 
 	const target_options = useMemo(() => {
 		if (typeof options[0] === 'object') {
@@ -36,22 +37,31 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	}, [options])
 
 	const target_option = useMemo(() => {
+		if (multiple) {
+			if (!value || !value.length) return
+
+			const targets = (options as Array<string>).filter(item => (value as Array<string>).includes(item))
+
+			return targets.join(',')
+		}
+
 		if (typeof options[0] === 'string') return value
 
 		return (options as Array<Omnitable.SelectOption>).find(item => item.value === value)?.label
-	}, [value, options])
+	}, [value, options, multiple])
 
 	return (
 		<div className={$.cx(styles._local, styles.icon)} style={{ width }}>
 			{editing ? (
 				<Select
 					{...rest_props}
+					className={$.cx(mode && 'w_100')}
 					popupClassName={$.cx(styles.popup, styles.icon)}
 					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
 					virtual={false}
 					suffixIcon={null}
-					mode={use_by_filter ? 'multiple' : undefined}
+					mode={use_by_filter ? 'multiple' : mode}
 					options={target_options}
 					value={value}
 					getPopupContainer={() => document.body}
@@ -61,7 +71,9 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 					onChange={onChange}
 				></Select>
 			) : (
-				<span className='text_wrap border_box inline_flex align_center'>{target_option}</span>
+				<span className='text_wrap border_box inline_flex align_center'>
+					{target_option || self_props.placeholder}
+				</span>
 			)}
 		</div>
 	)
