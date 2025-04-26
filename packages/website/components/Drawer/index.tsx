@@ -134,7 +134,7 @@ const Index = (props: IProps) => {
 					<div
 						className={$.cx(
 							styles.content_wrap,
-							on_body && styles.on_body,
+							styles.on_body,
 							disableOverflow && styles.disableOverflow,
 							disablePadding && styles.disablePadding,
 							'if_modal_wrap w_100 h_100 border_box flex',
