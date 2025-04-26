@@ -4,8 +4,10 @@ export const config = {
 	name: 'omnitable_test_table',
 	primary: 'id',
 	actions: {
-		// baseurl: 'http://localhost:8787/api/omnitable',
-		baseurl: 'https://omnitable-worker.openages.workers.dev/api/omnitable',
+		baseurl:
+			process.env.NODE_ENV === 'production'
+				? 'https://omnitable-worker.openages.workers.dev/api/omnitable'
+				: 'http://localhost:8787/api/omnitable',
 		query: '/query',
 		create: '/create',
 		update: '/update/{{id}}',

@@ -2,11 +2,12 @@
 
 import { useClickAway } from 'ahooks'
 import { motion, AnimatePresence } from 'motion/react'
-import { useEffect, useMemo, useRef, useState, Fragment } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, Fragment } from 'react'
 import { createPortal } from 'react-dom'
 
 import { X } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
+import { is_server } from '@website/utils/const'
 
 import styles from './index.module.css'
 
@@ -27,7 +28,6 @@ interface IProps {
 	zIndex?: number
 	header_actions?: ReactNode
 	onCancel?: (e?: MouseEvent<HTMLElement>) => void
-	getContainer?: () => Element
 	getRef?: (v: HTMLElement | null) => void
 }
 
@@ -47,16 +47,15 @@ const Index = (props: IProps) => {
 		zIndex,
 		header_actions,
 		onCancel,
-		getContainer,
 		getRef
 	} = props
 	const ref_content_wrap = useRef<HTMLDivElement>(null)
 	const ref_content = useRef<HTMLDivElement>(null)
-	const [on_body, setOnbody] = useState(false)
 	const [exsit, setExsit] = useState(false)
-	const container = getContainer?.() || document.body
 
 	useEffect(() => {
+		if (is_server) return
+
 		if (open) {
 			setExsit(true)
 
@@ -86,10 +85,6 @@ const Index = (props: IProps) => {
 
 		onCancel?.(e as unknown as MouseEvent<HTMLDivElement>)
 	}, ref_content)
-
-	useEffect(() => {
-		setOnbody(container === document.body)
-	}, [container])
 
 	const { align, transform, style } = useMemo(() => {
 		switch (placement) {
@@ -125,7 +120,7 @@ const Index = (props: IProps) => {
 			<AnimatePresence>
 				{open && (
 					<motion.div
-						className={$.cx(styles.mask, on_body && styles.on_body, 'w_100 h_100')}
+						className={$.cx(styles.mask, styles.on_body, 'w_100 h_100')}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -199,11 +194,7 @@ const Index = (props: IProps) => {
 		</Fragment>
 	)
 
-	if (container) {
-		return createPortal(Content, container)
-	}
-
-	return Content
+	return createPortal(Content, document.body)
 }
 
 export default $.memo(Index)

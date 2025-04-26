@@ -28,6 +28,7 @@ import type {
 	IPropsDetail,
 	IPropsView
 } from './types'
+
 const { useApp } = App
 
 const Index = (props: Omnitable.Props) => {

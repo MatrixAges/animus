@@ -10,10 +10,10 @@ import type { Omnitable, ComponentType } from '../../types'
 import type { Dayjs } from 'dayjs'
 
 const Index = (props: ComponentType<Omnitable.DatePicker['props']>) => {
-	const { self_props, width, value, editing, use_by_form, onFocus, onBlur, onChange } = props
+	const { self_props, width, value, editing, use_by_form, onFocus, onChange } = props
 	const { format = 'MMMM D, YYYY' } = self_props || {}
 
-	const onChangeDate = useMemoizedFn((v: Dayjs) => onChange?.(v.format(format)))
+	const onChangeDate = useMemoizedFn((v: Dayjs) => onChange?.(v.valueOf()))
 
 	return (
 		<div
@@ -32,7 +32,6 @@ const Index = (props: ComponentType<Omnitable.DatePicker['props']>) => {
 					getPopupContainer={() => document.body}
 					value={value ? dayjs(value) : undefined}
 					onFocus={onFocus}
-					onBlur={onBlur}
 					onChange={onChangeDate}
 				></DatePicker>
 			) : (

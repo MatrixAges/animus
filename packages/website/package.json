@@ -7,6 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"transform": "npx @cloudflare/next-on-pages",
+		"preview": "wrangler pages dev --port 3000 --binding=CF_PAGES_MODE=preview",
 		"deploy": "wrangler pages deploy",
 		"up": "pnpm run transform && pnpm run deploy",
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",

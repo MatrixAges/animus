@@ -1,4 +1,4 @@
-import Omnitable from '@website/components/Omnitable/Dy'
+import Omnitable from '@website/components/Omnitable'
 import { config } from '@website/components/Omnitable/test_config'
 
 import styles from './index.module.css'

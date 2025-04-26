@@ -3,7 +3,7 @@ import { useRef } from 'react'
 
 export default (callback: (...args: any) => any, delay = 300) => {
 	const times = useRef(0)
-	const timer = useRef<NodeJS.Timeout>()
+	const timer = useRef<NodeJS.Timeout>(null)
 
 	return useMemoizedFn((...args: any) => {
 		times.current += 1

@@ -1,4 +1,4 @@
-type Element = JSX.Element | null
+type Element = React.JSX.Element | null
 
 export default class Index<T> {
 	private el: (props: T) => Element

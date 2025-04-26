@@ -1,8 +1,8 @@
 import { captureError } from '../errors'
 import { PARENT_PHANTOM } from '../lies'
 import { hashMini } from '../utils/crypto'
-import { createTimer, logTestResult, performanceLogger, hashSlice } from '../utils/helpers'
-import { HTMLNote, count, modal } from '../utils/html'
+import { createTimer, hashSlice, logTestResult, performanceLogger } from '../utils/helpers'
+import { count, modal, HTMLNote } from '../utils/html'
 
 export default function getCSS() {
 	const computeStyle = (type, { require: [captureError] }) => {
@@ -15,7 +15,8 @@ export default function getCSS() {
 						? document.body.style
 						: // @ts-ignore
 							type == 'CSSRuleList.style'
-							? document.styleSheets[0].cssRules[0].style
+							? // @ts-ignore
+								document.styleSheets[0].cssRules[0].style
 							: undefined
 			if (!cssStyleDeclaration) {
 				throw new TypeError('invalid argument string')

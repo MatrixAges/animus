@@ -52,7 +52,7 @@ function createProvider<Value>(ProviderOrig: Provider<ContextValue<Value>>) {
 			setResolve(null)
 		}
 
-		const contextValue = useRef<ContextValue<Value>>()
+		const contextValue = useRef<ContextValue<Value>>(null)
 
 		if (!contextValue.current) {
 			const listeners = new Set<Listener<Value>>()
