@@ -18,12 +18,19 @@ const config: NextConfig = {
 			return rule.test && new RegExp(rule.test).test('.svg')
 		})
 
-		svg_rule.exclude = /\.inline\.svg$/
+		svg_rule.exclude = /\.inline\.svg$|\.svg\?src/
 
-		config.module.rules.push({
-			test: /\.inline\.svg$/,
-			use: [{ loader: '@svgr/webpack', options: { icon: true } }]
-		})
+		config.module.rules.push(
+			{
+				test: /\.inline\.svg$/,
+				use: [{ loader: '@svgr/webpack', options: { icon: true } }]
+			},
+			{
+				test: /\.svg$/,
+				resourceQuery: /src/,
+				type: 'asset/resource'
+			}
+		)
 
 		return config
 	},

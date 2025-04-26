@@ -11,7 +11,6 @@ import InputNumber from '../fields/InputNumber'
 import Operation from '../fields/Operation'
 import Priority from '../fields/Priority'
 import Select from '../fields/Select'
-import Status from '../fields/Status'
 import Text from '../fields/Text'
 
 import type { IPropsComponent } from '../types'
@@ -35,8 +34,6 @@ const Index = (props: IPropsComponent) => {
 				return Priority
 			case 'select':
 				return Select
-			case 'status':
-				return Status
 			case 'text':
 				return Text
 			case 'http_code':

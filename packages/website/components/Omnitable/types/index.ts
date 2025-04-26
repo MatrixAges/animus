@@ -1,5 +1,6 @@
 import type { InputProps, InputNumberProps } from 'antd'
 import type { TextAreaProps } from 'antd/es/input'
+import type { ReactNode } from 'react'
 
 export * from './components'
 
@@ -77,7 +78,7 @@ export namespace Omnitable {
 		sort?: boolean
 		readonly?: boolean
 		sticky?: boolean
-		stat?: 'SUM' | 'AVG' | 'COUNT' | 'MAX' | 'MIN'
+		stat?: boolean
 	}
 
 	export interface FormColumn extends BaseColumn {
@@ -99,7 +100,6 @@ export namespace Omnitable {
 		| Date
 		| DatePicker
 		| Priority
-		| Status
 		| HttpCode
 		| HttpCodeIndicator
 		| Operation
@@ -137,8 +137,9 @@ export namespace Omnitable {
 	}
 
 	export interface SelectOption {
-		label: string
+		label: ReactNode
 		value: string | number | boolean
+		icon?: string
 	}
 
 	export type Date = {
@@ -157,11 +158,6 @@ export namespace Omnitable {
 
 	export type Priority = {
 		type: 'priority'
-		props?: {}
-	}
-
-	export type Status = {
-		type: 'status'
 		props?: {}
 	}
 

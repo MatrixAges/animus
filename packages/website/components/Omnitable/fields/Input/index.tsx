@@ -1,4 +1,6 @@
+import { useMemoizedFn } from 'ahooks'
 import { Input } from 'antd'
+import { debounce } from 'lodash-es'
 
 import { $ } from '@website/utils'
 
@@ -9,6 +11,8 @@ import type { Omnitable, ComponentType } from '../../types'
 const Index = (props: ComponentType<Omnitable.Input['props']>) => {
 	const { self_props, width, value, editing, use_by_form, disabled, onFocus, onBlur, onChange } = props
 	const {} = self_props || {}
+
+	const debounceChange = onChange ? useMemoizedFn(debounce(onChange!, 300)) : undefined
 
 	return (
 		<div
@@ -25,10 +29,10 @@ const Index = (props: ComponentType<Omnitable.Input['props']>) => {
 					{...self_props}
 					className='w_100 line_clamp_1'
 					variant={use_by_form ? 'outlined' : 'borderless'}
-					value={value}
+					defaultValue={value}
 					onFocus={onFocus}
 					onBlur={onBlur}
-					onChange={onChange}
+					onChange={debounceChange}
 				></Input>
 			) : (
 				<span className='text_wrap line_clamp_1 border_box'>{value}</span>

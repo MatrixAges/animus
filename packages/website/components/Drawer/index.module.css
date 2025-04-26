@@ -48,8 +48,9 @@
 	background-color: var(--color_bg);
 
 	.header {
+		height: 40px;
 		line-height: 1;
-		padding: 9px 18px;
+		padding: 0 18px;
 		border-bottom: var(--border);
 
 		:global {

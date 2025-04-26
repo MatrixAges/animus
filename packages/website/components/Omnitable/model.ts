@@ -101,9 +101,13 @@ export default class Index {
 			})
 		)
 
-		if (err) return this.antd.message.error(`Query error: ${err.message}`)
+		if (err) {
+			this.antd.message.error(`Query error: ${err.message}`)
 
-		// this.list = res
+			return false
+		}
+
+		// this.list =this.config.hooks?.afterQuery? this.config.hooks.afterQuery(res):res
 	}
 
 	async create(v: any) {
@@ -112,13 +116,17 @@ export default class Index {
 		const [err] = await to<Index['list']>(
 			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
 				method: 'POST',
-				body: v
+				body: this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v
 			})
 		)
 
 		this.loading = false
 
-		if (err) return this.antd.message.error(`Create error: ${err.message}`)
+		if (err) {
+			this.antd.message.error(`Create error: ${err.message}`)
+
+			return false
+		}
 
 		this.query()
 	}
@@ -130,11 +138,20 @@ export default class Index {
 			[this.primary]: primary_value
 		})
 
-		const [err] = await to<Index['list']>(ofetch(url, { method: 'POST', body: v }))
+		const [err] = await to<Index['list']>(
+			ofetch(url, {
+				method: 'POST',
+				body: this.config.hooks?.beforeUpdate ? this.config.hooks.beforeUpdate(v) : v
+			})
+		)
 
 		this.loading = false
 
-		if (err) return this.antd.message.error(`Update error: ${err.message}`)
+		if (err) {
+			this.antd.message.error(`Update error: ${err.message}`)
+
+			return false
+		}
 
 		this.query()
 	}
@@ -146,7 +163,11 @@ export default class Index {
 
 		const [err] = await to<Index['list']>(ofetch(url, { method: 'POST' }))
 
-		if (err) return this.antd.message.error(`Update error: ${err.message}`)
+		if (err) {
+			this.antd.message.error(`Delete error: ${err.message}`)
+
+			return false
+		}
 
 		this.query()
 	}
@@ -236,10 +257,13 @@ export default class Index {
 
 						const res = await this.delete(target_item[this.primary])
 
-						this.modal_index = -2
+						if (res === undefined) {
+							this.modal_index = -2
 
-						if (res === undefined) return
+							return
+						}
 
+						console.log('error')
 						// 更新出错，重新插入数据
 						this.list!.data.splice(index, 0, target_item)
 					},
@@ -258,14 +282,16 @@ export default class Index {
 
 			this.list.data[target_index] = { ...target_item, ...v }
 
-			if (from_modal) {
-				this.modal_visible = false
-				this.modal_index = -2
-			}
-
 			const res = await this.update(target_item[this.primary], v)
 
-			if (res === undefined) return
+			if (res === undefined) {
+				if (from_modal) {
+					this.modal_visible = false
+					this.modal_index = -2
+				}
+
+				return
+			}
 
 			// 更新出错，还原数据
 			this.list.data[target_index] = target_item

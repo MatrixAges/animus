@@ -1,4 +1,4 @@
-import { useMemoizedFn, useUpdateLayoutEffect } from 'ahooks'
+import { useMemoizedFn } from 'ahooks'
 import { useLayoutEffect, useRef, Fragment } from 'react'
 
 import { $ } from '@website/utils'

@@ -12,7 +12,25 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const { options, ...rest_props } = self_props
 
 	const target_options = useMemo(() => {
-		if (typeof options[0] === 'object') return options as Array<Omnitable.SelectOption>
+		if (typeof options[0] === 'object') {
+			return (options as Array<Omnitable.SelectOption>).map(item => {
+				if (item.icon) {
+					item.label = (
+						<div className='h_100 flex align_center'>
+							<em-emoji
+								id={item.icon}
+								style={{ width: '1.11em', height: '1.11em' }}
+							></em-emoji>
+							<span className='text ml_4'>{item.label}</span>
+						</div>
+					)
+
+					delete item['icon']
+				}
+
+				return item
+			})
+		}
 
 		return (options as Array<string>).map(item => ({ label: item, value: item }))
 	}, [options])
@@ -24,11 +42,11 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	}, [value, options])
 
 	return (
-		<div className={$.cx(styles._local)} style={{ width }}>
+		<div className={$.cx(styles._local, styles.icon)} style={{ width }}>
 			{editing ? (
 				<Select
 					{...rest_props}
-					popupClassName={styles.popup}
+					popupClassName={$.cx(styles.popup, styles.icon)}
 					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
 					virtual={false}

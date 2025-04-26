@@ -43,8 +43,30 @@ export const config = {
 			},
 			Status: {
 				bind: 'status',
-				type: 'status',
+				type: 'select',
 				props: {
+					options: [
+						{
+							label: 'Todo',
+							value: 3,
+							icon: 'acorn'
+						},
+						{
+							label: 'In-progress',
+							value: 2,
+							icon: 'timer'
+						},
+						{
+							label: 'Done',
+							value: 1,
+							icon: 'check-circle'
+						},
+						{
+							label: 'Canceled',
+							value: 0,
+							icon: 'x-circle'
+						}
+					],
 					placeholder: 'Select status'
 				}
 			},

@@ -1,4 +1,6 @@
+import { useMemoizedFn } from 'ahooks'
 import { InputNumber } from 'antd'
+import { debounce } from 'lodash-es'
 
 import { $ } from '@website/utils'
 
@@ -10,6 +12,8 @@ const Index = (props: ComponentType<Omnitable.InputNumber['props']>) => {
 	const { self_props, width, value, editing, use_by_form, disabled, onFocus, onBlur, onChange } = props
 	const {} = self_props || {}
 
+	const debounceChange = onChange ? useMemoizedFn(debounce(onChange!, 300)) : undefined
+
 	return (
 		<div
 			className={$.cx(styles._local, use_by_form && styles.use_by_form, disabled && styles.disabled)}
@@ -20,10 +24,10 @@ const Index = (props: ComponentType<Omnitable.InputNumber['props']>) => {
 					{...self_props}
 					className='w_100'
 					variant={use_by_form ? 'outlined' : 'borderless'}
-					value={value}
+					defaultValue={value}
 					onFocus={onFocus}
 					onBlur={onBlur}
-					onChange={onChange}
+					onChange={debounceChange}
 				></InputNumber>
 			) : (
 				<span className='text_wrap border_box inline_flex align_center'>{value}</span>
