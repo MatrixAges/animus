@@ -88,8 +88,6 @@ export default class Index {
 	}
 
 	async query() {
-		const close = this.antd.message.loading('querying...', 0)
-
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
 			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
 				method: 'POST',
@@ -102,8 +100,6 @@ export default class Index {
 				}
 			})
 		)
-
-		close()
 
 		if (err) {
 			this.antd.message.error(`Query error: ${err?.message}`)
@@ -122,8 +118,6 @@ export default class Index {
 	}
 
 	async create(v: any) {
-		const close = this.antd.message.loading('creating...', 0)
-
 		this.loading = true
 
 		const [err, res] = await to<Omnitable.MutationResponse>(
@@ -132,8 +126,6 @@ export default class Index {
 				body: this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v
 			})
 		)
-
-		close()
 
 		this.loading = false
 		this.modal_visible = false
@@ -154,8 +146,6 @@ export default class Index {
 	}
 
 	async update(primary_value: number | string, v: any) {
-		const close = this.antd.message.loading('updating...', 0)
-
 		this.loading = true
 
 		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.update}`, {
@@ -168,8 +158,6 @@ export default class Index {
 				body: this.config.hooks?.beforeUpdate ? this.config.hooks.beforeUpdate(v) : v
 			})
 		)
-
-		close()
 
 		this.loading = false
 		this.modal_visible = false
@@ -190,15 +178,11 @@ export default class Index {
 	}
 
 	async delete(primary_value: number | string) {
-		const close = this.antd.message.loading('deleting...', 0)
-
 		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.delete}`, {
 			[this.primary]: primary_value
 		})
 
 		const [err, res] = await to<Omnitable.MutationResponse>(ofetch(url, { method: 'POST' }))
-
-		close()
 
 		if (err) {
 			this.antd.message.error(`Delete error: ${err.message}`)

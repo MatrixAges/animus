@@ -50,6 +50,7 @@ const Index = (props: IPropsDetail) => {
 								<FormComponent
 									column={col}
 									disabled={disabled || col.readonly}
+									item={col.type === 'text' && col.props?.format ? item : undefined}
 								></FormComponent>
 							</Item>
 						</Col>

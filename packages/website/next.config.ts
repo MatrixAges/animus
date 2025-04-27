@@ -18,7 +18,7 @@ const config: NextConfig = {
 			return rule.test && new RegExp(rule.test).test('.svg')
 		})
 
-		svg_rule.exclude = /\.inline\.svg$|\.svg\?src/
+		svg_rule.exclude = /\.inline\.svg$|\.svg\?inline/
 
 		config.module.rules.push(
 			{
@@ -27,8 +27,8 @@ const config: NextConfig = {
 			},
 			{
 				test: /\.svg$/,
-				resourceQuery: /src/,
-				type: 'asset/resource'
+				resourceQuery: /inline/,
+				use: [{ loader: '@svgr/webpack', options: { icon: true } }]
 			}
 		)
 
@@ -37,6 +37,10 @@ const config: NextConfig = {
 	turbopack: {
 		rules: {
 			'*.inline.svg': {
+				loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
+				as: '*.js'
+			},
+			'*.svg?inline': {
 				loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
 				as: '*.js'
 			}

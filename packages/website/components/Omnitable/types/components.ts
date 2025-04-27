@@ -105,6 +105,7 @@ export interface IPropsFormComponent {
 	column: Model['table_columns'][number]
 	disabled?: boolean
 	value?: any
+	item?: any
 	use_by_filter?: boolean
 	onChange?: (v: any) => void
 }

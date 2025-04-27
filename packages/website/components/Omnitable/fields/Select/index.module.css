@@ -1,31 +1,17 @@
-.icon {
-	:global {
-		em-emoji {
-			transition: opacity ease 0.3s;
-
-			.emoji-mart-emoji {
-				display: flex;
-				align-items: center;
-				width: 100%;
-				height: 100%;
-				line-height: 1;
-
-				img {
-					width: 1.11em;
-					max-width: 1.11em !important;
-					height: 1.11em;
-					max-height: 1.11em !important;
-				}
+._local {
+	&.borderless {
+		:global {
+			.text_wrap {
+				border-color: transparent;
 			}
 		}
 	}
-}
 
-._local {
 	:global {
 		.ani-select-disabled,
 		.ani-select-open {
-			em-emoji {
+			.custom_icon_wrap,
+			img {
 				opacity: 0.3;
 			}
 		}
@@ -36,6 +22,16 @@
 			padding: 0 7px;
 			border: var(--border);
 			border-radius: var(--radius);
+
+			&.placeholder {
+				color: var(--color_text_light);
+			}
+		}
+
+		.ani-select-selector {
+			.ani-select-selection-item {
+				border-radius: var(--radius_small_0) !important;
+			}
 		}
 	}
 }

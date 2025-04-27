@@ -43,7 +43,7 @@ const Index = (props: IProps) => {
 		)
 	}, [value])
 
-	return <div className={$.cx('flex', styles.Icon)}>{Content}</div>
+	return <div className={$.cx('flex custom_icon_wrap', styles.Icon)}>{Content}</div>
 }
 
 export default $.memo(Index)

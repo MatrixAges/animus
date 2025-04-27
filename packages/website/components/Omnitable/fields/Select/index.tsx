@@ -9,7 +9,7 @@ import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const { self_props, width, value, editing, use_by_form, use_by_filter, onFocus, onBlur, onChange } = props
-	const { options, mode, ...rest_props } = self_props
+	const { options, mode, borderless, ...rest_props } = self_props
 	const multiple = mode !== undefined
 
 	const target_options = useMemo(() => {
@@ -18,10 +18,12 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 				if (item.icon) {
 					item.label = (
 						<div className='h_100 flex align_center'>
-							<em-emoji
-								id={item.icon}
-								style={{ width: '1.11em', height: '1.11em' }}
-							></em-emoji>
+							<div
+								className='icon_wrap flex justify_center align_center'
+								style={{ width: 16, height: 16 }}
+							>
+								<img src={`/icons/${item.icon}.svg`} alt='icon' />
+							</div>
 							<span className='text ml_4'>{item.label}</span>
 						</div>
 					)
@@ -51,12 +53,12 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	}, [value, options, multiple])
 
 	return (
-		<div className={$.cx(styles._local, styles.icon)} style={{ width }}>
+		<div className={$.cx(styles._local, borderless && styles.borderless)} style={{ width }}>
 			{editing ? (
 				<Select
 					{...rest_props}
 					className={$.cx(mode && 'w_100')}
-					popupClassName={$.cx(styles.popup, styles.icon)}
+					popupClassName={$.cx(styles.popup)}
 					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
 					virtual={false}
@@ -71,7 +73,12 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 					onChange={onChange}
 				></Select>
 			) : (
-				<span className='text_wrap border_box inline_flex align_center'>
+				<span
+					className={$.cx(
+						'text_wrap border_box inline_flex align_center',
+						!target_option && 'placeholder'
+					)}
+				>
 					{target_option || self_props.placeholder}
 				</span>
 			)}

@@ -1,7 +1,6 @@
 'use client'
 
 import '@website/appdata/mobx'
-import './icons_init'
 
 import { useMemoizedFn } from 'ahooks'
 import { App, Button } from 'antd'

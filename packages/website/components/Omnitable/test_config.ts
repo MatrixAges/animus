@@ -94,7 +94,8 @@ export const config = {
 				bind: 'priority',
 				type: 'priority',
 				props: {
-					placeholder: 'Select priorities'
+					placeholder: 'Select priorities',
+					borderless: true
 				}
 			},
 			'Est. Hours': {

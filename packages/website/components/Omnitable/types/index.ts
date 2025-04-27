@@ -136,6 +136,7 @@ export namespace Omnitable {
 			options: Array<SelectOption | string>
 			mode?: 'multiple' | 'tags'
 			placeholder?: string
+			borderless?: boolean
 		}
 	}
 
