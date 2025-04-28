@@ -17,8 +17,8 @@ export namespace Omnitable {
 		// 主键，默认为 'id'
 		primary?: string
 		// 支持mustache语法 /delete/{{id}} => /delete/3
+		baseurl: string
 		actions: {
-			baseurl: string
 			// POST
 			query: string
 			// POST
@@ -133,7 +133,16 @@ export namespace Omnitable {
 	export type Select = {
 		type: 'select'
 		props: {
-			options: Array<SelectOption | string>
+			options?: Array<SelectOption>
+			// 如果设置remote，则忽略options，使用remote请求options
+			remote?: {
+				// 如果未设置search，则使用api获取options
+				api: string
+				// 开启关键词搜索options，值为查询key名称
+				search?: string
+				// 附带的请求参数
+				query?: Record<string, any>
+			}
 			mode?: 'multiple' | 'tags'
 			placeholder?: string
 			borderless?: boolean

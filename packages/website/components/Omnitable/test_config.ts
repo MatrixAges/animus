@@ -3,11 +3,11 @@ import type { Omnitable } from './types'
 export const config = {
 	name: 'omnitable_test_table',
 	primary: 'id',
+	baseurl:
+		process.env.NODE_ENV === 'production'
+			? 'https://omnitable-worker.openages.workers.dev/api/omnitable'
+			: 'http://localhost:8787/api/omnitable',
 	actions: {
-		baseurl:
-			process.env.NODE_ENV === 'production'
-				? 'https://omnitable-worker.openages.workers.dev/api/omnitable'
-				: 'http://localhost:8787/api/omnitable',
 		query: '/query',
 		create: '/create',
 		update: '/update/{{id}}',
@@ -31,6 +31,8 @@ export const config = {
 			{ name: 'Priority', sort: true },
 			{ name: 'Title', width: 540, span: 24 },
 			{ name: 'Status', sort: true },
+			// { name: 'RemoteStatus' },
+			{ name: 'SearchMiner' },
 			{ name: 'Est. Hours', width: 72, sort: true },
 			{ name: 'Deadline', width: 150, sort: true },
 			{ name: 'Labels', width: 180 },
@@ -81,11 +83,40 @@ export const config = {
 					placeholder: 'Select status'
 				}
 			},
+			RemoteStatus: {
+				bind: 'status',
+				type: 'select',
+				props: {
+					remote: {
+						api: '/getOptions',
+						query: {
+							a: 1,
+							b: '666'
+						}
+					},
+					placeholder: 'Select status'
+				}
+			},
+			SearchMiner: {
+				bind: 'miner',
+				type: 'select',
+				props: {
+					remote: {
+						api: '/searchOptions',
+						search: 'keyword'
+					},
+					placeholder: 'Search status'
+				}
+			},
 			Labels: {
 				bind: 'labels',
 				type: 'select',
 				props: {
-					options: ['Bug', 'Feature', 'Improvement'],
+					options: [
+						{ label: 'Bug', value: 'Bug' },
+						{ label: 'Feature', value: 'Feature' },
+						{ label: 'Improvement', value: 'Improvement' }
+					],
 					mode: 'multiple',
 					placeholder: 'Select labels'
 				}

@@ -43,7 +43,7 @@ export default class Index {
 	modal_index = null as any
 	modal_visible = false
 	modal_view_visible = false
-	loading_init = false
+	loading_init = true
 	loading = false
 
 	items = [] as Array<any>
@@ -93,7 +93,7 @@ export default class Index {
 
 	async query() {
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
-			ofetch(`${this.config.actions.baseurl}${this.config.actions.query}`, {
+			ofetch(`${this.config.baseurl}${this.config.actions.query}`, {
 				method: 'POST',
 				body: {
 					sort_params: this.sort_params,
@@ -125,7 +125,7 @@ export default class Index {
 		this.loading = true
 
 		const [err, res] = await to<Omnitable.MutationResponse>(
-			ofetch(`${this.config.actions.baseurl}${this.config.actions.create}`, {
+			ofetch(`${this.config.baseurl}${this.config.actions.create}`, {
 				method: 'POST',
 				body: this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v
 			})
@@ -152,7 +152,7 @@ export default class Index {
 	async update(primary_value: number | string, v: any) {
 		this.loading = true
 
-		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.update}`, {
+		const url = mustache.render(`${this.config.baseurl}${this.config.actions.update}`, {
 			[this.primary]: primary_value
 		})
 
@@ -182,7 +182,7 @@ export default class Index {
 	}
 
 	async delete(primary_value: number | string) {
-		const url = mustache.render(`${this.config.actions.baseurl}${this.config.actions.delete}`, {
+		const url = mustache.render(`${this.config.baseurl}${this.config.actions.delete}`, {
 			[this.primary]: primary_value
 		})
 
@@ -252,7 +252,7 @@ export default class Index {
 				})
 				.filter(item => item !== null)
 
-			this.form_columns = uniqBy(form_columns, 'bind')
+			this.form_columns = uniqBy(form_columns, 'name')
 		} else {
 			this.form_columns =
 				this.config.form?.columns?.map(item => {

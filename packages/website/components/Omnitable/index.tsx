@@ -7,13 +7,13 @@ import { App, Button } from 'antd'
 import { debounce } from 'lodash-es'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useState, Fragment } from 'react'
-import { container } from 'tsyringe'
 
 import { Eyes, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
 import { Detail, Fields, Filter, Pagination, Sort, Table, View } from './components'
+import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'
 
@@ -31,7 +31,7 @@ import type {
 const { useApp } = App
 
 const Index = (props: Omnitable.Props) => {
-	const [x] = useState(() => container.resolve(Model))
+	const [x] = useState(() => new Model())
 	const antd = useApp()
 	const filter_columns = $.copy(x.filter_columns)
 
@@ -68,7 +68,7 @@ const Index = (props: Omnitable.Props) => {
 		table_columns: $.copy(
 			x.visible_columns
 				.map(item => {
-					const column = x.table_columns.find(c => c.bind === item.id)!
+					const column = x.table_columns.find(c => c.name === item.name)!
 
 					return item.visible ? column : null
 				})
@@ -117,75 +117,80 @@ const Index = (props: Omnitable.Props) => {
 	})
 
 	return (
-		<div className={$.cx(styles._local)}>
-			<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
-				<div className='flex'>
-					<button
-						className='header_btn_wrap border_box flex align_center clickable mr_8'
-						onClick={onToggleView}
-					>
-						<Eyes className='icon'></Eyes>
-						<span className='label'>View</span>
-						{x.apply_view_name && (
-							<span className='counts flex align_center'>{x.apply_view_name}</span>
-						)}
-					</button>
-					<Sort {...props_sort}></Sort>
-					{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
-				</div>
-				<div className='flex'>
-					<Fields {...props_fields}></Fields>
-					<Button
-						className='flex justify_center align_center clickable ml_8'
-						type='primary'
-						onClick={onCreate}
-					>
-						<Plus className='icon' weight='bold'></Plus>
-						<span>Create</span>
-					</Button>
-				</div>
-			</div>
-			{x.loading_init ? (
-				<div className='loading_wrap w_100 flex justify_center align_center'>
-					<LoadingCircle></LoadingCircle>
-				</div>
-			) : (
-				<Fragment>
-					<Table {...props_table}></Table>
-					<Pagination {...props_pagination}></Pagination>
-				</Fragment>
-			)}
-
-			<Drawer
-				className={styles.Drawer}
-				open={x.modal_visible || x.modal_view_visible}
-				title={
-					x.modal_view_visible
-						? 'Table views'
-						: x.modal_type === 'add'
-							? 'Create'
-							: props_detail.item?.[x.primary]
-				}
-				width={x.modal_view_visible ? 'min(90vw,660px)' : 'min(100vw,450px)'}
-				placement={x.modal_view_visible ? 'left' : 'right'}
-				maskClosable={x.modal_type === 'view' || x.modal_view_visible}
-				disablePadding={x.modal_visible}
-				onCancel={x.modal_view_visible ? onToggleView : props_detail.onClose}
-				header_actions={
-					x.modal_view_visible && (
+		<Provider value={{ base_url: x.config?.baseurl }}>
+			<div className={$.cx(styles._local)}>
+				<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
+					<div className='flex'>
 						<button
-							className='btn_add_view flex justify_center align_center absolute clickable'
-							onClick={x.onAddView}
+							className='header_btn_wrap border_box flex align_center clickable mr_8'
+							onClick={onToggleView}
+						>
+							<Eyes className='icon'></Eyes>
+							<span className='label'>View</span>
+							{x.apply_view_name && (
+								<span className='counts flex align_center'>{x.apply_view_name}</span>
+							)}
+						</button>
+						<Sort {...props_sort}></Sort>
+						{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
+					</div>
+					<div className='flex'>
+						<Fields {...props_fields}></Fields>
+						<Button
+							className='flex justify_center align_center clickable ml_8'
+							type='primary'
+							onClick={onCreate}
 						>
 							<Plus className='icon' weight='bold'></Plus>
-							<span>Add</span>
-						</button>
-					)
-				}
-			>
-				{x.modal_view_visible ? <View {...props_view}></View> : <Detail {...props_detail}></Detail>}
-			</Drawer>
-		</div>
+							<span>Create</span>
+						</Button>
+					</div>
+				</div>
+				{!x.loading_init && x.config ? (
+					<Fragment>
+						<Table {...props_table}></Table>
+						<Pagination {...props_pagination}></Pagination>
+					</Fragment>
+				) : (
+					<div className='loading_wrap w_100 flex justify_center align_center'>
+						<LoadingCircle></LoadingCircle>
+					</div>
+				)}
+				<Drawer
+					className={styles.Drawer}
+					open={x.modal_visible || x.modal_view_visible}
+					title={
+						x.modal_view_visible
+							? 'Table views'
+							: x.modal_type === 'add'
+								? 'Create'
+								: props_detail.item?.[x.primary]
+					}
+					width={x.modal_view_visible ? 'min(90vw,660px)' : 'min(100vw,450px)'}
+					placement={x.modal_view_visible ? 'left' : 'right'}
+					maskClosable={x.modal_type === 'view' || x.modal_view_visible}
+					disablePadding={x.modal_visible}
+					onCancel={x.modal_view_visible ? onToggleView : props_detail.onClose}
+					header_actions={
+						x.modal_view_visible && (
+							<button
+								className='btn_add_view flex justify_center align_center absolute clickable'
+								onClick={x.onAddView}
+							>
+								<Plus className='icon' weight='bold'></Plus>
+								<span>Add</span>
+							</button>
+						)
+					}
+				>
+					{x.modal_view_visible ? (
+						<View {...props_view}></View>
+					) : (
+						<Detail {...props_detail}></Detail>
+					)}
+				</Drawer>
+			</div>
+		</Provider>
 	)
 }
 

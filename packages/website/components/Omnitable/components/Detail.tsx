@@ -19,8 +19,6 @@ const Index = (props: IPropsDetail) => {
 
 	const disabled = modal_type === 'view'
 
-	console.log(item)
-
 	useLayoutEffect(() => {
 		if (!item) return resetFields()
 

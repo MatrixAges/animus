@@ -1,6 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
+import { Empty } from 'antd'
 
-import { Placeholder } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -30,7 +30,7 @@ const Index = (props: IPropsView) => {
 	if (!views.length) {
 		return (
 			<div className={$.cx('w_100 h_100 flex justify_center align_center', styles.empty)}>
-				<Placeholder weight='light'></Placeholder>
+				<Empty description={null}></Empty>
 			</div>
 		)
 	}
