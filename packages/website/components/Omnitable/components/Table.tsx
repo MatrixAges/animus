@@ -1,4 +1,5 @@
 import { useMemoizedFn } from 'ahooks'
+import { Empty } from 'antd'
 import { useLayoutEffect, useRef, Fragment } from 'react'
 
 import { $ } from '@website/utils'
@@ -46,24 +47,39 @@ const Index = (props: IPropsTable) => {
 							))}
 						</tr>
 					</thead>
-					<tbody>
-						{data.map((item, index) => (
-							<Row
-								table_columns={table_columns}
-								modal_index={modal_index}
-								item={item}
-								index={index}
-								editing_info={
-									editing_info?.row_index === index && editing_info
-										? editing_info
-										: null
-								}
-								setEditingInfo={setEditingInfo}
-								onChange={onChange}
-								key={item[primary]}
-							></Row>
-						))}
-					</tbody>
+					{data.length ? (
+						<tbody>
+							{data.map((item, index) => (
+								<Row
+									table_columns={table_columns}
+									modal_index={modal_index}
+									item={item}
+									index={index}
+									editing_info={
+										editing_info?.row_index === index && editing_info
+											? editing_info
+											: null
+									}
+									setEditingInfo={setEditingInfo}
+									onChange={onChange}
+									key={item[primary]}
+								></Row>
+							))}
+						</tbody>
+					) : (
+						<tbody>
+							<tr>
+								<td colSpan={9999}>
+									<div
+										className='w_100 flex justify_center align_center'
+										style={{ height: 300 }}
+									>
+										<Empty description={null}></Empty>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					)}
 				</table>
 			</div>
 			<div className='table_container clone w_100' style={{ zIndex: 103 }}>

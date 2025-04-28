@@ -43,6 +43,7 @@ export default class Index {
 	modal_index = null as any
 	modal_visible = false
 	modal_view_visible = false
+	loading_init = false
 	loading = false
 
 	items = [] as Array<any>
@@ -61,6 +62,7 @@ export default class Index {
 	async init(args: { props: Index['props']; antd: Index['antd'] }) {
 		const { props, antd } = args
 
+		this.loading_init = true
 		this.antd = antd
 
 		if ('config_url' in props) {
@@ -76,7 +78,9 @@ export default class Index {
 		this.make()
 		this.getSortFieldOptions()
 
-		this.query()
+		await this.query()
+
+		this.loading_init = false
 	}
 
 	async getConfig(config_url: string) {

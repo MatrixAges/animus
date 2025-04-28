@@ -368,8 +368,10 @@
 			}
 		}
 
-		.dark .callout {
-			background-color: rgb(from var(--rc-color-dark, var(--rc-color-default)) r g b / 0.16);
+		.dark {
+			.callout {
+				background-color: rgb(from var(--rc-color-dark, var(--rc-color-default)) r g b / 0.16);
+			}
 		}
 	}
 }

@@ -19,15 +19,17 @@ const Index = (props: IPropsDetail) => {
 
 	const disabled = modal_type === 'view'
 
+	console.log(item)
+
 	useLayoutEffect(() => {
-		if (modal_type === 'add') return resetFields()
+		if (!item) return resetFields()
 
 		const form_item = getFieldsValue()
 
 		if (deepEqual(item, form_item)) return
 
 		setFieldsValue(item)
-	}, [item, modal_type])
+	}, [item])
 
 	const onFinish = useMemoizedFn(values => {
 		onSubmit(values)

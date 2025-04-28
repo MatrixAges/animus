@@ -164,6 +164,12 @@
 	outline: none;
 
 	:global {
+		.loading_wrap {
+			height: 300px;
+			border: var(--border);
+			border-radius: var(--radius);
+		}
+
 		.table_container {
 			overflow-x: auto;
 			overflow-y: hidden;

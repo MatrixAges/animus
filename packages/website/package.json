@@ -3,18 +3,19 @@
 	"author": "1yasa",
 	"version": "0.0.0",
 	"scripts": {
-		"dev": "next dev",
+		"dev": "pnpm run setRuntime:dev && next dev",
 		"build": "next build",
 		"start": "next start",
 		"transform": "npx @cloudflare/next-on-pages",
 		"preview": "wrangler pages dev --port 3000 --binding=CF_PAGES_MODE=preview",
 		"deploy": "wrangler pages deploy",
-		"up": "pnpm run transform && pnpm run deploy",
+		"up": "pnpm run setRuntime:prod && pnpm run transform && pnpm run deploy",
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
 		"build:theme": "bun ./build/theme",
 		"build:sitemap": "bun ./build/sitemap",
 		"build:blog": "bun ./build/blog",
-		"build:icon": "bun ./build/icon"
+		"setRuntime:dev": "TYPE=dev bun ./build/setRuntime",
+		"setRuntime:prod": "TYPE=prod bun ./build/setRuntime"
 	},
 	"keywords": [],
 	"dependencies": {
@@ -60,7 +61,7 @@
 		"motion": "^12.7.3",
 		"nanoid": "^5.1.5",
 		"negotiator": "^1.0.0",
-		"next": "^15.3.0",
+		"next": "^15.3.1",
 		"next-intl": "^4.0.2",
 		"nice-try": "^3.0.1",
 		"ofetch": "^1.4.1",

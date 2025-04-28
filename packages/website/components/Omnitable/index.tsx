@@ -6,11 +6,11 @@ import { useMemoizedFn } from 'ahooks'
 import { App, Button } from 'antd'
 import { debounce } from 'lodash-es'
 import { observer } from 'mobx-react-lite'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, Fragment } from 'react'
 import { container } from 'tsyringe'
 
 import { Eyes, Plus } from '@phosphor-icons/react'
-import { Drawer } from '@website/components'
+import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
 import { Detail, Fields, Filter, Pagination, Sort, Table, View } from './components'
@@ -91,7 +91,7 @@ const Index = (props: Omnitable.Props) => {
 	const props_detail: IPropsDetail = {
 		form_columns: $.copy(x.form_columns),
 		modal_type: x.modal_type,
-		item: $.copy(x.items?.at(x.modal_index)),
+		item: $.copy(x.modal_index && x.modal_index >= 0 ? x.items.at(x.modal_index) : undefined),
 		loading: x.loading,
 		onSubmit: x.onSubmit,
 		onClose: useMemoizedFn(() => {
@@ -111,6 +111,7 @@ const Index = (props: Omnitable.Props) => {
 	const onToggleView = useMemoizedFn(() => (x.modal_view_visible = !x.modal_view_visible))
 
 	const onCreate = useMemoizedFn(() => {
+		x.modal_index == -2
 		x.modal_type = 'add'
 		x.modal_visible = true
 	})
@@ -144,8 +145,17 @@ const Index = (props: Omnitable.Props) => {
 					</Button>
 				</div>
 			</div>
-			<Table {...props_table}></Table>
-			<Pagination {...props_pagination}></Pagination>
+			{x.loading_init ? (
+				<div className='loading_wrap w_100 flex justify_center align_center'>
+					<LoadingCircle></LoadingCircle>
+				</div>
+			) : (
+				<Fragment>
+					<Table {...props_table}></Table>
+					<Pagination {...props_pagination}></Pagination>
+				</Fragment>
+			)}
+
 			<Drawer
 				className={styles.Drawer}
 				open={x.modal_visible || x.modal_view_visible}

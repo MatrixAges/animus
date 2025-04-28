@@ -924,7 +924,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       next:
-        specifier: ^15.3.0
+        specifier: ^15.3.1
         version: 15.3.1(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-intl:
         specifier: ^4.0.2
@@ -4324,7 +4324,6 @@ packages:
 
   bun@1.2.10:
     resolution: {integrity: sha512-7KZgjyJQh/nJaU8av0/2Ld9jDPdrVmQb/gAQKuhr796pKLSONJw+mbshme78viR9jbL4q+sgLNW6HOLwYhL0rg==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
