@@ -3,6 +3,7 @@ import { Form } from 'antd'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { useDeepMemo } from 'stk/react'
 
+import { CaretRight } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
 import Component from './Component'
@@ -12,7 +13,18 @@ import type { IPropsCol, IPropsComponent } from '../types'
 const { Item } = Form
 
 const Index = (props: IPropsCol) => {
-	const { column, value, row_index, focus, item, setEditingField } = props
+	const {
+		column,
+		value,
+		row_index,
+		focus,
+		item,
+		group_info,
+		group_level,
+		group_replace,
+		setEditingField,
+		onToggleGroupItems
+	} = props
 	const { type, bind, readonly } = column
 	const ref = useRef<HTMLTableCellElement>(null)
 	const [hover, setHover] = useState(false)
@@ -59,7 +71,11 @@ const Index = (props: IPropsCol) => {
 
 	if (item) props_component['item'] = item
 
+	if (group_replace !== undefined) props_component['group_replace'] = group_replace
+
 	const Content = useDeepMemo(() => <Component {...props_component}></Component>, [props_component])
+
+	const onToggleGroup = group_info ? useMemoizedFn(() => onToggleGroupItems?.(group_info.group_id)) : undefined
 
 	return (
 		<td
@@ -71,7 +87,21 @@ const Index = (props: IPropsCol) => {
 			width={column.width}
 			ref={ref}
 		>
-			{props_component.editing ? (
+			{group_level && <span style={{ paddingLeft: `calc((1.2em + 8px) * ${group_level})` }}></span>}
+			{group_info && (
+				<span
+					className={$.cx(
+						'btn_toggle_group inline_flex justify_center align_center clickable',
+						group_info.group_visible_self && 'visible'
+					)}
+					onClick={onToggleGroup}
+				>
+					<CaretRight weight='bold'></CaretRight>
+				</span>
+			)}
+			{group_replace !== undefined ? (
+				group_replace
+			) : props_component.editing ? (
 				<Item name={bind} noStyle>
 					{Content}
 				</Item>

@@ -321,6 +321,23 @@
 							z-index: 100;
 							background-color: var(--color_bg);
 						}
+
+						.btn_toggle_group {
+							width: 1.2em;
+							height: 1.2em;
+							margin-right: 8px;
+							border-radius: var(--radius_small);
+							font-size: 1em;
+							translate: 0 0.15em;
+
+							&:hover {
+								background-color: var(--color_bg_2);
+							}
+
+							&.visible {
+								rotate: 90deg;
+							}
+						}
 					}
 				}
 			}

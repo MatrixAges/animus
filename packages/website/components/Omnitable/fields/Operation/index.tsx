@@ -1,7 +1,7 @@
 import { useMemoizedFn } from 'ahooks'
 import { Dropdown } from 'antd'
 import { Ellipsis } from 'lucide-react'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { Eye, PencilSimpleLine, Trash } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
@@ -11,30 +11,43 @@ import styles from './index.module.css'
 import type { Omnitable, ComponentType } from '../../types'
 import type { MenuProps } from 'antd'
 
-const items: MenuProps['items'] = [
-	{
-		key: 'view',
-		label: 'View',
-		icon: <Eye size={16}></Eye>
-	},
-	{
-		key: 'edit',
-		label: 'Edit',
-		icon: <PencilSimpleLine size={16}></PencilSimpleLine>
-	},
-	{
-		type: 'divider'
-	},
-	{
-		key: 'delete',
-		label: 'Delete',
-		icon: <Trash size={16}></Trash>
-	}
-]
-
 const Index = (props: ComponentType<Omnitable.Operation['props']>) => {
-	const { editing, onFocus, onChange } = props
+	const { self_props, editing, onFocus, onChange } = props
+	const { no_edit, no_delete } = self_props || {}
 	const signal = useRef(0)
+
+	const items = useMemo(() => {
+		const target = [
+			{
+				key: 'view',
+				label: 'View',
+				icon: <Eye size={16}></Eye>
+			}
+		] as Required<MenuProps>['items']
+
+		if (!no_edit) {
+			target.push({
+				key: 'edit',
+				label: 'Edit',
+				icon: <PencilSimpleLine size={16}></PencilSimpleLine>
+			})
+		}
+
+		if (!no_delete) {
+			target.push(
+				{
+					type: 'divider'
+				},
+				{
+					key: 'delete',
+					label: 'Delete',
+					icon: <Trash size={16}></Trash>
+				}
+			)
+		}
+
+		return target
+	}, [no_edit, no_delete])
 
 	const onClick = useMemoizedFn(({ key }) => {
 		// 添加一个动态值，以通过form的相同值校验，触发onValuesChange

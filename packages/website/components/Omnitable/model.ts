@@ -1,7 +1,8 @@
 'use client'
 
 import to from 'await-to-js'
-import { omit, uniqBy } from 'lodash-es'
+import { Decimal } from 'decimal.js'
+import { groupBy, omit, pick, uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
 import mustache from 'mustache'
 import { nanoid } from 'nanoid'
@@ -30,6 +31,8 @@ export default class Index {
 	filter_relation = 'and' as 'and' | 'or'
 	filter_params = [] as Array<{ field: string; expression: string; value: any }>
 	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
+	group_params = null as unknown as { fields: Array<{ name: string; id: string }>; acc?: Array<string> }
+
 	views = [] as Array<{
 		name: string
 		sort_params: Index['sort_params']
@@ -44,10 +47,11 @@ export default class Index {
 	modal_visible = false
 	modal_view_visible = false
 	loading_init = true
+	querying = false
 	loading = false
 
 	items = [] as Array<any>
-	pagination = { page: 1, pagesize: 10, total: 0 } as { page: number; pagesize: number; total: number }
+	pagination = { page: 1, pagesize: 100, total: 0 } as { page: number; pagesize: number; total: number }
 
 	disposers = [] as Array<IReactionDisposer | Lambda>
 
@@ -78,6 +82,8 @@ export default class Index {
 		this.make()
 		this.getSortFieldOptions()
 
+		if (this.config.group) this.makeGroupParams()
+
 		await this.query()
 
 		this.loading_init = false
@@ -92,6 +98,8 @@ export default class Index {
 	}
 
 	async query() {
+		this.querying = true
+
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
 			ofetch(`${this.config.baseurl}${this.config.actions.query}`, {
 				method: 'POST',
@@ -105,6 +113,8 @@ export default class Index {
 			})
 		)
 
+		this.querying = false
+
 		if (err) {
 			this.antd.message.error(`Query error: ${err?.message}`)
 
@@ -117,7 +127,14 @@ export default class Index {
 			return false
 		}
 
-		this.items = this.config.hooks?.afterQuery ? this.config.hooks.afterQuery(res.data.items) : res.data.items
+		const items = this.config.hooks?.afterQuery ? this.config.hooks.afterQuery(res.data.items) : res.data.items
+
+		if (this.config.group) {
+			this.items = this.makeGroupData(items, $.copy(this.group_params.fields))
+		} else {
+			this.items = items
+		}
+
 		this.pagination = omit(res.data, 'items')
 	}
 
@@ -201,6 +218,123 @@ export default class Index {
 		}
 
 		this.query()
+	}
+
+	makeGroupParams() {
+		const { order, acc } = this.config.group!
+		const field_names = order.replace(/\s+/g, '').split('>')
+		const visible_columns = [] as Index['visible_columns']
+		const group_params = { fields: [], acc } as Index['group_params']
+
+		this.visible_columns.forEach(item => {
+			if (field_names.includes(item.name)) {
+				group_params.fields.push(pick(item, ['name', 'id']))
+			}
+
+			if (!field_names.slice(1).includes(item.name)) {
+				visible_columns.push(item)
+			}
+		})
+
+		this.visible_columns = $.copy(visible_columns)
+		this.group_params = $.copy(group_params)
+	}
+
+	makeGroupData(
+		items: Index['items'],
+		fields: Index['group_params']['fields'],
+		target = [] as Index['items'],
+		level = 0,
+		group_id?: string
+	) {
+		if (level === fields.length) return target
+
+		const group_field = fields[level]
+		const group_data = groupBy(items, group_field.id)
+
+		level += 1
+
+		Object.keys(group_data).forEach(group_field_value => {
+			const children = group_data[group_field_value]
+			const current_group_id =
+				(group_id ? `${group_id}/` : '') + `${group_field.id}:${group_field.name}:${group_field_value}`
+
+			// 如果field_value是number类型，需要进行还原
+			if (children.length && typeof children[0][group_field.id] === 'number') {
+				group_field_value = parseFloat(group_field_value) as unknown as string
+			}
+
+			const group_parent = this.visible_columns.reduce((total, item) => {
+				if (item.id === group_field.id) return total
+
+				if (this.group_params.acc?.includes(item.name)) {
+					total[item.id] = children.reduce((all, child) => {
+						const real_all = new Decimal(all)
+						const real_value = new Decimal(child[item.id])
+
+						all = real_all.plus(real_value).toNumber()
+
+						return all
+					}, 0)
+				} else {
+					total[item.id] = null
+				}
+
+				total['__group_field__'] = group_field.id
+				total['__group_name__'] = group_field.name
+				total['__group_value__'] = group_field_value
+				total['__group_id__'] = current_group_id
+				total['__group_visible_self__'] = false
+				total['__group_visible_children__'] = false
+
+				if (level === 1) {
+					total['__group_top__'] = true
+				}
+
+				if (level > 1) {
+					total['__group_replace__'] = {
+						name: this.group_params.fields[0].name,
+						value: group_field_value
+					}
+				}
+
+				if (level < fields.length) {
+					total['__group_toggle__'] = true
+				}
+
+				return total
+			}, {} as any)
+
+			target.push({
+				[group_field.id]: group_field_value,
+				__group_level__: level - 1,
+				...group_parent
+			})
+
+			if (level < fields.length) {
+				this.makeGroupData(children, fields, target, level, current_group_id)
+			}
+
+			if (level === fields.length) {
+				children.forEach(item => {
+					target.push({
+						...item,
+						__group_field__: group_field.id,
+						__group_name__: this.group_params.fields[0].name,
+						__group_id__: current_group_id + '/' + item.id,
+						__group_visible_children__: false,
+						__group_level__: level,
+						__group_bottom__: true,
+						__group_replace__: {
+							name: this.group_params.fields[0].name,
+							value: ''
+						}
+					})
+				})
+			}
+		})
+
+		return target
 	}
 
 	onSubmit(v: any) {

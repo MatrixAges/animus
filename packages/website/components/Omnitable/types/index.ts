@@ -46,6 +46,13 @@ export namespace Omnitable {
 			props?: {}
 			delete_tips?: { title?: string; content?: string }
 		}
+		// 开启数据分组，支持多层级，
+		group?: {
+			// 表示顺序层级，如：'Period > Farm > Pool'
+			order: string
+			// 指定在生成group时，哪些字段的值进行累加
+			acc?: Array<string>
+		}
 		// 可选 form，如果不写就使用 table 的 columns 配置
 		form?: {
 			// columns中 的字段会覆盖 bind 相同的 table_columns 中的字段
@@ -80,6 +87,7 @@ export namespace Omnitable {
 		readonly?: boolean
 		sticky?: boolean
 		stat?: boolean
+		group?: boolean
 	}
 
 	export interface FormColumn extends BaseColumn {
@@ -110,8 +118,11 @@ export namespace Omnitable {
 		props?: {
 			// 开启format的情况下，会传入整个item作为参数
 			format?: string
-			prefix?: string | { text: string; light_color: boolean }
-			suffix?: string | { text: string; light_color: boolean }
+			// "({{value}})"
+			textwrap?: string
+			// 使用了上面其中一种格式化后prefix和suffix会失效
+			prefix?: string
+			suffix?: string
 		}
 	}
 
@@ -186,7 +197,10 @@ export namespace Omnitable {
 
 	export type Operation = {
 		type: 'operation'
-		props?: {}
+		props?: {
+			no_edit?: boolean
+			no_delete?: boolean
+		}
 	}
 
 	export interface Error {

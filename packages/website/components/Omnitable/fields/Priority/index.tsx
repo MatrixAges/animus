@@ -1,6 +1,6 @@
 import { $ } from '@website/utils'
 
-import Select from '../Select'
+import { Select } from '../../components'
 import Icon from './Icon'
 
 import type { Omnitable, ComponentType } from '../../types'

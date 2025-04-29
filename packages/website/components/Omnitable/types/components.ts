@@ -67,6 +67,7 @@ export interface IPropsTable {
 	setEditingInfo: (v: Model['editing_info']) => void
 	onSort: Model['onSort']
 	onChange: Model['onChange']
+	setItems: (v: Model['items']) => void
 }
 
 export interface IPropsTh {
@@ -79,6 +80,7 @@ export interface IPropsRow
 	extends Pick<IPropsTable, 'table_columns' | 'editing_info' | 'modal_index' | 'setEditingInfo' | 'onChange'> {
 	item: Omnitable.List['items'][number]
 	index: number
+	onToggleGroupItems: (group_id: string) => void
 }
 
 export interface IPropsCol {
@@ -87,7 +89,11 @@ export interface IPropsCol {
 	row_index: number
 	focus: boolean | null
 	item?: any
+	group_info?: { group_id: string; group_visible_self: boolean; group_visible_children: boolean }
+	group_level?: number
+	group_replace?: string | number
 	setEditingField?: IPropsTable['setEditingInfo']
+	onToggleGroupItems?: IPropsRow['onToggleGroupItems']
 }
 
 export interface IPropsComponent {
@@ -96,6 +102,7 @@ export interface IPropsComponent {
 	row_index: number
 	editing: boolean
 	item?: any
+	group_replace?: string | number
 	onFocus?: (v?: any) => void
 	onBlur?: () => void
 	onChange?: (v: any) => void

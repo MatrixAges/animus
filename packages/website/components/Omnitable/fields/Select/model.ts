@@ -1,4 +1,3 @@
-import { message } from 'antd'
 import to from 'await-to-js'
 import { debounce } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
@@ -16,30 +15,31 @@ export default class Index {
 	base_url = ''
 	remote = null as unknown as Omnitable.Select['props']['remote']
 	multiple = false
+	options = [] as Array<Omnitable.SelectOption>
 	search_props = {} as SelectProps<any, Omnitable.SelectOption>
-
-	setOptions = null as unknown as (v: Array<Omnitable.SelectOption>) => void
+	loading_search = false
 
 	constructor() {
 		makeAutoObservable(
 			this,
-			{ antd: false, base_url: false, remote: false, multiple: false, setOptions: false },
+			{ antd: false, base_url: false, remote: false, multiple: false },
 			{ autoBind: true }
 		)
 	}
 
 	init(args: {
 		antd: Index['antd']
+		options_raw: Array<Omnitable.SelectOption> | undefined
 		base_url: string
 		remote: Index['remote']
 		multiple: Index['multiple']
-		setOptions: (v: Array<Omnitable.SelectOption>) => void
 	}) {
-		const { antd, base_url, remote, multiple, setOptions } = args
+		const { antd, options_raw, base_url, remote, multiple } = args
 
 		this.antd = antd
 		this.base_url = base_url
-		this.setOptions = setOptions
+
+		if (options_raw) this.options = options_raw
 
 		if (remote) {
 			this.remote = remote
@@ -66,7 +66,7 @@ export default class Index {
 		const session_key = `${remote.api}|${new URLSearchParams(query).toString()}`
 		const session_cache = decode(sessionStorage.getItem(session_key)) as Options
 
-		if (session_cache) return this.setOptions(session_cache)
+		if (session_cache) return (this.options = session_cache)
 
 		const url = remote.api.indexOf('https') !== -1 ? remote.api : `${this.base_url}${remote.api}`
 
@@ -84,12 +84,14 @@ export default class Index {
 			return false
 		}
 
-		this.setOptions(res)
+		this.options = res
 
 		sessionStorage.setItem(session_key, encode(res))
 	}
 
 	async search(v: string) {
+		this.loading_search = true
+
 		const remote = this.remote!
 		const search = remote.search!
 		const query = { ...remote.query, [search]: v }
@@ -97,6 +99,8 @@ export default class Index {
 
 		const [err, res] = await to<Omnitable.Error | Options>(ofetch(url, { query }))
 
+		this.loading_search = false
+
 		if (err) {
 			this.antd.message.error(`Query error: ${err?.message}`)
 
@@ -109,6 +113,6 @@ export default class Index {
 			return false
 		}
 
-		this.setOptions(res)
+		this.options = res
 	}
 }

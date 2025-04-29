@@ -1,4 +1,4 @@
-import { App, Select } from 'antd'
+import { App, Select, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useMemo, useState } from 'react'
 
@@ -17,15 +17,14 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const { options: options_raw, remote, mode, borderless, ...rest_props } = self_props
 
 	const [x] = useState(() => new Model())
-	const [options, setOptions] = useState<Array<Omnitable.SelectOption>>(() => options_raw || [])
 	const antd = useApp()
 	const base_url = useContext(v => v.base_url)
-
 	const multiple = mode !== undefined
+	const options = $.copy(x.options)
 
 	useLayoutEffect(() => {
-		x.init({ antd, base_url, remote, multiple, setOptions })
-	}, [antd, base_url, remote, multiple, setOptions])
+		x.init({ antd, options_raw, base_url, remote, multiple })
+	}, [antd, options_raw, base_url, remote, multiple])
 
 	const options_real = useMemo(() => {
 		return options.map(item => {
@@ -53,7 +52,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 		if (multiple) {
 			if (!value || !Array.isArray(value) || !value.length) return
 
-			const targets = options_real.filter(item => value.includes(item.value))
+			const targets = options_real.filter(item => value.includes(item.value)).map(item => item.label)
 
 			return targets.join(',')
 		}
@@ -64,6 +63,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	}, [options_real, value])
 
 	const search_props = $.copy(x.search_props)
+	const w_100 = (mode || Boolean(width) || remote?.search) && 'w_100'
 
 	return (
 		<div className={$.cx(styles._local, borderless && styles.borderless)} style={{ width }}>
@@ -71,7 +71,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 				<Select
 					{...rest_props}
 					{...search_props}
-					className={$.cx((mode || Boolean(width) || remote?.search) && 'w_100')}
+					className={$.cx(w_100)}
 					popupClassName={$.cx(styles.popup)}
 					size={use_by_form ? 'middle' : 'small'}
 					popupMatchSelectWidth={false}
@@ -80,6 +80,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 					mode={use_by_filter ? 'multiple' : mode}
 					options={options}
 					value={value}
+					notFoundContent={x.loading_search ? <Spin size='small' /> : null}
 					getPopupContainer={() => document.body}
 					onDropdownVisibleChange={onFocus}
 					onFocus={onFocus}
@@ -89,7 +90,8 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 			) : (
 				<span
 					className={$.cx(
-						'text_wrap w_100 border_box inline_flex align_center',
+						'text_wrap border_box inline_flex align_center',
+						w_100,
 						!option && 'placeholder'
 					)}
 				>

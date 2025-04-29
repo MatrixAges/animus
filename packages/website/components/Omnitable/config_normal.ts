@@ -1,7 +1,7 @@
 import type { Omnitable } from './types'
 
-export const config = {
-	name: 'omnitable_test_table',
+export default {
+	name: 'table_normal',
 	primary: 'id',
 	baseurl:
 		process.env.NODE_ENV === 'production'

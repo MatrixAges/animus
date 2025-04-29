@@ -1,4 +1,5 @@
 import mustache from 'mustache'
+import { useMemo } from 'react'
 
 import { $ } from '@website/utils'
 
@@ -8,7 +9,15 @@ import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Text['props']>) => {
 	const { value, use_by_form, disabled, item, self_props } = props
-	const { format } = self_props || {}
+	const { format, prefix, suffix, textwrap } = self_props || {}
+
+	const text = useMemo(() => {
+		if (!value) return '-'
+		if (format) return mustache.render(format, item || {})
+		if (textwrap) return mustache.render(textwrap, { value })
+
+		return `${prefix ?? ''}${value}${suffix ?? ''}`
+	}, [value, format, prefix, suffix, textwrap])
 
 	return (
 		<span
@@ -19,7 +28,7 @@ const Index = (props: ComponentType<Omnitable.Text['props']>) => {
 				disabled && styles.disabled
 			)}
 		>
-			{format ? mustache.render(format, item || {}) : value}
+			{text}
 		</span>
 	)
 }

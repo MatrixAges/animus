@@ -80,7 +80,8 @@ const Index = (props: Omnitable.Props) => {
 		modal_index: x.modal_index,
 		onSort: x.onSort,
 		onChange: x.onChange,
-		setEditingInfo: useMemoizedFn(v => (x.editing_info = v))
+		setEditingInfo: useMemoizedFn(v => (x.editing_info = v)),
+		setItems: useMemoizedFn(v => (x.items = v))
 	}
 
 	const props_pagination: IPropsPagination = {
@@ -91,7 +92,7 @@ const Index = (props: Omnitable.Props) => {
 	const props_detail: IPropsDetail = {
 		form_columns: $.copy(x.form_columns),
 		modal_type: x.modal_type,
-		item: $.copy(x.modal_index && x.modal_index >= 0 ? x.items.at(x.modal_index) : undefined),
+		item: $.copy(x.modal_index !== null && x.modal_index >= 0 ? x.items.at(x.modal_index) : undefined),
 		loading: x.loading,
 		onSubmit: x.onSubmit,
 		onClose: useMemoizedFn(() => {
@@ -120,30 +121,36 @@ const Index = (props: Omnitable.Props) => {
 		<Provider value={{ base_url: x.config?.baseurl }}>
 			<div className={$.cx(styles._local)}>
 				<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
-					<div className='flex'>
-						<button
-							className='header_btn_wrap border_box flex align_center clickable mr_8'
-							onClick={onToggleView}
-						>
-							<Eyes className='icon'></Eyes>
-							<span className='label'>View</span>
-							{x.apply_view_name && (
-								<span className='counts flex align_center'>{x.apply_view_name}</span>
-							)}
-						</button>
-						<Sort {...props_sort}></Sort>
-						{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
-					</div>
+					{(x.sort_params.length > 0 || x.filter_columns.length > 0) && (
+						<div className='flex'>
+							<button
+								className='header_btn_wrap border_box flex align_center clickable mr_8'
+								onClick={onToggleView}
+							>
+								<Eyes className='icon'></Eyes>
+								<span className='label'>View</span>
+								{x.apply_view_name && (
+									<span className='counts flex align_center'>
+										{x.apply_view_name}
+									</span>
+								)}
+							</button>
+							{x.sort_params.length > 0 && <Sort {...props_sort}></Sort>}
+							{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
+						</div>
+					)}
 					<div className='flex'>
 						<Fields {...props_fields}></Fields>
-						<Button
-							className='flex justify_center align_center clickable ml_8'
-							type='primary'
-							onClick={onCreate}
-						>
-							<Plus className='icon' weight='bold'></Plus>
-							<span>Create</span>
-						</Button>
+						{x.config?.actions?.create && (
+							<Button
+								className='flex justify_center align_center clickable ml_8'
+								type='primary'
+								onClick={onCreate}
+							>
+								<Plus className='icon' weight='bold'></Plus>
+								<span>Create</span>
+							</Button>
+						)}
 					</div>
 				</div>
 				{!x.loading_init && x.config ? (

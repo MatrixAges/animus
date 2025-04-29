@@ -11,8 +11,18 @@ import Th from './Th'
 import type { IPropsTable } from '../types'
 
 const Index = (props: IPropsTable) => {
-	const { primary, table_columns, data, editing_info, sort_params, modal_index, setEditingInfo, onChange, onSort } =
-		props
+	const {
+		primary,
+		table_columns,
+		data,
+		editing_info,
+		sort_params,
+		modal_index,
+		setEditingInfo,
+		onChange,
+		onSort,
+		setItems
+	} = props
 	const table = useRef<HTMLTableElement>(null)
 	const clone_table = useRef<HTMLTableElement>(null)
 	const sticky = useRef<StickyTableHeader>(null)
@@ -29,6 +39,28 @@ const Index = (props: IPropsTable) => {
 		if (!item.sort || !sort_params.length) return
 
 		return sort_params.find(s => s.field === item.bind)?.order
+	})
+
+	const onToggleGroupItems = useMemoizedFn((group_id: string) => {
+		const items = $.copy(data)
+		const target_group_ids = group_id.split('/') as Array<string>
+
+		items.forEach(item => {
+			const item_group_ids = item['__group_id__'].split('/') as Array<string>
+
+			if (item['__group_id__'] === group_id) {
+				item['__group_visible_self__'] = !item['__group_visible_self__']
+			} else {
+				if (
+					item['__group_id__'].indexOf(group_id) !== -1 &&
+					item_group_ids.length - 1 === target_group_ids.length
+				) {
+					item['__group_visible_children__'] = !item['__group_visible_children__']
+				}
+			}
+		})
+
+		setItems(items)
 	})
 
 	return (
@@ -49,22 +81,26 @@ const Index = (props: IPropsTable) => {
 					</thead>
 					{data.length ? (
 						<tbody>
-							{data.map((item, index) => (
-								<Row
-									table_columns={table_columns}
-									modal_index={modal_index}
-									item={item}
-									index={index}
-									editing_info={
-										editing_info?.row_index === index && editing_info
-											? editing_info
-											: null
-									}
-									setEditingInfo={setEditingInfo}
-									onChange={onChange}
-									key={item[primary]}
-								></Row>
-							))}
+							{data.map((item, index) =>
+								!item['__group_top__'] &&
+								item['__group_visible_children__'] === false ? null : (
+									<Row
+										table_columns={table_columns}
+										modal_index={modal_index}
+										item={item}
+										index={index}
+										editing_info={
+											editing_info?.row_index === index && editing_info
+												? editing_info
+												: null
+										}
+										setEditingInfo={setEditingInfo}
+										onChange={onChange}
+										onToggleGroupItems={onToggleGroupItems}
+										key={item[primary] || item['__group_id__']}
+									></Row>
+								)
+							)}
 						</tbody>
 					) : (
 						<tbody>
