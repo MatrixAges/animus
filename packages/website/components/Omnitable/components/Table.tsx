@@ -44,23 +44,28 @@ const Index = (props: IPropsTable) => {
 	const onToggleGroupItems = useMemoizedFn((group_id: string) => {
 		const items = $.copy(data)
 		const target_group_ids = group_id.split('/') as Array<string>
+		const target_items = [] as Array<any>
 
 		items.forEach(item => {
-			const item_group_ids = item['__group_id__'].split('/') as Array<string>
+			if (!item['__stat_type__']) {
+				const item_group_ids = item['__group_id__'].split('/') as Array<string>
 
-			if (item['__group_id__'] === group_id) {
-				item['__group_visible_self__'] = !item['__group_visible_self__']
-			} else {
-				if (
-					item['__group_id__'].indexOf(group_id) !== -1 &&
-					item_group_ids.length - 1 === target_group_ids.length
-				) {
-					item['__group_visible_children__'] = !item['__group_visible_children__']
+				if (item['__group_id__'] === group_id) {
+					item['__group_visible_self__'] = !item['__group_visible_self__']
+				} else {
+					if (
+						item['__group_id__'].indexOf(group_id) !== -1 &&
+						item_group_ids.length - 1 === target_group_ids.length
+					) {
+						item['__group_visible_children__'] = !item['__group_visible_children__']
+					}
 				}
+
+				target_items.push(item)
 			}
 		})
 
-		setItems(items)
+		setItems(target_items)
 	})
 
 	return (

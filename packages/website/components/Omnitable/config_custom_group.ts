@@ -33,21 +33,7 @@ export default {
 			pagesize: 100
 		}
 	},
-	stat: {
-		columns: [
-			{ name: 'Earning', type: 'SUM' },
-			{ name: 'Earning', type: 'AVG' },
-			{ name: 'Earning', type: 'MIN' },
-			{ name: 'Earning', type: 'MAX' },
-			{ name: 'Earning', type: 'COUNT' },
 
-			{ name: 'Hashrate', type: 'SUM' },
-			{ name: 'Hashrate', type: 'AVG' },
-			{ name: 'Hashrate', type: 'MIN' },
-			{ name: 'Hashrate', type: 'MAX' },
-			{ name: 'Hashrate', type: 'COUNT' }
-		]
-	},
 	form: {
 		use_table_columns: true
 	},

@@ -81,7 +81,7 @@ const Index = (props: Omnitable.Props) => {
 				})
 				.filter(item => item !== null)
 		),
-		data: $.copy(x.items.concat(x.stat_items)),
+		data: $.copy([...x.items, ...x.stat_items]),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
 		modal_index: x.modal_index,
