@@ -1,7 +1,7 @@
 import type { Omnitable } from './types'
 
 export default {
-	name: 'table_mining',
+	name: 'table_config_stat',
 	primary: 'id',
 	baseurl:
 		process.env.NODE_ENV === 'production'
@@ -21,7 +21,7 @@ export default {
 	},
 	table: {
 		columns: [
-			{ name: '#', width: 48 },
+			{ name: '#', width: 60 },
 			{ name: 'Period', width: 240, sort: true },
 			{ name: 'Farm' },
 			{ name: 'Pool' },
@@ -30,13 +30,26 @@ export default {
 			{ name: 'Operation' }
 		],
 		props: {
-			pagesize: 100
+			pagesize: 10
 		}
 	},
+	stat: {
+		columns: [
+			{ name: 'Earning', type: 'SUM' },
+			{ name: 'Earning', type: 'AVG' },
+			{ name: 'Earning', type: 'MIN' },
+			{ name: 'Earning', type: 'MAX' },
+			{ name: 'Earning', type: 'COUNT' },
+
+			{ name: 'Hashrate', type: 'SUM' },
+			{ name: 'Hashrate', type: 'AVG' },
+			{ name: 'Hashrate', type: 'MIN' },
+			{ name: 'Hashrate', type: 'MAX' },
+			{ name: 'Hashrate', type: 'COUNT' }
+		]
+	},
 	group: {
-		// order: 'Period > Farm',
-		order: 'Period > Farm > Pool',
-		acc: ['Hashrate', 'Earning']
+		hide: true
 	},
 	form: {
 		use_table_columns: true

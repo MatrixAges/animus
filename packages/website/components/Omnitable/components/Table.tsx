@@ -97,7 +97,11 @@ const Index = (props: IPropsTable) => {
 										setEditingInfo={setEditingInfo}
 										onChange={onChange}
 										onToggleGroupItems={onToggleGroupItems}
-										key={item[primary] || item['__group_id__']}
+										key={
+											item[primary] ||
+											item['__group_id__'] ||
+											item['__stat_type__']
+										}
 									></Row>
 								)
 							)}

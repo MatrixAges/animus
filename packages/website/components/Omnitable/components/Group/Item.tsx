@@ -25,7 +25,12 @@ const Index = (props: IPropsGroupItem & FormListFieldData) => {
 			{...attributes}
 		>
 			<Item {...rest} className='field_name' name={[name]}>
-				<Select showSearch labelInValue options={group_field_options}></Select>
+				<Select
+					showSearch
+					labelInValue
+					placeholder='Select group field'
+					options={group_field_options}
+				></Select>
 			</Item>
 			<Button className='btn' onClick={() => remove(name)}>
 				<Trash></Trash>

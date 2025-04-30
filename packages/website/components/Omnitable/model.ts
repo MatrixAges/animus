@@ -16,6 +16,8 @@ import { $, isMillisecondTimestamp } from '@website/utils'
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
 import type { IReactionDisposer, Lambda } from 'mobx'
+import type { StatType } from './metadata'
+
 export default class Index {
 	antd = null as unknown as useAppProps
 	primary = 'id'
@@ -31,10 +33,14 @@ export default class Index {
 	sort_params = [] as Array<{ field: string; order: 'desc' | 'asc' }>
 	filter_relation = 'and' as 'and' | 'or'
 	filter_params = [] as Array<{ field: string; expression: string; value: any }>
+	stat_params = [] as Array<{ field: string; type: StatType }>
+	stat_items = [] as Array<any>
+
 	group_params = { fields: [], acc: [] } as {
 		fields: Array<{ label: string; value: string }>
 		acc: Array<{ label: string; value: string }>
 	}
+
 	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
 
 	views = [] as Array<{
@@ -57,7 +63,7 @@ export default class Index {
 
 	items_raw = [] as Array<any>
 	items = [] as Array<any>
-	pagination = { page: 1, pagesize: 18, total: 0 } as { page: number; pagesize: number; total: number }
+	pagination = { page: 1, pagesize: 12, total: 0 } as { page: number; pagesize: number; total: number }
 
 	disposers = [] as Array<IReactionDisposer | Lambda>
 
@@ -93,6 +99,7 @@ export default class Index {
 		this.getSortFieldOptions()
 
 		if (this.config.group) this.makeGroupParams()
+		if (this.config.stat?.columns?.length) this.makeStatParams()
 
 		await this.query()
 
@@ -152,6 +159,8 @@ export default class Index {
 		}
 
 		this.pagination = omit(res.data, 'items')
+
+		this.getStatItems()
 	}
 
 	async create(v: any) {
@@ -234,6 +243,22 @@ export default class Index {
 		}
 
 		this.query()
+	}
+
+	makeStatParams() {
+		const columns = this.config.stat?.columns
+
+		if (!columns || !columns.length) return
+
+		columns.forEach(item => {
+			const stat_item = this.visible_columns.find(s => s.name === item.name)
+
+			if (stat_item) {
+				this.stat_params.push({ field: stat_item.id, type: item.type })
+			}
+		})
+
+		this.stat_params = $.copy(this.stat_params)
 	}
 
 	makeGroupParams() {
@@ -383,17 +408,6 @@ export default class Index {
 		})
 
 		return target
-	}
-
-	onSubmit(v: any) {
-		switch (this.modal_type) {
-			case 'add':
-				this.create(v)
-				break
-			case 'edit':
-				this.onChange(-1, v)
-				break
-		}
 	}
 
 	make() {
@@ -577,6 +591,103 @@ export default class Index {
 		this.query()
 	}
 
+	getStatItems() {
+		if (!this.stat_params.length || !this.items_raw.length) return (this.stat_items = [])
+
+		const items = $.copy(this.items_raw)
+		const counts = items.length
+
+		const stat_params_map = this.stat_params.reduce(
+			(total, item) => {
+				total[`${item.field}:${item.type}`] = {
+					...item,
+					value: 0
+				}
+
+				return total
+			},
+			{} as Record<string, { field: string; type: StatType; value: number }>
+		)
+
+		for (let index = 0; index < items.length; index++) {
+			const item = items[index]
+
+			Object.keys(stat_params_map).forEach(key => {
+				const stat_item = stat_params_map[key]
+				const { field, type } = stat_item
+				const stat_item_value = new Decimal(stat_item.value)
+				const value = new Decimal(item[field])
+				const real_value = value.toNumber()
+
+				switch (type) {
+					case 'SUM':
+						stat_item.value = stat_item_value.plus(value).toNumber()
+						break
+					case 'AVG':
+						stat_item.value = stat_item_value.plus(value).toNumber()
+
+						if (index === counts - 1) {
+							const total_value = new Decimal(stat_item.value)
+
+							stat_item.value = new Decimal(
+								total_value.div(new Decimal(counts)).toFixed(3)
+							).toNumber()
+						}
+						break
+					case 'COUNT':
+						if (index === counts - 1) {
+							stat_item.value = counts
+						}
+						break
+					case 'MIN':
+						if (index === 0 || real_value < stat_item.value) {
+							stat_item.value = real_value
+						}
+
+						break
+					case 'MAX':
+						if (real_value > stat_item.value) {
+							stat_item.value = real_value
+						}
+						break
+				}
+			})
+		}
+
+		const stat_items = [] as Array<any>
+
+		Object.keys(stat_params_map).forEach(key => {
+			const stat_item = stat_params_map[key]
+			const { field, type, value } = stat_item
+
+			stat_items.push({
+				__stat_field__: field,
+				__stat_type__: type,
+				__stat_value__: value
+			})
+		})
+
+		const group_stat_items = groupBy(stat_items, '__stat_type__')
+
+		this.stat_items = Object.keys(group_stat_items).reduce(
+			(total, key) => {
+				const items = group_stat_items[key]
+
+				const target = items.reduce((all, it) => {
+					all['__stat_type__'] = key
+					all[it['__stat_field__']] = it['__stat_value__']
+
+					return all
+				}, {} as any)
+
+				total.push(target)
+
+				return total
+			},
+			[] as Array<any>
+		)
+	}
+
 	getGroupFieldOptions(v: Index['group_params']['fields']) {
 		const options = [] as Array<{ label: string; value: any; disabled?: boolean }>
 		const disabled_options = [] as Array<{ label: string; value: any; disabled?: boolean }>
@@ -654,14 +765,25 @@ export default class Index {
 		this.modal_view_visible = false
 	}
 
-	clearApplyView() {
-		this.apply_view_name = ''
+	onSubmit(v: any) {
+		switch (this.modal_type) {
+			case 'add':
+				this.create(v)
+				break
+			case 'edit':
+				this.onChange(-1, v)
+				break
+		}
 	}
 
 	onChangePagination(page: number, pagesize: number) {
 		this.pagination = { ...this.pagination, page, pagesize }
 
 		this.query()
+	}
+
+	clearApplyView() {
+		this.apply_view_name = ''
 	}
 
 	off() {

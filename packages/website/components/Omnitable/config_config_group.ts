@@ -1,7 +1,7 @@
 import type { Omnitable } from './types'
 
 export default {
-	name: 'table_mining',
+	name: 'table_config_group',
 	primary: 'id',
 	baseurl:
 		process.env.NODE_ENV === 'production'
@@ -32,6 +32,11 @@ export default {
 		props: {
 			pagesize: 100
 		}
+	},
+	group: {
+		// order: 'Period > Farm',
+		order: 'Period > Farm > Pool',
+		acc: ['Hashrate', 'Earning']
 	},
 	form: {
 		use_table_columns: true

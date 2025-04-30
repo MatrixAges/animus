@@ -81,7 +81,7 @@ const Index = (props: Omnitable.Props) => {
 				})
 				.filter(item => item !== null)
 		),
-		data: $.copy(x.items),
+		data: $.copy(x.items.concat(x.stat_items)),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
 		modal_index: x.modal_index,
@@ -129,7 +129,7 @@ const Index = (props: Omnitable.Props) => {
 		<Provider value={{ base_url: x.config?.baseurl }}>
 			<div className={$.cx(styles._local)}>
 				<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
-					{(x.sort_params.length > 0 || x.filter_columns.length > 0) && (
+					{x.config && (
 						<div className='flex'>
 							<button
 								className='header_btn_wrap border_box flex align_center clickable mr_8'
@@ -162,16 +162,24 @@ const Index = (props: Omnitable.Props) => {
 						)}
 					</div>
 				</div>
-				{!x.loading_init && x.config ? (
-					<Fragment>
-						<Table {...props_table}></Table>
-						<Pagination {...props_pagination}></Pagination>
-					</Fragment>
-				) : (
-					<div className='loading_wrap w_100 flex justify_center align_center'>
-						<LoadingCircle></LoadingCircle>
-					</div>
-				)}
+				<div className='body_wrap w_100 flex flex_column relative'>
+					{!x.loading_init && x.querying && (
+						<div className='querying_wrap w_100 h_100 flex justify_center align_center absolute'>
+							<LoadingCircle></LoadingCircle>
+						</div>
+					)}
+					{!x.loading_init && x.config ? (
+						<Fragment>
+							<Table {...props_table}></Table>
+							<Pagination {...props_pagination}></Pagination>
+						</Fragment>
+					) : (
+						<div className='loading_wrap w_100 flex justify_center align_center'>
+							<LoadingCircle></LoadingCircle>
+						</div>
+					)}
+				</div>
+
 				<Drawer
 					className={styles.Drawer}
 					open={x.modal_visible || x.modal_view_visible}

@@ -42,10 +42,13 @@ const Index = (props: IPropsRow) => {
 				className={$.cx(
 					'form_table_tr',
 					modal_index === index + 1 && 'selected_prev',
-					modal_index === index && 'selected'
+					modal_index === index && 'selected',
+					item['__stat_type__'] && 'stat_row'
 				)}
 			>
-				{table_columns.map(col => {
+				{table_columns.map((col, col_index) => {
+					let group_replace = undefined
+
 					const is_group_row =
 						(col.bind === item['__group_field__'] && col.name === item['__group_name__']) ||
 						col.name === item['__group_replace__']?.name
@@ -66,15 +69,29 @@ const Index = (props: IPropsRow) => {
 							? item['__group_level__']
 							: undefined
 
+					if (item['__group_replace__'] && item['__group_replace__'].name === col.name) {
+						group_replace = item['__group_replace__'].value
+					}
+
+					if (item['__stat_type__'] && !(col.bind in item)) {
+						group_replace = ''
+					}
+
+					if (item['__stat_type__']) {
+						if (col_index === 0) {
+							group_replace = (item['__stat_type__'] as string).toUpperCase()
+						} else {
+							if (item['__stat_type__'] === 'COUNT' && col.bind in item) {
+								group_replace = item[col.bind]
+							}
+						}
+					}
+
 					return (
 						<Column
 							column={col}
 							value={get(item, col.bind)}
-							group_replace={
-								item['__group_replace__'] && item['__group_replace__'].name === col.name
-									? item['__group_replace__'].value
-									: undefined
-							}
+							group_replace={group_replace}
 							row_index={index}
 							focus={!col.readonly && editing_info && col.bind === editing_info.field}
 							item={col.type === 'text' && col.props?.format ? item : undefined}

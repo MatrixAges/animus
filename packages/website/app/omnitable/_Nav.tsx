@@ -11,12 +11,16 @@ const nav_items = [
 		key: 'table'
 	},
 	{
-		type: 'Mining: config group',
-		key: 'mining_config_group'
+		type: 'Config Group',
+		key: 'config_group'
 	},
 	{
-		type: 'Mining: custom group',
-		key: 'mining_custom_group'
+		type: 'Custom Group',
+		key: 'custom_group'
+	},
+	{
+		type: 'Config Stat',
+		key: 'config_stat'
 	}
 ]
 
@@ -34,7 +38,7 @@ const Index = () => {
 					href={`/omnitable/${item.key}`}
 					key={item.key}
 				>
-					Table ({item.type})
+					{item.type}
 				</Link>
 			))}
 		</div>

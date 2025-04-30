@@ -203,6 +203,12 @@
 	outline: none;
 
 	:global {
+		.querying_wrap {
+			z-index: 300;
+			border-radius: var(--radius);
+			background-color: rgba(var(--color_bg_rgb), 0.81);
+		}
+
 		.loading_wrap {
 			height: 300px;
 			border: var(--border);
@@ -319,9 +325,18 @@
 						}
 					}
 
-					&:hover {
+					&:hover,
+					&.stat_row {
 						td {
 							background-color: var(--color_bg_1) !important;
+						}
+					}
+
+					&.stat_row {
+						&:hover {
+							td {
+								background-color: var(--color_bg_2) !important;
+							}
 						}
 					}
 

@@ -1,4 +1,8 @@
-export const pagesize_options = [18, 30, 60, 120, 300, 600]
+import { get, sumBy } from 'lodash-es'
+
+import type Model from './model'
+
+export const pagesize_options = [12, 30, 60, 100, 300, 600, 1200]
 
 export const sort_options = [
 	{
@@ -21,6 +25,36 @@ export const filter_relation_options = [
 		value: 'or'
 	}
 ]
+
+export const stat_options = [
+	{
+		label: 'SUM',
+		value: 'SUM'
+	},
+	{
+		label: 'AVG',
+		value: 'AVG'
+	},
+	{
+		label: 'COUNT',
+		value: 'COUNT'
+	},
+	{
+		label: 'MIN',
+		value: 'MIN'
+	},
+	{
+		label: 'MAX',
+		value: 'MAX'
+	}
+] as const
+
+export type StatType = (typeof stat_options)[number]['value']
+
+export const stat_functions = {
+	sum: (items: Array<any>, key: string) => sumBy(items, item => get(item, key)),
+	avg: (items: Array<any>, key: string) => sumBy(items, item => get(item, key))
+}
 
 export const common_expressions = ['is empty', 'is not empty']
 

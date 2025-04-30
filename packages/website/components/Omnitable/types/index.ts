@@ -1,6 +1,7 @@
 import type { InputProps, InputNumberProps } from 'antd'
 import type { TextAreaProps } from 'antd/es/input'
 import type { ReactNode } from 'react'
+import type { StatType } from '../metadata'
 
 export * from './components'
 
@@ -49,13 +50,19 @@ export namespace Omnitable {
 			}
 			delete_tips?: { title?: string; content?: string }
 		}
+		stat?: {
+			// 预先配置的字段，指定从使用字段生成数据分析结果
+			columns?: Array<{ name: string; type: StatType }>
+			// 隐藏配置按钮
+			hide?: boolean
+		}
 		// 开启数据分组，支持多层级，
 		group?: {
-			// 表示顺序层级，如：'Period > Farm > Pool'
+			// 预先配置的字段，表示顺序层级，格式为：'Period > Farm > Pool'
 			order?: string
 			// 指定在生成group时，哪些字段的值进行累加
 			acc?: Array<string>
-			// 隐藏
+			// 隐藏配置按钮
 			hide?: boolean
 		}
 		// 可选 form，如果不写就使用 table 的 columns 配置
@@ -91,8 +98,6 @@ export namespace Omnitable {
 		sort?: boolean
 		readonly?: boolean
 		sticky?: boolean
-		stat?: boolean
-		group?: boolean
 	}
 
 	export interface FormColumn extends BaseColumn {
