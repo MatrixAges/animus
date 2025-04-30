@@ -1,6 +1,7 @@
 'use client'
 
 import to from 'await-to-js'
+import dayjs from 'dayjs'
 import { Decimal } from 'decimal.js'
 import { groupBy, omit, pick, uniqBy } from 'lodash-es'
 import { makeAutoObservable } from 'mobx'
@@ -8,13 +9,13 @@ import mustache from 'mustache'
 import { nanoid } from 'nanoid'
 import { ofetch } from 'ofetch'
 import { setStorageWhenChange } from 'stk/mobx'
+import { deepEqual } from 'stk/react'
 
-import { $ } from '@website/utils'
+import { $, isMillisecondTimestamp } from '@website/utils'
 
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
 import type { IReactionDisposer, Lambda } from 'mobx'
-
 export default class Index {
 	antd = null as unknown as useAppProps
 	primary = 'id'
@@ -30,14 +31,18 @@ export default class Index {
 	sort_params = [] as Array<{ field: string; order: 'desc' | 'asc' }>
 	filter_relation = 'and' as 'and' | 'or'
 	filter_params = [] as Array<{ field: string; expression: string; value: any }>
+	group_params = { fields: [], acc: [] } as {
+		fields: Array<{ label: string; value: string }>
+		acc: Array<{ label: string; value: string }>
+	}
 	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
-	group_params = null as unknown as { fields: Array<{ name: string; id: string }>; acc?: Array<string> }
 
 	views = [] as Array<{
 		name: string
 		sort_params: Index['sort_params']
 		filter_relation: Index['filter_relation']
 		filter_params: Index['filter_params']
+		group_params: Index['group_params']
 		visible_columns: Index['visible_columns']
 	}>
 	apply_view_name = ''
@@ -50,15 +55,16 @@ export default class Index {
 	querying = false
 	loading = false
 
+	items_raw = [] as Array<any>
 	items = [] as Array<any>
-	pagination = { page: 1, pagesize: 100, total: 0 } as { page: number; pagesize: number; total: number }
+	pagination = { page: 1, pagesize: 18, total: 0 } as { page: number; pagesize: number; total: number }
 
 	disposers = [] as Array<IReactionDisposer | Lambda>
 
 	constructor() {
 		makeAutoObservable(
 			this,
-			{ antd: false, primary: false, props: false, config: false, disposers: false },
+			{ antd: false, primary: false, props: false, config: false, disposers: false, items_raw: false },
 			{ autoBind: true }
 		)
 	}
@@ -77,7 +83,11 @@ export default class Index {
 
 		this.disposers = [setStorageWhenChange([{ [`${this.config.name}:views`]: 'views' }], this)]
 
-		if (this.config.primary) this.primary = this.config.primary
+		const primary = this.config.primary
+		const pagesize = this.config.table.props?.pagesize
+
+		if (primary) this.primary = primary
+		if (pagesize) this.pagination = { ...this.pagination, pagesize }
 
 		this.make()
 		this.getSortFieldOptions()
@@ -129,8 +139,14 @@ export default class Index {
 
 		const items = this.config.hooks?.afterQuery ? this.config.hooks.afterQuery(res.data.items) : res.data.items
 
-		if (this.config.group) {
-			this.items = this.makeGroupData(items, $.copy(this.group_params.fields))
+		this.items_raw = items
+
+		if (this.group_params.fields.length) {
+			this.items = this.makeGroupData(
+				items,
+				$.copy(this.group_params.fields),
+				$.copy(this.group_params.acc)
+			)
 		} else {
 			this.items = items
 		}
@@ -222,13 +238,20 @@ export default class Index {
 
 	makeGroupParams() {
 		const { order, acc } = this.config.group!
+
+		if (!order) return
+
 		const field_names = order.replace(/\s+/g, '').split('>')
 		const visible_columns = [] as Index['visible_columns']
-		const group_params = { fields: [], acc } as Index['group_params']
+		const group_params = { fields: [], acc: [] } as Index['group_params']
 
 		this.visible_columns.forEach(item => {
 			if (field_names.includes(item.name)) {
-				group_params.fields.push(pick(item, ['name', 'id']))
+				group_params.fields.push({ label: item.name, value: item.id })
+			}
+
+			if (acc && acc.includes(item.name)) {
+				group_params.acc.push({ label: item.name, value: item.id })
 			}
 
 			if (!field_names.slice(1).includes(item.name)) {
@@ -240,9 +263,24 @@ export default class Index {
 		this.group_params = $.copy(group_params)
 	}
 
+	makeGroupVisible() {
+		const fields = $.copy(this.group_params.fields)
+		const visible_columns = [] as Index['visible_columns']
+		const visible_fields = fields.slice(1)
+
+		this.table_columns.forEach(column => {
+			if (!visible_fields.find(f => f.label === column.name)) {
+				visible_columns.push({ name: column.name, id: column.bind, visible: true })
+			}
+		})
+
+		this.visible_columns = $.copy(visible_columns)
+	}
+
 	makeGroupData(
 		items: Index['items'],
 		fields: Index['group_params']['fields'],
+		acc: Index['group_params']['acc'],
 		target = [] as Index['items'],
 		level = 0,
 		group_id?: string
@@ -250,24 +288,34 @@ export default class Index {
 		if (level === fields.length) return target
 
 		const group_field = fields[level]
-		const group_data = groupBy(items, group_field.id)
+		const group_data = groupBy(items, group_field.value)
+		const group_field_is_number = typeof this.items_raw[0]?.[group_field.value] === 'number'
 
 		level += 1
 
 		Object.keys(group_data).forEach(group_field_value => {
 			const children = group_data[group_field_value]
 			const current_group_id =
-				(group_id ? `${group_id}/` : '') + `${group_field.id}:${group_field.name}:${group_field_value}`
+				(group_id ? `${group_id}/` : '') +
+				`${group_field.value}:${group_field.label}:${group_field_value}`
 
 			// 如果field_value是number类型，需要进行还原
-			if (children.length && typeof children[0][group_field.id] === 'number') {
+			if (group_field_is_number) {
 				group_field_value = parseFloat(group_field_value) as unknown as string
+
+				// 如果数字是时间，需要进行格式化
+				if (
+					this.filter_columns.find(col => col.name === group_field.label)?.datatype === 'date' ||
+					isMillisecondTimestamp(group_field_value as unknown as number)
+				) {
+					group_field_value = dayjs(group_field_value).format('YYYY-MM-DD')
+				}
 			}
 
 			const group_parent = this.visible_columns.reduce((total, item) => {
-				if (item.id === group_field.id) return total
+				if (item.id === group_field.value) return total
 
-				if (this.group_params.acc?.includes(item.name)) {
+				if (acc.find(a => a.label === item.name)) {
 					total[item.id] = children.reduce((all, child) => {
 						const real_all = new Decimal(all)
 						const real_value = new Decimal(child[item.id])
@@ -280,8 +328,8 @@ export default class Index {
 					total[item.id] = null
 				}
 
-				total['__group_field__'] = group_field.id
-				total['__group_name__'] = group_field.name
+				total['__group_field__'] = group_field.value
+				total['__group_name__'] = group_field.label
 				total['__group_value__'] = group_field_value
 				total['__group_id__'] = current_group_id
 				total['__group_visible_self__'] = false
@@ -293,7 +341,7 @@ export default class Index {
 
 				if (level > 1) {
 					total['__group_replace__'] = {
-						name: this.group_params.fields[0].name,
+						name: this.group_params.fields[0].label,
 						value: group_field_value
 					}
 				}
@@ -306,27 +354,27 @@ export default class Index {
 			}, {} as any)
 
 			target.push({
-				[group_field.id]: group_field_value,
+				[group_field.value]: group_field_value,
 				__group_level__: level - 1,
 				...group_parent
 			})
 
 			if (level < fields.length) {
-				this.makeGroupData(children, fields, target, level, current_group_id)
+				this.makeGroupData(children, fields, acc, target, level, current_group_id)
 			}
 
 			if (level === fields.length) {
 				children.forEach(item => {
 					target.push({
 						...item,
-						__group_field__: group_field.id,
-						__group_name__: this.group_params.fields[0].name,
+						__group_field__: group_field.value,
+						__group_name__: this.group_params.fields[0].label,
 						__group_id__: current_group_id + '/' + item.id,
 						__group_visible_children__: false,
 						__group_level__: level,
 						__group_bottom__: true,
 						__group_replace__: {
-							name: this.group_params.fields[0].name,
+							name: this.group_params.fields[0].label,
 							value: ''
 						}
 					})
@@ -529,12 +577,48 @@ export default class Index {
 		this.query()
 	}
 
+	getGroupFieldOptions(v: Index['group_params']['fields']) {
+		const options = [] as Array<{ label: string; value: any; disabled?: boolean }>
+		const disabled_options = [] as Array<{ label: string; value: any; disabled?: boolean }>
+
+		this.table_columns.forEach(item => {
+			const target_item = { label: item.name, value: item.bind }
+
+			if (v.find(s => s.value === item.bind) || item.bind === '_operation') {
+				disabled_options.push({ ...target_item, disabled: true })
+			} else {
+				options.push(target_item)
+			}
+		})
+
+		return [...options, ...disabled_options]
+	}
+
+	onChangeGroup(v: Index['group_params'], apply_view?: boolean) {
+		this.group_params = v
+
+		if (!apply_view) this.clearApplyView()
+
+		this.makeGroupVisible()
+
+		if (this.group_params.fields.length) {
+			this.items = this.makeGroupData(
+				this.items_raw,
+				$.copy(this.group_params.fields),
+				$.copy(this.group_params.acc)
+			)
+		} else {
+			this.items = this.items_raw
+		}
+	}
+
 	onAddView() {
 		this.views.unshift({
 			name: 'Table view ' + nanoid(3),
 			sort_params: this.sort_params,
 			filter_relation: this.filter_relation,
 			filter_params: this.filter_params,
+			group_params: this.group_params,
 			visible_columns: this.visible_columns
 		})
 
@@ -542,14 +626,32 @@ export default class Index {
 	}
 
 	onApplyView(view: Index['views'][number]) {
+		if (!deepEqual($.copy(this.group_params), view.group_params)) {
+			this.group_params = view.group_params
+
+			this.onChangeGroup(view.group_params, true)
+		}
+
+		if (
+			!deepEqual(
+				{
+					sort_params: $.copy(this.sort_params),
+					filter_relation: $.copy(this.filter_relation),
+					filter_params: $.copy(this.filter_params)
+				},
+				pick(view, ['sort_params', 'filter_relation', 'filter_params'])
+			)
+		) {
+			this.sort_params = view.sort_params
+			this.filter_relation = view.filter_relation
+			this.filter_params = view.filter_params
+
+			this.query()
+		}
+
 		this.apply_view_name = view.name
-		this.sort_params = view.sort_params
-		this.filter_relation = view.filter_relation
-		this.filter_params = view.filter_params
 		this.visible_columns = view.visible_columns
 		this.modal_view_visible = false
-
-		this.query()
 	}
 
 	clearApplyView() {

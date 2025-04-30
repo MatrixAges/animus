@@ -30,6 +30,18 @@ export interface IPropsFilterItem {
 	remove: (index: number | number[]) => void
 }
 
+export interface IPropsGroup {
+	group_params: Model['group_params']
+	use_by_view?: boolean
+	getGroupFieldOptions: Model['getGroupFieldOptions']
+	onChangeGroup: Model['onChangeGroup']
+}
+
+export interface IPropsGroupItem {
+	group_field_options: Array<{ label: string; value: any; disabled?: boolean }>
+	remove: (index: number | number[]) => void
+}
+
 export interface IPropsFields {
 	visible_columns: Model['visible_columns']
 	use_by_view?: boolean
@@ -46,11 +58,13 @@ export interface IPropsView {
 	filter_columns: Model['filter_columns']
 	views: Model['views']
 	getSortFieldOptions: Model['getSortFieldOptions']
+	getGroupFieldOptions: Model['getGroupFieldOptions']
 	onApplyView: Model['onApplyView']
 	onChangeViews: (v: Model['views']) => void
 }
 
-export interface IPropsViewItem extends Pick<IPropsView, 'filter_columns' | 'getSortFieldOptions' | 'onApplyView'> {
+export interface IPropsViewItem
+	extends Pick<IPropsView, 'filter_columns' | 'getSortFieldOptions' | 'getGroupFieldOptions' | 'onApplyView'> {
 	view: Model['views'][number]
 	view_index: number
 	onChangeView: (index: number, v: Model['views'][number]) => void

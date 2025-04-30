@@ -44,12 +44,51 @@
 				background-color: var(--color_bg_1);
 				font-size: 12px;
 			}
+
+			.group_fields {
+				margin-left: 6px;
+
+				.group_field {
+					&:last-child {
+						.caret {
+							display: none;
+						}
+					}
+					.counts {
+						margin-left: 0;
+					}
+				}
+
+				.caret {
+					margin: 0 2px;
+				}
+			}
 		}
 	}
 }
 
 .popover_wrap {
 	min-width: 360px;
+
+	&.group_wrap {
+		:global {
+			.acc_wrap {
+				.title {
+					margin-bottom: 16px;
+				}
+
+				.ani-form-item {
+					margin-bottom: 24px;
+				}
+
+				.ani-select-selector {
+					.ani-select-selection-item {
+						border-radius: var(--radius_small_0) !important;
+					}
+				}
+			}
+		}
+	}
 
 	&.fields_wrap {
 		min-width: unset;

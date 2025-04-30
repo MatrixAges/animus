@@ -6,12 +6,22 @@ import { $ } from '@website/utils'
 
 import Fields from '../Fields'
 import Filter from '../Filter'
+import Group from '../Group'
 import Sort from '../Sort'
 
-import type { IPropsViewItem, IPropsSort, IPropsFilter, IPropsFields } from '../../types'
+import type { IPropsViewItem, IPropsSort, IPropsFilter, IPropsGroup, IPropsFields } from '../../types'
 
 const Index = (props: IPropsViewItem) => {
-	const { filter_columns, view, view_index, getSortFieldOptions, remove, onApplyView, onChangeView } = props
+	const {
+		filter_columns,
+		view,
+		view_index,
+		getSortFieldOptions,
+		getGroupFieldOptions,
+		remove,
+		onApplyView,
+		onChangeView
+	} = props
 
 	const onChangeName = useMemoizedFn(e => {
 		onChangeView(view_index, { ...view, name: e.target.value })
@@ -33,6 +43,13 @@ const Index = (props: IPropsViewItem) => {
 		filter_params: view.filter_params,
 		use_by_view: true,
 		onChangeFilter: useMemoizedFn(v => onChangeView(view_index, { ...view, ...v }))
+	}
+
+	const props_group: IPropsGroup = {
+		group_params: view.group_params,
+		use_by_view: true,
+		getGroupFieldOptions,
+		onChangeGroup: useMemoizedFn(v => onChangeView(view_index, { ...view, group_params: v }))
 	}
 
 	const props_fields: IPropsFields = {
@@ -64,6 +81,9 @@ const Index = (props: IPropsViewItem) => {
 			</div>
 			<div className='view_option w_100'>
 				<Filter {...props_filter}></Filter>
+			</div>
+			<div className='view_option w_100'>
+				<Group {...props_group}></Group>
 			</div>
 			<div className='view_option w_100'>
 				<Fields {...props_fields}></Fields>

@@ -28,12 +28,10 @@ export default {
 			{ name: 'Earning', sort: true },
 			{ name: 'Hashrate', sort: true },
 			{ name: 'Operation' }
-		]
-	},
-	group: {
-		// order: 'Period > Farm',
-		order: 'Period > Farm > Pool',
-		acc: ['Hashrate', 'Earning']
+		],
+		props: {
+			pagesize: 100
+		}
 	},
 	form: {
 		use_table_columns: true

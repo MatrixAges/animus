@@ -41,6 +41,9 @@ export default {
 			{ name: 'Operation' }
 		]
 	},
+	group: {
+		hide: true
+	},
 	form: {
 		use_table_columns: true,
 		exclude_table_columns: ['Create At', 'Update At']

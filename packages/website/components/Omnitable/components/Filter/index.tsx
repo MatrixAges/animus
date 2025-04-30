@@ -170,7 +170,7 @@ const Index = (props: IPropsFilter) => {
 	return (
 		<Popover trigger={['click']} placement='bottomLeft' content={Content} forceRender>
 			<div>
-				<button className='header_btn_wrap border_box flex align_center clickable'>
+				<button className='header_btn_wrap border_box flex align_center clickable mr_8'>
 					<FunnelSimple className='icon'></FunnelSimple>
 					<span className='label'>Filter</span>
 					{counts > 0 && <span className='counts flex align_center'>{counts}</span>}

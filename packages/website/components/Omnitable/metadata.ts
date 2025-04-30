@@ -1,3 +1,5 @@
+export const pagesize_options = [18, 30, 60, 120, 300, 600]
+
 export const sort_options = [
 	{
 		label: 'Asc',

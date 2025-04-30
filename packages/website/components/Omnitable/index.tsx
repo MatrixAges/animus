@@ -12,7 +12,7 @@ import { Eyes, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Fields, Filter, Pagination, Sort, Table, View } from './components'
+import { Detail, Fields, Filter, Group, Pagination, Sort, Table, View } from './components'
 import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'
@@ -25,7 +25,8 @@ import type {
 	IPropsTable,
 	IPropsPagination,
 	IPropsDetail,
-	IPropsView
+	IPropsView,
+	IPropsGroup
 } from './types'
 
 const { useApp } = App
@@ -52,6 +53,12 @@ const Index = (props: Omnitable.Props) => {
 		filter_relation: x.filter_relation,
 		filter_params: $.copy(x.filter_params),
 		onChangeFilter: useMemoizedFn(debounce(x.onChangeFilter, 300))
+	}
+
+	const props_group: IPropsGroup = {
+		group_params: $.copy(x.group_params),
+		getGroupFieldOptions: x.getGroupFieldOptions,
+		onChangeGroup: x.onChangeGroup
 	}
 
 	const props_fields: IPropsFields = {
@@ -105,6 +112,7 @@ const Index = (props: Omnitable.Props) => {
 		filter_columns,
 		views: $.copy(x.views),
 		getSortFieldOptions: x.getSortFieldOptions,
+		getGroupFieldOptions: x.getGroupFieldOptions,
 		onApplyView: x.onApplyView,
 		onChangeViews: useMemoizedFn(v => (x.views = v))
 	}
@@ -137,6 +145,7 @@ const Index = (props: Omnitable.Props) => {
 							</button>
 							{x.sort_params.length > 0 && <Sort {...props_sort}></Sort>}
 							{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
+							{!x.config?.group?.hide && <Group {...props_group}></Group>}
 						</div>
 					)}
 					<div className='flex'>

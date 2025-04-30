@@ -11,8 +11,12 @@ const nav_items = [
 		key: 'table'
 	},
 	{
-		type: 'Mining',
-		key: 'mining'
+		type: 'Mining: config group',
+		key: 'mining_config_group'
+	},
+	{
+		type: 'Mining: custom group',
+		key: 'mining_custom_group'
 	}
 ]
 

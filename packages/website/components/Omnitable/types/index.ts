@@ -43,15 +43,20 @@ export namespace Omnitable {
 		}
 		table: {
 			columns: Array<TableColumn>
-			props?: {}
+			props?: {
+				// 预置的pagesize
+				pagesize?: number
+			}
 			delete_tips?: { title?: string; content?: string }
 		}
 		// 开启数据分组，支持多层级，
 		group?: {
 			// 表示顺序层级，如：'Period > Farm > Pool'
-			order: string
+			order?: string
 			// 指定在生成group时，哪些字段的值进行累加
 			acc?: Array<string>
+			// 隐藏
+			hide?: boolean
 		}
 		// 可选 form，如果不写就使用 table 的 columns 配置
 		form?: {

@@ -1,5 +1,5 @@
 import Omnitable from '@website/components/Omnitable'
-import config from '@website/components/Omnitable/config_mining'
+import config from '@website/components/Omnitable/config_mining_custom_group'
 
 const Index = () => {
 	return (

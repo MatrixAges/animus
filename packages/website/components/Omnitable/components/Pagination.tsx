@@ -3,6 +3,7 @@ import { Pagination } from 'antd'
 import { $ } from '@website/utils'
 
 import styles from '../index.module.css'
+import { pagesize_options } from '../metadata'
 
 import type { IPropsPagination } from '../types'
 
@@ -18,6 +19,7 @@ const Index = (props: IPropsPagination) => {
 				total={total}
 				current={page}
 				pageSize={pagesize}
+				pageSizeOptions={pagesize_options}
 				showTotal={total => `Total ${total} records`}
 				onChange={onChangePagination}
 			/>
