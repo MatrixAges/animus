@@ -46,18 +46,25 @@ const Index = (props: IPropsTable) => {
 		const target_group_ids = group_id.split('/') as Array<string>
 		const target_items = [] as Array<any>
 
+		let parent_visible = null as boolean | null
+
 		items.forEach(item => {
 			if (!item['__stat_type__']) {
 				const item_group_ids = item['__group_id__'].split('/') as Array<string>
 
 				if (item['__group_id__'] === group_id) {
+					parent_visible = !item['__group_visible_self__']
 					item['__group_visible_self__'] = !item['__group_visible_self__']
 				} else {
-					if (
-						item['__group_id__'].indexOf(group_id) !== -1 &&
-						item_group_ids.length - 1 === target_group_ids.length
-					) {
-						item['__group_visible_children__'] = !item['__group_visible_children__']
+					if (item['__group_id__'].indexOf(group_id) !== -1) {
+						if (!parent_visible) {
+							item['__group_visible_self__'] = false
+							item['__group_visible_children__'] = false
+						} else {
+							if (item_group_ids.length - 1 === target_group_ids.length) {
+								item['__group_visible_children__'] = !item['__group_visible_children__']
+							}
+						}
 					}
 				}
 
