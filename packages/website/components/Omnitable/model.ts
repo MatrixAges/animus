@@ -114,8 +114,8 @@ export default class Index {
 		this.config = res
 	}
 
-	async query() {
-		this.querying = true
+	async query(ignore_querying?: boolean) {
+		if (!ignore_querying) this.querying = true
 
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
 			ofetch(`${this.config.baseurl}${this.config.actions.query}`, {
@@ -130,7 +130,7 @@ export default class Index {
 			})
 		)
 
-		this.querying = false
+		if (!ignore_querying) this.querying = false
 
 		if (err) {
 			this.antd.message.error(`Query error: ${err?.message}`)
@@ -220,7 +220,7 @@ export default class Index {
 			return false
 		}
 
-		this.query()
+		this.query(true)
 	}
 
 	async delete(primary_value: number | string) {
@@ -242,7 +242,7 @@ export default class Index {
 			return false
 		}
 
-		this.query()
+		this.query(true)
 	}
 
 	makeStatParams() {
@@ -490,7 +490,6 @@ export default class Index {
 							return
 						}
 
-						console.log('error')
 						// 更新出错，重新插入数据
 						this.items.splice(index, 0, target_item)
 					},
