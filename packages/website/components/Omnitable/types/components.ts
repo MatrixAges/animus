@@ -30,6 +30,18 @@ export interface IPropsFilterItem {
 	remove: (index: number | number[]) => void
 }
 
+export interface IPropsStat {
+	visible_columns: Model['visible_columns']
+	stat_params: Model['stat_params']
+	use_by_view?: boolean
+	onChangeStat: Model['onChangeStat']
+}
+
+export interface IPropsStatItem {
+	visible_columns: Model['visible_columns']
+	remove: (index: number | number[]) => void
+}
+
 export interface IPropsGroup {
 	group_params: Model['group_params']
 	use_by_view?: boolean

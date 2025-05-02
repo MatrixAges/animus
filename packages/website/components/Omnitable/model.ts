@@ -245,6 +245,71 @@ export default class Index {
 		this.query(true)
 	}
 
+	async onChange(index: number, v: any) {
+		const operation = v._operation
+		const from_modal = index === -1
+
+		if (operation) {
+			if (operation.key === 'delete') {
+				this.modal_index = index
+
+				this.antd.modal.confirm({
+					title: this.config.table.delete_tips?.title || 'Are you absolutely sure?',
+					content:
+						this.config.table.delete_tips?.content ||
+						'This action cannot be undone. This will permanently delete this record.',
+					centered: true,
+					closable: true,
+					icon: null,
+					destroyOnClose: true,
+					getContainer: () => document.body,
+					onOk: async () => {
+						const target_item = this.items[index]
+
+						this.items.splice(index, 1)
+
+						const res = await this.delete(target_item[this.primary])
+
+						if (res === undefined) {
+							this.modal_index = -2
+
+							return
+						}
+
+						// 更新出错，重新插入数据
+						this.items.splice(index, 0, target_item)
+					},
+					onCancel: () => {
+						this.modal_index = -2
+					}
+				})
+			} else {
+				this.modal_type = operation.key
+				this.modal_index = index
+				this.modal_visible = true
+			}
+		} else {
+			const target_index = from_modal ? this.modal_index : index
+			const target_item = this.items[target_index]
+
+			this.items[target_index] = { ...target_item, ...v }
+
+			const res = await this.update(target_item[this.primary], v)
+
+			if (res === undefined) {
+				if (from_modal) {
+					this.modal_visible = false
+					this.modal_index = -2
+				}
+
+				return
+			}
+
+			// 更新出错，还原数据
+			this.items[target_index] = target_item
+		}
+	}
+
 	makeStatParams() {
 		const columns = this.config.stat?.columns
 
@@ -459,71 +524,6 @@ export default class Index {
 		}
 	}
 
-	async onChange(index: number, v: any) {
-		const operation = v._operation
-		const from_modal = index === -1
-
-		if (operation) {
-			if (operation.key === 'delete') {
-				this.modal_index = index
-
-				this.antd.modal.confirm({
-					title: this.config.table.delete_tips?.title || 'Are you absolutely sure?',
-					content:
-						this.config.table.delete_tips?.content ||
-						'This action cannot be undone. This will permanently delete this record.',
-					centered: true,
-					closable: true,
-					icon: null,
-					destroyOnClose: true,
-					getContainer: () => document.body,
-					onOk: async () => {
-						const target_item = this.items[index]
-
-						this.items.splice(index, 1)
-
-						const res = await this.delete(target_item[this.primary])
-
-						if (res === undefined) {
-							this.modal_index = -2
-
-							return
-						}
-
-						// 更新出错，重新插入数据
-						this.items.splice(index, 0, target_item)
-					},
-					onCancel: () => {
-						this.modal_index = -2
-					}
-				})
-			} else {
-				this.modal_type = operation.key
-				this.modal_index = index
-				this.modal_visible = true
-			}
-		} else {
-			const target_index = from_modal ? this.modal_index : index
-			const target_item = this.items[target_index]
-
-			this.items[target_index] = { ...target_item, ...v }
-
-			const res = await this.update(target_item[this.primary], v)
-
-			if (res === undefined) {
-				if (from_modal) {
-					this.modal_visible = false
-					this.modal_index = -2
-				}
-
-				return
-			}
-
-			// 更新出错，还原数据
-			this.items[target_index] = target_item
-		}
-	}
-
 	getSortFieldOptions(v?: Index['sort_params']) {
 		const options = [] as Index['sort_field_options']
 		const disabled_options = [] as Index['sort_field_options']
@@ -544,50 +544,6 @@ export default class Index {
 		if (v) return sort_field_options
 
 		this.sort_field_options = sort_field_options
-	}
-
-	onSort(field: string) {
-		const exist_sort_index = this.sort_params.findIndex(item => item.field === field)
-
-		if (exist_sort_index === -1) {
-			this.sort_params.push({ field, order: 'asc' })
-		} else {
-			const exist_sort = this.sort_params[exist_sort_index]
-
-			if (exist_sort.order === 'asc') {
-				this.sort_params[exist_sort_index].order = 'desc'
-			} else {
-				this.sort_params.splice(exist_sort_index, 1)
-			}
-		}
-
-		this.sort_params = $.copy(this.sort_params)
-
-		this.clearApplyView()
-		this.query()
-	}
-
-	onChangeSort(v: Index['sort_params']) {
-		this.sort_params = v
-
-		this.getSortFieldOptions()
-		this.clearApplyView()
-		this.query()
-	}
-
-	onChangeFilter(args: { filter_relation?: Index['filter_relation']; filter_params?: Index['filter_params'] }) {
-		const { filter_relation, filter_params } = args
-
-		if (filter_relation) this.filter_relation = filter_relation
-		if (filter_params) this.filter_params = filter_params
-
-		const target_filter_params = this.filter_params.filter(item => item.value)
-
-		this.clearApplyView()
-
-		if (filter_params?.length && !target_filter_params.length) return
-
-		this.query()
 	}
 
 	getStatItems() {
@@ -702,6 +658,56 @@ export default class Index {
 		})
 
 		return [...options, ...disabled_options]
+	}
+
+	onSort(field: string) {
+		const exist_sort_index = this.sort_params.findIndex(item => item.field === field)
+
+		if (exist_sort_index === -1) {
+			this.sort_params.push({ field, order: 'asc' })
+		} else {
+			const exist_sort = this.sort_params[exist_sort_index]
+
+			if (exist_sort.order === 'asc') {
+				this.sort_params[exist_sort_index].order = 'desc'
+			} else {
+				this.sort_params.splice(exist_sort_index, 1)
+			}
+		}
+
+		this.sort_params = $.copy(this.sort_params)
+
+		this.clearApplyView()
+		this.query()
+	}
+
+	onChangeSort(v: Index['sort_params']) {
+		this.sort_params = v
+
+		this.getSortFieldOptions()
+		this.clearApplyView()
+		this.query()
+	}
+
+	onChangeFilter(args: { filter_relation?: Index['filter_relation']; filter_params?: Index['filter_params'] }) {
+		const { filter_relation, filter_params } = args
+
+		if (filter_relation) this.filter_relation = filter_relation
+		if (filter_params) this.filter_params = filter_params
+
+		const target_filter_params = this.filter_params.filter(item => item.value)
+
+		this.clearApplyView()
+
+		if (filter_params?.length && !target_filter_params.length) return
+
+		this.query()
+	}
+
+	onChangeStat(v: Index['stat_params']) {
+		this.stat_params = v
+
+		this.getStatItems()
 	}
 
 	onChangeGroup(v: Index['group_params'], apply_view?: boolean) {

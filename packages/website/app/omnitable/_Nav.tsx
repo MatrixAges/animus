@@ -21,6 +21,10 @@ const nav_items = [
 	{
 		type: 'Config Stat',
 		key: 'config_stat'
+	},
+	{
+		type: 'Custom Stat',
+		key: 'custom_stat'
 	}
 ]
 

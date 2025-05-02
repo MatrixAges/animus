@@ -103,7 +103,7 @@ const Index = (props: IPropsGroup) => {
 										</SortableContext>
 									</DndContext>
 								) : (
-									<div className='desc'>Add sorting to organize your rows.</div>
+									<div className='desc'>Add grouping to group your rows.</div>
 								)}
 							</div>
 							<div

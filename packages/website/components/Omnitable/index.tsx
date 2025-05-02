@@ -12,7 +12,7 @@ import { Eyes, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Fields, Filter, Group, Pagination, Sort, Table, View } from './components'
+import { Detail, Fields, Filter, Group, Pagination, Sort, Stat, Table, View } from './components'
 import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'
@@ -26,7 +26,8 @@ import type {
 	IPropsPagination,
 	IPropsDetail,
 	IPropsView,
-	IPropsGroup
+	IPropsGroup,
+	IPropsStat
 } from './types'
 
 const { useApp } = App
@@ -55,6 +56,12 @@ const Index = (props: Omnitable.Props) => {
 		onChangeFilter: useMemoizedFn(debounce(x.onChangeFilter, 300))
 	}
 
+	const props_stat: IPropsStat = {
+		visible_columns: $.copy(x.visible_columns),
+		stat_params: $.copy(x.stat_params),
+		onChangeStat: x.onChangeStat
+	}
+
 	const props_group: IPropsGroup = {
 		group_params: $.copy(x.group_params),
 		getGroupFieldOptions: x.getGroupFieldOptions,
@@ -81,7 +88,7 @@ const Index = (props: Omnitable.Props) => {
 				})
 				.filter(item => item !== null)
 		),
-		data: $.copy([...x.items, ...x.stat_items]),
+		data: $.copy(x.items.concat(x.stat_items)),
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
 		modal_index: x.modal_index,
@@ -145,6 +152,7 @@ const Index = (props: Omnitable.Props) => {
 							</button>
 							{x.sort_params.length > 0 && <Sort {...props_sort}></Sort>}
 							{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
+							{!x.config?.stat?.hide && <Stat {...props_stat}></Stat>}
 							{!x.config?.group?.hide && <Group {...props_group}></Group>}
 						</div>
 					)}

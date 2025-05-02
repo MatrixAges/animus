@@ -51,7 +51,7 @@ export namespace Omnitable {
 			delete_tips?: { title?: string; content?: string }
 		}
 		stat?: {
-			// 预先配置的字段，指定从使用字段生成数据分析结果
+			// 预先配置的字段，指定字段生成数据分析结果
 			columns?: Array<{ name: string; type: StatType }>
 			// 隐藏配置按钮
 			hide?: boolean
