@@ -100,9 +100,11 @@ export interface IPropsTable {
 	editing_info: Model['editing_info']
 	sort_params: Model['sort_params']
 	modal_index: Model['modal_index']
-	setEditingInfo: (v: Model['editing_info']) => void
+	table_props: Model['config']['table']['props']
 	onSort: Model['onSort']
 	onChange: Model['onChange']
+	onRowClick: (v: number) => void
+	setEditingInfo: (v: Model['editing_info']) => void
 	setItems: (v: Model['items']) => void
 }
 
@@ -113,7 +115,12 @@ export interface IPropsTh {
 }
 
 export interface IPropsRow
-	extends Pick<IPropsTable, 'table_columns' | 'editing_info' | 'modal_index' | 'setEditingInfo' | 'onChange'> {
+	extends Pick<
+		IPropsTable,
+		'table_columns' | 'editing_info' | 'modal_index' | 'onChange' | 'onRowClick' | 'setEditingInfo'
+	> {
+	row_bg: Required<Model['config']['table']>['props']['row_bg']
+	row_click: Required<Model['config']['table']>['props']['row_click']
 	item: Omnitable.List['items'][number]
 	index: number
 	onToggleGroupItems: (group_id: string) => void

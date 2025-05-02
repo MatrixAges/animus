@@ -477,11 +477,12 @@ export default class Index {
 	}
 
 	make() {
-		this.filter_columns = this.config.filter.columns.map(item => {
-			const field = this.config.fields.filter?.[item.name] || this.config.fields.common[item.name]
+		this.filter_columns =
+			this.config.filter?.columns.map(item => {
+				const field = this.config.fields.filter?.[item.name] || this.config.fields.common[item.name]
 
-			return { ...item, ...field }
-		})
+				return { ...item, ...field }
+			}) || []
 
 		this.table_columns = this.config.table.columns.map(item => {
 			const field = this.config.fields.table?.[item.name] || this.config.fields.common[item.name]

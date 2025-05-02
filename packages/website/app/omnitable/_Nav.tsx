@@ -25,6 +25,10 @@ const nav_items = [
 	{
 		type: 'Custom Stat',
 		key: 'custom_stat'
+	},
+	{
+		type: 'Log',
+		key: 'log'
 	}
 ]
 

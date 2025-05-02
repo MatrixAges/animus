@@ -18,9 +18,11 @@ const Index = (props: IPropsTable) => {
 		editing_info,
 		sort_params,
 		modal_index,
-		setEditingInfo,
+		table_props,
 		onChange,
 		onSort,
+		onRowClick,
+		setEditingInfo,
 		setItems
 	} = props
 	const table = useRef<HTMLTableElement>(null)
@@ -75,10 +77,12 @@ const Index = (props: IPropsTable) => {
 		setItems(target_items)
 	})
 
+	const table_class = $.cx('table_wrap w_100', table_props?.border && 'border_style')
+
 	return (
 		<Fragment>
 			<div className='table_container w_100'>
-				<table className='table_wrap w_100' ref={table}>
+				<table className={table_class} ref={table}>
 					<thead>
 						<tr className={$.cx(modal_index === 0 && 'selected')}>
 							{table_columns.map(item => (
@@ -106,8 +110,11 @@ const Index = (props: IPropsTable) => {
 												? editing_info
 												: null
 										}
-										setEditingInfo={setEditingInfo}
+										row_bg={table_props?.row_bg}
+										row_click={table_props?.row_click}
 										onChange={onChange}
+										onRowClick={onRowClick}
+										setEditingInfo={setEditingInfo}
 										onToggleGroupItems={onToggleGroupItems}
 										key={
 											item[primary] ||
@@ -135,7 +142,7 @@ const Index = (props: IPropsTable) => {
 				</table>
 			</div>
 			<div className='table_container clone w_100' style={{ zIndex: 103 }}>
-				<table className='table_wrap w_100' ref={clone_table} />
+				<table className={table_class} ref={clone_table} />
 			</div>
 		</Fragment>
 	)

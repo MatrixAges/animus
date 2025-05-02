@@ -85,6 +85,7 @@ const Index = (props: IPropsCol) => {
 				column.sticky && 'sticky left_0'
 			)}
 			width={column.width}
+			style={{ textAlign: column.align }}
 			ref={ref}
 		>
 			{group_level && <span style={{ paddingLeft: `calc((1.2em + 8px) * ${group_level})` }}></span>}

@@ -1,7 +1,5 @@
 import { get, sumBy } from 'lodash-es'
 
-import type Model from './model'
-
 export const pagesize_options = [12, 30, 60, 100, 300, 600, 1200]
 
 export const sort_options = [
@@ -48,6 +46,14 @@ export const stat_options = [
 		value: 'MAX'
 	}
 ] as const
+
+export const preset_color = {
+	light: 'var(--color_text_softlight)',
+	dark: 'var(--color_text_greylight)',
+	success: 'var(--color_success)',
+	warning: 'var(--color_warning)',
+	danger: 'var(--color_danger)'
+}
 
 export type StatType = (typeof stat_options)[number]['value']
 

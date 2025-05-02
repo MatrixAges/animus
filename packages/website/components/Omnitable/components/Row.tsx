@@ -1,11 +1,12 @@
 import { useMemoizedFn } from 'ahooks'
 import { Form } from 'antd'
 import { get } from 'lodash-es'
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { deepEqual } from 'stk/react'
 
 import { $ } from '@website/utils'
 
+import { preset_color } from '../metadata'
 import Column from './Col'
 
 import type { IPropsRow } from '../types'
@@ -14,8 +15,19 @@ import type { FormProps } from 'antd'
 const { useForm } = Form
 
 const Index = (props: IPropsRow) => {
-	const { table_columns, modal_index, item, index, editing_info, setEditingInfo, onChange, onToggleGroupItems } =
-		props
+	const {
+		table_columns,
+		modal_index,
+		item,
+		index,
+		editing_info,
+		row_bg,
+		row_click,
+		onChange,
+		onRowClick,
+		setEditingInfo,
+		onToggleGroupItems
+	} = props
 	const [form] = useForm()
 	const { setFieldsValue, getFieldsValue } = form
 
@@ -36,6 +48,23 @@ const Index = (props: IPropsRow) => {
 		setEditingField(null)
 	})
 
+	const style = useMemo(() => {
+		if (!row_bg) return {}
+
+		const { bind, options } = row_bg
+
+		if (!(bind in item)) return {}
+
+		const value = item[bind]
+		const bg = options[value]
+
+		return {
+			'--row_bg': `color-mix(in srgb, ${preset_color[bg as keyof typeof preset_color] ?? bg} 3%, transparent)`
+		}
+	}, [row_bg, item])
+
+	const onRow = useMemoizedFn(() => onRowClick(index))
+
 	return (
 		<Form form={form} component={false} onValuesChange={onValuesChange}>
 			<tr
@@ -43,8 +72,12 @@ const Index = (props: IPropsRow) => {
 					'form_table_tr',
 					modal_index === index + 1 && 'selected_prev',
 					modal_index === index && 'selected',
-					item['__stat_type__'] && 'stat_row'
+					item['__stat_type__'] && 'stat_row',
+					style['--row_bg'] && 'has_row_bg',
+					row_click && 'cursor_point'
 				)}
+				style={style}
+				onClick={row_click ? onRow : undefined}
 			>
 				{table_columns.map((col, col_index) => {
 					let group_replace = undefined

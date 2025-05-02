@@ -93,8 +93,14 @@ const Index = (props: Omnitable.Props) => {
 		sort_params: $.copy(x.sort_params),
 		editing_info: $.copy(x.editing_info),
 		modal_index: x.modal_index,
+		table_props: $.copy(x.config?.table?.props),
 		onSort: x.onSort,
 		onChange: x.onChange,
+		onRowClick: useMemoizedFn((index: number) => {
+			x.modal_type === 'view'
+			x.modal_index = index
+			x.modal_visible = true
+		}),
 		setEditingInfo: useMemoizedFn(v => (x.editing_info = v)),
 		setItems: useMemoizedFn(v => (x.items = v))
 	}

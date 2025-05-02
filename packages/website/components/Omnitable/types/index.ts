@@ -2,6 +2,7 @@ import type { InputProps, InputNumberProps } from 'antd'
 import type { TextAreaProps } from 'antd/es/input'
 import type { ReactNode } from 'react'
 import type { StatType } from '../metadata'
+import type { CSSProperties } from 'react'
 
 export * from './components'
 
@@ -37,7 +38,7 @@ export namespace Omnitable {
 			// 处理要变更的数据
 			beforeUpdate?: (v: any) => any
 		}
-		filter: {
+		filter?: {
 			columns: Array<FilterColumn>
 			props?: {}
 			flat?: boolean
@@ -47,6 +48,14 @@ export namespace Omnitable {
 			props?: {
 				// 预置的pagesize
 				pagesize?: number
+				border?: boolean
+				// 点击row展开详情
+				row_click?: boolean
+				// 根据某个字段的值改变row的背景色
+				row_bg?: {
+					bind: string
+					options: Record<string, PresetColor | string>
+				}
 			}
 			delete_tips?: { title?: string; content?: string }
 		}
@@ -98,6 +107,7 @@ export namespace Omnitable {
 		sort?: boolean
 		readonly?: boolean
 		sticky?: boolean
+		align?: CSSProperties['textAlign']
 	}
 
 	export interface FormColumn extends BaseColumn {
@@ -116,11 +126,10 @@ export namespace Omnitable {
 		| InputNumber
 		| Textarea
 		| Select
+		| Tag
 		| Date
 		| DatePicker
 		| Priority
-		| HttpCode
-		| HttpCodeIndicator
 		| Operation
 
 	export type Text = {
@@ -176,6 +185,25 @@ export namespace Omnitable {
 		icon?: string
 	}
 
+	export interface Tag {
+		type: 'tag'
+		props: {
+			options: Array<TagOption>
+			mode?: 'dot' | 'text' | 'full'
+			dot_shape?: 'circle' | 'round'
+			dot_size?: number
+			use_bg?: boolean
+			center?: boolean
+		}
+	}
+
+	export interface TagOption {
+		label?: ReactNode
+		value: string | number | boolean
+		color: PresetColor | string
+		icon?: string
+	}
+
 	export type Date = {
 		type: 'date'
 		props?: {
@@ -195,16 +223,6 @@ export namespace Omnitable {
 		props?: {}
 	}
 
-	export type HttpCode = {
-		type: 'http_code'
-		props?: {}
-	}
-
-	export type HttpCodeIndicator = {
-		type: 'http_code_indicator'
-		props?: {}
-	}
-
 	export type Operation = {
 		type: 'operation'
 		props?: {
@@ -212,6 +230,8 @@ export namespace Omnitable {
 			no_delete?: boolean
 		}
 	}
+
+	export type PresetColor = 'light' | 'dark' | 'danger' | 'success' | 'warning'
 
 	export interface Error {
 		error: string

@@ -235,10 +235,27 @@
 			border-spacing: 0;
 			border-collapse: separate;
 
+			&.border_style {
+				th,
+				td {
+					padding: 6px 8px;
+					border-right: var(--border);
+
+					&:first-child {
+						padding-left: 8px;
+					}
+
+					&:last-child {
+						padding-left: 6px;
+						border-right: none;
+					}
+				}
+			}
+
 			th,
 			td {
 				box-sizing: border-box;
-				padding: 0px 8px;
+				padding: 10px 8px;
 				border-bottom: var(--border);
 
 				&:first-child {
@@ -260,7 +277,6 @@
 
 					th {
 						z-index: 101;
-						height: 40px;
 						background-color: var(--color_bg);
 						text-align: left;
 						white-space: nowrap;
@@ -359,9 +375,13 @@
 						}
 					}
 
+					&.has_row_bg {
+						td {
+							background-color: var(--row_bg);
+						}
+					}
+
 					td {
-						padding-top: 10px;
-						padding-bottom: 10px;
 						white-space: nowrap;
 
 						&.operation {
