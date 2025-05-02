@@ -9,7 +9,16 @@ import Item from './Item'
 import type { IPropsView, IPropsViewItem } from '../../types'
 
 const Index = (props: IPropsView) => {
-	const { filter_columns, views, getSortFieldOptions, getGroupFieldOptions, onApplyView, onChangeViews } = props
+	const {
+		hide,
+		filter_columns,
+		visible_columns,
+		views,
+		getSortFieldOptions,
+		getGroupFieldOptions,
+		onApplyView,
+		onChangeViews
+	} = props
 
 	const onChangeView: IPropsViewItem['onChangeView'] = useMemoizedFn((index, v) => {
 		const target = $.copy(views)
@@ -40,7 +49,9 @@ const Index = (props: IPropsView) => {
 			{views.map((view, view_index) => (
 				<Item
 					{...{
+						hide,
 						filter_columns,
+						visible_columns,
 						view,
 						view_index,
 						getSortFieldOptions,

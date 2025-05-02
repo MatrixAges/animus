@@ -8,12 +8,15 @@ import Fields from '../Fields'
 import Filter from '../Filter'
 import Group from '../Group'
 import Sort from '../Sort'
+import Stat from '../Stat'
 
-import type { IPropsViewItem, IPropsSort, IPropsFilter, IPropsGroup, IPropsFields } from '../../types'
+import type { IPropsViewItem, IPropsSort, IPropsFilter, IPropsGroup, IPropsFields, IPropsStat } from '../../types'
 
 const Index = (props: IPropsViewItem) => {
 	const {
+		hide,
 		filter_columns,
+		visible_columns,
 		view,
 		view_index,
 		getSortFieldOptions,
@@ -43,6 +46,13 @@ const Index = (props: IPropsViewItem) => {
 		filter_params: view.filter_params,
 		use_by_view: true,
 		onChangeFilter: useMemoizedFn(v => onChangeView(view_index, { ...view, ...v }))
+	}
+
+	const props_stat: IPropsStat = {
+		visible_columns,
+		stat_params: view.stat_params,
+		use_by_view: true,
+		onChangeStat: useMemoizedFn(v => onChangeView(view_index, { ...view, stat_params: v }))
 	}
 
 	const props_group: IPropsGroup = {
@@ -82,9 +92,16 @@ const Index = (props: IPropsViewItem) => {
 			<div className='view_option w_100'>
 				<Filter {...props_filter}></Filter>
 			</div>
-			<div className='view_option w_100'>
-				<Group {...props_group}></Group>
-			</div>
+			{!hide?.stat && (
+				<div className='view_option w_100'>
+					<Stat {...props_stat}></Stat>
+				</div>
+			)}
+			{!hide?.group && (
+				<div className='view_option w_100'>
+					<Group {...props_group}></Group>
+				</div>
+			)}
 			<div className='view_option w_100'>
 				<Fields {...props_fields}></Fields>
 			</div>

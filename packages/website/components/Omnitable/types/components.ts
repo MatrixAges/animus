@@ -67,7 +67,9 @@ export interface IPropsFieldsItem {
 }
 
 export interface IPropsView {
+	hide: { stat?: boolean; group?: boolean }
 	filter_columns: Model['filter_columns']
+	visible_columns: Model['visible_columns']
 	views: Model['views']
 	getSortFieldOptions: Model['getSortFieldOptions']
 	getGroupFieldOptions: Model['getGroupFieldOptions']
@@ -76,7 +78,15 @@ export interface IPropsView {
 }
 
 export interface IPropsViewItem
-	extends Pick<IPropsView, 'filter_columns' | 'getSortFieldOptions' | 'getGroupFieldOptions' | 'onApplyView'> {
+	extends Pick<
+		IPropsView,
+		| 'hide'
+		| 'filter_columns'
+		| 'visible_columns'
+		| 'getSortFieldOptions'
+		| 'getGroupFieldOptions'
+		| 'onApplyView'
+	> {
 	view: Model['views'][number]
 	view_index: number
 	onChangeView: (index: number, v: Model['views'][number]) => void

@@ -48,6 +48,7 @@ export default class Index {
 		sort_params: Index['sort_params']
 		filter_relation: Index['filter_relation']
 		filter_params: Index['filter_params']
+		stat_params: Index['stat_params']
 		group_params: Index['group_params']
 		visible_columns: Index['visible_columns']
 	}>
@@ -734,6 +735,7 @@ export default class Index {
 			sort_params: this.sort_params,
 			filter_relation: this.filter_relation,
 			filter_params: this.filter_params,
+			stat_params: this.stat_params,
 			group_params: this.group_params,
 			visible_columns: this.visible_columns
 		})
@@ -742,6 +744,10 @@ export default class Index {
 	}
 
 	onApplyView(view: Index['views'][number]) {
+		this.apply_view_name = view.name
+		this.visible_columns = view.visible_columns
+		this.modal_view_visible = false
+
 		if (!deepEqual($.copy(this.group_params), view.group_params)) {
 			this.group_params = view.group_params
 
@@ -765,9 +771,11 @@ export default class Index {
 			this.query()
 		}
 
-		this.apply_view_name = view.name
-		this.visible_columns = view.visible_columns
-		this.modal_view_visible = false
+		if (!deepEqual($.copy(this.stat_params), view.stat_params)) {
+			this.stat_params = view.stat_params
+
+			this.getStatItems()
+		}
 	}
 
 	onSubmit(v: any) {

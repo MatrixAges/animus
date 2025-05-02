@@ -36,6 +36,7 @@ const Index = (props: Omnitable.Props) => {
 	const [x] = useState(() => new Model())
 	const antd = useApp()
 	const filter_columns = $.copy(x.filter_columns)
+	const visible_columns = $.copy(x.visible_columns)
 
 	useLayoutEffect(() => {
 		x.init({ props, antd })
@@ -57,7 +58,7 @@ const Index = (props: Omnitable.Props) => {
 	}
 
 	const props_stat: IPropsStat = {
-		visible_columns: $.copy(x.visible_columns),
+		visible_columns,
 		stat_params: $.copy(x.stat_params),
 		onChangeStat: x.onChangeStat
 	}
@@ -69,7 +70,7 @@ const Index = (props: Omnitable.Props) => {
 	}
 
 	const props_fields: IPropsFields = {
-		visible_columns: $.copy(x.visible_columns),
+		visible_columns,
 		onChangeVisibleColumns: useMemoizedFn(v => {
 			x.visible_columns = v
 
@@ -116,7 +117,12 @@ const Index = (props: Omnitable.Props) => {
 	}
 
 	const props_view: IPropsView = {
+		hide: {
+			stat: x.config?.stat?.hide,
+			group: x.config?.group?.hide
+		},
 		filter_columns,
+		visible_columns,
 		views: $.copy(x.views),
 		getSortFieldOptions: x.getSortFieldOptions,
 		getGroupFieldOptions: x.getGroupFieldOptions,
