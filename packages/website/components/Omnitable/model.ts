@@ -58,20 +58,32 @@ export default class Index {
 	modal_index = null as any
 	modal_visible = false
 	modal_view_visible = false
+
 	loading_init = true
 	querying = false
 	loading = false
+	refreshing = false
+	living = false
 
-	items_raw = [] as Array<any>
 	items = [] as Array<any>
+	items_raw = [] as Array<any>
 	pagination = { page: 1, pagesize: 12, total: 0 } as { page: number; pagesize: number; total: number }
 
+	living_timer = null as NodeJS.Timeout | null
 	disposers = [] as Array<IReactionDisposer | Lambda>
 
 	constructor() {
 		makeAutoObservable(
 			this,
-			{ antd: false, primary: false, props: false, config: false, disposers: false, items_raw: false },
+			{
+				antd: false,
+				primary: false,
+				props: false,
+				config: false,
+				items_raw: false,
+				living_timer: false,
+				disposers: false
+			},
 			{ autoBind: true }
 		)
 	}
@@ -105,6 +117,8 @@ export default class Index {
 		await this.query()
 
 		this.loading_init = false
+
+		this.on()
 	}
 
 	async getConfig(config_url: string) {
@@ -308,6 +322,28 @@ export default class Index {
 
 			// 更新出错，还原数据
 			this.items[target_index] = target_item
+		}
+	}
+
+	async onRefresh() {
+		this.refreshing = true
+
+		await this.query(true)
+
+		this.refreshing = false
+	}
+
+	onLive() {
+		if (this.living) {
+			this.living = false
+
+			if (this.living_timer) clearInterval(this.living_timer)
+		} else {
+			this.living = true
+
+			this.living_timer = setInterval(() => {
+				this.query(true)
+			}, this.config.live! * 1000)
 		}
 	}
 
@@ -800,7 +836,23 @@ export default class Index {
 		this.apply_view_name = ''
 	}
 
+	onVisibilityChange() {
+		const state = document.visibilityState
+
+		if (state === 'visible') this.onRefresh()
+	}
+
+	on() {
+		if (this.config?.refresh?.on_show) {
+			document.addEventListener('visibilitychange', this.onVisibilityChange)
+		}
+	}
+
 	off() {
+		if (this.config?.refresh?.on_show) {
+			document.removeEventListener('visibilitychange', this.onVisibilityChange)
+		}
+
 		this.disposers.map(item => item())
 		this.disposers = []
 	}

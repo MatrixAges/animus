@@ -2,6 +2,8 @@ import { get, sumBy } from 'lodash-es'
 
 export const pagesize_options = [12, 30, 60, 100, 300, 600, 1200]
 
+export const readonly_fields = ['text', 'tag', 'date']
+
 export const sort_options = [
 	{
 		label: 'Asc',

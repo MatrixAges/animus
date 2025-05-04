@@ -11,7 +11,7 @@ import type { IPropsFieldsItem } from '../../types'
 const Index = (props: IPropsFieldsItem) => {
 	const { item, index, onChange } = props
 	const { attributes, listeners, transform, transition, setNodeRef, setActivatorNodeRef } = useSortable({
-		id: item.id,
+		id: item.name,
 		disabled: item.id === '_operation'
 	})
 

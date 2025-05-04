@@ -6,6 +6,7 @@ import { useDeepMemo } from 'stk/react'
 import { CaretRight } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
+import { readonly_fields } from '../metadata'
 import Component from './Component'
 
 import type { IPropsCol, IPropsComponent } from '../types'
@@ -32,7 +33,7 @@ const Index = (props: IPropsCol) => {
 	useLayoutEffect(() => {
 		const td = ref.current
 
-		if (!td || readonly) return
+		if (!td || readonly || readonly_fields.includes(type)) return
 
 		const setHoverTrue = () => setHover(true)
 		const setHoverFalse = () => setHover(false)
@@ -44,7 +45,7 @@ const Index = (props: IPropsCol) => {
 			td.removeEventListener('mouseenter', setHoverTrue)
 			td.removeEventListener('mouseleave', setHoverFalse)
 		}
-	}, [readonly])
+	}, [readonly, type])
 
 	const onFocus = useMemoizedFn(v => {
 		if (v) {

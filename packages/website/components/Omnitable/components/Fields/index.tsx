@@ -31,8 +31,8 @@ const Index = (props: IPropsFields) => {
 		let over_index: number
 
 		visible_columns.forEach((item, index) => {
-			if (item.id === active.id) active_index = index
-			if (item.id === over.id) over_index = index
+			if (item.name === active.id) active_index = index
+			if (item.name === over.id) over_index = index
 		})
 
 		const target_columns = arrayMove(visible_columns, active_index!, over_index!)
@@ -43,9 +43,12 @@ const Index = (props: IPropsFields) => {
 	const Content = (
 		<div className={$.cx('flex flex_column', styles.popover_wrap, styles.fields_wrap)}>
 			<DndContext onDragEnd={onDragEnd}>
-				<SortableContext items={visible_columns} strategy={verticalListSortingStrategy}>
+				<SortableContext
+					items={visible_columns.map(item => ({ ...item, id: item.name }))}
+					strategy={verticalListSortingStrategy}
+				>
 					{visible_columns.map((item, index) => (
-						<Item item={item} index={index} onChange={onChange} key={item.id}></Item>
+						<Item item={item} index={index} onChange={onChange} key={item.name}></Item>
 					))}
 				</SortableContext>
 			</DndContext>

@@ -19,18 +19,28 @@ export default {
 			{ name: 'region_full', datatype: 'string' }
 		]
 	},
+	stat: {
+		hide: true
+	},
+	group: {
+		hide: true
+	},
+	refresh: {
+		on_show: true
+	},
+	live: 3,
 	table: {
 		columns: [
-			{ name: '#', width: 24, readonly: true },
+			{ name: '#', width: 24, align: 'center' },
 			{ name: 'Date', width: 210, sort: true },
-			{ name: 'Status', readonly: true },
-			{ name: 'Bg', width: 36, align: 'center', readonly: true },
-			{ name: 'Icon', readonly: true },
-			{ name: 'Method', readonly: true },
-			{ name: 'Host', readonly: true },
-			{ name: 'Pathname', span: 24, readonly: true },
-			{ name: 'Latency', sort: true, span: 24, readonly: true },
-			{ name: 'Region', span: 24, readonly: true }
+			{ name: 'Status' },
+			{ name: 'Bg', width: 36, align: 'center' },
+			{ name: 'Icon' },
+			{ name: 'Method' },
+			{ name: 'Host' },
+			{ name: 'Pathname', span: 24 },
+			{ name: 'Latency', sort: true, span: 24 },
+			{ name: 'Region', span: 24 }
 		],
 		props: {
 			pagesize: 18,
@@ -46,12 +56,6 @@ export default {
 				}
 			}
 		}
-	},
-	stat: {
-		hide: true
-	},
-	group: {
-		hide: true
 	},
 	form: {
 		use_table_columns: true,

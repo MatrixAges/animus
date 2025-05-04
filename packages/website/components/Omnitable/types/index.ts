@@ -43,6 +43,28 @@ export namespace Omnitable {
 			props?: {}
 			flat?: boolean
 		}
+		stat?: {
+			// 预先配置的字段，指定字段生成数据分析结果
+			columns?: Array<{ name: string; type: StatType }>
+			// 隐藏配置按钮
+			hide?: boolean
+		}
+		// 开启数据分组，支持多层级，
+		group?: {
+			// 预先配置的字段，表示顺序层级，格式为：'Period > Farm > Pool'
+			order?: string
+			// 指定在生成group时，哪些字段的值进行累加
+			acc?: Array<string>
+			// 隐藏配置按钮
+			hide?: boolean
+		}
+		// 显示刷新按钮
+		refresh?: {
+			// 切换页面时刷新
+			on_show?: boolean
+		}
+		// 开启定时刷新，单位秒
+		live?: number
 		table: {
 			columns: Array<TableColumn>
 			props?: {
@@ -58,21 +80,6 @@ export namespace Omnitable {
 				}
 			}
 			delete_tips?: { title?: string; content?: string }
-		}
-		stat?: {
-			// 预先配置的字段，指定字段生成数据分析结果
-			columns?: Array<{ name: string; type: StatType }>
-			// 隐藏配置按钮
-			hide?: boolean
-		}
-		// 开启数据分组，支持多层级，
-		group?: {
-			// 预先配置的字段，表示顺序层级，格式为：'Period > Farm > Pool'
-			order?: string
-			// 指定在生成group时，哪些字段的值进行累加
-			acc?: Array<string>
-			// 隐藏配置按钮
-			hide?: boolean
 		}
 		// 可选 form，如果不写就使用 table 的 columns 配置
 		form?: {
@@ -192,6 +199,8 @@ export namespace Omnitable {
 			mode?: 'dot' | 'text' | 'full'
 			dot_shape?: 'circle' | 'round'
 			dot_size?: number
+			icon_size?: number | string
+			icon_position?: 'left' | 'right'
 			use_bg?: boolean
 			center?: boolean
 		}

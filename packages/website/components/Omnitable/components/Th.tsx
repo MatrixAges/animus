@@ -21,6 +21,7 @@ const Index = (props: IPropsTh) => {
 				column.sticky && 'sticky left_0',
 				is_operation && 'sticky right_0'
 			)}
+			style={{ textAlign: column.align }}
 			onClick={sort ? onClick : undefined}
 		>
 			{sort ? (

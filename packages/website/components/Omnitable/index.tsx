@@ -5,10 +5,11 @@ import '@website/appdata/mobx'
 import { useMemoizedFn } from 'ahooks'
 import { App, Button } from 'antd'
 import { debounce } from 'lodash-es'
+import { RefreshCw } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useState, Fragment } from 'react'
 
-import { Eyes, Plus } from '@phosphor-icons/react'
+import { ArrowsCounterClockwise, Eyes, PauseCircle, PlayCircle, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
@@ -169,6 +170,37 @@ const Index = (props: Omnitable.Props) => {
 						</div>
 					)}
 					<div className='flex'>
+						{x.config?.refresh && (
+							<button
+								className={$.cx(
+									'header_btn_wrap square border_box flex justify_center align_center clickable mr_8',
+									x.refreshing && 'refreshing'
+								)}
+								onClick={x.onRefresh}
+							>
+								<RefreshCw
+									className='icon'
+									size='0.921em'
+									strokeWidth={1.5}
+								></RefreshCw>
+							</button>
+						)}
+						{x.config?.live && (
+							<button
+								className={$.cx(
+									'header_btn_wrap border_box flex align_center clickable mr_8',
+									x.living && 'living'
+								)}
+								onClick={x.onLive}
+							>
+								{x.living ? (
+									<PauseCircle className='icon'></PauseCircle>
+								) : (
+									<PlayCircle className='icon'></PlayCircle>
+								)}
+								<span className='label'>Live</span>
+							</button>
+						)}
 						<Fields {...props_fields}></Fields>
 						{x.config?.actions?.create && (
 							<Button

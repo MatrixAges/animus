@@ -59,7 +59,7 @@ const Index = (props: IPropsRow) => {
 		const bg = options[value]
 
 		return {
-			'--row_bg': `color-mix(in srgb, ${preset_color[bg as keyof typeof preset_color] ?? bg} 3%, transparent)`
+			'--row_bg': preset_color[bg as keyof typeof preset_color] ?? bg
 		}
 	}, [row_bg, item])
 

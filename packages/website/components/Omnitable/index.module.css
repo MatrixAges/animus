@@ -1,3 +1,9 @@
+@keyframes rotate {
+	to {
+		rotate: 360deg;
+	}
+}
+
 .header_wrap {
 	margin-bottom: 12px;
 
@@ -24,6 +30,23 @@
 			transition: all ease 0.3s;
 
 			&:hover {
+				border-color: var(--color_text);
+			}
+
+			&.square {
+				width: 30px;
+				padding: 0;
+			}
+
+			&.refreshing {
+				svg {
+					&:local {
+						animation: rotate linear 1.5s infinite;
+					}
+				}
+			}
+
+			&.living {
 				border-color: var(--color_text);
 			}
 
@@ -348,6 +371,15 @@
 						}
 					}
 
+					&:hover,
+					&.selected {
+						&.has_row_bg {
+							td {
+								background-color: color-mix(in srgb, var(--row_bg) 7.2%, transparent) !important;
+							}
+						}
+					}
+
 					&.stat_row {
 						&:hover {
 							td {
@@ -377,7 +409,7 @@
 
 					&.has_row_bg {
 						td {
-							background-color: var(--row_bg);
+							background-color: color-mix(in srgb, var(--row_bg) 3%, transparent);
 						}
 					}
 

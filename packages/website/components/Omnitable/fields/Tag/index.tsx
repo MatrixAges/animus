@@ -10,7 +10,15 @@ import type { Omnitable, ComponentType } from '../../types'
 
 const Index = (props: ComponentType<Omnitable.Tag['props']>) => {
 	const { self_props, width, value, use_by_form } = props
-	const { options, mode = 'full', dot_shape = 'circle', dot_size = 9, use_bg } = self_props
+	const {
+		options,
+		mode = 'full',
+		dot_shape = 'circle',
+		dot_size = 9,
+		icon_size = '1em',
+		icon_position = 'left',
+		use_bg
+	} = self_props
 
 	const option = useMemo(() => options.find(item => item.value === value), [value, options])
 
@@ -29,9 +37,19 @@ const Index = (props: ComponentType<Omnitable.Tag['props']>) => {
 				'--tag_color': preset_color[option.color as keyof typeof preset_color] ?? option.color
 			}}
 		>
-			<div className={$.cx('option_wrap inline_flex align_center', mode, use_bg && 'use_bg')}>
+			<div
+				className={$.cx(
+					'option_wrap inline_flex align_center',
+					mode,
+					use_bg && 'use_bg',
+					icon_position === 'right' && 'position_right'
+				)}
+			>
 				{option.icon ? (
-					<span className='icon_wrap flex justify_center align_center'>
+					<span
+						className='icon_wrap flex justify_center align_center'
+						style={{ width: icon_size, height: icon_size, fontSize: icon_size }}
+					>
 						<Icon id={option.icon}></Icon>
 					</span>
 				) : (
