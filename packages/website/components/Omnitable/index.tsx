@@ -9,11 +9,11 @@ import { RefreshCw } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect, useState, Fragment } from 'react'
 
-import { ArrowsCounterClockwise, Eyes, PauseCircle, PlayCircle, Plus } from '@phosphor-icons/react'
+import { Eyes, PauseCircle, PlayCircle, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Fields, Filter, Group, Pagination, Sort, Stat, Table, View } from './components'
+import { Detail, Fields, Filter, Group, Pagination, Sort, Stat, Table, Timeline, View } from './components'
 import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'
@@ -28,7 +28,8 @@ import type {
 	IPropsDetail,
 	IPropsView,
 	IPropsGroup,
-	IPropsStat
+	IPropsStat,
+	IPropsTimeline
 } from './types'
 
 const { useApp } = App
@@ -77,6 +78,10 @@ const Index = (props: Omnitable.Props) => {
 
 			x.clearApplyView()
 		})
+	}
+
+	const props_timeline: IPropsTimeline = {
+		timeline_items: $.copy(x.timeline_items)
 	}
 
 	const props_table: IPropsTable = {
@@ -214,6 +219,7 @@ const Index = (props: Omnitable.Props) => {
 						)}
 					</div>
 				</div>
+				{x.config?.timeline && <Timeline {...props_timeline}></Timeline>}
 				<div className='body_wrap w_100 flex flex_column relative'>
 					{!x.loading_init && x.querying && (
 						<div className='querying_wrap w_100 h_100 flex justify_center align_center absolute'>

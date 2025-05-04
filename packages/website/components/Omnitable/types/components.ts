@@ -93,6 +93,10 @@ export interface IPropsViewItem
 	remove: (index: number) => void
 }
 
+export interface IPropsTimeline {
+	timeline_items: Model['timeline_items']
+}
+
 export interface IPropsTable {
 	primary: Model['primary']
 	table_columns: Model['table_columns']

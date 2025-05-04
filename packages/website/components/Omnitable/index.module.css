@@ -27,6 +27,7 @@
 			outline: none;
 			background-color: unset;
 			box-shadow: none;
+			user-select: none;
 			transition: all ease 0.3s;
 
 			&:hover {

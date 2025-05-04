@@ -29,6 +29,9 @@ export default {
 		on_show: true
 	},
 	live: 3,
+	timeline: {
+		api: '/getStatusTimeline'
+	},
 	table: {
 		columns: [
 			{ name: '#', width: 24, align: 'center' },

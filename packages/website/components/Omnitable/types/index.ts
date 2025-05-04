@@ -65,6 +65,10 @@ export namespace Omnitable {
 		}
 		// 开启定时刷新，单位秒
 		live?: number
+		// 时间线配置
+		timeline?: {
+			api: string
+		}
 		table: {
 			columns: Array<TableColumn>
 			props?: {

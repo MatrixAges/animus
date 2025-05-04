@@ -67,6 +67,7 @@ export default class Index {
 
 	items = [] as Array<any>
 	items_raw = [] as Array<any>
+	timeline_items = [] as Array<any>
 	pagination = { page: 1, pagesize: 12, total: 0 } as { page: number; pagesize: number; total: number }
 
 	living_timer = null as NodeJS.Timeout | null
@@ -176,6 +177,7 @@ export default class Index {
 		this.pagination = omit(res.data, 'items')
 
 		this.getStatItems()
+		this.queryTimeline()
 	}
 
 	async create(v: any) {
@@ -258,6 +260,31 @@ export default class Index {
 		}
 
 		this.query(true)
+	}
+
+	async queryTimeline() {
+		if (!this.config?.timeline) return
+
+		const [err, res] = await to<Omnitable.Error | { data: Index['timeline_items'] }>(
+			ofetch(`${this.config.baseurl}${this.config.timeline!.api}`, {
+				method: 'GET',
+				query: {}
+			})
+		)
+
+		if (err) {
+			this.antd.message.error(`Query timeline error: ${err?.message}`)
+
+			return false
+		}
+
+		if ('error' in res) {
+			this.antd.message.error(`${res.error}: ${res.message}`)
+
+			return false
+		}
+
+		this.timeline_items = res.data
 	}
 
 	async onChange(index: number, v: any) {
