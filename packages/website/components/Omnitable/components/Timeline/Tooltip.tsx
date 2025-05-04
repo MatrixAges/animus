@@ -32,10 +32,12 @@ const Index = (props: TooltipProps<any, any>) => {
 			</span>
 			<div className='status_items w_100 flex flex_column'>
 				{status_items.map(item => (
-					<div className='status_item w_100 flex align_center' key={item.code}>
-						<span className={$.cx('dot', item.label)}></span>
-						<span className='label'>{item.label}</span>
-						<span className='code'>{item.code}</span>
+					<div className='status_item w_100 flex justify_between align_center' key={item.code}>
+						<div className='flex align_center'>
+							<span className={$.cx('dot', item.label)}></span>
+							<span className='label'>{item.label}</span>
+							<span className='code'>{item.code}</span>
+						</div>
 						<span className='count'>{item.count}</span>
 					</div>
 				))}

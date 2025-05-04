@@ -39,16 +39,16 @@
 				}
 
 				.label {
-					width: 57px;
+					width: 60px;
 					color: var(--color_text_grey);
 				}
 
 				.code {
+					width: 30px;
 					color: var(--color_text_light);
 				}
 
 				.count {
-					width: 30px;
 					text-align: right;
 				}
 			}
