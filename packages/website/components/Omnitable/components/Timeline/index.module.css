@@ -24,18 +24,7 @@
 					height: 9px;
 					margin-right: 8px;
 					border-radius: var(--radius_small_1);
-
-					&.Error {
-						background-color: rgba(var(--color_danger_rgb), 0.6);
-					}
-
-					&.Warning {
-						background-color: rgba(var(--color_warning_rgb), 0.6);
-					}
-
-					&.Success {
-						background-color: rgba(var(--color_text_rgb), 0.06);
-					}
+					background-color: var(--item_color);
 				}
 
 				.label {

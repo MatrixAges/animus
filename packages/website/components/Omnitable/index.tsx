@@ -13,7 +13,19 @@ import { Eyes, PauseCircle, PlayCircle, Plus } from '@phosphor-icons/react'
 import { Drawer, LoadingCircle } from '@website/components'
 import { $ } from '@website/utils'
 
-import { Detail, Fields, Filter, Group, Pagination, Sort, Stat, Table, Timeline, View } from './components'
+import {
+	Detail,
+	Fields,
+	Filter,
+	Group,
+	Pagination,
+	Sort,
+	Stat,
+	Table,
+	Timeline,
+	TimelineControls,
+	View
+} from './components'
 import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'
@@ -29,7 +41,8 @@ import type {
 	IPropsView,
 	IPropsGroup,
 	IPropsStat,
-	IPropsTimeline
+	IPropsTimeline,
+	IPropsTimelineControls
 } from './types'
 
 const { useApp } = App
@@ -81,7 +94,17 @@ const Index = (props: Omnitable.Props) => {
 	}
 
 	const props_timeline: IPropsTimeline = {
+		timeline_type: x.timeline_type,
+		label_bind: x.config?.timeline?.label_bind!,
+		items: $.copy(x.config?.timeline?.items) || [],
 		timeline_items: $.copy(x.timeline_items)
+	}
+
+	const props_timeline_controls: IPropsTimelineControls = {
+		timeline_type: x.timeline_type,
+		timeline_timestamp: x.timeline_timestamp,
+		onChangeTimelineType: x.onChangeTimelineType,
+		onChangeTimelineTimestamp: x.onChangeTimelineTimestamp
 	}
 
 	const props_table: IPropsTable = {
@@ -172,6 +195,9 @@ const Index = (props: Omnitable.Props) => {
 							{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
 							{!x.config?.stat?.hide && <Stat {...props_stat}></Stat>}
 							{!x.config?.group?.hide && <Group {...props_group}></Group>}
+							{x.config?.timeline && (
+								<TimelineControls {...props_timeline_controls}></TimelineControls>
+							)}
 						</div>
 					)}
 					<div className='flex'>

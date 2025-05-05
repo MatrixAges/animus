@@ -30,7 +30,26 @@ export default {
 	},
 	live: 3,
 	timeline: {
-		api: '/getStatusTimeline'
+		api: '/getStatusTimeline',
+		control_bind: 'create_at',
+		label_bind: 'duration',
+		items: [
+			{
+				label: 'Error',
+				bind: '5xx',
+				color: 'danger'
+			},
+			{
+				label: 'Warning',
+				bind: '4xx',
+				color: 'warning'
+			},
+			{
+				label: 'Success',
+				bind: '2xx',
+				color: 'light'
+			}
+		]
 	},
 	table: {
 		columns: [

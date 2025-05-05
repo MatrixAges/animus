@@ -93,7 +93,17 @@ export interface IPropsViewItem
 	remove: (index: number) => void
 }
 
+export interface IPropsTimelineControls {
+	timeline_type: Model['timeline_type']
+	timeline_timestamp: Model['timeline_timestamp']
+	onChangeTimelineType: Model['onChangeTimelineType']
+	onChangeTimelineTimestamp: Model['onChangeTimelineTimestamp']
+}
+
 export interface IPropsTimeline {
+	timeline_type: Model['timeline_type']
+	label_bind: Required<Model['config']>['timeline']['label_bind']
+	items: Required<Model['config']>['timeline']['items']
 	timeline_items: Model['timeline_items']
 }
 

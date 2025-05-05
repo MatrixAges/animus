@@ -68,6 +68,12 @@ export namespace Omnitable {
 		// 时间线配置
 		timeline?: {
 			api: string
+			// 控制器绑定的查询字段
+			control_bind: string
+			// 横坐标绑定的变量
+			label_bind: string
+			// 数据项
+			items: Array<{ label: string; bind: string; color: PresetColor | string }>
 		}
 		table: {
 			columns: Array<TableColumn>

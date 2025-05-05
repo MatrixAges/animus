@@ -1,5 +1,35 @@
 import { get, sumBy } from 'lodash-es'
 
+export const timeline_args_map = {
+	minutes: {
+		duration_format: 'HH:mm:ss',
+		start_format: 'HH:mm:ss',
+		end_format: 'HH:mm:ss',
+		span_value: 30,
+		span_unit: 'minute'
+	},
+	hours: {
+		duration_format: 'MM-DD HH:mm',
+		start_format: 'MM-DD HH:mm',
+		end_format: 'HH:mm',
+		span_value: 24,
+		span_unit: 'hour'
+	},
+	days: {
+		duration_format: 'MM-DD HH[H]',
+		start_format: 'MM-DD HH[H]',
+		end_format: 'HH[H]',
+		span_value: 30,
+		span_unit: 'day'
+	}
+} as const
+
+export const timeline_type_options = [
+	{ label: 'minutes', value: 'minutes' },
+	{ label: 'hours', value: 'hours' },
+	{ label: 'days', value: 'days' }
+]
+
 export const pagesize_options = [12, 30, 60, 100, 300, 600, 1200]
 
 export const readonly_fields = ['text', 'tag', 'date']

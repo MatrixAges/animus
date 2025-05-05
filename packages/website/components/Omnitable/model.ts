@@ -13,10 +13,13 @@ import { deepEqual } from 'stk/react'
 
 import { $, isMillisecondTimestamp } from '@website/utils'
 
+import { timeline_args_map } from './metadata'
+
 import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
 import type { IReactionDisposer, Lambda } from 'mobx'
 import type { StatType } from './metadata'
+import type { Dayjs } from 'dayjs'
 
 export default class Index {
 	antd = null as unknown as useAppProps
@@ -67,6 +70,9 @@ export default class Index {
 
 	items = [] as Array<any>
 	items_raw = [] as Array<any>
+	timeline_type = 'hours' as 'minutes' | 'hours' | 'days'
+	timeline_timestamp = dayjs().valueOf()
+	timeline_focus = null as number | null
 	timeline_items = [] as Array<any>
 	pagination = { page: 1, pagesize: 12, total: 0 } as { page: number; pagesize: number; total: number }
 
@@ -268,7 +274,7 @@ export default class Index {
 		const [err, res] = await to<Omnitable.Error | { data: Index['timeline_items'] }>(
 			ofetch(`${this.config.baseurl}${this.config.timeline!.api}`, {
 				method: 'GET',
-				query: {}
+				query: { type: this.timeline_type, timestamp: this.timeline_timestamp }
 			})
 		)
 
@@ -369,6 +375,7 @@ export default class Index {
 			this.living = true
 
 			this.living_timer = setInterval(() => {
+				this.updateTimelineTimestamp()
 				this.query(true)
 			}, this.config.live! * 1000)
 		}
@@ -793,6 +800,23 @@ export default class Index {
 		}
 	}
 
+	onChangeTimelineType(v: Index['timeline_type']) {
+		this.timeline_type = v
+		this.timeline_timestamp = dayjs().valueOf()
+
+		this.queryTimeline()
+	}
+
+	onChangeTimelineTimestamp(v: 'prev' | 'next') {
+		const { span_value, span_unit } = timeline_args_map[this.timeline_type]
+
+		this.timeline_timestamp = dayjs(this.timeline_timestamp)
+			[v === 'prev' ? 'subtract' : 'add'](span_value, span_unit)
+			.valueOf()
+
+		this.queryTimeline()
+	}
+
 	onAddView() {
 		this.views.unshift({
 			name: 'Table view ' + nanoid(3),
@@ -866,7 +890,16 @@ export default class Index {
 	onVisibilityChange() {
 		const state = document.visibilityState
 
-		if (state === 'visible') this.onRefresh()
+		if (state === 'visible') {
+			this.updateTimelineTimestamp()
+			this.onRefresh()
+		}
+	}
+
+	updateTimelineTimestamp() {
+		if (!this.config?.timeline) return
+
+		this.timeline_timestamp = dayjs().valueOf()
 	}
 
 	on() {

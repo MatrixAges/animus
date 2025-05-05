@@ -1,0 +1,44 @@
+import { useMemoizedFn } from 'ahooks'
+import { Select } from 'antd'
+import dayjs from 'dayjs'
+
+import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { $ } from '@website/utils'
+
+import { timeline_args_map, timeline_type_options } from '../../metadata'
+import styles from './index.module.css'
+
+import type { IPropsTimelineControls } from '../../types'
+
+const Index = (props: IPropsTimelineControls) => {
+	const { timeline_type, timeline_timestamp, onChangeTimelineType, onChangeTimelineTimestamp } = props
+
+	const prev = useMemoizedFn(() => onChangeTimelineTimestamp('prev'))
+	const next = useMemoizedFn(() => onChangeTimelineTimestamp('next'))
+
+	return (
+		<div className={$.cx('border_box flex align_center', styles._local)}>
+			<div className='btn_wrap flex justify_center align_center clickable' onClick={prev}>
+				<CaretLeft></CaretLeft>
+			</div>
+			<div className='type_wrap'>
+				<Select
+					suffixIcon={null}
+					popupMatchSelectWidth={false}
+					variant='borderless'
+					value={timeline_type}
+					options={timeline_type_options}
+					onChange={onChangeTimelineType}
+				></Select>
+			</div>
+			<div className='btn_wrap flex justify_center align_center clickable' onClick={next}>
+				<CaretRight></CaretRight>
+			</div>
+			<div className='timestamp_wrap'>
+				{dayjs(timeline_timestamp).format(timeline_args_map[timeline_type].duration_format)}
+			</div>
+		</div>
+	)
+}
+
+export default Index

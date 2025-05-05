@@ -7,8 +7,16 @@ import { default as TooltipContent } from './Tooltip'
 
 import type { IPropsTimeline } from '../../types'
 
+export const preset_color = {
+	light: 'rgba(var(--color_text_rgb),0.06)',
+	dark: 'rgba(var(--color_text_rgb),0.6)',
+	success: 'rgba(var(--color_success_rgb),0.6)',
+	warning: 'rgba(var(--color_warning_rgb),0.6)',
+	danger: 'rgba(var(--color_danger_rgb),0.6)'
+}
+
 const Index = (props: IPropsTimeline) => {
-	const { timeline_items } = props
+	const { timeline_type, label_bind, items, timeline_items } = props
 
 	return (
 		<div className={$.cx(styles._local)}>
@@ -20,7 +28,7 @@ const Index = (props: IPropsTimeline) => {
 					data={timeline_items}
 				>
 					<XAxis
-						dataKey='duration'
+						dataKey={label_bind}
 						tickLine={false}
 						axisLine={false}
 						fontSize={10}
@@ -33,13 +41,23 @@ const Index = (props: IPropsTimeline) => {
 							stroke: 'var(--color_text)',
 							strokeWidth: 1
 						}}
-						content={TooltipContent}
+						content={args => (
+							<TooltipContent timeline_type={timeline_type} items={items} {...args} />
+						)}
 					/>
 
 					<Bar dataKey='' stackId='a' background={{ fill: 'rgba(var(--color_text_rgb),0.03)' }} />
-					<Bar dataKey='5xx' stackId='a' fill='rgba(var(--color_danger_rgb),0.6)' />
-					<Bar dataKey='4xx' stackId='a' fill='rgba(var(--color_warning_rgb),0.6)' />
-					<Bar dataKey='2xx' stackId='a' fill='rgba(var(--color_text_rgb),0.06)' />
+					{items.map(item => (
+						<Bar
+							dataKey={item.bind}
+							stackId='a'
+							fill={
+								item.color in preset_color
+									? preset_color[item.color as keyof typeof preset_color]
+									: item.color
+							}
+						/>
+					))}
 				</BarChart>
 			</ResponsiveContainer>
 		</div>
