@@ -19,7 +19,7 @@ import type { Omnitable } from './types'
 import type { useAppProps } from 'antd/es/app/context'
 import type { IReactionDisposer, Lambda } from 'mobx'
 import type { StatType } from './metadata'
-import type { Dayjs } from 'dayjs'
+import type { CategoricalChartState } from 'recharts/types/chart/types'
 
 export default class Index {
 	antd = null as unknown as useAppProps
@@ -46,6 +46,7 @@ export default class Index {
 
 	visible_columns = [] as Array<{ name: string; id: string; visible: boolean }>
 
+	apply_view_name = ''
 	views = [] as Array<{
 		name: string
 		sort_params: Index['sort_params']
@@ -55,7 +56,6 @@ export default class Index {
 		group_params: Index['group_params']
 		visible_columns: Index['visible_columns']
 	}>
-	apply_view_name = ''
 
 	modal_type = 'view' as 'view' | 'edit' | 'add'
 	modal_index = null as any
@@ -68,12 +68,15 @@ export default class Index {
 	refreshing = false
 	living = false
 
-	items = [] as Array<any>
-	items_raw = [] as Array<any>
 	timeline_type = 'hours' as 'minutes' | 'hours' | 'days'
 	timeline_timestamp = dayjs().valueOf()
 	timeline_focus = null as number | null
+	timeline_range = null as [number, number] | null
 	timeline_items = [] as Array<any>
+	timeline_querying = false
+
+	items = [] as Array<any>
+	items_raw = [] as Array<any>
 	pagination = { page: 1, pagesize: 12, total: 0 } as { page: number; pagesize: number; total: number }
 
 	living_timer = null as NodeJS.Timeout | null
@@ -136,7 +139,7 @@ export default class Index {
 		this.config = res
 	}
 
-	async query(ignore_querying?: boolean) {
+	async query(ignore_querying?: boolean, ignore_timeline_query?: boolean) {
 		if (!ignore_querying) this.querying = true
 
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
@@ -183,7 +186,8 @@ export default class Index {
 		this.pagination = omit(res.data, 'items')
 
 		this.getStatItems()
-		this.queryTimeline()
+
+		if (!ignore_timeline_query) this.queryTimeline()
 	}
 
 	async create(v: any) {
@@ -271,12 +275,16 @@ export default class Index {
 	async queryTimeline() {
 		if (!this.config?.timeline) return
 
+		this.timeline_querying = true
+
 		const [err, res] = await to<Omnitable.Error | { data: Index['timeline_items'] }>(
 			ofetch(`${this.config.baseurl}${this.config.timeline!.api}`, {
 				method: 'GET',
 				query: { type: this.timeline_type, timestamp: this.timeline_timestamp }
 			})
 		)
+
+		this.timeline_querying = false
 
 		if (err) {
 			this.antd.message.error(`Query timeline error: ${err?.message}`)
@@ -801,6 +809,8 @@ export default class Index {
 	}
 
 	onChangeTimelineType(v: Index['timeline_type']) {
+		this.onResetTimeline()
+
 		this.timeline_type = v
 		this.timeline_timestamp = dayjs().valueOf()
 
@@ -815,6 +825,52 @@ export default class Index {
 			.valueOf()
 
 		this.queryTimeline()
+	}
+
+	onTimelineFocus(args: CategoricalChartState) {
+		const index = args.activeTooltipIndex
+
+		if (index === undefined) return
+
+		this.timeline_focus = index
+
+		this.timeline_range = this.timeline_items[index].range
+
+		const exist_index = this.filter_params.findIndex(item => item.field === this.config.timeline!.control_bind)
+
+		const target_filter_param = {
+			field: this.config.timeline!.control_bind,
+			expression: 'is between',
+			value: this.timeline_range
+		}
+
+		if (exist_index !== -1) {
+			this.filter_params[exist_index] = target_filter_param
+		} else {
+			this.filter_params.push(target_filter_param)
+		}
+
+		this.filter_params = $.copy(this.filter_params)
+
+		if (this.living) this.onLive()
+
+		this.query(false, true)
+	}
+
+	onResetTimeline() {
+		this.timeline_type = 'hours'
+		this.timeline_timestamp = dayjs().valueOf()
+		this.timeline_focus = null
+
+		if (this.timeline_range) {
+			this.timeline_range = null
+
+			this.filter_params = $.copy(
+				this.filter_params.filter(item => item.field !== this.config.timeline!.control_bind)
+			)
+
+			this.query(false, true)
+		}
 	}
 
 	onAddView() {

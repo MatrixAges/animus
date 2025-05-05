@@ -1,4 +1,4 @@
-import { get, sumBy } from 'lodash-es'
+import type { Omnitable } from './types'
 
 export const timeline_args_map = {
 	minutes: {
@@ -89,11 +89,6 @@ export const preset_color = {
 
 export type StatType = (typeof stat_options)[number]['value']
 
-export const stat_functions = {
-	sum: (items: Array<any>, key: string) => sumBy(items, item => get(item, key)),
-	avg: (items: Array<any>, key: string) => sumBy(items, item => get(item, key))
-}
-
 export const common_expressions = ['is empty', 'is not empty']
 
 export const filter_expressions = {
@@ -108,6 +103,7 @@ export const filter_expressions = {
 		'is between',
 		...common_expressions
 	],
+	array: ['has any of', 'has none of', ...common_expressions],
 	date: [
 		'is',
 		'is not',
@@ -117,6 +113,22 @@ export const filter_expressions = {
 		'is on or after',
 		'is between',
 		...common_expressions
-	],
-	array: ['has any of', 'has none of', ...common_expressions]
+	]
+}
+
+export const getFilterComponentType = (datatype: Omnitable.FilterColumn['datatype'], expression: string) => {
+	switch (datatype) {
+		case 'string':
+			return 'input'
+		case 'number':
+			return 'input_number'
+		case 'array':
+			return 'select'
+		case 'date':
+			if (expression === 'is between') return 'range_picker'
+
+			return 'date_picker'
+		default:
+			return 'input'
+	}
 }

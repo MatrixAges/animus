@@ -124,7 +124,7 @@ export default {
 				bind: 'create_at',
 				type: 'date',
 				props: {
-					format: 'MMM DD, YYYY HH:mm:ss'
+					format: 'YYYY-MM-DD HH:mm:ss'
 				}
 			},
 			Status: {

@@ -94,17 +94,22 @@ const Index = (props: Omnitable.Props) => {
 	}
 
 	const props_timeline: IPropsTimeline = {
-		timeline_type: x.timeline_type,
 		label_bind: x.config?.timeline?.label_bind!,
 		items: $.copy(x.config?.timeline?.items) || [],
-		timeline_items: $.copy(x.timeline_items)
+		timeline_type: x.timeline_type,
+		timeline_items: $.copy(x.timeline_items),
+		timeline_focus: x.timeline_focus,
+		onTimelineFocus: x.onTimelineFocus
 	}
 
 	const props_timeline_controls: IPropsTimelineControls = {
 		timeline_type: x.timeline_type,
 		timeline_timestamp: x.timeline_timestamp,
+		timeline_querying: x.timeline_querying,
+		timeline_range: x.timeline_range,
 		onChangeTimelineType: x.onChangeTimelineType,
-		onChangeTimelineTimestamp: x.onChangeTimelineTimestamp
+		onChangeTimelineTimestamp: x.onChangeTimelineTimestamp,
+		onResetTimeline: x.onResetTimeline
 	}
 
 	const props_table: IPropsTable = {

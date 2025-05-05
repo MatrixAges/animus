@@ -8,6 +8,7 @@ import Input from '../fields/Input'
 import InputNumber from '../fields/InputNumber'
 import Operation from '../fields/Operation'
 import Priority from '../fields/Priority'
+import RangePicker from '../fields/RangePicker'
 import Select from '../fields/Select'
 import Tag from '../fields/Tag'
 import Text from '../fields/Text'
@@ -38,6 +39,8 @@ const Index = (props: IPropsComponent) => {
 				return Date
 			case 'date_picker':
 				return DatePicker
+			case 'range_picker':
+				return RangePicker
 			case 'priority':
 				return Priority
 			case 'operation':

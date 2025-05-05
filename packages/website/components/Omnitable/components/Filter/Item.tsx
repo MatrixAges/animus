@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { DotsSixVertical, Trash } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import { filter_expressions, filter_relation_options } from '../../metadata'
+import { filter_expressions, filter_relation_options, getFilterComponentType } from '../../metadata'
 import FormComponent from '../FormComponent'
 
 import type { IPropsFilterItem } from '../../types'
@@ -28,7 +28,7 @@ const Index = (props: IPropsFilterItem & FormListFieldData) => {
 	const { attributes, listeners, transform, transition, setNodeRef, setActivatorNodeRef } = useSortable({
 		id: name
 	})
-	const { field } = filter_param
+	const { field, expression } = filter_param
 
 	const column = useMemo(() => filter_columns.find(item => item.bind === field)!, [field, filter_columns])
 
@@ -36,6 +36,8 @@ const Index = (props: IPropsFilterItem & FormListFieldData) => {
 		() => filter_expressions[column.datatype].map(item => ({ label: item, value: item })),
 		[column]
 	)
+
+	const value_type = useMemo(() => getFilterComponentType(column.datatype, expression), [column, expression])
 
 	return (
 		<div
@@ -67,7 +69,12 @@ const Index = (props: IPropsFilterItem & FormListFieldData) => {
 				<Select popupMatchSelectWidth={false} options={expression_options}></Select>
 			</Item>
 			<Item {...rest} className='filter_value' name={[name, 'value']}>
-				<FormComponent column={column} disabled={false} use_by_filter></FormComponent>
+				<FormComponent
+					column={column}
+					disabled={false}
+					force_type={value_type}
+					use_by_filter
+				></FormComponent>
 			</Item>
 			<Button className='btn' onClick={() => remove(name)}>
 				<Trash></Trash>

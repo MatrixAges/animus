@@ -6,10 +6,13 @@ import { $ } from '@website/utils'
 import type { IPropsFormComponent } from '../types'
 
 const Index = (props: IPropsFormComponent) => {
-	const { column, value, item, disabled, use_by_filter, onChange } = props
+	const { column, value, item, disabled, use_by_filter, force_type, onChange } = props
 	const { type, props: self_props } = column
 
-	const Component = useMemo(() => lazy(() => import(`../fields/${pascalCase(type)}`)), [type])
+	const Component = useMemo(
+		() => lazy(() => import(`../fields/${pascalCase(force_type || type)}`)),
+		[type, force_type]
+	)
 
 	return (
 		<Suspense fallback={null}>

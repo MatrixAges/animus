@@ -69,8 +69,13 @@ const Index = (props: IPropsFilter) => {
 		onChangeFilter({ filter_relation: v })
 	})
 
+	const has_range_picker = useMemo(
+		() => filter_params.some(item => item.expression === 'is between'),
+		[filter_params]
+	)
+
 	const Content = (
-		<div className={$.cx('flex flex_column', styles.popover_wrap)}>
+		<div className={$.cx('flex flex_column', styles.popover_wrap, has_range_picker && styles.has_range_picker)}>
 			<span className='title'>{counts ? 'Filters' : 'No filters applied'}</span>
 			<div className='w_100 flex'>
 				<Form

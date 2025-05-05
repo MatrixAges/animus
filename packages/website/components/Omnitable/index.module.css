@@ -147,6 +147,18 @@
 		}
 	}
 
+	&.has_range_picker {
+		:global {
+			.form_list_items {
+				.form_list_item {
+					.filter_value {
+						width: 360px;
+					}
+				}
+			}
+		}
+	}
+
 	:global {
 		.title {
 			line-height: 1;

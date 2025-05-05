@@ -1,7 +1,9 @@
-import { Bar, BarChart, ReferenceArea, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
+import { pick } from 'lodash-es'
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
 
 import { $ } from '@website/utils'
 
+import Background from './Background'
 import styles from './index.module.css'
 import { default as TooltipContent } from './Tooltip'
 
@@ -16,16 +18,17 @@ export const preset_color = {
 }
 
 const Index = (props: IPropsTimeline) => {
-	const { timeline_type, label_bind, items, timeline_items } = props
+	const { label_bind, items, timeline_type, timeline_items, timeline_focus, onTimelineFocus } = props
 
 	return (
 		<div className={$.cx(styles._local)}>
 			<ResponsiveContainer width='100%' height={60}>
 				<BarChart
-					margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+					margin={{ top: 1, left: 1, right: 1, bottom: 0 }}
 					maxBarSize={30}
 					barCategoryGap={2}
 					data={timeline_items}
+					onClick={onTimelineFocus}
 				>
 					<XAxis
 						dataKey={label_bind}
@@ -42,11 +45,23 @@ const Index = (props: IPropsTimeline) => {
 							strokeWidth: 1
 						}}
 						content={args => (
-							<TooltipContent timeline_type={timeline_type} items={items} {...args} />
+							<TooltipContent
+								timeline_type={timeline_type}
+								items={items}
+								payload={args.payload}
+							/>
 						)}
 					/>
-
-					<Bar dataKey='' stackId='a' background={{ fill: 'rgba(var(--color_text_rgb),0.03)' }} />
+					<Bar
+						dataKey=''
+						stackId='a'
+						background={(props: any) => (
+							<Background
+								{...pick(props, ['x', 'y', 'width', 'height'])}
+								focus={props.index === timeline_focus}
+							/>
+						)}
+					/>
 					{items.map(item => (
 						<Bar
 							dataKey={item.bind}

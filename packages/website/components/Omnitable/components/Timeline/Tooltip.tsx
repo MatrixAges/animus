@@ -10,7 +10,7 @@ import styles from './index.module.css'
 import type { TooltipProps } from 'recharts'
 import type Model from '../../model'
 
-interface IProps extends TooltipProps<any, any> {
+interface IProps extends Pick<TooltipProps<any, any>, 'payload'> {
 	timeline_type: Model['timeline_type']
 	items: Required<Model['config']>['timeline']['items']
 }
@@ -68,4 +68,4 @@ const Index = (props: IProps) => {
 	)
 }
 
-export default Index
+export default $.memo(Index)

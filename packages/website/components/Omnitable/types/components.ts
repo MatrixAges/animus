@@ -96,15 +96,20 @@ export interface IPropsViewItem
 export interface IPropsTimelineControls {
 	timeline_type: Model['timeline_type']
 	timeline_timestamp: Model['timeline_timestamp']
+	timeline_querying: Model['timeline_querying']
+	timeline_range: Model['timeline_range']
 	onChangeTimelineType: Model['onChangeTimelineType']
 	onChangeTimelineTimestamp: Model['onChangeTimelineTimestamp']
+	onResetTimeline: Model['onResetTimeline']
 }
 
 export interface IPropsTimeline {
-	timeline_type: Model['timeline_type']
 	label_bind: Required<Model['config']>['timeline']['label_bind']
 	items: Required<Model['config']>['timeline']['items']
+	timeline_type: Model['timeline_type']
 	timeline_items: Model['timeline_items']
+	timeline_focus: Model['timeline_focus']
+	onTimelineFocus: Model['onTimelineFocus']
 }
 
 export interface IPropsTable {
@@ -171,6 +176,7 @@ export interface IPropsFormComponent {
 	value?: any
 	item?: any
 	use_by_filter?: boolean
+	force_type?: string
 	onChange?: (v: any) => void
 }
 

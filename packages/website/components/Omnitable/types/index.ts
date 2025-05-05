@@ -117,7 +117,7 @@ export namespace Omnitable {
 	}
 
 	export interface FilterColumn extends BaseColumn {
-		datatype: 'string' | 'number' | 'date' | 'array'
+		datatype: 'string' | 'number' | 'array' | 'date'
 	}
 
 	export interface TableColumn extends BaseColumn {
@@ -146,6 +146,7 @@ export namespace Omnitable {
 		| Tag
 		| Date
 		| DatePicker
+		| RangePicker
 		| Priority
 		| Operation
 
@@ -234,6 +235,13 @@ export namespace Omnitable {
 		type: 'date_picker'
 		props?: {
 			format?: string
+		}
+	}
+
+	export type RangePicker = {
+		type: 'range_picker'
+		props?: {
+			format?: string | [string, string]
 		}
 	}
 
