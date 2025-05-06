@@ -832,6 +832,8 @@ export default class Index {
 
 		if (index === undefined) return
 
+		if (this.timeline_focus !== null) return this.resetTimelineFocus()
+
 		this.timeline_focus = index
 
 		this.timeline_range = this.timeline_items[index].range
@@ -860,6 +862,11 @@ export default class Index {
 	onResetTimeline() {
 		this.timeline_type = 'hours'
 		this.timeline_timestamp = dayjs().valueOf()
+
+		this.resetTimelineFocus()
+	}
+
+	resetTimelineFocus() {
 		this.timeline_focus = null
 
 		if (this.timeline_range) {
@@ -870,6 +877,8 @@ export default class Index {
 			)
 
 			this.query(false, true)
+		} else {
+			this.queryTimeline()
 		}
 	}
 
