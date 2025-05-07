@@ -1110,6 +1110,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.2
         version: 19.1.2(@types/react@19.1.2)
+      '@vercel/next':
+        specifier: ^4.7.10
+        version: 4.7.10(encoding@0.1.13)(rollup@4.40.0)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.4.31)
@@ -4188,6 +4191,9 @@ packages:
 
   '@vercel/hydrogen@1.2.0':
     resolution: {integrity: sha512-kdZp8cTVLoNmnu24wtoQPu9ZO+uB00zvDMTOXlQmNdq/V3k0mQa/Q5k2B8nliBQ3BMiBasoXxMKv59+F8rYvDw==}
+
+  '@vercel/next@4.7.10':
+    resolution: {integrity: sha512-IC3z3TbFpvaeZirPjk0E6eyB1XQqzEc2kLlN5kF9PPFHgcBL4ktEgnJanCg3RzOnRf2jc169MryD4DIErZ9OuA==}
 
   '@vercel/next@4.7.8':
     resolution: {integrity: sha512-JdKMQkgH9ifBAtG85pzi7MZlnpRCaZH7qPLbw4lSkwy8bLy/6t7Jk5Zw7qcvjLD8ZL/fO3YbMhm43dDxABX8NA==}
@@ -12971,6 +12977,14 @@ snapshots:
     dependencies:
       '@vercel/static-config': 3.0.0
       ts-morph: 12.0.0
+
+  '@vercel/next@4.7.10(encoding@0.1.13)(rollup@4.40.0)':
+    dependencies:
+      '@vercel/nft': 0.27.10(encoding@0.1.13)(rollup@4.40.0)
+    transitivePeerDependencies:
+      - encoding
+      - rollup
+      - supports-color
 
   '@vercel/next@4.7.8(encoding@0.1.13)(rollup@4.40.0)':
     dependencies:

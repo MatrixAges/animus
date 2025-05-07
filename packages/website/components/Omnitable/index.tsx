@@ -26,7 +26,6 @@ import {
 	TimelineControls,
 	View
 } from './components'
-import Editor from './components/Editor'
 import { Provider } from './context'
 import styles from './index.module.css'
 import Model from './model'

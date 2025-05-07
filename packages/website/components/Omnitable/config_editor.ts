@@ -137,7 +137,13 @@ export default {
 			Comments: {
 				bind: 'comments',
 				type: 'comments',
-				props: {}
+				props: {
+					binds: {
+						date: 'date',
+						text: 'text',
+						role: 'role'
+					}
+				}
 			}
 		}
 	}

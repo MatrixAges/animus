@@ -142,15 +142,18 @@ export default class Index {
 	async query(ignore_querying?: boolean, ignore_timeline_query?: boolean) {
 		if (!ignore_querying) this.querying = true
 
+		const { api, params } = this.getAction(this.config.actions.query)
+
 		const [err, res] = await to<Omnitable.Error | { data: Omnitable.List }>(
-			ofetch(`${this.config.baseurl}${this.config.actions.query}`, {
+			ofetch(`${this.config.baseurl}${api}`, {
 				method: 'POST',
 				body: {
 					sort_params: this.sort_params,
 					filter_relation: this.filter_relation,
 					filter_params: this.filter_params,
 					page: this.pagination.page,
-					pagesize: this.pagination.pagesize
+					pagesize: this.pagination.pagesize,
+					params
 				}
 			})
 		)
@@ -193,10 +196,15 @@ export default class Index {
 	async create(v: any) {
 		this.loading = true
 
+		const { api, params } = this.getAction(this.config.actions.create!)
+
 		const [err, res] = await to<Omnitable.MutationResponse>(
-			ofetch(`${this.config.baseurl}${this.config.actions.create}`, {
+			ofetch(`${this.config.baseurl}${api}`, {
 				method: 'POST',
-				body: this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v
+				body: {
+					...(this.config.hooks?.beforeCreate ? this.config.hooks.beforeCreate(v) : v),
+					params
+				}
 			})
 		)
 
@@ -221,14 +229,19 @@ export default class Index {
 	async update(primary_value: number | string, v: any) {
 		this.loading = true
 
-		const url = mustache.render(`${this.config.baseurl}${this.config.actions.update}`, {
+		const { api, params } = this.getAction(this.config.actions.update!)
+
+		const url = mustache.render(`${this.config.baseurl}${api}`, {
 			[this.primary]: primary_value
 		})
 
 		const [err, res] = await to<Omnitable.MutationResponse>(
 			ofetch(url, {
 				method: 'POST',
-				body: this.config.hooks?.beforeUpdate ? this.config.hooks.beforeUpdate(v) : v
+				body: {
+					...(this.config.hooks?.beforeUpdate ? this.config.hooks.beforeUpdate(v) : v),
+					params
+				}
 			})
 		)
 
@@ -251,11 +264,13 @@ export default class Index {
 	}
 
 	async delete(primary_value: number | string) {
-		const url = mustache.render(`${this.config.baseurl}${this.config.actions.delete}`, {
+		const { api, params } = this.getAction(this.config.actions.delete!)
+
+		const url = mustache.render(`${this.config.baseurl}${api}`, {
 			[this.primary]: primary_value
 		})
 
-		const [err, res] = await to<Omnitable.MutationResponse>(ofetch(url, { method: 'POST' }))
+		const [err, res] = await to<Omnitable.MutationResponse>(ofetch(url, { method: 'POST', body: { params } }))
 
 		if (err) {
 			this.antd.message.error(`Delete error: ${err.message}`)
@@ -984,6 +999,12 @@ export default class Index {
 		if (!this.config?.timeline) return
 
 		this.timeline_timestamp = dayjs().valueOf()
+	}
+
+	getAction(v: Omnitable.Action) {
+		if (typeof v === 'string') return { api: v, params: null }
+
+		return v
 	}
 
 	on() {

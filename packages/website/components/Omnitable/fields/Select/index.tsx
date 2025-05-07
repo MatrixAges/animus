@@ -19,7 +19,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const [x] = useState(() => new Model())
 	const antd = useApp()
 	const base_url = useContext(v => v.base_url)
-	const multiple = mode !== undefined
+	const multiple = mode === 'multiple' || mode === 'tags'
 	const options = $.copy(x.options)
 
 	useLayoutEffect(() => {
@@ -77,7 +77,7 @@ const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 					popupMatchSelectWidth={false}
 					virtual={false}
 					suffixIcon={null}
-					mode={use_by_filter ? 'multiple' : mode}
+					mode={mode === 'single' ? undefined : use_by_filter ? 'multiple' : mode}
 					options={options}
 					value={value}
 					notFoundContent={x.loading_search ? <Spin size='small' /> : null}

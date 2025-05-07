@@ -89,6 +89,6 @@ export const metadata: Metadata = {
 }
 
 // edge for cloudflare
-// export const runtime = 'edge'
+export const runtime = 'edge'
 
 export default Index

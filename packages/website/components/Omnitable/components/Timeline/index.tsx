@@ -1,8 +1,10 @@
+import dayjs from 'dayjs'
 import { pick } from 'lodash-es'
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
 
 import { $ } from '@website/utils'
 
+import { timeline_args_map } from '../../metadata'
 import Background from './Background'
 import styles from './index.module.css'
 import { default as TooltipContent } from './Tooltip'
@@ -32,6 +34,9 @@ const Index = (props: IPropsTimeline) => {
 				>
 					<XAxis
 						dataKey={label_bind}
+						tickFormatter={v =>
+							dayjs(v).format(timeline_args_map[timeline_type].duration_format)
+						}
 						tickLine={false}
 						axisLine={false}
 						fontSize={10}

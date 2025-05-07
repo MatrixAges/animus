@@ -22,13 +22,13 @@ export namespace Omnitable {
 		// 支持mustache语法 /delete/{{id}} => /delete/3
 		actions: {
 			// POST
-			query: string
+			query: Action
 			// POST
-			create?: string
+			create?: Action
 			// POST
-			update?: string
+			update?: Action
 			// POST
-			delete?: string
+			delete?: Action
 		}
 		hooks?: {
 			// 处理数据查询到的数据
@@ -108,6 +108,13 @@ export namespace Omnitable {
 			form?: Fields
 		}
 	}
+
+	export type Action =
+		| string
+		| {
+				api: string
+				params: Record<string, any>
+		  }
 
 	export interface BaseColumn {
 		name: string
@@ -193,7 +200,7 @@ export namespace Omnitable {
 				// 附带的请求参数
 				query?: Record<string, any>
 			}
-			mode?: 'multiple' | 'tags'
+			mode?: 'single' | 'multiple' | 'tags'
 			placeholder?: string
 			borderless?: boolean
 		}
@@ -216,14 +223,16 @@ export namespace Omnitable {
 			icon_position?: 'left' | 'right'
 			use_bg?: boolean
 			center?: boolean
+			prefix?: string
+			suffix?: string
 		}
 	}
 
 	export interface TagOption {
 		label?: ReactNode
-		value: string | number | boolean
-		color: PresetColor | string
-		icon?: string
+		value: string | number | boolean | '__self__'
+		color: PresetColor | string | ((v: TagOption['value']) => PresetColor | string)
+		icon?: string | ((v: TagOption['value']) => string)
 	}
 
 	export type Date = {
@@ -261,7 +270,14 @@ export namespace Omnitable {
 
 	export type Comments = {
 		type: 'comments'
-		props?: {}
+		props: {
+			// 数据绑定的key
+			binds: {
+				date: string
+				text: string
+				role?: string
+			}
+		}
 	}
 
 	export type Operation = {

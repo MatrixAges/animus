@@ -27,12 +27,16 @@ const nav_items = [
 		key: 'custom_stat'
 	},
 	{
-		type: 'Log',
+		type: 'Log Mode',
 		key: 'log'
 	},
 	{
-		type: 'Editor',
+		type: 'Editor Support',
 		key: 'editor'
+	},
+	{
+		type: 'Compare',
+		key: 'compare'
 	}
 ]
 

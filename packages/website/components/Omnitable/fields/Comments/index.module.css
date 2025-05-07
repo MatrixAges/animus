@@ -1,6 +1,8 @@
 ._local {
 	:global {
 		.form_items {
+			margin-bottom: 16px;
+
 			.form_item_wrap {
 				padding-bottom: 16px;
 				padding-left: 16px;
@@ -40,6 +42,7 @@
 					line-height: 1;
 					margin-bottom: 8px;
 					color: var(--color_text_light);
+					font-size: 12px;
 
 					.field_role {
 						width: unset !important;
@@ -47,6 +50,16 @@
 						padding: 0;
 						border-radius: unset;
 						color: var(--color_text_light);
+						font-size: 12px;
+					}
+				}
+
+				.field_text {
+					&:disabled {
+						border: none;
+						color: var(--color_text);
+						background-color: unset;
+						background-color: var(--color_bg_1);
 					}
 				}
 			}
