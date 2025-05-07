@@ -937,7 +937,17 @@ export default class Index {
 				this.create(v)
 				break
 			case 'edit':
-				this.onChange(-1, v)
+				const item = this.items[this.modal_index]
+				const target = {} as any
+
+				Object.keys(v).forEach(key => {
+					if (!deepEqual(item[key], v[key])) {
+						target[key] = v[key]
+					}
+				})
+
+				this.onChange(-1, target)
+
 				break
 		}
 	}

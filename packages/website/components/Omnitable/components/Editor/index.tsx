@@ -20,6 +20,7 @@ import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
+import Underline from '@tiptap/extension-underline'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { $ } from '@website/utils'
@@ -38,31 +39,36 @@ const Index = () => {
 	const editor = useEditor({
 		immediatelyRender: false,
 		extensions: [
-			Placeholder.configure({ placeholder: 'Write description...' }),
 			StarterKit.configure({
 				codeBlock: false
 			}),
-			Typography,
+			Placeholder.configure({
+				placeholder: 'Write description...'
+			}),
 			Link.configure({
 				openOnClick: false,
 				defaultProtocol: 'https'
 			}),
-			Image,
-			Table.configure({
-				resizable: true
-			}),
-			TableHeader,
-			TableRow,
-			TableCell,
-			TaskList,
 			TaskItem.configure({
 				nested: true
+			}),
+			Table.configure({
+				resizable: true
 			}),
 			CodeBlockLowlight.configure({
 				lowlight,
 				defaultLanguage: 'ts'
 			}),
-			Highlight.configure({ multicolor: true }),
+			Highlight.configure({
+				multicolor: true
+			}),
+			Typography,
+			Image,
+			TableHeader,
+			TableRow,
+			TableCell,
+			TaskList,
+			Underline,
 			TextStyle,
 			Color
 		],

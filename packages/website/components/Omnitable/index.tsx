@@ -182,7 +182,6 @@ const Index = (props: Omnitable.Props) => {
 	return (
 		<Provider value={{ base_url: x.config?.baseurl }}>
 			<div className={$.cx(styles._local)}>
-				<Editor></Editor>
 				<div className={$.cx('header_wrap w_100 flex flex_wrap justify_between', styles.header_wrap)}>
 					{x.config && (
 						<div className='flex'>

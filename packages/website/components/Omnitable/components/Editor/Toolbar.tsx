@@ -12,14 +12,16 @@ import {
 	ListChecks,
 	ListNumbers,
 	PaintBrush,
+	RowsPlusBottom,
 	Table,
 	TextB,
 	TextItalic,
-	TextStrikethrough
+	TextStrikethrough,
+	TextUnderline
 } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import { Highlight } from './components'
+import { Highlight, TableActions } from './components'
 import styles from './index.module.css'
 import { setImage, setLink } from './utils'
 
@@ -75,6 +77,11 @@ const Index = (props: IProps) => {
 				Icon: TextItalic,
 				action: () => editor.commands.toggleItalic(),
 				active: () => editor.isActive('italic')
+			},
+			{
+				Icon: TextUnderline,
+				action: () => editor.commands.toggleUnderline(),
+				active: () => editor.isActive('underline')
 			},
 			{
 				Icon: TextStrikethrough,
@@ -141,12 +148,34 @@ const Index = (props: IProps) => {
 				active: () => editor.isActive('taskList')
 			},
 			{
-				Icon: Table,
-				action: () => editor.commands.insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+				render: () => (
+					<Popover
+						trigger={['click']}
+						placement='bottom'
+						destroyTooltipOnHide
+						content={<TableActions editor={editor} />}
+						key='table'
+					>
+						<div>
+							<div
+								className={$.cx(
+									'btn_wrap flex justify_center align_center clickable',
+									editor.isActive('table') && 'active'
+								)}
+							>
+								<Table weight={editor.isActive('table') ? 'bold' : 'regular'}></Table>
+							</div>
+						</div>
+					</Popover>
+				)
 			},
 			{
 				Icon: Image,
 				action: () => setImage(editor)
+			},
+			{
+				Icon: RowsPlusBottom,
+				action: () => editor.chain().insertContent('<p></p>').focus('end').run()
 			}
 		]
 	}, [editor])
