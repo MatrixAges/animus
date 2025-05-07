@@ -181,24 +181,27 @@ const Index = (props: IProps) => {
 	}, [editor])
 
 	return (
-		<div className={$.cx('border_box flex align_center', styles.Toolbar)}>
-			{actions.map(({ Icon, action, active, disabled, render }, index) =>
-				render ? (
-					render()
-				) : (
-					<button
-						className={$.cx(
-							'btn_wrap flex justify_center align_center clickable',
-							active?.() && 'active'
-						)}
-						disabled={disabled?.()}
-						onClick={action}
-						key={index}
-					>
-						<Icon weight={active?.() ? 'bold' : 'regular'}></Icon>
-					</button>
-				)
-			)}
+		<div className={$.cx('border_box', styles.Toolbar)}>
+			<div className='toolbar_wrap w_100 border_box  flex justify_between align_center'>
+				{actions.map(({ Icon, action, active, disabled, render }, index) =>
+					render ? (
+						render()
+					) : (
+						<button
+							className={$.cx(
+								'btn_wrap flex justify_center align_center clickable',
+								active?.() && 'active'
+							)}
+							type='button'
+							disabled={disabled?.()}
+							onClick={action}
+							key={index}
+						>
+							<Icon weight={active?.() ? 'bold' : 'regular'}></Icon>
+						</button>
+					)
+				)}
+			</div>
 		</div>
 	)
 }

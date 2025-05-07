@@ -18,8 +18,8 @@ export namespace Omnitable {
 		name: string
 		// 主键，默认为 'id'
 		primary?: string
-		// 支持mustache语法 /delete/{{id}} => /delete/3
 		baseurl: string
+		// 支持mustache语法 /delete/{{id}} => /delete/3
 		actions: {
 			// POST
 			query: string
@@ -148,6 +148,8 @@ export namespace Omnitable {
 		| DatePicker
 		| RangePicker
 		| Priority
+		| Editor
+		| Comments
 		| Operation
 
 	export type Text = {
@@ -247,6 +249,18 @@ export namespace Omnitable {
 
 	export type Priority = {
 		type: 'priority'
+		props?: {}
+	}
+
+	export type Editor = {
+		type: 'editor'
+		props?: {
+			max_height?: number
+		}
+	}
+
+	export type Comments = {
+		type: 'comments'
 		props?: {}
 	}
 

@@ -14,7 +14,7 @@ const Index = (props: ComponentType<Omnitable.Textarea['props']>) => {
 	const { self_props, width, value, editing, use_by_form, onFocus, onBlur, onChange } = props
 	const {} = self_props || {}
 
-	const debounceChange = onChange ? useMemoizedFn(debounce(onChange!, 300)) : undefined
+	const debounceChange = onChange ? useMemoizedFn(debounce(onChange!, 600)) : undefined
 
 	return (
 		<div

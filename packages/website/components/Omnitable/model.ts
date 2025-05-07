@@ -350,6 +350,15 @@ export default class Index {
 
 			this.items[target_index] = { ...target_item, ...v }
 
+			if (!Object.keys(v).length) {
+				if (from_modal) {
+					this.modal_visible = false
+					this.modal_index = -2
+				}
+
+				return
+			}
+
 			const res = await this.update(target_item[this.primary], v)
 
 			if (res === undefined) {
@@ -386,6 +395,56 @@ export default class Index {
 				this.updateTimelineTimestamp()
 				this.query(true)
 			}, this.config.live! * 1000)
+		}
+	}
+
+	make() {
+		this.filter_columns =
+			this.config.filter?.columns.map(item => {
+				const field = this.config.fields.filter?.[item.name] || this.config.fields.common[item.name]
+
+				return { ...item, ...field }
+			}) || []
+
+		this.table_columns = this.config.table.columns.map(item => {
+			const field = this.config.fields.table?.[item.name] || this.config.fields.common[item.name]
+			const column = { ...item, ...field }
+
+			if (item.sort) this.sort_columns.push(column)
+
+			this.visible_columns.push({ name: column.name, id: column.bind, visible: true })
+
+			return column
+		})
+
+		if (!this.config.form || this.config.form?.use_table_columns) {
+			const target_columns = this.config.form
+				? uniqBy([...this.config.table.columns, ...(this.config.form?.columns || [])], 'name').filter(
+						item => !(this.config.form?.exclude_table_columns || []).includes(item.name)
+					)
+				: this.config.table.columns
+
+			const form_columns = target_columns
+				.map(item => {
+					const field =
+						this.config.fields.form?.[item.name] ||
+						this.config.fields.common[item.name] ||
+						this.config.fields.table?.[item.name]
+
+					if (field.bind === '_operation') return null
+
+					return { ...item, ...field }
+				})
+				.filter(item => item !== null)
+
+			this.form_columns = uniqBy(form_columns, 'name')
+		} else {
+			this.form_columns =
+				this.config.form?.columns?.map(item => {
+					const field = this.config.fields.form?.[item.name] || this.config.fields.common[item.name]
+
+					return { ...item, ...field }
+				}) || []
 		}
 	}
 
@@ -552,56 +611,6 @@ export default class Index {
 		})
 
 		return target
-	}
-
-	make() {
-		this.filter_columns =
-			this.config.filter?.columns.map(item => {
-				const field = this.config.fields.filter?.[item.name] || this.config.fields.common[item.name]
-
-				return { ...item, ...field }
-			}) || []
-
-		this.table_columns = this.config.table.columns.map(item => {
-			const field = this.config.fields.table?.[item.name] || this.config.fields.common[item.name]
-			const column = { ...item, ...field }
-
-			if (item.sort) this.sort_columns.push(column)
-
-			this.visible_columns.push({ name: column.name, id: column.bind, visible: true })
-
-			return column
-		})
-
-		if (!this.config.form || this.config.form?.use_table_columns) {
-			const target_columns = this.config.form
-				? uniqBy([...(this.config.form?.columns || []), ...this.config.table.columns], 'name').filter(
-						item => !(this.config.form?.exclude_table_columns || []).includes(item.name)
-					)
-				: this.config.table.columns
-
-			const form_columns = target_columns
-				.map(item => {
-					const field =
-						this.config.fields.form?.[item.name] ||
-						this.config.fields.common[item.name] ||
-						this.config.fields.table?.[item.name]
-
-					if (field.bind === '_operation') return null
-
-					return { ...item, ...field }
-				})
-				.filter(item => item !== null)
-
-			this.form_columns = uniqBy(form_columns, 'name')
-		} else {
-			this.form_columns =
-				this.config.form?.columns?.map(item => {
-					const field = this.config.fields.form?.[item.name] || this.config.fields.common[item.name]
-
-					return { ...item, ...field }
-				}) || []
-		}
 	}
 
 	getSortFieldOptions(v?: Index['sort_params']) {

@@ -1,10 +1,14 @@
 ._local {
-	border: var(--border);
-	border-radius: var(--radius);
-
 	:global {
 		[contenteditable] {
 			outline: none;
+		}
+
+		.editor_wrap {
+			border: var(--border);
+			border-top: none;
+			border-bottom-right-radius: var(--radius);
+			border-bottom-left-radius: var(--radius);
 		}
 
 		.tiptap {
@@ -21,6 +25,14 @@
 			width: 1px;
 			height: 16px;
 			background-color: var(--color_border);
+		}
+
+		p.is-editor-empty:first-child::before {
+			float: left;
+			height: 0;
+			color: var(--color_text_light);
+			content: attr(data-placeholder);
+			pointer-events: none;
 		}
 
 		a {
@@ -183,6 +195,18 @@
 				font-weight: bold;
 			}
 
+			.selectedCell:after {
+				position: absolute;
+				z-index: 2;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background: var(--color_bg_2);
+				content: "";
+				pointer-events: none;
+			}
+
 			.column-resize-handle {
 				position: absolute;
 				top: 0;
@@ -197,20 +221,28 @@
 }
 
 .Toolbar {
-	height: 36px;
-	padding: 6px;
-	border-bottom: var(--border);
-	gap: 6px;
+	position: sticky;
+	z-index: 100;
+	top: 0;
+	background-color: var(--color_bg);
 
 	:global {
+		.toolbar_wrap {
+			padding: 6px;
+			border: var(--border);
+			border-top-left-radius: var(--radius);
+			border-top-right-radius: var(--radius);
+			gap: 4px;
+		}
+
 		.btn_wrap {
 			width: 24px;
-			height: 24px;
 			padding: 0;
 			border-radius: var(--radius_small);
 			background-color: unset;
 			transition: all ease 0.3s;
 			font-size: 15px;
+			aspect-ratio: 1;
 
 			&:hover,
 			&.active {

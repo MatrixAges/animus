@@ -280,7 +280,7 @@ const Index = (props: Omnitable.Props) => {
 								? 'Create'
 								: props_detail.item?.[x.primary]
 					}
-					width={x.modal_view_visible ? 'min(90vw,660px)' : 'min(100vw,450px)'}
+					width={x.modal_view_visible ? 'min(90vw,660px)' : 'min(100vw,480px)'}
 					placement={x.modal_view_visible ? 'left' : 'right'}
 					maskClosable={x.modal_type === 'view' || x.modal_view_visible}
 					disablePadding={x.modal_visible}

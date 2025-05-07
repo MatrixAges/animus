@@ -35,8 +35,18 @@ lowlight.register('css', css)
 lowlight.register('js', js)
 lowlight.register('ts', ts)
 
-const Index = () => {
+interface IProps {
+	value: string
+	readonly?: boolean
+	max_height?: number
+	onChange: (v: string) => void
+}
+
+const Index = (props: IProps) => {
+	const { value, readonly, max_height, onChange } = props
+
 	const editor = useEditor({
+		editable: !readonly,
 		immediatelyRender: false,
 		extensions: [
 			StarterKit.configure({
@@ -72,19 +82,25 @@ const Index = () => {
 			TextStyle,
 			Color
 		],
-		content: `
-            <p>Hello World! 🌎️</p>
-            <p>And this is highlighted too, but in a different color.</p>
-            <p>And this one has a data attribute.</p>
-            `
+		content: value ? JSON.parse(value) : '',
+		onUpdate: ({ editor }) => {
+			const content = editor.getJSON()
+
+			onChange(JSON.stringify(content))
+		}
 	})
 
 	if (!editor) return null
 
 	return (
-		<div className={$.cx('flex flex_column', styles._local)}>
+		<div className={$.cx('w_100 flex flex_column', styles._local)}>
 			<Toolbar editor={editor}></Toolbar>
-			<EditorContent editor={editor} />
+			<div
+				className='editor_wrap w_100 border_box'
+				style={{ height: max_height, maxHeight: max_height, overflowY: 'scroll' }}
+			>
+				<EditorContent editor={editor} />
+			</div>
 		</div>
 	)
 }

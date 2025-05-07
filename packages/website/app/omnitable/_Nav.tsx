@@ -29,6 +29,10 @@ const nav_items = [
 	{
 		type: 'Log',
 		key: 'log'
+	},
+	{
+		type: 'Editor',
+		key: 'editor'
 	}
 ]
 
