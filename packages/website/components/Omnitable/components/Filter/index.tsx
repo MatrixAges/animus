@@ -96,7 +96,7 @@ const Index = (props: IPropsFilter) => {
 
 							delete items[index]['value']
 
-							onChangeFilter({ filter_params: items })
+							onChangeFilter({ filter_params: items, ignore_query: true })
 						}
 					}}
 				>

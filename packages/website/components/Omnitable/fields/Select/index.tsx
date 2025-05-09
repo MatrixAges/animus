@@ -14,7 +14,7 @@ const { useApp } = App
 
 const Index = (props: ComponentType<Omnitable.Select['props']>) => {
 	const { self_props, width, value, editing, use_by_form, use_by_filter, onFocus, onBlur, onChange } = props
-	const { options: options_raw, remote, mode, borderless, ...rest_props } = self_props
+	const { options: options_raw, remote, mode, borderless, ...rest_props } = self_props || {}
 
 	const [x] = useState(() => new Model())
 	const antd = useApp()

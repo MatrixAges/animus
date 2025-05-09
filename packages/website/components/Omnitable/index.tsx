@@ -196,7 +196,7 @@ const Index = (props: Omnitable.Props) => {
 									</span>
 								)}
 							</button>
-							{x.sort_params.length > 0 && <Sort {...props_sort}></Sort>}
+							{x.sort_columns.length > 0 && <Sort {...props_sort}></Sort>}
 							{x.filter_columns.length > 0 && <Filter {...props_filter}></Filter>}
 							{!x.config?.stat?.hide && <Stat {...props_stat}></Stat>}
 							{!x.config?.group?.hide && <Group {...props_group}></Group>}

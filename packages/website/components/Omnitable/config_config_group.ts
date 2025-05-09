@@ -34,7 +34,6 @@ export default {
 		}
 	},
 	group: {
-		// order: 'Period > Farm',
 		order: 'Period > Farm > Pool',
 		acc: ['Hashrate', 'Earning']
 	},

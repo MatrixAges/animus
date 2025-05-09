@@ -3,7 +3,7 @@ import Decimal from 'decimal.js'
 import type { Omnitable } from './types'
 
 export default {
-	name: 'table_custom_stat',
+	name: 'table_compare',
 	primary: 'id',
 	baseurl:
 		process.env.NODE_ENV === 'production'

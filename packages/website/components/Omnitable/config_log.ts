@@ -246,6 +246,24 @@ export default {
 					format: '{{region_short}} {{region_full}}'
 				}
 			}
+		},
+		filter: {
+			Method: {
+				bind: 'method',
+				type: 'select',
+				props: {
+					options: [
+						{
+							label: 'Get',
+							value: 'GET'
+						},
+						{
+							label: 'Post',
+							value: 'POST'
+						}
+					]
+				}
+			}
 		}
 	}
 } as Omnitable.Config

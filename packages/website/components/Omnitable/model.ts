@@ -150,7 +150,7 @@ export default class Index {
 				body: {
 					sort_params: this.sort_params,
 					filter_relation: this.filter_relation,
-					filter_params: this.filter_params,
+					filter_params: this.filter_params.filter(i => 'value' in i),
 					page: this.pagination.page,
 					pagesize: this.pagination.pagesize,
 					params
@@ -793,8 +793,12 @@ export default class Index {
 		this.query()
 	}
 
-	onChangeFilter(args: { filter_relation?: Index['filter_relation']; filter_params?: Index['filter_params'] }) {
-		const { filter_relation, filter_params } = args
+	onChangeFilter(args: {
+		filter_relation?: Index['filter_relation']
+		filter_params?: Index['filter_params']
+		ignore_query?: boolean
+	}) {
+		const { filter_relation, filter_params, ignore_query } = args
 
 		if (filter_relation) this.filter_relation = filter_relation
 		if (filter_params) this.filter_params = filter_params
@@ -805,7 +809,7 @@ export default class Index {
 
 		if (filter_params?.length && !target_filter_params.length) return
 
-		this.query()
+		if (!ignore_query) this.query()
 	}
 
 	onChangeStat(v: Index['stat_params']) {
