@@ -1,73 +1,75 @@
 **Animus License Agreement**
 
-This software is licensed under the Apache License 2.0. In addition to the terms stipulated by the Apache License 2.0, you must also comply with the following additional terms when using Animus:
+This software ("Animus Software") is licensed under the terms of the **Apache License, Version 2.0** ("Apache 2.0 License"). This License Agreement is intended to supplement the Apache 2.0 License, and in cases of conflict between the terms of the Apache 2.0 License and the terms of this Agreement, for the specific circumstances outlined below, the terms of this Agreement shall prevail. Please note that certain terms in this Agreement may impose additional restrictions on rights typically granted under the Apache 2.0 License, particularly regarding commercial redistribution of modified works and the retention of Animus brand identity.
 
-**I. Commercial License**
+**I. Commercial Use and Redistribution**
 
-Under any of the following circumstances, you need to contact us and obtain explicit written commercial authorization before continuing to use Animus materials:
+1.  **Commercial Use Permitted Under Apache 2.0 License:**
+    You may use, reproduce, and redistribute the Animus Software for commercial purposes under the terms of the Apache 2.0 License, subject to the following restrictions:
+    *   **Unmodified Animus Software:** You may commercially use and redistribute the original, unmodified version of the Animus Software.
+    *   **Internal Modifications and Use:** You may modify the Animus Software for your own internal commercial purposes and use and distribute these modified versions within your organization, provided that these modified versions are not redistributed to any third party.
+    *   **Branding and Attribution:** In all the above cases, you must fully retain all original copyright, patent, trademark, and attribution notices contained within the Animus Software.
 
-1.  **Modification and Derivatives**: You modify Animus materials or develop derivatives based on them (including but not limited to modifying the application name, Logo, code, functionality, interface, data, etc.).
-2.  **Enterprise Services**: Within your enterprise, or providing Animus-based services to enterprise clients, where the service supports 10 or more cumulative users.
-3.  **Hardware Bundling**: You pre-install or integrate Animus into hardware devices or products for bundled sales.
-4.  **Large-Scale Government or Educational Procurement**: Your usage scenario falls under large-scale procurement projects by government or educational institutions, especially involving sensitive requirements such as security and data privacy.
-5.  **Public Cloud Services for the Public**: Providing public cloud services to the public based on Animus.
-6.  **Integration and Distribution**: Integrating Animus into commercial products and any services of a profit-making or potentially profit-making nature.
+2.  **Commercial Redistribution Requiring Additional Commercial License:**
+    *   If you wish to **redistribute** any modified version of the Animus Software to any third party for the purpose of deriving direct or indirect commercial benefit (including, but not limited to, selling it as a standalone product, integrating it into commercial services or products, or otherwise generating revenue from it), you must first contact the Animus Development Team to obtain a separate **Commercial License**.
+    *   This Commercial License will be an agreement independent of the Apache 2.0 License and may involve a paid authorization to grant you the right to undertake such commercial redistribution.
+    *   Furthermore, any commercial promotion and redistribution of proprietary products based on the Animus Software that use materials not conforming to official Animus brand guidelines or that may cause user confusion, also require compliance with this clause and necessitate obtaining additional authorization.
 
-**II. LOGO and Copyright Information**
+3.  **Retention of Brand Identity and Copyright Information:**
+    *   Regardless of the license under which you use or distribute the Animus Software, you shall not delete, hide, or modify any explicitly displayed Animus LOGO, brand identity, product name, or copyright information within the Animus console or application without prior written authorization from the Animus Development Team. This includes, but is not limited to, Animus brand elements clearly marked in splash screens, about pages, interaction methods, and other user interface elements.
 
-While using the Animus front-end and client, you may not remove or modify the LOGO or copyright information in the Animus console or application without authorization.
+**II. Contributor Agreement**
 
-**III. Contributor Agreement**
+As a contributor to Animus, you agree to the following terms:
 
-As a contributor to Animus, you should agree to the following terms:
+1.  **License Adjustment**: The producer reserves the right to adjust the open-source license as needed, making it more stringent or lenient.
+2.  **Commercial Use**: Your contributed code may be used for commercial purposes, including, but not limited to, cloud business operations.
 
-1.  **License Adjustment**: The producer has the right to adjust the open-source license as needed, making it stricter or more lenient.
-2.  **Commercial Use**: The code you contribute may be used for commercial purposes, including but not limited to cloud business operations.
+**III. Other Terms**
 
-**IV. Other Terms**
+1.  The right to interpret the terms of this Agreement rests with the Animus developers.
+2.  This Agreement may be updated based on actual circumstances, and users will be notified of updates through this software.
+3.  This software is provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.
 
-1.  The right to interpret the terms of this agreement belongs to the Animus developers.
-2.  This agreement may be updated according to actual circumstances, and users will be notified through this software upon updates.
-3.  This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+For any questions or to apply for a commercial license, please contact the Animus Development Team at official@getanimus.ai.
 
-If you have any questions or need to apply for commercial authorization, please contact the Animus development team.
-
-Except for the specific conditions mentioned above, all other rights and restrictions follow the Apache License 2.0. For detailed information about the Apache License 2.0, please visit http://www.apache.org/licenses/LICENSE-2.0.
+Except for the specific conditions stated above, all other rights and restrictions follow the Apache License 2.0. For detailed information on the Apache License 2.0, please visit http://www.apache.org/licenses/LICENSE-2.0.
 
 ---
 
 **Animus 许可协议**
 
-本软件采用 Apache License 2.0 许可。除 Apache License 2.0 规定的条款外，您在使用 Animus 时还应遵守以下附加条款：
+本软件（“Animus 软件”）以 **Apache License, Version 2.0**（“Apache 2.0 许可”）条款授权。本许可协议旨在补充 Apache 2.0 许可，并在其条款与本协议条款之间存在冲突时，针对以下特定情形，本协议条款优先适用。请注意，本协议中的某些条款可能对 Apache 2.0 许可下通常授予的权利施加额外限制，特别是关于修改作品的商业再分发和 Animus 品牌标识的保留。
 
-**一. 商用许可**
+**一. 商业使用与再分发**
 
-在以下任何一种情况下，您需要联系我们并获得明确的书面商业授权后，方可继续使用 Animus 材料：
+1.  **在 Apache 2.0 许可下允许的商业使用：**
+    您可以根据 Apache 2.0 许可的条款，对 Animus 软件进行商业使用、复制和再分发，但须遵守以下限制：
+    *   **未修改的 Animus 软件：** 您可以对 Animus 软件的原始、未修改版本进行商业使用和再分发。
+    *   **内部修改与使用：** 您可以为自身内部的商业目的修改 Animus 软件，并在您的组织内部使用和分发这些修改后的版本，前提是这些修改后的版本不向任何第三方进行再分发。
+    *   **品牌与归属：** 在上述所有情况下，您必须完整保留 Animus 软件中包含的所有原有版权、专利、商标和归属声明。
 
-1. **修改与衍生**： 您对 Animus 材料进行修改或基于其进行衍生开发（包括但不限于修改应用名称、Logo、代码、功能、界面，数据等）。
-2. **企业服务**： 在您的企业内部，或为企业客户提供基于 Animus 的服务，且该服务支持 10 人及以上累计用户使用。
-3. **硬件捆绑销售**： 您将 Animus 预装或集成到硬件设备或产品中进行捆绑销售。
-4. **政府或教育机构大规模采购**： 您的使用场景属于政府或教育机构的大规模采购项目，特别是涉及安全、数据隐私等敏感需求时。
-5. **面向公众的公有云服务**：基于 Animus，提供面向公众的公有云服务。
-6. **集成与发布**：将 Animus 集成到商业产品以及任何盈利性质或潜在盈利性质的服务中。
+2.  **需要额外商业许可的商业再分发：**
+    *   如果您希望对 Animus 软件进行任何形式的修改后，以获得直接或间接商业利益为目的，向任何第三方**再分发**该修改后的版本（包括但不限于作为独立产品销售、集成到商业服务或产品中提供、或以其他方式从中获取收益），您必须首先联系 Animus 开发团队获取单独的**商业许可**。
+    *   此商业许可将是独立于 Apache 2.0 许可的协议，并可能涉及付费授权，以授予您进行此类商业再分发的权利。
+    *   此外，任何使用不符合 Animus 官方品牌指南或可能导致用户混淆的材料，对基于 Animus 软件的专有产品进行的商业宣传和再分发，亦需遵循本条款，并需要获得额外授权。
 
-**二. LOGO 和版权信息**
+3.  **品牌标识与版权信息保留：**
+    *   无论您根据何种许可使用或分发 Animus 软件，未经 Animus 开发团队的书面授权，您不得删除、隐藏或修改 Animus 控制台或应用程序中任何显式显示的 Animus LOGO、品牌标识、产品名称或版权信息。这包括但不限于启动画面、关于页面、交互方式以及其他用户界面元素中明确标示的 Animus 品牌元素。
 
-在使用 Animus 的前端和客户端过程中，在未获得授权的情况下，您不得删除或修改 Animus 控制台或应用程序中的 LOGO 或版权信息。
-
-**三. 贡献者协议**
+**二. 贡献者协议**
 
 作为 Animus 的贡献者，您应当同意以下条款：
 
 1. **许可调整**：生产者有权根据需要对开源协议进行调整，使其更加严格或宽松。
 2. **商业用途**：您贡献的代码可能会被用于商业用途，包括但不限于云业务运营。
 
-**四. 其他条款**
+**三. 其他条款**
 
 1. 本协议条款的解释权归 Animus 开发者所有。
 2. 本协议可能根据实际情况进行更新，更新时将通过本软件通知用户。
 3. 本软件“按原样”提供，不作任何形式的明示或暗示保证，包括但不限于适销性、特定用途适用性和不侵权性的保证。在任何情况下，作者或版权持有人均不对因本软件或本软件的使用或其他交易引起的或与之相关的任何索赔、损害或其他责任承担责任，无论是合同诉讼、侵权诉讼还是其他诉讼。
 
-如有任何问题或需申请商业授权，请联系 Animus 开发团队。
+如有任何问题或需申请商业授权，请联系 Animus 开发团队 official@getanimus.ai 。
 
 除上述特定条件外，其他所有权利和限制均遵循 Apache License 2.0。有关 Apache License 2.0 的详细信息，请访问 http://www.apache.org/licenses/LICENSE-2.0。
