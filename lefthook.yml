@@ -1,4 +1,4 @@
 pre-commit:
-      jobs:
+      commands:
             format:
-                  run: lint-staged --allow-empty
+                  run: pnpx run lint-staged --allow-empty
