@@ -1,4 +1,4 @@
-![banner](./images/banner_0.png)
+![banner](./images/banner.png)
 
 # Animus
 
