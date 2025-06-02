@@ -1,23 +1,31 @@
-/** WorkSans */
+/** IBMPlexSans */
 @font-face {
-	font-family: "WorkSans";
+	font-family: 'IBMPlexSans';
 	font-style: normal;
-	src: local("WorkSans"), url("./font/WorkSans/WorkSans.ttf") format("truetype");
+	src:
+		local('IBMPlexSans'),
+		url('./font/IBMPlexSans/IBMPlexSans.ttf') format('truetype');
 }
 @font-face {
-	font-family: "WorkSans";
+	font-family: 'IBMPlexSans';
 	font-style: italic;
-	src: local("WorkSans"), url("./font/WorkSans/WorkSans-Italic.ttf") format("truetype");
+	src:
+		local('IBMPlexSans'),
+		url('./font/IBMPlexSans/IBMPlexSans-Italic.ttf') format('truetype');
 }
 
 /** STIXTwoText */
 @font-face {
-	font-family: "STIXTwoText";
+	font-family: 'STIXTwoText';
 	font-style: normal;
-	src: local("STIXTwoText"), url("./font/STIXTwoText/STIXTwoText.ttf") format("truetype");
+	src:
+		local('STIXTwoText'),
+		url('./font/STIXTwoText/STIXTwoText.ttf') format('truetype');
 }
 @font-face {
-	font-family: "STIXTwoText";
+	font-family: 'STIXTwoText';
 	font-style: italic;
-	src: local("STIXTwoText"), url("./font/STIXTwoText/STIXTwoText-Italic.ttf") format("truetype");
+	src:
+		local('STIXTwoText'),
+		url('./font/STIXTwoText/STIXTwoText-Italic.ttf') format('truetype');
 }
