@@ -10,7 +10,9 @@
 		"dev:app": "turbo run dev --filter=app",
 		"build:app": "turbo run build --filter=app",
 		"prettier": "prettier --parser=typescript --write \"**/*.ts?(x)\"",
-		"biome": "biome format . --write --staged"
+		"biome": "biome format . --write --staged",
+            "submodule:init": "git submodule update --init --recursive",
+		"submodule:update": "git submodule sync && git submodule update --recursive --remote --merge"
 	},
 	"gitHooks": {
 		"pre-commit": "lint-staged --allow-empty"
