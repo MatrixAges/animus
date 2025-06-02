@@ -1,16 +1,18 @@
 'use client'
 
-import { useMemoizedFn } from 'ahooks'
-import { FloatButton } from 'antd'
-import { useInView } from 'motion/react'
-import { useRef, Fragment } from 'react'
+import styles from './index.module.css'
 
-import { Moon, Sun } from '@phosphor-icons/react'
 import { LocaleSelect } from '@website/components'
 import { useTheme, useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
-import styles from './index.module.css'
+import { MoonIcon, SunIcon } from '@phosphor-icons/react'
+import { useMemoizedFn } from 'ahooks'
+import { FloatButton } from 'antd'
+import { useInView } from 'motion/react'
+import { Fragment, useRef } from 'react'
+
+import type { NextRequest } from 'next/server'
 
 const BackTop = FloatButton.BackTop
 
@@ -19,6 +21,8 @@ const Index = () => {
 	const ref = useRef(null)
 	const visible = useInView(ref)
 	const move = useUserMove()
+
+	const a = {} as NextRequest
 
 	const setDark = useMemoizedFn(() => setTheme('dark'))
 	const setLight = useMemoizedFn(() => setTheme('light'))
@@ -45,7 +49,7 @@ const Index = () => {
 						)}
 						onClick={setDark}
 					>
-						<Moon weight={theme === 'dark' ? 'fill' : 'regular'}></Moon>
+						<MoonIcon weight={theme === 'dark' ? 'fill' : 'regular'}></MoonIcon>
 					</div>
 					<div
 						className={$.cx(
@@ -54,7 +58,7 @@ const Index = () => {
 						)}
 						onClick={setLight}
 					>
-						<Sun weight={theme === 'light' ? 'fill' : 'regular'}></Sun>
+						<SunIcon weight={theme === 'light' ? 'fill' : 'regular'}></SunIcon>
 					</div>
 				</div>
 			</div>

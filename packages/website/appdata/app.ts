@@ -1,5 +1,5 @@
 export const name = 'Animus'
-export const slogan = 'Align with human intelligence'
+export const slogan = 'Connecting everyone with AI'
 export const description = 'An experimental project to explore the upper limits of LLM intelligence'
 
 export const nav_links = [
@@ -13,6 +13,6 @@ export const nav_links = [
 	},
 	{
 		title: 'Github',
-		href: 'https://github.com/openages/animus'
+		href: 'https://github.com/connectionsai/animus'
 	}
 ]

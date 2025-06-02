@@ -1,11 +1,11 @@
 'use client'
 
-import { useLayoutEffect, useRef } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-
-import { Warning } from '@phosphor-icons/react'
 import { useSize, useTheme } from '@website/hooks'
 import { $, mermaidRender } from '@website/utils'
+
+import { WarningIcon } from '@phosphor-icons/react'
+import { useLayoutEffect, useRef } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import type { PropsWithChildren } from 'react'
 
@@ -23,7 +23,7 @@ const Index = (props: PropsWithChildren) => {
 		<ErrorBoundary
 			fallback={
 				<div>
-					<Warning size={18}></Warning>
+					<WarningIcon size={18}></WarningIcon>
 				</div>
 			}
 		>

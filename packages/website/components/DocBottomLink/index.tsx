@@ -1,10 +1,10 @@
-import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import styles from './index.module.css'
 
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import styles from './index.module.css'
+import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 interface LinkItem {
 	label: string
@@ -26,7 +26,7 @@ const Index = (props: IProps) => {
 				{prev && (
 					<Link className='link_item prev flex flex_column clickable' href={`/docs/${prev.key}`}>
 						<div className='link_item_top flex align_center'>
-							<CaretLeft weight='bold'></CaretLeft>
+							<CaretLeftIcon weight='bold'></CaretLeftIcon>
 							<span className='link_item_direction'>{t('BottomLink.prev')}</span>
 						</div>
 						<span className='link_item_title'>{prev.label}</span>
@@ -39,7 +39,7 @@ const Index = (props: IProps) => {
 					>
 						<div className='link_item_top flex align_center'>
 							<span className='link_item_direction'>{t('BottomLink.next')}</span>
-							<CaretRight weight='bold'></CaretRight>
+							<CaretRightIcon weight='bold'></CaretRightIcon>
 						</div>
 						<span className='link_item_title'>{next.label}</span>
 					</Link>

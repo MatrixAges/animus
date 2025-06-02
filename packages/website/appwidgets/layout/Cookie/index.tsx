@@ -1,14 +1,14 @@
 'use client'
 
-import { useMemoizedFn } from 'ahooks'
-import { useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import styles from './index.module.css'
 
-import { Cookie } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 import { is_server } from '@website/utils/const'
 
-import styles from './index.module.css'
+import { CookieIcon } from '@phosphor-icons/react'
+import { useMemoizedFn } from 'ahooks'
+import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 
 const Index = () => {
 	const t = useTranslations('layout')
@@ -32,7 +32,7 @@ const Index = () => {
 		<div className={$.cx('fixed z_index_100 flex justify_center', styles._local)}>
 			<div className='cookie_wrap flex align_center'>
 				<div className='icon_wrap flex justify_center align_center'>
-					<Cookie weight='duotone' size={24}></Cookie>
+					<CookieIcon weight='duotone' size={24}></CookieIcon>
 				</div>
 				<div className='desc'>{t('Cookie.desc')}</div>
 				<button className='btn_get_wrap flex justify_center align_center clickable' onClick={get}>

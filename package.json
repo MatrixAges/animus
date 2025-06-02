@@ -3,7 +3,7 @@
 	"author": "1yasa",
 	"version": "0.0.0",
 	"homepage": "https://github.com/openages/animus",
-	"packageManager": "pnpm@9.15.5",
+      "packageManager": "pnpm@10.11.0",
 	"scripts": {
 		"dev": "turbo run dev",
 		"build": "turbo run build",
@@ -14,18 +14,15 @@
             "submodule:init": "git submodule update --init --recursive",
 		"submodule:update": "git submodule sync && git submodule update --recursive --remote --merge"
 	},
-	"gitHooks": {
-		"pre-commit": "lint-staged --allow-empty"
-	},
 	"lint-staged": {
-		"*.{css,md}": ["prettier --write"],
-		"*.(j|t)s?(x)": ["biome format . --write --staged"]
+		"*.{md}": ["prettier --write"],
+		"*.{css,js,jsx,ts,tsx}": ["biome format . --write --staged"]
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.0-beta.1",
+            "lefthook":"^1.11.13",
+		"@biomejs/biome": "2.0.0-beta.6",
 		"lint-staged": "^15.5.1",
 		"prettier": "^3.5.3",
-		"yorkie": "^2.0.0",
 		"turbo": "^2.5.0"
 	}
 }

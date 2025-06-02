@@ -1,14 +1,14 @@
 'use client'
 
-import { useLocalStorageState, useMemoizedFn } from 'ahooks'
-import { useLayoutEffect, useState } from 'react'
+import styles from './index.module.css'
 
-import { Sidebar } from '@phosphor-icons/react'
 import { Markdown, Toc } from '@website/components'
 import { useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
-import styles from './index.module.css'
+import { SidebarIcon } from '@phosphor-icons/react'
+import { useLocalStorageState, useMemoizedFn } from 'ahooks'
+import { useLayoutEffect, useState } from 'react'
 
 import type { AnchorProps } from 'antd'
 
@@ -42,7 +42,7 @@ const Index = (props: IProps) => {
 				)}
 				onClick={toggle}
 			>
-				<Sidebar></Sidebar>
+				<SidebarIcon></SidebarIcon>
 			</div>
 			<div className={$.cx('small_container_wrap', className, fm?.date && 'has_date')}>
 				{fm?.date && <div className='date w_100 text_center'>{fm.date}</div>}

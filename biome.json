@@ -1,23 +1,44 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.0-beta.5/schema.json",
 	"linter": {
 		"enabled": false
 	},
 	"vcs": {
-		"enabled": true,
-		"defaultBranch": "master",
 		"clientKind": "git",
+		"enabled": true,
 		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": true
+		"ignoreUnknown": true,
+		"includes": ["packages/**"]
 	},
 	"formatter": {
 		"enabled": true,
 		"lineWidth": 120,
 		"indentWidth": 6,
-		"formatWithErrors": true,
-		"includes": ["packages/**"]
+		"formatWithErrors": true
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							":PATH:",
+							":BLANK_LINE:",
+							"@website/**",
+							":BLANK_LINE:",
+							":ALIAS:",
+							":BLANK_LINE:",
+							{ "type": false },
+							":BLANK_LINE:"
+						]
+					}
+				}
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {
@@ -29,11 +50,6 @@
 		},
 		"parser": {
 			"unsafeParameterDecoratorsEnabled": true
-		}
-	},
-	"json": {
-		"parser": {
-			"allowComments": true
 		}
 	}
 }

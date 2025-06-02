@@ -1,17 +1,17 @@
 'use client'
 
-import { useClickAway } from 'ahooks'
-import { motion, AnimatePresence } from 'motion/react'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, Fragment } from 'react'
-import { createPortal } from 'react-dom'
+import styles from './index.module.css'
 
-import { X } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 import { is_server } from '@website/utils/const'
 
-import styles from './index.module.css'
+import { XIcon } from '@phosphor-icons/react'
+import { useClickAway } from 'ahooks'
+import { AnimatePresence, motion } from 'motion/react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
-import type { MouseEvent, ReactNode, CSSProperties } from 'react'
+import type { CSSProperties, MouseEvent, ReactNode } from 'react'
 
 interface IProps {
 	children: ReactNode
@@ -79,7 +79,7 @@ const Index = (props: IProps) => {
 		}
 	}, [open])
 
-	useClickAway(e => {
+	useClickAway((e) => {
 		if (!maskClosable) return
 		if (e.target !== ref_content_wrap.current) return
 
@@ -171,7 +171,7 @@ const Index = (props: IProps) => {
 											className='btn_close flex justify_center align_center clickable'
 											onClick={onCancel}
 										>
-											<X size={16}></X>
+											<XIcon size={16}></XIcon>
 										</span>
 									)}
 								</div>

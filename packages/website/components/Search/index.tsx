@@ -1,5 +1,22 @@
 'use client'
 
+import Group from './Group'
+import styles from './index.module.css'
+
+import { Loading, LoadingCircle, SimpleEmpty } from '@website/components'
+import { useLocale, useRouterHash } from '@website/hooks'
+import { $ } from '@website/utils'
+import { getPublic } from '@website/utils/ofetch'
+
+import { useRouter } from '@bprogress/next/app'
+import {
+	ArrowBendDownLeftIcon,
+	ArrowDownIcon,
+	ArrowUpIcon,
+	MagnifyingGlassIcon,
+	TrashIcon,
+	XIcon
+} from '@phosphor-icons/react'
 import {
 	useAsyncEffect,
 	useEventListener,
@@ -11,22 +28,12 @@ import {
 import db from 'localforage'
 import { debounce, groupBy } from 'lodash-es'
 import { decompressFromUTF16 } from 'lz-string'
-import { useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState, Fragment } from 'react'
+import { useTranslations } from 'next-intl'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
-import { useRouter } from '@bprogress/next/app'
-import { ArrowBendDownLeft, ArrowDown, ArrowUp, MagnifyingGlass, Trash, X } from '@phosphor-icons/react'
-import { Loading, LoadingCircle, SimpleEmpty } from '@website/components'
-import { useLocale, useRouterHash } from '@website/hooks'
-import { $ } from '@website/utils'
-import { getPublic } from '@website/utils/ofetch'
-
-import Group from './Group'
-import styles from './index.module.css'
-
-import type { KeyboardEvent, MouseEvent } from 'react'
 import type { Document as FlexDocument } from 'flexsearch'
+import type { KeyboardEvent, MouseEvent } from 'react'
 
 export interface IndexItem {
 	id: string
@@ -69,7 +76,7 @@ const Index = (props: IProps) => {
 	const setSearchIndex = useMemoizedFn((search_index: FlexDocument, v: string) => {
 		const local_index = JSON.parse(decompressFromUTF16(v))
 
-		Object.keys(local_index).forEach(key => {
+		Object.keys(local_index).forEach((key) => {
 			search_index.import(key, local_index[key])
 		})
 
@@ -82,8 +89,8 @@ const Index = (props: IProps) => {
 		setLoadingIndex(true)
 
 		const [Document, timestamp, local_timestamp] = await Promise.all([
-			import('flexsearch').then(res => res.default.Document),
-			getPublic(`/search/timestamp`, { parseResponse: txt => txt }),
+			import('flexsearch').then((res) => res.default.Document),
+			getPublic(`/search/timestamp`, { parseResponse: (txt) => txt }),
 			db.getItem(`search_index_timestamp_${locale}`)
 		])
 
@@ -112,7 +119,7 @@ const Index = (props: IProps) => {
 			}
 		}
 
-		const index_string = await getPublic(`/search/${locale}`, { parseResponse: txt => txt })
+		const index_string = await getPublic(`/search/${locale}`, { parseResponse: (txt) => txt })
 
 		setSearchIndex(search_index, index_string)
 		setLoadingIndex(false)
@@ -121,7 +128,7 @@ const Index = (props: IProps) => {
 		await db.setItem(`search_index_${locale}`, index_string)
 	}, [locale])
 
-	const searchByInput = useMemoizedFn(async v => {
+	const searchByInput = useMemoizedFn(async (v) => {
 		setLoadingItems(true)
 
 		const index = window.__search_index__
@@ -149,7 +156,7 @@ const Index = (props: IProps) => {
 			return setItems({})
 		}
 
-		const items = result.map(item => item.doc)
+		const items = result.map((item) => item.doc)
 
 		setItems(groupBy(items, 'link') as unknown as Items)
 		addHistory(v)
@@ -167,7 +174,7 @@ const Index = (props: IProps) => {
 		{ target: ref }
 	)
 
-	const handleChangeIndex = useMemoizedFn(e => {
+	const handleChangeIndex = useMemoizedFn((e) => {
 		const event = e as KeyboardEvent
 
 		if (event.key === 'Enter') {
@@ -204,11 +211,11 @@ const Index = (props: IProps) => {
 			})
 		}
 
-		if (event.key === 'ArrowUp') {
+		if (event.key === 'ArrowUpIcon') {
 			event.preventDefault()
 
 			if (current.index === null) {
-				const group_index = keys.findIndex(i => i === current.link)
+				const group_index = keys.findIndex((i) => i === current.link)
 
 				if (group_index === 0) return
 
@@ -233,7 +240,7 @@ const Index = (props: IProps) => {
 			}
 		}
 
-		if (event.key === 'ArrowDown') {
+		if (event.key === 'ArrowDownIcon') {
 			event.preventDefault()
 
 			if (current.index === null) {
@@ -243,7 +250,7 @@ const Index = (props: IProps) => {
 				})
 			} else {
 				if (current.index === items[current.link].length - 1) {
-					const group_index = keys.findIndex(i => i === current.link)
+					const group_index = keys.findIndex((i) => i === current.link)
 
 					if (group_index === keys.length - 1) return
 
@@ -323,10 +330,10 @@ const Index = (props: IProps) => {
 			)}
 			<div className='flex flex_column'>
 				<div className='input_wrap w_100 relative flex align_center'>
-					<MagnifyingGlass
+					<MagnifyingGlassIcon
 						className={$.cx('icon_search absolute transition_normal', focusing && 'focusing')}
 						size={18}
-					></MagnifyingGlass>
+					></MagnifyingGlassIcon>
 					<input
 						type='text'
 						className='input_search w_100 border_box'
@@ -341,7 +348,7 @@ const Index = (props: IProps) => {
 							className='btn_clear flex justify_center align_center absolute clickable'
 							onClick={clear}
 						>
-							<X size={15}></X>
+							<XIcon size={15}></XIcon>
 						</div>
 					)}
 				</div>
@@ -354,7 +361,7 @@ const Index = (props: IProps) => {
 					)}
 					{Object.keys(items).length > 0 ? (
 						<div className='search_items flex flex_column'>
-							{Object.keys(items).map(link => (
+							{Object.keys(items).map((link) => (
 								<Group
 									link={link}
 									items={items[link]}
@@ -374,7 +381,7 @@ const Index = (props: IProps) => {
 											className='btn_clear flex justify_center align_center clickable'
 											onClick={clearHistory}
 										>
-											<Trash size={14}></Trash>
+											<TrashIcon size={14}></TrashIcon>
 										</div>
 									</div>
 									<div className='flex flex_wrap' onClick={onSearchItem}>
@@ -398,16 +405,16 @@ const Index = (props: IProps) => {
 					<div className='flex align_center'>
 						<div className='key_item flex align_center mr_18'>
 							<div className='icon_key_wrap border_box flex justify_center align_center'>
-								<ArrowUp></ArrowUp>
+								<ArrowUpIcon></ArrowUpIcon>
 							</div>
 							<div className='icon_key_wrap border_box flex justify_center align_center'>
-								<ArrowDown></ArrowDown>
+								<ArrowDownIcon></ArrowDownIcon>
 							</div>
 							<span className='desc'>{t('search.to_navigate')}</span>
 						</div>
 						<div className='key_item flex align_center'>
 							<div className='icon_key_wrap border_box flex justify_center align_center'>
-								<ArrowBendDownLeft></ArrowBendDownLeft>
+								<ArrowBendDownLeftIcon></ArrowBendDownLeftIcon>
 							</div>
 							<span className='desc'>{t('search.to_select')}</span>
 						</div>

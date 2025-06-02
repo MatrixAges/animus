@@ -1,11 +1,11 @@
 'use client'
 
+import { $ } from '@website/utils'
+
+import { WarningIcon } from '@phosphor-icons/react'
 import katex from 'katex'
 import { useLayoutEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-
-import { Warning } from '@phosphor-icons/react'
-import { $ } from '@website/utils'
 
 import type { PropsWithChildren } from 'react'
 
@@ -32,7 +32,7 @@ const Index = (props: IProps) => {
 		<ErrorBoundary
 			fallback={
 				<div>
-					<Warning size={18}></Warning>
+					<WarningIcon size={18}></WarningIcon>
 				</div>
 			}
 		>

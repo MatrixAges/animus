@@ -1,0 +1,4 @@
+pre-commit:
+      jobs:
+            format:
+                  run: lint-staged --allow-empty

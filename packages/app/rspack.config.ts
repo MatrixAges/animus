@@ -1,8 +1,7 @@
-import { resolve } from 'path'
-
 import { defineConfig } from '@rspack/cli'
 import { CopyRspackPlugin, DefinePlugin, HtmlRspackPlugin, LightningCssMinimizerRspackPlugin } from '@rspack/core'
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh'
+import { resolve } from 'path'
 
 const is_dev = process.env.NODE_ENV === 'development'
 const is_prod = process.env.NODE_ENV === 'production'

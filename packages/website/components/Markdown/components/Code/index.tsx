@@ -1,14 +1,14 @@
 'use client'
 
-import { useMemoizedFn } from 'ahooks'
-import { useLayoutEffect, useRef, useState } from 'react'
+import styles from './index.module.css'
 
-import { Check, Copy } from '@phosphor-icons/react'
 import { useTheme } from '@website/hooks'
 import { $ } from '@website/utils'
 import { highlight } from '@website/utils/shiki'
 
-import styles from './index.module.css'
+import { CheckIcon, CopyIcon } from '@phosphor-icons/react'
+import { useMemoizedFn } from 'ahooks'
+import { useLayoutEffect, useState } from 'react'
 
 import type { BundledLanguage } from 'shiki/bundle/web'
 
@@ -41,7 +41,7 @@ const Index = (props: IProps) => {
 		<div className={$.cx('w_100 border_box relative', styles._local)}>
 			<span className='lang absolute'>{language}</span>
 			<button className='btn_copy flex justify_center align_center absolute clickable' onClick={copy}>
-				{copyied ? <Check></Check> : <Copy></Copy>}
+				{copyied ? <CheckIcon></CheckIcon> : <CopyIcon></CopyIcon>}
 			</button>
 			<div className='w_100 flex' dangerouslySetInnerHTML={{ __html: html }}></div>
 		</div>

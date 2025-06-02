@@ -1,12 +1,12 @@
 'use client'
 
-import { useInViewport, useMemoizedFn } from 'ahooks'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import styles from './index.module.css'
 
-import { Play } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 
-import styles from './index.module.css'
+import { PlayIcon } from '@phosphor-icons/react'
+import { useInViewport, useMemoizedFn } from 'ahooks'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import type { MediaHTMLAttributes, VideoHTMLAttributes } from 'react'
 
@@ -65,7 +65,7 @@ const Index = (props: IProps) => {
 					onClick={play}
 				>
 					<div className='btn_play flex justify_center align_center clickable'>
-						<Play size={30} weight='fill'></Play>
+						<PlayIcon size={30} weight='fill'></PlayIcon>
 					</div>
 				</div>
 			)}
