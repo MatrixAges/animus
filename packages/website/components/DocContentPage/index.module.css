@@ -52,11 +52,6 @@
 	}
 
 	.toc {
-		display: none;
 		width: 100%;
-
-		&.in_drawer {
-			display: flex;
-		}
 	}
 }

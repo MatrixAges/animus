@@ -2,31 +2,29 @@
 
 import styles from './index.module.css'
 
-import { $ } from '@website/utils'
-import { is_server } from '@website/utils/const'
-
 import { XIcon } from '@phosphor-icons/react'
 import { useClickAway } from 'ahooks'
 import { AnimatePresence, motion } from 'motion/react'
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { $, is_server } from 'stk/utils'
 
 import type { CSSProperties, MouseEvent, ReactNode } from 'react'
 
-interface IProps {
+export interface IProps {
 	children: ReactNode
 	open: boolean
 	placement?: 'left' | 'right' | 'top' | 'bottom'
-	className?: HTMLDivElement['className']
-	bodyClassName?: HTMLDivElement['className']
+	class_name?: HTMLDivElement['className']
+	mask_class_name?: HTMLDivElement['className']
+	body_class_name?: HTMLDivElement['className']
 	title?: string | number
 	width?: string | number
 	height?: string | number
-	maskClosable?: boolean
-	disableOverflow?: boolean
-	disablePadding?: boolean
+	mask_closable?: boolean
 	zIndex?: number
 	header_actions?: ReactNode
+	header?: (onClose: IProps['onCancel']) => ReactNode
 	onCancel?: (e?: MouseEvent<HTMLElement>) => void
 	getRef?: (v: HTMLElement | null) => void
 }
@@ -36,16 +34,16 @@ const Index = (props: IProps) => {
 		children,
 		open,
 		placement = 'left',
-		className,
-		bodyClassName,
+		class_name,
+		mask_class_name,
+		body_class_name,
 		title,
 		width,
 		height,
-		maskClosable,
-		disableOverflow,
-		disablePadding,
+		mask_closable,
 		zIndex,
 		header_actions,
+		header,
 		onCancel,
 		getRef
 	} = props
@@ -79,8 +77,8 @@ const Index = (props: IProps) => {
 		}
 	}, [open])
 
-	useClickAway((e) => {
-		if (!maskClosable) return
+	useClickAway(e => {
+		if (!mask_closable) return
 		if (e.target !== ref_content_wrap.current) return
 
 		onCancel?.(e as unknown as MouseEvent<HTMLDivElement>)
@@ -113,6 +111,24 @@ const Index = (props: IProps) => {
 		}
 	}, [placement, width, height])
 
+	const Header = useMemo(() => {
+		if (header) return header(onCancel)
+		if (!title) return null
+
+		return (
+			<div className={$.cx(styles.header, 'w_100 border_box flex justify_between align_center relative')}>
+				<span className='title'>{title}</span>
+				{header_actions ? (
+					header_actions
+				) : (
+					<span className='btn_close flex justify_center align_center clickable' onClick={onCancel}>
+						<XIcon size={16}></XIcon>
+					</span>
+				)}
+			</div>
+		)
+	}, [title, header_actions, onCancel, header])
+
 	if (!exsit) return null
 
 	const Content = (
@@ -120,7 +136,7 @@ const Index = (props: IProps) => {
 			<AnimatePresence>
 				{open && (
 					<motion.div
-						className={$.cx(styles.mask, styles.on_body, 'w_100 h_100')}
+						className={$.cx(styles.mask, styles.on_body, mask_class_name, 'w_100 h_100')}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -135,10 +151,9 @@ const Index = (props: IProps) => {
 						className={$.cx(
 							styles.content_wrap,
 							styles.on_body,
-							disableOverflow && styles.disableOverflow,
-							disablePadding && styles.disablePadding,
-							'if_modal_wrap w_100 h_100 border_box flex',
-							align
+							align,
+							class_name,
+							'if_modal_wrap w_100 h_100 border_box flex'
 						)}
 						ref={ref_content_wrap}
 						style={{ zIndex: zIndex ? zIndex + 1 : 1002 }}
@@ -146,7 +161,6 @@ const Index = (props: IProps) => {
 						<motion.div
 							className={$.cx(
 								styles.content,
-								className,
 								'if_modal_content border_box flex flex_column'
 							)}
 							initial={{ transform }}
@@ -156,31 +170,11 @@ const Index = (props: IProps) => {
 							style={style}
 							ref={ref_content}
 						>
-							{title && (
-								<div
-									className={$.cx(
-										styles.header,
-										'w_100 border_box flex justify_between align_center relative'
-									)}
-								>
-									<span className='title'>{title}</span>
-									{header_actions ? (
-										header_actions
-									) : (
-										<span
-											className='btn_close flex justify_center align_center clickable'
-											onClick={onCancel}
-										>
-											<XIcon size={16}></XIcon>
-										</span>
-									)}
-								</div>
-							)}
+							{Header}
 							<div
 								className={$.cx(
 									styles.body,
-									bodyClassName,
-									disableOverflow && styles.disableOverflow,
+									body_class_name,
 									'if_modal_body w_100 border_box flex flex_column'
 								)}
 								ref={getRef}

@@ -137,7 +137,7 @@
 			margin-inline-start: var(--editor_padding_x);
 			margin-inline-end: var(--editor_padding_x);
 			border-left: 3.6px solid var(--color_border_light);
-			font-size: 0.72em;
+			font-size: 0.9em;
 		}
 
 		video {
