@@ -26,11 +26,11 @@
 					"level": "on",
 					"options": {
 						"groups": [
-							":PATH:",
+							[{ "type": false, "source": ":PATH:" }],
 							":BLANK_LINE:",
-							"@website/**",
+							[{ "type": false, "source": "@website/**" }],
 							":BLANK_LINE:",
-							":ALIAS:",
+							[{ "type": false, "source": ":ALIAS:" }],
 							":BLANK_LINE:",
 							{ "type": false },
 							":BLANK_LINE:"

@@ -4,6 +4,10 @@
 
 [data-theme="dark"] {
 	--from: 0 0 100% 0;
+
+	body {
+		-webkit-font-smoothing: antialiased;
+	}
 }
 
 @keyframes reveal {

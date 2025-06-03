@@ -1,5 +1,4 @@
 import createNextIntlPlugin from 'next-intl/plugin'
-import withRspack from 'next-rspack'
 
 import type { NextConfig } from 'next'
 
@@ -34,20 +33,8 @@ const config: NextConfig = {
 
 		return config
 	}
-	// turbopack: {
-	// 	rules: {
-	// 		'*.inline.svg': {
-	// 			loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
-	// 			as: '*.js'
-	// 		},
-	// 		'*.svg?inline': {
-	// 			loaders: [{ loader: '@svgr/webpack', options: { icon: true } }],
-	// 			as: '*.js'
-	// 		}
-	// 	}
-	// },
 }
 
-// 生产版本不要使用rspack，会导致几倍产物
+// don't use rspack for production
 // export default is_dev ? withRspack(withIntl(config)) : withIntl(config)
 export default withIntl(config)

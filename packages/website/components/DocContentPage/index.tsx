@@ -2,7 +2,7 @@
 
 import styles from './index.module.css'
 
-import { Markdown, Toc } from '@website/components'
+import { Drawer, Markdown, Toc } from '@website/components'
 import { useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
@@ -57,6 +57,18 @@ const Index = (props: IProps) => {
 			>
 				<Toc list={toc}></Toc>
 			</div>
+			<Drawer open={open_toc} width='72vw' maskClosable onCancel={toggle}>
+				<div
+					className={$.cx(
+						'h_100vh border_box fixed top_0 left_0 flex align_center',
+						styles.toc,
+						styles.in_drawer,
+						open_toc && styles.open
+					)}
+				>
+					<Toc list={toc}></Toc>
+				</div>
+			</Drawer>
 		</div>
 	)
 }

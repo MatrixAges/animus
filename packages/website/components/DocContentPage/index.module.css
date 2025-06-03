@@ -43,3 +43,20 @@
 		transform: translateX(0);
 	}
 }
+
+@media (max-width: 720px) {
+	.wrap {
+		&.open_toc {
+			padding-left: 0;
+		}
+	}
+
+	.toc {
+		display: none;
+		width: 100%;
+
+		&.in_drawer {
+			display: flex;
+		}
+	}
+}

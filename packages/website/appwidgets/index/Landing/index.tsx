@@ -1,16 +1,16 @@
 'use client'
 
+import styles from './index.module.css'
+
 import { slogan } from '@website/appdata'
 import { Logo } from '@website/components'
 import { $ } from '@website/utils'
-
-import styles from './index.module.css'
 
 const Index = () => {
 	return (
 		<div
 			className={$.cx(
-				'fixed top_0 w_100vw h_100vh flex flex_column align_center justify_center',
+				'fixed top_0 w_100vw h_100vh border_box flex flex_column align_center justify_center',
 				styles._local
 			)}
 		>

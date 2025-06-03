@@ -1,9 +1,9 @@
-import { writeFileSync } from 'fs'
-import { join } from 'path'
-
 import common from '../theme/common'
 import dark from '../theme/dark'
 import light from '../theme/light'
+
+import { writeFileSync } from 'fs'
+import { join } from 'path'
 
 const output_path = join(process.cwd(), `/public/theme`)
 
