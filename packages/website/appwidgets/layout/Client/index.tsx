@@ -1,20 +1,21 @@
 'use client'
 
+import { PropsWithChildren, useLayoutEffect, useMemo } from 'react'
 import { useIsomorphicLayoutEffect } from 'ahooks'
 import Cookies from 'js-cookie'
 import { minimatch } from 'minimatch'
 import { usePathname } from 'next/navigation'
-import { useLayoutEffect, useMemo, PropsWithChildren } from 'react'
 
 import { ProgressProvider } from '@bprogress/next/app'
 import { LOCALE, THEME } from '@website/appdata'
 import { $ } from '@website/utils'
 
 import { Cookie, Footer, Menu, Progress } from '../'
+
 import styles from './index.module.css'
 
-import type { App } from '@website/types'
 import type { AppProgressProviderProps } from '@bprogress/next'
+import type { App } from '@website/types'
 
 const excludes = ['/docs']
 const progress_path = ['/', '/blog/*']

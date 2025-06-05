@@ -1,11 +1,11 @@
 'use client'
 
-import { useSize, useTheme } from '@website/hooks'
-import { $, mermaidRender } from '@website/utils'
-
-import { WarningIcon } from '@phosphor-icons/react'
 import { useLayoutEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+
+import { WarningIcon } from '@phosphor-icons/react'
+import { useSize, useTheme } from '@website/hooks'
+import { $, mermaidRender } from '@website/utils'
 
 import type { PropsWithChildren } from 'react'
 

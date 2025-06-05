@@ -1,12 +1,12 @@
 'use client'
 
-import styles from './index.module.css'
-
-import { $ } from '@website/utils'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useInViewport, useMemoizedFn } from 'ahooks'
 
 import { PlayIcon } from '@phosphor-icons/react'
-import { useInViewport, useMemoizedFn } from 'ahooks'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { $ } from '@website/utils'
+
+import styles from './index.module.css'
 
 import type { MediaHTMLAttributes, VideoHTMLAttributes } from 'react'
 

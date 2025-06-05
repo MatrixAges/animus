@@ -1,5 +1,5 @@
-import { deepEqual } from 'fast-equals'
 import { memo } from 'react'
+import { deepEqual } from 'fast-equals'
 
 import type { JSX, ReactNode } from 'react'
 

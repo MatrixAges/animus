@@ -1,10 +1,10 @@
-import styles from './index.module.css'
-
-import { $ } from '@website/utils'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
-import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { $ } from '@website/utils'
+
+import styles from './index.module.css'
 
 interface LinkItem {
 	label: string

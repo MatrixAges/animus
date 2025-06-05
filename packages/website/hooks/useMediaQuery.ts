@@ -1,5 +1,5 @@
-import { useMemoizedFn } from 'ahooks'
 import { useEffect, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
 export default (query: string) => {
 	const [value, setValue] = useState(false)

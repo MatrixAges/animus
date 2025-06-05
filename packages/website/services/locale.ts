@@ -4,7 +4,7 @@ import Negotiator from 'negotiator'
 import { cookies, headers } from 'next/headers'
 
 import { match } from '@formatjs/intl-localematcher'
-import { default_locale, locales, LOCALE } from '@website/appdata'
+import { default_locale, LOCALE, locales } from '@website/appdata'
 
 import type { App } from '@website/types'
 

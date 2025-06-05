@@ -1,14 +1,14 @@
 'use client'
 
-import styles from './index.module.css'
+import { useToggle } from 'ahooks'
+import Link from 'next/link'
 
+import { ListIcon, XIcon } from '@phosphor-icons/react'
 import { nav_links } from '@website/appdata'
 import { useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
-import { ListIcon, XIcon } from '@phosphor-icons/react'
-import { useToggle } from 'ahooks'
-import Link from 'next/link'
+import styles from './index.module.css'
 
 const Index = () => {
 	const [visible, { toggle, setLeft }] = useToggle()

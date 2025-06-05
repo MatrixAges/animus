@@ -1,7 +1,7 @@
+import { useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { AlignLeft, Hash } from 'lucide-react'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
 import { $ } from '@website/utils'
 

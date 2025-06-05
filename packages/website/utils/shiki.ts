@@ -1,7 +1,7 @@
 import { createHighlighter } from 'shiki/bundle/web'
 
-import type { BundledLanguage } from 'shiki/bundle/web'
 import type { App } from '@website/types'
+import type { BundledLanguage } from 'shiki/bundle/web'
 
 export const highlight = async (code: string, lang: BundledLanguage, theme: App.Theme) => {
 	const highlighter = await createHighlighter({

@@ -1,14 +1,14 @@
 'use client'
 
-import styles from './index.module.css'
+import { useLayoutEffect, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
+import { CheckIcon, CopyIcon } from '@phosphor-icons/react'
 import { useTheme } from '@website/hooks'
 import { $ } from '@website/utils'
 import { highlight } from '@website/utils/shiki'
 
-import { CheckIcon, CopyIcon } from '@phosphor-icons/react'
-import { useMemoizedFn } from 'ahooks'
-import { useLayoutEffect, useState } from 'react'
+import styles from './index.module.css'
 
 import type { BundledLanguage } from 'shiki/bundle/web'
 

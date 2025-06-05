@@ -1,5 +1,5 @@
-import en from 'antd/locale/en_US'
 import { useEffect, useState } from 'react'
+import en from 'antd/locale/en_US'
 
 import type { App } from '@website/types'
 

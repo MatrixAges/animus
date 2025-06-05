@@ -2,17 +2,16 @@
 
 import '@ant-design/v5-patch-for-react-19'
 
-import { ConfigProvider } from 'antd'
 import { useMemo } from 'react'
+import { ConfigProvider } from 'antd'
 import { memo } from 'stk/react'
 
 import { useAntdLocale } from '@website/hooks'
 import { getAntdTheme } from '@website/theme'
 
-import type { PropsWithChildren } from 'react'
-
-import type { ConfigProviderProps } from 'antd/es/config-provider'
 import type { App } from '@website/types'
+import type { ConfigProviderProps } from 'antd/es/config-provider'
+import type { PropsWithChildren } from 'react'
 
 interface IProps extends PropsWithChildren {
 	locale: App.Locales

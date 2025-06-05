@@ -1,10 +1,10 @@
 'use client'
 
-import styles from './index.module.css'
+import { Anchor } from 'antd'
 
 import { $ } from '@website/utils'
 
-import { Anchor } from 'antd'
+import styles from './index.module.css'
 
 import type { AnchorProps } from 'antd'
 

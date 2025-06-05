@@ -1,13 +1,14 @@
 'use client'
 
-import styles from './index.module.css'
-
-import { XIcon } from '@phosphor-icons/react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
 import { AnimatePresence, motion } from 'motion/react'
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { $, is_server } from 'stk/utils'
+
+import { XIcon } from '@phosphor-icons/react'
+
+import styles from './index.module.css'
 
 import type { MouseEvent, ReactNode } from 'react'
 

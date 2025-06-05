@@ -4,9 +4,9 @@ import Code from './Code'
 import Math from './Math'
 import Mermaid from './Mermaid'
 
+import type { Element, Text } from 'hast'
 import type { HTMLAttributes } from 'react'
 import type { ExtraProps } from 'react-markdown'
-import type { Element, Text } from 'hast'
 import type { BundledLanguage } from 'shiki/bundle/web'
 
 const Index = (props: HTMLAttributes<HTMLPreElement> & ExtraProps) => {

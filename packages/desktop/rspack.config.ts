@@ -3,9 +3,9 @@ import { resolve } from 'path'
 import { defineConfig } from '@rspack/cli'
 import { DefinePlugin } from '@rspack/core'
 
-const is_prod = process.env.MODE === 'prod'
-
 import type { SwcLoaderJscConfig } from '@rspack/core'
+
+const is_prod = process.env.MODE === 'prod'
 
 module.exports = defineConfig({
 	entry: './src/index.ts',

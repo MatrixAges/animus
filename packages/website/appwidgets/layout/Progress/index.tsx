@@ -1,8 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { useEventListener, useMemoizedFn } from 'ahooks'
 import { throttle } from 'lodash-es'
-import { useState } from 'react'
 
 import { $ } from '@website/utils'
 

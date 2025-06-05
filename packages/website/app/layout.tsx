@@ -1,10 +1,10 @@
 import '@website/global_css'
 
+import { Fragment } from 'react'
 import { App } from 'antd'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import Script from 'next/script'
-import { Fragment } from 'react'
 
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { GoogleAnalytics } from '@next/third-parties/google'
@@ -13,9 +13,9 @@ import { Client } from '@website/appwidgets/layout'
 import { ConfigProvider } from '@website/components'
 import { getUserLocale, getUserTheme } from '@website/services'
 
+import type { IPropsClient } from '@website/appwidgets/layout/Client'
 import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
-import type { IPropsClient } from '@website/appwidgets/layout/Client'
 
 const Index = async (props: PropsWithChildren) => {
 	const { children } = props

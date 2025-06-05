@@ -1,13 +1,14 @@
+import { useMemo, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { FileText } from 'lucide-react'
 import Link from 'next/link'
-import { useMemo, useRef } from 'react'
 
 import { $, UpperFirst } from '@website/utils'
 
 import Item from './Item'
 
 import type { IndexItem } from '.'
+
 interface IProps {
 	link: string
 	items: Array<IndexItem>

@@ -1,11 +1,11 @@
 'use client'
 
-import { $ } from '@website/utils'
+import { useLayoutEffect, useRef } from 'react'
+import katex from 'katex'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import { WarningIcon } from '@phosphor-icons/react'
-import katex from 'katex'
-import { useLayoutEffect, useRef } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
+import { $ } from '@website/utils'
 
 import type { PropsWithChildren } from 'react'
 

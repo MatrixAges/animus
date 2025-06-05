@@ -1,10 +1,10 @@
 'use client'
 
-import styles from './index.module.css'
-
 import { slogan } from '@website/appdata'
 import { Logo } from '@website/components'
 import { $ } from '@website/utils'
+
+import styles from './index.module.css'
 
 const Index = () => {
 	return (

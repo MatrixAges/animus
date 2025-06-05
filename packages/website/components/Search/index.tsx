@@ -1,22 +1,6 @@
 'use client'
 
-import Group from './Group'
-import styles from './index.module.css'
-
-import { Loading, LoadingCircle, SimpleEmpty } from '@website/components'
-import { useLocale, useRouterHash } from '@website/hooks'
-import { $ } from '@website/utils'
-import { getPublic } from '@website/utils/ofetch'
-
-import { useRouter } from '@bprogress/next/app'
-import {
-	ArrowBendDownLeftIcon,
-	ArrowDownIcon,
-	ArrowUpIcon,
-	MagnifyingGlassIcon,
-	TrashIcon,
-	XIcon
-} from '@phosphor-icons/react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
 	useAsyncEffect,
 	useEventListener,
@@ -28,9 +12,26 @@ import {
 import db from 'localforage'
 import { debounce, groupBy } from 'lodash-es'
 import { decompressFromUTF16 } from 'lz-string'
-import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+
+import { useRouter } from '@bprogress/next/app'
+import {
+	ArrowBendDownLeftIcon,
+	ArrowDownIcon,
+	ArrowUpIcon,
+	MagnifyingGlassIcon,
+	TrashIcon,
+	XIcon
+} from '@phosphor-icons/react'
+import { Loading, LoadingCircle, SimpleEmpty } from '@website/components'
+import { useLocale, useRouterHash } from '@website/hooks'
+import { $ } from '@website/utils'
+import { getPublic } from '@website/utils/ofetch'
+
+import Group from './Group'
+
+import styles from './index.module.css'
 
 import type { Document as FlexDocument } from 'flexsearch'
 import type { KeyboardEvent, MouseEvent } from 'react'

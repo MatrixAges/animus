@@ -1,5 +1,5 @@
-import type { BlockContent, DefinitionContent, ListItem, PhrasingContent, Text, Link, Paragraph, Heading } from 'mdast'
 import type { AnchorProps } from 'antd'
+import type { BlockContent, DefinitionContent, Heading, Link, ListItem, Paragraph, PhrasingContent, Text } from 'mdast'
 
 const Index = (
 	map: Map<string, Heading>,

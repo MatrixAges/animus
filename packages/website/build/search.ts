@@ -1,5 +1,5 @@
-import { Document } from 'flexsearch'
 import { readFileSync, writeFileSync } from 'fs'
+import { Document } from 'flexsearch'
 import { compressToUTF16 } from 'lz-string'
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { nanoid } from 'nanoid'

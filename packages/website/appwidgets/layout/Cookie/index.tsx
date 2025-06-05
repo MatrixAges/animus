@@ -1,14 +1,14 @@
 'use client'
 
-import styles from './index.module.css'
+import { useEffect, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
+import { useTranslations } from 'next-intl'
 
+import { CookieIcon } from '@phosphor-icons/react'
 import { $ } from '@website/utils'
 import { is_server } from '@website/utils/const'
 
-import { CookieIcon } from '@phosphor-icons/react'
-import { useMemoizedFn } from 'ahooks'
-import { useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import styles from './index.module.css'
 
 const Index = () => {
 	const t = useTranslations('layout')

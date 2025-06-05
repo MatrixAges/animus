@@ -1,8 +1,8 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Select } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
 
 import { locales } from '@website/appdata'
 import { useLocale } from '@website/hooks'

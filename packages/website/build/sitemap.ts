@@ -1,5 +1,5 @@
-import dayjs from 'dayjs'
 import { writeFileSync } from 'fs'
+import dayjs from 'dayjs'
 import { globSync } from 'tinyglobby'
 
 const links = [] as Array<string>

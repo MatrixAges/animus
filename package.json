@@ -9,24 +9,20 @@
 		"build": "turbo run build",
 		"dev:app": "turbo run dev --filter=app",
 		"build:app": "turbo run build --filter=app",
-		"biome": "biome format . --write --staged",
 		"submodule:init": "git submodule update --init --recursive",
 		"submodule:update": "git submodule sync && git submodule update --recursive --remote --merge"
 	},
 	"lint-staged": {
-		"*.{css,md}": [
+		"*.{css,md,js,jsx,ts,tsx}": [
 			"prettier --write"
-		],
-		"*.{js,jsx,ts,tsx}": [
-			"biome format . --write --staged"
 		]
 	},
 	"devDependencies": {
 		"lefthook": "^1.11.13",
-		"@biomejs/biome": "2.0.0-beta.6",
 		"lint-staged": "^15.5.1",
 		"prettier": "^3.5.3",
-		"turbo": "^2.5.0"
+		"turbo": "^2.5.0",
+            "@ianvs/prettier-plugin-sort-imports":"^4.4.2"
 	},
 	"pnpm": {
 		"neverBuiltDependencies": ["phantomjs-prebuilt"]
