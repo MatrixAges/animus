@@ -14,10 +14,10 @@
 		"submodule:update": "git submodule sync && git submodule update --recursive --remote --merge"
 	},
 	"lint-staged": {
-		"*.{md}": [
+		"*.{css,md}": [
 			"prettier --write"
 		],
-		"*.{css,js,jsx,ts,tsx}": [
+		"*.{js,jsx,ts,tsx}": [
 			"biome format . --write --staged"
 		]
 	},

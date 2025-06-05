@@ -21,17 +21,17 @@ declare interface Cookie {
 	value: string
 }
 
-declare var cookieStore = {
-	get: (name: string) => Promise<Cookie>,
-	getAll: (name: string) => Promise<Array<Cookie>>,
+declare interface cookieStore {
+	get: (name: string) => Promise<Cookie>
+	getAll: (name: string) => Promise<Array<Cookie>>
 	set: (
 		name: string,
 		value: string,
 		options?: Omit<Cookie, 'name' | 'value' | 'secure'> & { partitioned: boolean }
-	) => Promise<undefined>,
-	delete: (name: string) => Promise<undefined>,
-	change: (e: any) => any,
-	addEventListener: (type: string, listener: (e: any) => any) => any,
+	) => Promise<undefined>
+	delete: (name: string) => Promise<undefined>
+	change: (e: any) => any
+	addEventListener: (type: string, listener: (e: any) => any) => any
 	removeEventListener: (type: string, listener: (e: any) => any) => any
 }
 
