@@ -1,0 +1,22 @@
+._local {
+	z-index: 1000;
+	height: 48px;
+	padding: 0 36px;
+	background-color: var(--color_bg);
+	gap: 12px;
+	backdrop-filter: var(--blur);
+
+	:global {
+		.btn_fold {
+			padding: 4.8px;
+			margin-left: -6px;
+			border-radius: var(--radius);
+			transition: background-color ease 0.3s;
+			font-size: 16px;
+
+			&:hover {
+				background-color: var(--color_bg_2);
+			}
+		}
+	}
+}

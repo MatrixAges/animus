@@ -1,6 +1,3 @@
 [submodule "packages/stk"]
 	path = packages/stk
 	url = https://github.com/connectionsai/stk.git
-[submodule "packages/lexical"]
-	path = packages/lexical
-	url = https://github.com/connectionsai/lexical.git

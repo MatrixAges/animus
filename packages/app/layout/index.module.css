@@ -1,0 +1,19 @@
+._local {
+	position: relative;
+	margin-left: var(--sidebar_width);
+	background-color: var(--color_bg);
+	transition: margin-left ease 0.18s;
+	will-change: margin-left;
+
+	&.fold {
+		margin-left: 0;
+	}
+
+	:global {
+	}
+}
+
+.container {
+	padding: 0 36px;
+	padding-bottom: 60px;
+}
