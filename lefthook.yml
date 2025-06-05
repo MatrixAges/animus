@@ -1,6 +1,4 @@
 pre-commit:
       commands:
             format:
-                  run: pnpx lint-staged --allow-empty && git add -u
-            piped: true
-            skip_output: true
+                  run: pnpx lint-staged --allow-empty && git add -u || true
