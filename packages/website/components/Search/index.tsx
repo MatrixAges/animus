@@ -76,7 +76,7 @@ const Index = (props: IProps) => {
 	const setSearchIndex = useMemoizedFn((search_index: FlexDocument, v: string) => {
 		const local_index = JSON.parse(decompressFromUTF16(v))
 
-		Object.keys(local_index).forEach((key) => {
+		Object.keys(local_index).forEach(key => {
 			search_index.import(key, local_index[key])
 		})
 
@@ -89,8 +89,8 @@ const Index = (props: IProps) => {
 		setLoadingIndex(true)
 
 		const [Document, timestamp, local_timestamp] = await Promise.all([
-			import('flexsearch').then((res) => res.default.Document),
-			getPublic(`/search/timestamp`, { parseResponse: (txt) => txt }),
+			import('flexsearch').then(res => res.default.Document),
+			getPublic(`/search/timestamp`, { parseResponse: txt => txt }),
 			db.getItem(`search_index_timestamp_${locale}`)
 		])
 
@@ -119,7 +119,7 @@ const Index = (props: IProps) => {
 			}
 		}
 
-		const index_string = await getPublic(`/search/${locale}`, { parseResponse: (txt) => txt })
+		const index_string = await getPublic(`/search/${locale}`, { parseResponse: txt => txt })
 
 		setSearchIndex(search_index, index_string)
 		setLoadingIndex(false)
@@ -128,7 +128,7 @@ const Index = (props: IProps) => {
 		await db.setItem(`search_index_${locale}`, index_string)
 	}, [locale])
 
-	const searchByInput = useMemoizedFn(async (v) => {
+	const searchByInput = useMemoizedFn(async v => {
 		setLoadingItems(true)
 
 		const index = window.__search_index__
@@ -156,7 +156,7 @@ const Index = (props: IProps) => {
 			return setItems({})
 		}
 
-		const items = result.map((item) => item.doc)
+		const items = result.map(item => item.doc)
 
 		setItems(groupBy(items, 'link') as unknown as Items)
 		addHistory(v)
@@ -174,7 +174,7 @@ const Index = (props: IProps) => {
 		{ target: ref }
 	)
 
-	const handleChangeIndex = useMemoizedFn((e) => {
+	const handleChangeIndex = useMemoizedFn(e => {
 		const event = e as KeyboardEvent
 
 		if (event.key === 'Enter') {
@@ -215,7 +215,7 @@ const Index = (props: IProps) => {
 			event.preventDefault()
 
 			if (current.index === null) {
-				const group_index = keys.findIndex((i) => i === current.link)
+				const group_index = keys.findIndex(i => i === current.link)
 
 				if (group_index === 0) return
 
@@ -250,7 +250,7 @@ const Index = (props: IProps) => {
 				})
 			} else {
 				if (current.index === items[current.link].length - 1) {
-					const group_index = keys.findIndex((i) => i === current.link)
+					const group_index = keys.findIndex(i => i === current.link)
 
 					if (group_index === keys.length - 1) return
 
@@ -361,7 +361,7 @@ const Index = (props: IProps) => {
 					)}
 					{Object.keys(items).length > 0 ? (
 						<div className='search_items flex flex_column'>
-							{Object.keys(items).map((link) => (
+							{Object.keys(items).map(link => (
 								<Group
 									link={link}
 									items={items[link]}

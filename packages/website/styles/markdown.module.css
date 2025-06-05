@@ -174,11 +174,11 @@
 			font-size: 0.78em;
 
 			&::before {
-				content: "`";
+				content: '`';
 			}
 
 			&::after {
-				content: "`";
+				content: '`';
 			}
 		}
 
@@ -256,27 +256,27 @@
 
 .callout {
 	:global {
-		[data-callout="note"] {
+		[data-callout='note'] {
 			--rc-color-light: var(--callout-note-color-light, rgb(142, 150, 170));
 			--rc-color-dark: var(--callout-note-color-dark, rgb(101, 117, 133));
 		}
 
-		[data-callout="tip"] {
+		[data-callout='tip'] {
 			--rc-color-light: var(--callout-tip-color-light, rgb(100, 108, 255));
 			--rc-color-dark: var(--callout-tip-color-dark, rgb(100, 108, 255));
 		}
 
-		[data-callout="important"] {
+		[data-callout='important'] {
 			--rc-color-light: var(--callout-important-color-light, rgb(159, 122, 234));
 			--rc-color-dark: var(--callout-important-color-dark, rgb(159, 122, 234));
 		}
 
-		[data-callout="warning"] {
+		[data-callout='warning'] {
 			--rc-color-light: var(--callout-warning-color-light, rgb(234, 179, 8));
 			--rc-color-dark: var(--callout-warning-color-dark, rgb(234, 179, 8));
 		}
 
-		[data-callout="caution"] {
+		[data-callout='caution'] {
 			--rc-color-light: var(--callout-caution-color-light, rgb(244, 63, 94));
 			--rc-color-dark: var(--callout-caution-color-dark, rgb(244, 63, 94));
 		}
@@ -294,11 +294,11 @@
 			border-left: 3.6px solid rgb(from var(--rc-color-light, var(--rc-color-default)) r g b / 0.6);
 			font-size: 0.72em;
 
-			&[data-collapsible="false"] {
+			&[data-collapsible='false'] {
 				padding-top: 6px;
 			}
 
-			&[data-collapsible="true"] {
+			&[data-collapsible='true'] {
 				& > .callout-title {
 					.callout-fold-icon {
 						svg {

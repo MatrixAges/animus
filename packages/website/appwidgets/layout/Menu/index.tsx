@@ -20,7 +20,7 @@ const Index = () => {
 				{visible ? <XIcon></XIcon> : <ListIcon></ListIcon>}
 			</div>
 			<nav className={$.cx('menu_items flex flex_column justify_end', visible && 'visible')}>
-				{nav_links.map((item) => (
+				{nav_links.map(item => (
 					<Link
 						className='menu_item clickable'
 						href={item.href}
