@@ -39,12 +39,26 @@
 	transition: transform ease 0.3s;
 	transform: translateX(-100%);
 
+	&.in_drawer {
+		display: none;
+	}
+
 	&.open {
 		transform: translateX(0);
 	}
 }
 
+.drawer,
+.drawer_mask {
+	display: none !important;
+}
+
 @media (max-width: 720px) {
+	.drawer,
+	.drawer_mask {
+		display: flex !important;
+	}
+
 	.wrap {
 		&.open_toc {
 			padding-left: 0;
@@ -53,5 +67,9 @@
 
 	.toc {
 		width: 100%;
+
+		&.in_drawer {
+			display: flex;
+		}
 	}
 }

@@ -1,5 +1,7 @@
 import createNextIntlPlugin from 'next-intl/plugin'
 
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+
 import type { NextConfig } from 'next'
 
 const withIntl = createNextIntlPlugin('./i18n.ts')
@@ -38,3 +40,5 @@ const config: NextConfig = {
 // don't use rspack for production
 // export default is_dev ? withRspack(withIntl(config)) : withIntl(config)
 export default withIntl(config)
+
+initOpenNextCloudflareForDev()
