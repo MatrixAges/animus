@@ -10,8 +10,9 @@
 				line-height: 1.2;
 				margin: 0;
 				text-align: center;
+				letter-spacing: 2px;
 				font-family: var(--font_serif);
-				font-size: 84px;
+				font-size: 72px;
 				font-weight: 600;
 			}
 		}
@@ -34,7 +35,6 @@
 
 				.slogan {
 					line-height: 1.32;
-					letter-spacing: 2px;
 					font-size: 60px;
 				}
 			}
