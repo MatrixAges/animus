@@ -1,23 +1,32 @@
 ._local {
-	line-height: 1;
+	padding: 0 36px;
 
 	:global {
-		.slogan_wrap {
-			max-width: 720px;
-			margin-bottom: 48px;
+		.heading {
+			margin: 0;
+			text-align: center;
+			font-family: var(--font_serif);
+		}
 
-			.slogan {
-				line-height: 1.2;
-				margin: 0;
-				text-align: center;
-				letter-spacing: 2px;
-				font-family: var(--font_serif);
-				font-size: 72px;
-				font-weight: 600;
-			}
+		.slogan {
+			line-height: 1;
+			margin-bottom: 12px;
+			letter-spacing: 2px;
+			font-size: 81px;
+			font-weight: 600;
+		}
+
+		.desc {
+			width: 420px;
+			line-height: 1.32;
+			margin-bottom: 36px;
+			color: var(--color_text_sublight);
+			font-size: 27px;
+			font-weight: 500;
 		}
 
 		.name {
+			line-height: 1;
 			font-size: 21px;
 			font-weight: 500;
 			margin-block: 0;
@@ -27,16 +36,16 @@
 
 @media (max-width: 720px) {
 	._local {
-		padding: 0 60px;
-
 		:global {
-			.slogan_wrap {
-				width: 240px;
+			.slogan {
+				width: 300px;
+				line-height: 1.11;
+				font-size: 60px;
+			}
 
-				.slogan {
-					line-height: 1.32;
-					font-size: 60px;
-				}
+			.desc {
+				width: 360px;
+				font-size: 21px;
 			}
 
 			.name {

@@ -11,6 +11,7 @@
 		"build:blog": "bun ./build/blog",
 		"make": "opennextjs-cloudflare build",
 		"preview": "opennextjs-cloudflare preview",
+		"upload": "opennextjs-cloudflare deploy",
 		"deploy": "pnpm run make && opennextjs-cloudflare deploy"
 	},
 	"keywords": [],

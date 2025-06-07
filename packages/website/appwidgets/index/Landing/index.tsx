@@ -1,6 +1,6 @@
 'use client'
 
-import { name, slogan_0, slogan_1 } from '@website/appdata'
+import { description, name, slogan } from '@website/appdata'
 import { Logo } from '@website/components'
 import { $ } from '@website/utils'
 
@@ -14,9 +14,9 @@ const Index = () => {
 				styles._local
 			)}
 		>
-			<div className='slogan_wrap flex flex_column'>
-				<h2 className='slogan slogan_0'>{slogan_0}</h2>
-				<h2 className='slogan slogan_1'>{slogan_1}</h2>
+			<div className='flex flex_column align_center'>
+				<h2 className='heading slogan'>{slogan}</h2>
+				<h3 className='heading desc'>{description}</h3>
 			</div>
 			<Logo size={60}></Logo>
 			<h1 className='name'>{name}</h1>
