@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
-import { debounce } from 'lodash-es'
+import { debounce } from 'es-toolkit'
 
 export default (callback: () => void) => {
 	const [node, setRef] = useState<HTMLDivElement>()

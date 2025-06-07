@@ -9,8 +9,8 @@ import {
 	useMemoizedFn,
 	useUpdateEffect
 } from 'ahooks'
+import { debounce, groupBy } from 'es-toolkit'
 import db from 'localforage'
-import { debounce, groupBy } from 'lodash-es'
 import { decompressFromUTF16 } from 'lz-string'
 import { useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
@@ -159,7 +159,7 @@ const Index = (props: IProps) => {
 
 		const items = result.map(item => item.doc)
 
-		setItems(groupBy(items, 'link') as unknown as Items)
+		setItems(groupBy(items, item => item.link) as unknown as Items)
 		addHistory(v)
 	})
 

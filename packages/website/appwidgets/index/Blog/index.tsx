@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { useEventListener, useMemoizedFn } from 'ahooks'
-import { throttle } from 'lodash-es'
+import { throttle } from 'es-toolkit'
 
 import { Markdown } from '@website/components'
 import { $ } from '@website/utils'

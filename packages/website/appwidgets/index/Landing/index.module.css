@@ -2,15 +2,18 @@
 	line-height: 1;
 
 	:global {
-		.slogan {
+		.slogan_wrap {
 			max-width: 720px;
-			line-height: 1.2;
-			margin: 0;
-			margin-bottom: 36px;
-			text-align: center;
-			font-family: var(--font_serif);
-			font-size: 72px;
-			font-weight: 600;
+			margin-bottom: 48px;
+
+			.slogan {
+				line-height: 1.2;
+				margin: 0;
+				text-align: center;
+				font-family: var(--font_serif);
+				font-size: 84px;
+				font-weight: 600;
+			}
 		}
 
 		.name {
@@ -26,11 +29,14 @@
 		padding: 0 60px;
 
 		:global {
-			.slogan {
-				line-height: 1.5;
-				text-transform: uppercase;
-				letter-spacing: 2px;
-				font-size: 45px;
+			.slogan_wrap {
+				width: 240px;
+
+				.slogan {
+					line-height: 1.32;
+					letter-spacing: 2px;
+					font-size: 60px;
+				}
 			}
 
 			.name {

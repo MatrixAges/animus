@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { debounce } from 'lodash-es'
+import { debounce } from 'es-toolkit/compat'
 import { getComputedStyleValue } from 'stk/utils'
 
 export default (getTargetElement: () => HTMLElement, attr?: 'width' | 'height') => {

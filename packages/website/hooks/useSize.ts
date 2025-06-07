@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
-import { debounce } from 'lodash-es'
+import { debounce } from 'es-toolkit'
 
 import { getComputedStyleValue } from '@website/utils'
 

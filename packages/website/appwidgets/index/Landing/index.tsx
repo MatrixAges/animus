@@ -1,6 +1,6 @@
 'use client'
 
-import { slogan } from '@website/appdata'
+import { name, slogan_0, slogan_1 } from '@website/appdata'
 import { Logo } from '@website/components'
 import { $ } from '@website/utils'
 
@@ -14,9 +14,12 @@ const Index = () => {
 				styles._local
 			)}
 		>
-			<h2 className='slogan'>{slogan}</h2>
+			<div className='slogan_wrap flex flex_column'>
+				<h2 className='slogan slogan_0'>{slogan_0}</h2>
+				<h2 className='slogan slogan_1'>{slogan_1}</h2>
+			</div>
 			<Logo size={60}></Logo>
-			<h1 className='name'>Animus</h1>
+			<h1 className='name'>{name}</h1>
 		</div>
 	)
 }

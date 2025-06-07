@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useEventListener, useMemoizedFn } from 'ahooks'
-import { throttle } from 'lodash-es'
+import { throttle } from 'es-toolkit'
 
 interface Args {
 	throttle_time?: number
