@@ -24,7 +24,7 @@
 		"decimal.js": "^10.5.0",
 		"fast-equals": "^5.2.2",
 		"i18next": "^25.2.1",
-		"es-toolkit": "^1.39.2",
+		"es-toolkit": "^1.39.3",
 		"lowlight": "^3.3.0",
 		"lucide-react": "^0.513.0",
 		"mobx": "^6.13.7",
