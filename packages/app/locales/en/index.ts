@@ -1,7 +1,11 @@
 import app from './app'
+import global from './global'
+import setting from './setting'
 
 export default {
 	translation: {
-		app
+		...global,
+		app,
+		setting
 	}
 } as const

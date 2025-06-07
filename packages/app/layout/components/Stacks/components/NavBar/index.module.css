@@ -1,0 +1,167 @@
+.Column {
+	height: 36px;
+	border-right: var(--border);
+	transition: width ease 0.18s;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&::after {
+		position: absolute;
+		z-index: 0;
+		bottom: 0;
+		display: block;
+		width: 100%;
+		border-bottom: var(--border);
+		content: '';
+	}
+
+	&.resizing {
+		transition: none;
+	}
+
+	&.isOver {
+		background-color: var(--color_bg_1);
+	}
+
+	&.mac_with_homepage {
+		&::before {
+			bottom: 0;
+			left: 0;
+			width: 72px;
+			height: 1px;
+			background-color: var(--color_border_light);
+			content: '';
+		}
+	}
+
+	:global {
+		.drag_wrap {
+			outline: none;
+		}
+
+		.btn_homepage {
+			width: 36px;
+			font-size: 15px;
+
+			&:hover {
+				background-color: var(--color_bg_1);
+			}
+		}
+
+		.scroll_wrap {
+			--width_mac_light: 0px;
+			--width_homepage_btn: 0px;
+			--width_win_actions: 0px;
+
+			width: calc(100% - var(--width_mac_light) - var(--width_homepage_btn) - var(--width_win_actions));
+
+			&.show_homepage_btn {
+				--width_homepage_btn: 36px;
+
+				border-left: var(--border);
+
+				&.is_mac_electron {
+					--width_mac_light: 72px;
+				}
+			}
+
+			&.column_is_last {
+				--width_win_actions: 108px;
+			}
+		}
+
+		.nav_bar_item_wrap {
+			position: relative;
+			line-height: 1;
+			padding: 0 12px;
+			border: none;
+			border-right: var(--border);
+			border-radius: 0;
+			outline: none !important;
+			background-color: var(--color_bg);
+			box-shadow: none;
+			user-select: none;
+			transition: none;
+			font-style: italic;
+			row-gap: unset;
+			column-gap: unset;
+
+			&:hover {
+				border-right-color: var(--color_border_light) !important;
+			}
+
+			&:hover {
+				.icon_module_wrap {
+					display: none;
+				}
+
+				.btn_remove {
+					display: flex;
+					color: rgba(var(--color_text_rgb), 0.72);
+				}
+			}
+
+			&.active {
+				z-index: 1;
+
+				.nav_bar_item {
+					opacity: 1;
+				}
+
+				.icon_module_wrap {
+					display: none;
+				}
+
+				.btn_remove {
+					display: flex;
+				}
+			}
+
+			&.is_fixed {
+				font-style: normal;
+			}
+
+			&.isDragging {
+				opacity: 0;
+			}
+
+			&.is_focus {
+				.btn_remove {
+					color: rgba(var(--color_text_rgb), 0.72);
+				}
+			}
+
+			.nav_bar_item {
+				opacity: 0.6;
+			}
+
+			.name_wrap {
+				overflow: scroll;
+				max-width: 90px;
+				line-height: 16px;
+				outline: none;
+				font-size: 12px;
+			}
+
+			.icon_module_wrap {
+				display: flex;
+				width: 18px;
+				height: 18px;
+			}
+
+			.btn_remove {
+				display: none;
+				width: 18px;
+				height: 18px;
+				border-radius: var(--radius_small);
+				color: rgba(var(--color_text_rgb), 0.3);
+
+				&:hover {
+					background-color: var(--color_bg_2);
+				}
+			}
+		}
+	}
+}

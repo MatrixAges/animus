@@ -1,7 +1,5 @@
 import '@abraham/reflection'
-import '@omnitable/appframe/init.css'
-import '@/styles/index.css'
-import 'presets'
+import '@/presets'
 
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'

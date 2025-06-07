@@ -1,0 +1,18 @@
+._local {
+	:global {
+		.nav_bar_item_wrap {
+			&.drag_overlay {
+				border-color: var(--color_text);
+
+				.name_wrap {
+					overflow: hidden;
+					max-width: 90px;
+				}
+
+				.btn_remove {
+					display: none !important;
+				}
+			}
+		}
+	}
+}

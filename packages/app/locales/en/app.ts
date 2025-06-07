@@ -1,3 +1,6 @@
 export default {
-	test: 'Test'
+	module: {
+		note: 'Note',
+		chat: 'Chat'
+	}
 }

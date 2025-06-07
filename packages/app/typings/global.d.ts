@@ -19,6 +19,12 @@ interface $App {
 
 declare global {
 	interface Window {
+		$shell?: {
+			type: 'electron'
+			platform: 'darwin' | 'win32'
+			stopLoading: () => void
+		}
+
 		$is_dev: boolean
 		$is_prod: boolean
 

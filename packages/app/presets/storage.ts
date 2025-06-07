@@ -1,3 +1,3 @@
-import { setPrefix } from '@omnitable/stk/storage'
+import { setPrefix } from 'stk/storage'
 
 setPrefix('intel')

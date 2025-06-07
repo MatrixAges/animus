@@ -1,0 +1,58 @@
+._local {
+	:global {
+		.version {
+			font-size: 12px;
+		}
+
+		.media_wrap {
+			.media_item {
+				margin: 0 6px;
+				text-decoration: underline;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+
+		.statement {
+			width: 81%;
+			padding: 12px;
+			margin-top: 9px;
+			font-family: 'SourceSerif4', Georgia, ui-serif, serif;
+
+			.words {
+				line-height: 1.32;
+				margin-bottom: 15px;
+				font-size: 30px;
+				font-weight: 500;
+
+				&::before {
+					content: '“';
+				}
+
+				&::after {
+					content: '”';
+				}
+			}
+
+			.person {
+				color: var(--color_text_light);
+			}
+		}
+
+		.link_wrap {
+			bottom: -36px;
+			line-height: 1;
+			font-size: 12px;
+
+			a {
+				color: var(--color_text_light);
+
+				&:hover {
+					color: var(--color_text);
+				}
+			}
+		}
+	}
+}

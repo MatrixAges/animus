@@ -1,5 +1,10 @@
+export { default as flat } from './flat'
+export { default as ipc } from './ipc'
 export { default as getLang } from './getLang'
 export { default as setGlobalAnimation } from './setGlobalAnimation'
-export { default as cube } from './cube'
+export { default as relaunch } from './relaunch'
+export { default as clearStorage } from './clearStorage'
 
 export * from './i18n'
+export * from './is'
+export * from './antd'

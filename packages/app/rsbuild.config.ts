@@ -11,25 +11,13 @@ const postcss_plugins = ['autoprefixer', 'postcss-import', 'postcss-nested', 'po
 export default {
 	source: { entry: { index: './runtime/index.tsx' }, decorators: { version: 'legacy' } },
 	output: { legalComments: 'none' },
-	html: {
-		title: 'Omnitable for cube & supabase production examples.',
-		template: './public/index.html'
-	},
+	html: { title: 'Animus - Grow with AI.', template: './public/index.html' },
 	plugins: [pluginReact(), pluginSvgr()],
 	performance: { removeConsole: is_prod },
-	server: {
-		port: 666,
-		cors: {
-			origin: ['http://localhost:8787']
-		}
-	},
+	server: { port: 666, cors: { origin: ['http://localhost:8787'] } },
 	tools: {
-		lightningcssLoader: {
-			targets: 'chrome >= 120',
-			exclude: { isSelector: true }
-		},
-		postcss: (_, { addPlugins }) => {
-			addPlugins(postcss_plugins.map(item => require(item)))
-		}
+		lightningcssLoader: { targets: 'chrome >= 120', exclude: { isSelector: true } },
+		postcss: { postcssOptions: { config: false, plugins: postcss_plugins.map(item => require(item)) } },
+		swc: { jsc: { experimental: { plugins: [['swc-plugin-jsx-control-statements', {}]] } } }
 	}
 } as RsbuildConfig

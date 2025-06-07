@@ -1,0 +1,21 @@
+.position_wrap {
+	overflow: hidden;
+}
+
+._local {
+	overflow: scroll;
+	outline: none;
+
+	&.breakpoint_390 {
+		--limited_padding: 48px;
+	}
+
+	:global {
+		.if-modal-root {
+			.if-modal-mask,
+			.if-modal-wrap {
+				position: absolute;
+			}
+		}
+	}
+}

@@ -1,8 +1,7 @@
 import cx from 'classix'
 import rfdc from 'rfdc'
-
-import Emittery from '@omnitable/stk/emittery'
-import { handle, memo } from '@omnitable/stk/react'
+import Emittery from 'stk/emittery'
+import { handle, memo } from 'stk/react'
 
 import type { MessageInstance } from 'antd/es/message/interface'
 import type { ModalStaticFunctions } from 'antd/es/modal/confirm'

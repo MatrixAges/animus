@@ -1,0 +1,38 @@
+.Column {
+	height: calc(100vh - 36px);
+	border-right: var(--border);
+	transition: width ease 0.18s;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&.resizing {
+		transition: none;
+	}
+}
+
+.droppable_container {
+	z-index: 100;
+	width: 50%;
+
+	&.isOver {
+		background-color: rgba(var(--color_text_rgb), 0.09);
+	}
+}
+
+.drag_line {
+	left: -2px;
+	width: 3px;
+	opacity: 0;
+	background-color: var(--color_border);
+	cursor: col-resize;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.dragging {
+		opacity: 1;
+	}
+}

@@ -8,3 +8,5 @@ const GlobalContext = createContext<Model>()
 export const GlobalProvider = GlobalContext.Provider
 
 export const useGlobal = () => useContext(GlobalContext)
+
+export { Model as GlobalModel }
