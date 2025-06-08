@@ -1,4 +1,4 @@
-import { getAppPath, is_dev } from '@electron/utils'
+import { getAppPath, is_dev } from '@desktop/utils'
 
 export const getLoadURL = (path: string, search_params?: Record<string, string>) => {
 	const query_string = search_params ? `?${new URLSearchParams(search_params).toString()}` : ''

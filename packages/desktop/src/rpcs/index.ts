@@ -1,4 +1,4 @@
-import { router } from '@electron/utils'
+import { router } from '@desktop/utils'
 
 import app from './app'
 import iap from './iap'

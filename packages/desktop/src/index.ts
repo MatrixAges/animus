@@ -1,10 +1,9 @@
-import '@electron/utils/createMID'
-
-import { app, ipcMain, shell, BrowserWindow, WebContentsView } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, WebContentsView } from 'electron'
 import { createIPCHandler } from 'electron-trpc/main'
-import i18next from 'i18next'
 
-import { emitter_verify, verify } from '@electron/services'
+import '@desktop/utils/locale'
+
+import { emitter_verify, verify } from '@desktop/services'
 
 import config from '../config'
 import { Main, Menu, Tray } from './controls'
@@ -12,7 +11,6 @@ import { routers } from './rpcs'
 import { conf, is_mac, show_devtool } from './utils'
 
 import type { Tray as TrayType } from 'electron'
-import type { App } from './types'
 
 if (!app.requestSingleInstanceLock()) app.exit()
 
@@ -45,16 +43,6 @@ class App {
 
 			this.load()
 			this.events()
-
-			// if (show_devtool) {
-			// 	if (process.platform === 'win32') {
-			// 		const win_devtools = new BrowserWindow()
-
-			// 		this.window.webContents.setDevToolsWebContents(win_devtools.webContents)
-			// 	}
-
-			// 	this.window.webContents.openDevTools({ mode: 'detach' })
-			// }
 
 			createIPCHandler({
 				createContext: async () => ({ win: this.window!, tray: this.tray! }),
@@ -120,22 +108,7 @@ class App {
 }
 
 if (process.platform === 'darwin') {
-	new Menu()
+	Menu()
 }
-
-const conf_lang = await conf.get('lang')
-const sys_lang = app.getLocale().indexOf('zh') !== -1 ? 'zh' : 'en'
-const lang = (conf_lang || sys_lang) as App.Lang
-
-const { default: locale } = await import(`./locales/${lang}`)
-
-i18next.init({
-	initAsync: false,
-	lng: lang,
-	fallbackLng: lang,
-	load: 'languageOnly',
-	returnObjects: true,
-	resources: { [lang]: locale }
-})
 
 new App().init()

@@ -1,4 +1,4 @@
-import { notarize } from '@electron/notarize'
+import { notarize } from '@desktop/notarize'
 
 import type { AfterPackContext } from 'electron-builder'
 

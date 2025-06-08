@@ -1,6 +1,6 @@
 import { autoUpdater } from 'electron-updater'
 
-import { p, r2_url } from '@electron/utils'
+import { p, r2_url } from '@desktop/utils'
 import { observable } from '@trpc/server/observable'
 
 import type { ProgressInfo, UpdateInfo } from 'electron-updater'

@@ -1,4 +1,4 @@
-import { p } from '@electron/utils'
+import { p } from '@desktop/utils'
 import { observable } from '@trpc/server/observable'
 
 type Res = { type: 'blur'; value: boolean } | { type: 'maximize'; value: boolean }

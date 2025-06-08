@@ -1,9 +1,9 @@
-import dayjs from 'dayjs'
 import EventEmitter from 'events'
+import dayjs from 'dayjs'
 
-import { conf, decode, now_ms } from '@electron/utils'
+import { conf, decode, now_ms } from '@desktop/utils'
 
-import type { App } from '@electron/types'
+import type { App } from '@desktop/types'
 
 export const emitter_verify = new EventEmitter()
 

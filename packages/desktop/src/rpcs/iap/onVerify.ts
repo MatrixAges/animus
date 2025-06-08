@@ -1,5 +1,5 @@
-import { emitter_verify } from '@electron/services'
-import { p } from '@electron/utils'
+import { emitter_verify } from '@desktop/services'
+import { p } from '@desktop/utils'
 import { observable } from '@trpc/server/observable'
 
 export default p.subscription(() =>

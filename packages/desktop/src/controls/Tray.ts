@@ -1,13 +1,13 @@
-import { app, screen, BrowserWindow, Menu, Tray } from 'electron'
+import { app, BrowserWindow, Menu, screen, Tray } from 'electron'
 import positioner from 'electron-traywindow-positioner'
 import { t } from 'i18next'
 
-import { conf, getLoadURL, getPath, is_win } from '@electron/utils'
+import { conf, getLoadURL, getPath, is_win } from '@desktop/utils'
 
 import config, { common_window_web_preferences } from '../../config'
 
+import type { App } from '@desktop/types'
 import type { Tray as ITray } from 'electron'
-import type { App } from '@electron/types'
 
 export default class Index {
 	private window: BrowserWindow | null

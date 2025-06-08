@@ -1,4 +1,4 @@
-import { getAppPath, getPath, is_dev, is_win, show_devtool } from '@electron/utils'
+import { getAppPath, getPath, is_dev, is_win, show_devtool } from '@desktop/utils'
 
 import type { BrowserWindowConstructorOptions } from 'electron'
 

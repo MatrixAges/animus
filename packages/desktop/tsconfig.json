@@ -4,21 +4,16 @@
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"lib": ["ESNEXT"],
-		"moduleResolution": "Node",
+		"moduleResolution": "Bundler",
 		"strict": true,
 		"baseUrl": "../",
 		"esModuleInterop": true,
 		"paths": {
 			"@desktop/*": ["./desktop/src/*"],
-			"@shared/*": ["./shared/*"]
+			"@app/*": ["./app/*"]
 		},
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true
 	},
-	"include": ["src", "typings"],
-	"ts-node": {
-		"compilerOptions": {
-			"module": "commonjs"
-		}
-	}
+	"include": ["src", "typings"]
 }

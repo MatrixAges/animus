@@ -1,6 +1,6 @@
 import { boolean, literal, number, object, string } from 'zod'
 
-import { conf, decode, encode, now_ms, p } from '@electron/utils'
+import { conf, decode, encode, now_ms, p } from '@desktop/utils'
 
 const input_type = object({
 	is_infinity: boolean().optional(),

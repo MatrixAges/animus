@@ -1,7 +1,7 @@
 import { app, nativeImage } from 'electron'
 import { object, string } from 'zod'
 
-import { p } from '@electron/utils'
+import { p } from '@desktop/utils'
 
 import config from '../../../config'
 

@@ -1,4 +1,4 @@
-import { router } from '@electron/utils'
+import { router } from '@desktop/utils'
 
 import onVerify from './onVerify'
 import savePaidInfo from './savePaidInfo'
