@@ -24,9 +24,10 @@ export interface IProps {
 	height?: string | number
 	mask_closable?: boolean
 	hide_close?: boolean
-	zIndex?: number
-	header?: (onClose: IProps['onCancel']) => ReactNode
-	onCancel?: (e?: MouseEvent<HTMLElement>) => void
+	z_index?: number
+	body_lock?: boolean
+	header?: (onClose: IProps['onClose']) => ReactNode
+	onClose?: (e?: MouseEvent<HTMLElement>) => void
 	getContainer?: () => Element
 	getRef?: (v: HTMLDivElement) => void
 }
@@ -44,9 +45,10 @@ const Index = (props: IProps) => {
 		height,
 		mask_closable,
 		hide_close,
-		zIndex,
+		z_index,
+		body_lock = true,
 		header,
-		onCancel,
+		onClose,
 		getContainer,
 		getRef
 	} = props
@@ -60,12 +62,18 @@ const Index = (props: IProps) => {
 	const container = getContainer?.() || document.body
 
 	useEffect(() => {
+		if (!body_lock && document.body.hasAttribute('data-scroll-locked')) {
+			document.body.removeAttribute('data-scroll-locked')
+		}
+
+		if (is_server) return
+
 		if (open) {
 			setExsit(true)
 
-			document.body.style.setProperty('overflow-y', 'hidden')
+			if (body_lock) document.body.setAttribute('data-scroll-locked', '1')
 
-			const handle_hash_change = () => onCancel?.()
+			const handle_hash_change = () => onClose?.()
 
 			window.addEventListener('popstate', handle_hash_change)
 
@@ -77,17 +85,17 @@ const Index = (props: IProps) => {
 				setExsit(false)
 			}, 180)
 
-			document.body.style.removeProperty('overflow-y')
+			if (body_lock) document.body.removeAttribute('data-scroll-locked')
 
 			return () => clearTimeout(timer)
 		}
-	}, [open])
+	}, [open, body_lock])
 
 	useClickAway(e => {
 		if (!mask_closable) return
 		if (e.target !== ref_content_wrap.current) return
 
-		onCancel?.(e as unknown as MouseEvent<HTMLDivElement>)
+		onClose?.(e as unknown as MouseEvent<HTMLDivElement>)
 	}, ref_content)
 
 	useEffect(() => {
@@ -95,20 +103,20 @@ const Index = (props: IProps) => {
 	}, [container])
 
 	const Header = useMemo(() => {
-		if (header) return header(onCancel)
+		if (header) return header(onClose)
 		if (!title) return null
 
 		return (
 			<div className={$.cx(styles.header, 'w_100 border_box flex justify_between align_center')}>
 				<span className='title'>{title}</span>
 				{!hide_close && (
-					<span className='btn_close flex justify_center align_center clickable' onClick={onCancel}>
+					<span className='btn_close flex justify_center align_center clickable' onClick={onClose}>
 						<XIcon size={14}></XIcon>
 					</span>
 				)}
 			</div>
 		)
-	}, [title, hide_close, onCancel, header])
+	}, [title, hide_close, onClose, header])
 
 	if (!exsit) return null
 
@@ -127,7 +135,7 @@ const Index = (props: IProps) => {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.18, ease: 'easeInOut' }}
-						style={{ zIndex: zIndex ?? 1001 }}
+						style={{ z_index: z_index ?? 1001 }}
 					></motion.div>
 				)}
 			</AnimatePresence>
@@ -145,7 +153,7 @@ const Index = (props: IProps) => {
 						animate={{ transform: 'translate3d(0px, 0px, 0px)', opacity: 1 }}
 						exit={{ transform: 'translate3d(0px, 30px, 0px)', opacity: 0 }}
 						transition={{ duration: 0.18, ease: 'easeInOut' }}
-						style={{ zIndex: zIndex ? zIndex + 1 : 1002 }}
+						style={{ z_index: z_index ? z_index + 1 : 1002 }}
 					>
 						<div
 							className={$.cx(

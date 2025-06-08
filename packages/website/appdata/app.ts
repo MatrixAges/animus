@@ -1,6 +1,6 @@
 export const name = 'Animus'
 export const slogan = 'Grow with AI'
-export const description = 'Designed for searching, chatting, writing and automating'
+export const description = 'Designed for exploring, chatting, writing and automating'
 
 export const nav_links = [
 	{

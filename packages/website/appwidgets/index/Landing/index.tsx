@@ -18,8 +18,10 @@ const Index = () => {
 				<h2 className='heading slogan'>{slogan}</h2>
 				<h3 className='heading desc'>{description}</h3>
 			</div>
-			<Logo size={60}></Logo>
-			<h1 className='name'>{name}</h1>
+			<div className='brand_wrap absolute flex flex_column align_center'>
+				<Logo size={60}></Logo>
+				<h1 className='name'>{name}</h1>
+			</div>
 		</div>
 	)
 }

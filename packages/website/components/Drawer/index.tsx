@@ -23,10 +23,10 @@ export interface IProps {
 	width?: string | number
 	height?: string | number
 	mask_closable?: boolean
-	zIndex?: number
-	header_actions?: ReactNode
-	header?: (onClose: IProps['onCancel']) => ReactNode
-	onCancel?: (e?: MouseEvent<HTMLElement>) => void
+	z_index?: number
+	body_lock?: boolean
+	header?: (onClose: IProps['onClose']) => ReactNode
+	onClose?: (e?: MouseEvent<HTMLElement>) => void
 	getRef?: (v: HTMLElement | null) => void
 }
 
@@ -42,10 +42,10 @@ const Index = (props: IProps) => {
 		width,
 		height,
 		mask_closable,
-		zIndex,
-		header_actions,
+		z_index,
+		body_lock = true,
 		header,
-		onCancel,
+		onClose,
 		getRef
 	} = props
 	const ref_content_wrap = useRef<HTMLDivElement>(null)
@@ -53,14 +53,18 @@ const Index = (props: IProps) => {
 	const [exsit, setExsit] = useState(false)
 
 	useEffect(() => {
+		if (!body_lock && document.body.hasAttribute('data-scroll-locked')) {
+			document.body.removeAttribute('data-scroll-locked')
+		}
+
 		if (is_server) return
 
 		if (open) {
 			setExsit(true)
 
-			document.body.setAttribute('data-scroll-locked', '1')
+			if (body_lock) document.body.setAttribute('data-scroll-locked', '1')
 
-			const handle_hash_change = () => onCancel?.()
+			const handle_hash_change = () => onClose?.()
 
 			window.addEventListener('popstate', handle_hash_change)
 
@@ -72,17 +76,17 @@ const Index = (props: IProps) => {
 				setExsit(false)
 			}, 180)
 
-			document.body.removeAttribute('data-scroll-locked')
+			if (body_lock) document.body.removeAttribute('data-scroll-locked')
 
 			return () => clearTimeout(timer)
 		}
-	}, [open])
+	}, [open, body_lock])
 
 	useClickAway(e => {
 		if (!mask_closable) return
 		if (e.target !== ref_content_wrap.current) return
 
-		onCancel?.(e as unknown as MouseEvent<HTMLDivElement>)
+		onClose?.(e as unknown as MouseEvent<HTMLDivElement>)
 	}, ref_content)
 
 	const { align, transform, style } = useMemo(() => {
@@ -113,22 +117,18 @@ const Index = (props: IProps) => {
 	}, [placement, width, height])
 
 	const Header = useMemo(() => {
-		if (header) return header(onCancel)
+		if (header) return header(onClose)
 		if (!title) return null
 
 		return (
 			<div className={$.cx(styles.header, 'w_100 border_box flex justify_between align_center relative')}>
 				<span className='title'>{title}</span>
-				{header_actions ? (
-					header_actions
-				) : (
-					<span className='btn_close flex justify_center align_center clickable' onClick={onCancel}>
-						<XIcon size={16}></XIcon>
-					</span>
-				)}
+				<span className='btn_close flex justify_center align_center clickable' onClick={onClose}>
+					<XIcon size={16}></XIcon>
+				</span>
 			</div>
 		)
-	}, [title, header_actions, onCancel, header])
+	}, [title, onClose, header])
 
 	if (!exsit) return null
 
@@ -142,7 +142,7 @@ const Index = (props: IProps) => {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.18, ease: 'easeInOut' }}
-						style={{ zIndex: zIndex ?? 1001 }}
+						style={{ z_index: z_index ?? 1001 }}
 					></motion.div>
 				)}
 			</AnimatePresence>
@@ -157,7 +157,7 @@ const Index = (props: IProps) => {
 							'if_modal_wrap w_100 h_100 border_box flex'
 						)}
 						ref={ref_content_wrap}
-						style={{ zIndex: zIndex ? zIndex + 1 : 1002 }}
+						style={{ z_index: z_index ? z_index + 1 : 1002 }}
 					>
 						<motion.div
 							className={$.cx(

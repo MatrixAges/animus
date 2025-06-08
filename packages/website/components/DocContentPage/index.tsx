@@ -5,7 +5,7 @@ import { useLocalStorageState, useMemoizedFn } from 'ahooks'
 
 import { SidebarIcon } from '@phosphor-icons/react'
 import { Drawer, Markdown, Toc } from '@website/components'
-import { useUserMove } from '@website/hooks'
+import { useMediaQuery, useUserMove } from '@website/hooks'
 import { $ } from '@website/utils'
 
 import styles from './index.module.css'
@@ -26,6 +26,7 @@ const Index = (props: IProps) => {
 	const [open_toc, setOpenToc] = useState(false)
 	const [blog_open_toc, setBlogOpenToc] = useLocalStorageState<boolean>('blog_open_toc')
 	const move = useUserMove()
+	const is_mobile = useMediaQuery('(max-width: 720px)')
 
 	useLayoutEffect(() => setOpenToc(blog_open_toc!), [blog_open_toc])
 
@@ -54,7 +55,8 @@ const Index = (props: IProps) => {
 				open={open_toc}
 				width='72vw'
 				mask_closable
-				onCancel={toggle}
+				body_lock={is_mobile}
+				onClose={toggle}
 			>
 				<div
 					className={$.cx(

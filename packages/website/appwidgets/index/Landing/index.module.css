@@ -24,11 +24,15 @@
 			font-weight: 500;
 		}
 
-		.name {
-			line-height: 1;
-			font-size: 21px;
-			font-weight: 500;
-			margin-block: 0;
+		.brand_wrap {
+			bottom: 90px;
+
+			.name {
+				line-height: 1;
+				font-size: 21px;
+				font-weight: 500;
+				margin-block: 0;
+			}
 		}
 	}
 }
@@ -47,8 +51,12 @@
 				font-size: 21px;
 			}
 
-			.name {
-				font-size: 18px;
+			.brand_wrap {
+				bottom: 36px;
+
+				.name {
+					font-size: 18px;
+				}
 			}
 		}
 	}
