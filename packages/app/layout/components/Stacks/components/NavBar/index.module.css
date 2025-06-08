@@ -52,19 +52,13 @@
 
 		.scroll_wrap {
 			--width_mac_light: 0px;
-			--width_homepage_btn: 0px;
 			--width_win_actions: 0px;
 
-			width: calc(100% - var(--width_mac_light) - var(--width_homepage_btn) - var(--width_win_actions));
+			width: calc(100% - 36px - var(--width_mac_light) - var(--width_win_actions));
+			border-left: var(--border);
 
-			&.show_homepage_btn {
-				--width_homepage_btn: 36px;
-
-				border-left: var(--border);
-
-				&.is_mac_electron {
-					--width_mac_light: 72px;
-				}
+			&.is_mac_electron {
+				--width_mac_light: 72px;
 			}
 
 			&.column_is_last {

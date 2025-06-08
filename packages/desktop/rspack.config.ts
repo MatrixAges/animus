@@ -20,7 +20,7 @@ module.exports = defineConfig({
 	resolve: {
 		extensions: ['.js', '.ts'],
 		alias: {
-			'@desktop': resolve(`${process.cwd()}/src`)
+			'@electron': resolve(`${process.cwd()}/src`)
 		}
 	},
 	devtool: false,
@@ -79,17 +79,6 @@ module.exports = defineConfig({
 						}
 					}
 				}
-			},
-			{
-				test: /\.node$/,
-				use: [
-					{
-						loader: 'node-loader',
-						options: {
-							name: '[name].[ext]'
-						}
-					}
-				]
 			}
 		]
 	}

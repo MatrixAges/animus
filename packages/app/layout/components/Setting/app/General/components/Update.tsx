@@ -13,9 +13,10 @@ import type { Downloading, HasUpdate } from '@/types'
 const Index = () => {
 	const global = useGlobal()
 	const { t } = useTranslation()
-	const setting = global.setting
+	const app = global.app
+	const update_status = app.update_status
 
-	const checkUpdate = useMemoizedFn(() => setting.checkUpdate())
+	const checkUpdate = useMemoizedFn(() => app.checkUpdate())
 
 	return (
 		<Fragment>
@@ -28,23 +29,23 @@ const Index = () => {
 							<div className='text_wrap flex flex_column'>
 								<span className='title'>{t('setting.general.update.subtitle')}</span>
 								<Choose>
-									<When condition={setting.update_status === null}>
+									<When condition={update_status === null}>
 										<span className='desc'>
 											{t('setting.general.update.desc')} : {version}
 										</span>
 									</When>
-									<When condition={setting.update_status?.type === 'has_update'}>
+									<When condition={update_status?.type === 'has_update'}>
 										<span className='desc'>
 											{t('setting.general.update.has_update')} :
-											{(setting.update_status as HasUpdate).version}
+											{(update_status as HasUpdate).version}
 										</span>
 									</When>
-									<When condition={setting.update_status?.type === 'downloading'}>
+									<When condition={update_status?.type === 'downloading'}>
 										<span className='desc'>
 											{t('setting.general.update.downloading')}
 										</span>
 									</When>
-									<When condition={setting.update_status?.type === 'downloaded'}>
+									<When condition={update_status?.type === 'downloaded'}>
 										<span className='desc'>
 											{t('setting.general.update.downloaded')}
 										</span>
@@ -54,7 +55,7 @@ const Index = () => {
 						</div>
 						<div className='value_wrap flex align_center'>
 							<Choose>
-								<When condition={setting.update_status === null}>
+								<When condition={update_status === null}>
 									<button
 										className='btn flex justify_center align_center clickable'
 										onClick={checkUpdate}
@@ -62,27 +63,27 @@ const Index = () => {
 										{t('setting.general.update.btn_update')}
 									</button>
 								</When>
-								<When condition={setting.update_status?.type === 'has_update'}>
+								<When condition={update_status?.type === 'has_update'}>
 									<button
 										className='btn flex justify_center align_center clickable'
-										onClick={setting.download}
+										onClick={app.download}
 									>
 										{t('setting.general.update.btn_download')}
 									</button>
 								</When>
-								<When condition={setting.update_status?.type === 'downloading'}>
+								<When condition={update_status?.type === 'downloading'}>
 									<Progress
 										className='progress_circle'
 										type='circle'
 										strokeColor='var(--color_success)'
 										size={36}
-										percent={(setting.update_status as Downloading).percent}
+										percent={(update_status as Downloading).percent}
 									></Progress>
 								</When>
-								<When condition={setting.update_status?.type === 'downloaded'}>
+								<When condition={update_status?.type === 'downloaded'}>
 									<button
 										className='btn flex justify_center align_center clickable'
-										onClick={setting.install}
+										onClick={app.install}
 									>
 										{t('setting.general.update.btn_install')}
 									</button>

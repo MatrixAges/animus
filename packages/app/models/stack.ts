@@ -3,7 +3,7 @@ import { debounce, omit } from 'es-toolkit'
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
-import Util from '@/models/util'
+import { Util } from '@/models'
 import { arrayMove } from '@dnd-kit/sortable'
 import { setStorageWhenChange, useInstanceWatch } from 'stk/mobx'
 

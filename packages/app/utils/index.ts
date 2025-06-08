@@ -4,6 +4,7 @@ export { default as getLang } from './getLang'
 export { default as setGlobalAnimation } from './setGlobalAnimation'
 export { default as relaunch } from './relaunch'
 export { default as clearStorage } from './clearStorage'
+export { default as onWheel } from './onWheel'
 
 export * from './i18n'
 export * from './is'

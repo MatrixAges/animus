@@ -9,7 +9,7 @@ import View from './View'
 
 import styles from './index.module.css'
 
-import type { IPropsStacksContentColumn } from '../../../../types'
+import type { IPropsStacksContentColumn } from '@/layout/types'
 
 const Index = (props: IPropsStacksContentColumn) => {
 	const { column_index, column, width, container_width, resizing, click, resize, setResizing } = props

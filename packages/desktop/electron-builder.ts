@@ -1,10 +1,10 @@
 import type { Configuration } from 'electron-builder'
 
-const { PLAT, ARCH } = process.env
+const { OS, ARCH } = process.env
 const condition_config = {}
 const condition_mac = {}
 
-if (PLAT === 'mac') {
+if (OS === 'mac') {
 	condition_config['afterPack'] = './scripts/output/afterpack.js'
 	condition_config['afterSign'] = './scripts/output/notarize.js'
 	condition_config['electronLanguages'] = ['en', 'zh_CN']
@@ -16,7 +16,7 @@ if (PLAT === 'mac') {
 	condition_mac['target'] = [ARCH ? { target: 'zip', arch: [ARCH] } : { target: 'dmg', arch: ['x64', 'arm64'] }]
 }
 
-if (PLAT === 'win') {
+if (OS === 'win') {
 	condition_config['electronLanguages'] = ['en', 'zh-CN']
 }
 

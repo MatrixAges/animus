@@ -4,7 +4,9 @@ import { createTRPCClient } from '@trpc/client'
 
 import type { Router } from '@desktop/rpc'
 
-export default createTRPCClient<Router>({
-	// @ts-ignore
-	links: globalThis.electronTRPC ? [ipcLink()] : []
-})
+// export default createTRPCClient<Router>({
+// 	// @ts-ignore
+// 	links: globalThis.electronTRPC ? [ipcLink()] : []
+// })
+
+export default {}

@@ -8,7 +8,7 @@ import type { NavigateFunction } from 'react-router-dom'
 import type Emittery from 'stk/emittery'
 import type { handle } from 'stk/react'
 
-type $CX = (...args: Array<string | boolean | null | undefined>) => string
+type $CX = (...args: Array<string | boolean | number | null | undefined>) => string
 type $Copy = <T>(input: T) => T
 
 interface $App {

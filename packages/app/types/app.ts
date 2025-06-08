@@ -1,12 +1,13 @@
 export type Theme = 'light' | 'dark'
 export type Lang = 'en' | 'zh-cn'
-export type Module = 'note' | 'card' | 'chat' | 'flow' | 'database' | 'linkcase' | 'infobase'
+export type Module = 'note' | 'card' | 'chat' | 'flow' | 'database' | 'linkcase' | 'library'
 
 export interface File {
 	module: Module
 	icon: string
 	name: string
 	id: string
+	dirty?: boolean
 	[key: string]: any
 }
 

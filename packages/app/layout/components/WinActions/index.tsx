@@ -1,9 +1,9 @@
 import { useMemoizedFn } from 'ahooks'
 import { observer } from 'mobx-react-lite'
 
-import { useGlobal } from '@/context/app'
+import { useGlobal } from '@/context'
 import { ipc } from '@/utils'
-import { Copy, Minus, Square, X } from '@phosphor-icons/react'
+import { CopyIcon, MinusIcon, SquareIcon, XIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
@@ -17,13 +17,17 @@ const Index = () => {
 	return (
 		<div className={$cx('flex no_drag', styles._local)}>
 			<div className='win_option h_100 flex justify_center align_center' onClick={minimize}>
-				<Minus weight='bold'></Minus>
+				<MinusIcon weight='bold'></MinusIcon>
 			</div>
 			<div className='win_option h_100 flex justify_center align_center' onClick={maximize}>
-				{global.layout.maximize ? <Copy weight='bold'></Copy> : <Square weight='bold'></Square>}
+				{global.layout.maximize ? (
+					<CopyIcon weight='bold'></CopyIcon>
+				) : (
+					<SquareIcon weight='bold'></SquareIcon>
+				)}
 			</div>
 			<div className='win_option h_100 flex justify_center align_center' onClick={close}>
-				<X size={15} weight='bold'></X>
+				<XIcon size={15} weight='bold'></XIcon>
 			</div>
 		</div>
 	)

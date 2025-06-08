@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+      <head>
+            <meta charset="UTF-8" />
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+            />
+            <meta
+                  http-equiv="X-UA-Compatible"
+                  content="ie=edge"
+            />
+            <title>IF</title>
+            <style>
+                  ._loading_wrap {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        z-index: 1000;
+                        display: flex;
+                        overflow: hidden;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 12px;
+                        animation: show 0.3s;
+
+                        -webkit-app-region: drag
+                  }
+
+                  ._loading_wrap .loading_logo {
+                        width: 120px;
+                  }
+
+                  @keyframes show {
+                        from {
+                              opacity: 0;
+                        }
+
+                        to {
+                              opacity: 1;
+                        }
+                  }
+            </style>
+      </head>
+
+      <body>
+            <div class='_loading_wrap'>
+                  <img
+                        class="loading_logo"
+                        src="../assets/icons/logo.svg"
+                        alt="logo"
+                  >
+            </div>
+      </body>
+
+</html>

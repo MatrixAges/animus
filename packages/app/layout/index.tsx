@@ -62,7 +62,7 @@ const Index = () => {
 	}
 
 	const props_setting: IPropsSetting = {
-		update_status: $copy(global.setting.update_status),
+		update_status: $copy(global.app.update_status),
 		visible: global.setting.visible,
 		active: global.setting.active,
 		visible_menu: global.setting.visible_menu,

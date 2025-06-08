@@ -6,7 +6,7 @@ import type { RsbuildConfig } from '@rsbuild/core'
 const is_dev = process.env.NODE_ENV === 'development'
 const is_prod = process.env.NODE_ENV === 'production'
 
-const postcss_plugins = ['autoprefixer', 'postcss-import', 'postcss-nested', 'postcss-calc']
+const postcss_plugins = ['postcss-import', 'postcss-nested', 'postcss-calc']
 
 export default {
 	source: { entry: { index: './runtime/index.tsx' }, decorators: { version: 'legacy' } },

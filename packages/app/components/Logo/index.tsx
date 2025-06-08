@@ -3,7 +3,7 @@ import { local } from 'stk/storage'
 
 import { useGlobal } from '@/context'
 
-interface IProps {
+export interface IProps {
 	class_name?: HTMLDivElement['className']
 	size?: number
 	color?: string

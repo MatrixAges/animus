@@ -10,7 +10,6 @@ const Index = (props: IPropsStacksNavBar) => {
 			{columns.map((column, column_index) => (
 				<Column
 					{...{ column, column_index, focus, resizing, click, remove, update, showHomeDrawer }}
-					show_homepage_btn={column_index === 0}
 					column_is_last={column_index === columns.length - 1}
 					key={column_index}
 				></Column>

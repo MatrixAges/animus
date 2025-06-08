@@ -4,7 +4,7 @@ import { useEventListener, useMemoizedFn } from 'ahooks'
 import type { RefObject } from 'react'
 
 interface Args {
-	ref: RefObject<HTMLDivElement>
+	ref: RefObject<HTMLDivElement | null>
 	left?: boolean
 	min?: number
 	max?: number
