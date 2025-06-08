@@ -1,22 +1,26 @@
+import { platform } from 'os'
+
+import { productName } from './package.json'
+
 import type { Configuration } from 'electron-builder'
 
-const { OS, ARCH } = process.env
+const { ZIP } = process.env
+const OS = platform()
+
+const arch = ['x64', 'arm64']
 const condition_config = {}
-const condition_mac = {}
+const condition_darwin = {}
 
-if (OS === 'mac') {
-	condition_config['afterPack'] = './scripts/output/afterpack.js'
+if (OS === 'darwin') {
 	condition_config['afterSign'] = './scripts/output/notarize.js'
-	condition_config['electronLanguages'] = ['en', 'zh_CN']
-
 	condition_config['dmg'] = { sign: false }
 
-	condition_mac['hardenedRuntime'] = true
-	condition_mac['gatekeeperAssess'] = false
-	condition_mac['target'] = [ARCH ? { target: 'zip', arch: [ARCH] } : { target: 'dmg', arch: ['x64', 'arm64'] }]
+	condition_darwin['hardenedRuntime'] = true
+	condition_darwin['gatekeeperAssess'] = false
+	condition_darwin['target'] = ZIP ? { target: 'zip', arch } : { target: 'dmg', arch }
 }
 
-if (OS === 'win') {
+if (OS === 'win32') {
 	condition_config['electronLanguages'] = ['en', 'zh-CN']
 }
 
@@ -25,15 +29,16 @@ export default {
 	productName: 'Animus',
 	asar: true,
 	compression: 'normal',
-	directories: { output: (ARCH ? 'zip' : 'release') + '/${platform}/${arch}' },
-	files: ['!*', '!**/*', 'assets/**/*', 'load/**/*', 'dist/**/*', 'app_dist/**/*'],
+	directories: { output: (ZIP ? 'zip' : 'release') + '/${platform}/${arch}' },
+	files: ['public/**/*', 'dist/**/*', '!dist/notarize.js'],
+	extraFiles: [{ from: '../app/dist', to: 'app_dist' }],
 	artifactName: '${productName}-${version}-${arch}.${ext}',
 	mac: {
-		...condition_mac,
-		icon: 'assets/logo/logo.icns',
+		...condition_darwin,
+		icon: 'public/logo/logo.icns',
 		extendInfo: {
 			'com.apple.security.cs.allow-jit': true,
-			'Bundle name': 'Animus',
+			'Bundle name': productName,
 			ElectronTeamID: '84LQHT5G2Z',
 			LSHasLocalizedDisplayName: true,
 			ITSAppUsesNonExemptEncryption: 'NO'
@@ -46,7 +51,7 @@ export default {
 				arch: ['x64']
 			}
 		],
-		icon: 'assets/logo/logo.ico',
+		icon: 'public/logo/logo.ico',
 		compression: 'maximum'
 	},
 	nsis: {
@@ -56,16 +61,16 @@ export default {
 		deleteAppDataOnUninstall: true,
 		createDesktopShortcut: true,
 		createStartMenuShortcut: true,
-		installerIcon: 'assets/logo/logo.ico',
-		uninstallerIcon: 'assets/logo/logo.ico',
-		installerHeader: 'assets/logo/logo.ico',
-		installerHeaderIcon: 'assets/logo/logo.ico'
+		installerIcon: 'public/logo/logo.ico',
+		uninstallerIcon: 'public/logo/logo.ico',
+		installerHeader: 'public/logo/logo.ico',
+		installerHeaderIcon: 'public/logo/logo.ico'
 	},
 	fileAssociations: [
 		{
-			name: 'Animus',
+			name: productName,
 			ext: 'elefile',
-			icon: 'assets/logo/logo.ico'
+			icon: 'public/logo/logo.ico'
 		}
 	],
 	publish: [

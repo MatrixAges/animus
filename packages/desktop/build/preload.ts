@@ -9,7 +9,6 @@ exposeConf()
 contextBridge.exposeInMainWorld('$shell', {
 	type: 'electron',
 	platform: process.platform,
-	id_platform: process.env.PLATFORM,
 	stopLoading: function () {
 		ipcRenderer.send('stop-loading')
 	}

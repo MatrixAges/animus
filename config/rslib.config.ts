@@ -6,9 +6,7 @@ const postcss_plugins = ['postcss-import', 'postcss-nested', 'postcss-calc']
 
 const prod_output = {} as RslibConfig['output']
 
-if (is_prod) {
-	prod_output!['minify'] = {}
-}
+if (is_prod) prod_output!['minify'] = {}
 
 export default {
 	mode: is_dev ? 'development' : 'production',

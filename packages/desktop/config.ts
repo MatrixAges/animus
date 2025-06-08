@@ -1,11 +1,13 @@
 import { getAppPath, getPath, is_dev, is_win, show_devtool } from '@desktop/utils'
 
+import { productName } from './package.json'
+
 import type { BrowserWindowConstructorOptions } from 'electron'
 
 export const common_window_web_preferences = {
 	enableWebSQL: false,
 	spellcheck: false,
-	preload: getPath('load/preload.js')
+	preload: getPath('dist/preload.js')
 } as BrowserWindowConstructorOptions['webPreferences']
 
 export const common_window_options = {
@@ -31,12 +33,12 @@ if (is_win) {
 
 export default {
 	windowOptions: {
-		title: 'IF',
-		icon: getPath('assets/logo/logo.png'),
+		title: productName,
+		icon: getPath('public/logo/logo.png'),
 		...common_window_options
 	} as BrowserWindowConstructorOptions,
 	windowUrl: is_dev ? 'http://localhost:8080' : `file://${getAppPath('index.html')}`,
-	loadingUrl: `file://${getPath('load/loading.html')}`,
-	dockIconPath: getPath('assets/logo/logo.png'),
-	getTrayIcon: (dark?: boolean) => getPath(`assets/icons/tray/logo.png`)
+	loadingUrl: `file://${getPath('public/loading.html')}`,
+	dockIconPath: getPath('public/logo/logo.png'),
+	getTrayIcon: (dark?: boolean) => getPath(`public/icons/tray/logo.png`)
 }
