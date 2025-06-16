@@ -14,17 +14,14 @@ export default defineConfig({
 	lib: [{ format: 'cjs' }],
 	source: {
 		entry: {
-			index: './src/index.ts',
-			preload: './build/preload.ts',
-			notarize: './build/notarize.ts'
+			index: './src/index.ts'
 		},
 		decorators: { version: 'legacy' }
 	},
 	output: {
 		sourceMap: is_dev,
 		target: 'node',
-		cleanDistPath: is_prod,
-		filename: { js: '[name].js' },
+		filename: { js: 'index.js' },
 		...prod_output
 	},
 	performance: {

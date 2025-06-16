@@ -8,6 +8,7 @@
 		"strict": true,
 		"baseUrl": "../",
 		"esModuleInterop": true,
+		"isolatedModules": true,
 		"paths": {
 			"@desktop/*": ["./desktop/src/*"],
 			"@app/*": ["./app/*"]

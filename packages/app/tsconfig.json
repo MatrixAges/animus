@@ -11,6 +11,7 @@
 		"baseUrl": "../",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"paths": {
 			"@/*": ["./app/*"],
 			"@shared/*": ["./shared/*"],

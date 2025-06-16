@@ -1,8 +1,8 @@
 export { default as relaunch } from './relaunch'
+export { default as conf } from './conf'
 
 export * from './paths'
 export * from './is'
-export * from './conf'
 export * from './trpc'
 export * from './time'
 export * from './safeStorage'

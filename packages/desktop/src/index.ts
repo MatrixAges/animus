@@ -1,14 +1,16 @@
-import { app, BrowserWindow, ipcMain, shell, WebContentsView } from 'electron'
-import { createIPCHandler } from 'electron-trpc/main'
-
 import '@desktop/utils/locale'
 
+import { app, BrowserWindow, ipcMain, WebContentsView } from 'electron'
+import { createIPCHandler } from 'electron-trpc/main'
+
 import config from '../config'
-import { Main, Menu, Tray } from './controls'
+import { Main, Menu, Tray } from './app'
 import { routers } from './rpcs'
 import { conf, is_mac, show_devtool } from './utils'
 
 import type { Tray as TrayType } from 'electron'
+
+conf.registerRendererListener()
 
 if (!app.requestSingleInstanceLock()) app.exit()
 
@@ -39,8 +41,18 @@ class App {
 
 			if (win_bounds) this.window.setBounds(win_bounds)
 
-			this.load()
+			this.loading()
 			this.events()
+
+			if (show_devtool) {
+				if (process.platform === 'win32') {
+					const win_devtools = new BrowserWindow()
+
+					this.window.webContents.setDevToolsWebContents(win_devtools.webContents)
+				}
+
+				this.window.webContents.openDevTools({ mode: 'detach' })
+			}
 
 			createIPCHandler({
 				createContext: async () => ({ win: this.window!, tray: this.tray! }),
@@ -59,28 +71,28 @@ class App {
 		if (is_mac) this.macOSHandler()
 	}
 
-	load() {
+	loading() {
 		const window = this.window!
 		const loading_view = this.loading_view!
 		const { width, height } = window.getBounds()
-		const bg_color_load = conf.get('bg_color_load') as string
 
+		window.setResizable(false)
 		window.contentView.addChildView(loading_view)
 
-		loading_view.setBackgroundColor(bg_color_load || 'red')
 		loading_view.setBounds({ x: 0, y: 0, width, height })
-		loading_view.webContents.loadURL(config.loadingUrl)
+		loading_view.webContents.loadURL(config.loading_url)
 		loading_view.webContents.on('dom-ready', () => window.show())
 	}
 
 	events() {
 		ipcMain.on('stop-loading', () => {
 			this.removeLoading()
+			this.window!.setResizable(true)
 		})
 	}
 
 	macOSHandler() {
-		app.dock!.setIcon(config.dockIconPath)
+		app.dock!.setIcon(config.dock_icon_path)
 
 		app.on('activate', () => {
 			this.window?.show()

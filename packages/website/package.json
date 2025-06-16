@@ -4,8 +4,8 @@
 	"version": "0.0.0",
 	"scripts": {
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-		"dev": "bun --bun run next dev",
-		"build": "bun --bun run next build",
+		"dev": "next dev",
+		"build": "next build",
 		"build:theme": "bun ./build/theme",
 		"build:sitemap": "bun ./build/sitemap",
 		"build:blog": "bun ./build/blog",

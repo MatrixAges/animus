@@ -1,4 +1,4 @@
-import { shell, BrowserWindow } from 'electron'
+import { BrowserWindow, shell } from 'electron'
 
 import config from '../../config'
 import { conf } from '../utils'
@@ -7,11 +7,11 @@ export default class Index extends BrowserWindow {
 	private window: BrowserWindow | null
 
 	constructor() {
-		super(config.windowOptions)
+		super(config.window_options)
 
 		this.window = this
 
-		this.loadURL(config.windowUrl)
+		this.loadURL(config.window_url)
 		this.register()
 	}
 

@@ -1,19 +1,14 @@
-import { getAppPath, getPath, is_dev, is_win, show_devtool } from '@desktop/utils'
+import { platform } from 'os'
+
+import { getAppPath, getPath, is_dev, show_devtool } from '@desktop/utils'
 
 import { productName } from './package.json'
 
 import type { BrowserWindowConstructorOptions } from 'electron'
 
-export const common_window_web_preferences = {
-	enableWebSQL: false,
-	spellcheck: false,
-	preload: getPath('dist/preload.js')
-} as BrowserWindowConstructorOptions['webPreferences']
-
-export const common_window_options = {
+export const window_options = {
 	frame: false,
 	fullscreen: false,
-	transparent: true,
 	autoHideMenuBar: true,
 	titleBarStyle: 'hidden',
 	width: 1080,
@@ -22,23 +17,33 @@ export const common_window_options = {
 	minHeight: 445,
 	trafficLightPosition: { x: 9, y: 10 },
 	webPreferences: {
-		...common_window_web_preferences,
+		enableWebSQL: false,
+		spellcheck: false,
+		preload: getPath('dist/preload.js'),
 		devTools: show_devtool
 	}
 } as BrowserWindowConstructorOptions
 
-if (is_win) {
-	common_window_options['transparent'] = false
+switch (platform()) {
+	case 'darwin':
+		window_options['transparent'] = true
+		window_options['vibrancy'] = 'under-window'
+		window_options['visualEffectState'] = 'active'
+		break
+
+	case 'win32':
+		window_options['backgroundMaterial'] = 'tabbed'
+		break
 }
 
 export default {
-	windowOptions: {
+	window_options: {
 		title: productName,
 		icon: getPath('public/icon.ico'),
-		...common_window_options
+		...window_options
 	} as BrowserWindowConstructorOptions,
-	windowUrl: is_dev ? 'http://localhost:666' : `file://${getAppPath('index.html')}`,
-	loadingUrl: `file://${getPath('public/loading.html')}`,
-	dockIconPath: getPath('public/icons/icon.png'),
+	window_url: is_dev ? 'http://localhost:666' : `file://${getAppPath('index.html')}`,
+	loading_url: `file://${getPath('public/loading.html')}`,
+	dock_icon_path: getPath('public/icons/icon.png'),
 	getTrayIcon: () => getPath(`public/tray/tray.png`)
 }
