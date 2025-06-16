@@ -3,8 +3,6 @@ import { createIPCHandler } from 'electron-trpc/main'
 
 import '@desktop/utils/locale'
 
-import { emitter_verify, verify } from '@desktop/services'
-
 import config from '../config'
 import { Main, Menu, Tray } from './controls'
 import { routers } from './rpcs'
@@ -78,12 +76,6 @@ class App {
 	events() {
 		ipcMain.on('stop-loading', () => {
 			this.removeLoading()
-
-			setTimeout(() => {
-				const res = verify()
-
-				emitter_verify.emit('res', res)
-			}, 3000)
 		})
 	}
 

@@ -8,12 +8,12 @@
 		"clean": "bun ./build/clean",
 		"watch": "bun ./dev",
 		"shell": "electron .",
+		"bun:dev": "bun ./dev",
 		"dev": "concurrently \"pnpm run main:dev\" \"bun ./dev\"",
 		"main:dev": "cross-env NODE_ENV=development rslib build --watch",
 		"main:prod": "cross-env NODE_ENV=production rslib build",
 		"release:mac": "pnpm run clean && pnpm run main:prod && concurrently \"cross-env ZIP=1 electron-builder -m\" \"electron-builder -m\"",
-		"release:win": " pnpm run main:prod && electron-builder -w",
-		"icns": "electron-icon-builder --input=./assets/logo/logo.png --output=./assets/logo --flatten"
+		"release:win": " pnpm run main:prod && electron-builder -w"
 	},
 	"dependencies": {
 		"@trpc/server": "^11.3.1",
@@ -24,7 +24,7 @@
 		"electron-updater": "^6.6.2",
 		"i18next": "^25.2.1",
 		"ofetch": "^1.4.1",
-		"zod": "^3.25.56",
+		"zod": "^3.25.64",
             "memfs":"^4.17.2",
 		"fs-extra": "^11.3.0"
 	},
@@ -32,15 +32,14 @@
             "@rslib/core":"^0.9.2",
 		"@electron/notarize": "^3.0.1",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^22.15.30",
+		"@types/node": "^24.0.1",
 		"@types/watchpack": "^2.4.4",
-		"bun": "^1.2.15",
-		"bun-types": "^1.2.15",
+		"bun": "^1.2.16",
+		"bun-types": "^1.2.16",
 		"concurrently": "^9.1.2",
 		"cross-env": "^7.0.3",
 		"electron": "36.4.0",
 		"electron-builder": "^26.0.12",
-		"electron-icon-builder": "^2.0.1",
 		"tinyglobby": "^0.2.14",
 		"typescript": "^5.8.3",
 		"watchpack": "^2.4.4"

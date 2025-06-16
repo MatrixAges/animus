@@ -1,6 +1,9 @@
 import { app } from 'electron'
 import i18next from 'i18next'
 
+import en from '@desktop/locales/en'
+import zh_cn from '@desktop/locales/zh-cn'
+
 import { conf } from './'
 
 import type { Lang } from '@app/types'
@@ -9,7 +12,10 @@ const conf_lang = await conf.get('lang')
 const sys_lang = app.getLocale().indexOf('zh') !== -1 ? 'zh-cn' : 'en'
 const lang = (conf_lang || sys_lang) as Lang
 
-const { default: locale } = await import(`./locales/${lang}`)
+const locale_map = {
+	en: en,
+	'zh-cn': zh_cn
+}
 
 i18next.init({
 	initAsync: false,
@@ -17,5 +23,5 @@ i18next.init({
 	fallbackLng: lang,
 	load: 'currentOnly',
 	returnObjects: true,
-	resources: { [lang]: locale }
+	resources: { [lang]: locale_map[lang] }
 })

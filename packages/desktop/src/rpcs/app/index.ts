@@ -8,7 +8,6 @@ import install from './install'
 import on from './on'
 import relaunch from './relaunch'
 import update from './update'
-import updateTray from './updateTray'
 
 export default router({
 	on,
@@ -18,6 +17,5 @@ export default router({
 	update,
 	checkUpdate,
 	download,
-	install,
-	updateTray
+	install
 })

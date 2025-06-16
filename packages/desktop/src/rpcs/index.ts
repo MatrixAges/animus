@@ -1,11 +1,9 @@
 import { router } from '@desktop/utils'
 
 import app from './app'
-import iap from './iap'
 
 export const routers = router({
-	app,
-	iap
+	app
 })
 
 export type Router = typeof routers

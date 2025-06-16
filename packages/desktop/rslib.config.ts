@@ -11,7 +11,7 @@ if (is_prod) prod_output!['minify'] = {}
 
 export default defineConfig({
 	mode: is_dev ? 'development' : 'production',
-	lib: [{ format: 'esm' }],
+	lib: [{ format: 'cjs' }],
 	source: {
 		entry: {
 			index: './src/index.ts',
@@ -27,6 +27,9 @@ export default defineConfig({
 		filename: { js: '[name].js' },
 		...prod_output
 	},
-	performance: { chunkSplit: { strategy: 'split-by-module' } },
+	performance: {
+		chunkSplit: { strategy: 'split-by-module' },
+		buildCache: is_dev
+	},
 	tools: { rspack: { target: 'electron-main' } }
 })

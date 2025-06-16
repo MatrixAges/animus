@@ -35,7 +35,7 @@ export default {
 	artifactName: '${productName}-${version}-${arch}.${ext}',
 	mac: {
 		...condition_darwin,
-		icon: 'public/logo/logo.icns',
+		icon: 'public/icons/icon.icns',
 		extendInfo: {
 			'com.apple.security.cs.allow-jit': true,
 			'Bundle name': productName,
@@ -51,7 +51,7 @@ export default {
 				arch: ['x64']
 			}
 		],
-		icon: 'public/logo/logo.ico',
+		icon: 'public/icons/icon.ico',
 		compression: 'maximum'
 	},
 	nsis: {
@@ -61,16 +61,16 @@ export default {
 		deleteAppDataOnUninstall: true,
 		createDesktopShortcut: true,
 		createStartMenuShortcut: true,
-		installerIcon: 'public/logo/logo.ico',
-		uninstallerIcon: 'public/logo/logo.ico',
-		installerHeader: 'public/logo/logo.ico',
-		installerHeaderIcon: 'public/logo/logo.ico'
+		installerIcon: 'public/icons/icon.ico',
+		uninstallerIcon: 'public/icons/icon.ico',
+		installerHeader: 'public/icons/icon.ico',
+		installerHeaderIcon: 'public/icons/icon.ico'
 	},
 	fileAssociations: [
 		{
 			name: productName,
 			ext: 'elefile',
-			icon: 'public/logo/logo.ico'
+			icon: 'public/icons/logo.ico'
 		}
 	],
 	publish: [

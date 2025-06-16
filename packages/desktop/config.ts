@@ -34,11 +34,11 @@ if (is_win) {
 export default {
 	windowOptions: {
 		title: productName,
-		icon: getPath('public/logo/logo.png'),
+		icon: getPath('public/icon.ico'),
 		...common_window_options
 	} as BrowserWindowConstructorOptions,
-	windowUrl: is_dev ? 'http://localhost:8080' : `file://${getAppPath('index.html')}`,
+	windowUrl: is_dev ? 'http://localhost:666' : `file://${getAppPath('index.html')}`,
 	loadingUrl: `file://${getPath('public/loading.html')}`,
-	dockIconPath: getPath('public/logo/logo.png'),
-	getTrayIcon: (dark?: boolean) => getPath(`public/icons/tray/logo.png`)
+	dockIconPath: getPath('public/icons/icon.png'),
+	getTrayIcon: () => getPath(`public/tray/tray.png`)
 }

@@ -40,7 +40,6 @@ export interface IPropsStacks {
 	setResizing: (v: boolean) => boolean
 	observe: GlobalModel['stack']['observe']
 	unobserve: GlobalModel['stack']['unobserve']
-	showHomeDrawer: () => void
 }
 
 export interface IPropsStacksNavBar

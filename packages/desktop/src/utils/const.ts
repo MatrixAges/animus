@@ -1,1 +1,1 @@
-export const r2_url = 'https://if-files.openages.com'
+export const r2_url = 'https://files.getanimus.ai'

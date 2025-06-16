@@ -9,11 +9,12 @@ import type { DependencyList } from 'react'
 interface Args {
 	mounted: (args: { setDom: (v: HTMLDivElement) => void }) => void
 	unmounted?: () => void
+	show?: () => void
 	deps: DependencyList
 }
 
 export default (args: Args) => {
-	const { mounted, unmounted, deps } = args
+	const { mounted, unmounted, show, deps } = args
 	const ref_dom = useRef<HTMLDivElement | null>(null)
 	const ref_deps = useRef<DependencyList>(null)
 	const id = useStackId()
@@ -39,10 +40,12 @@ export default (args: Args) => {
 		return () => {
 			setTimeout(() => {
 				if (ref_dom.current?.isConnected) {
+					show?.()
+
 					const offs = $stack_offs.get(id)
 
 					if (offs) {
-						offs.add(unmounted)
+						if (!offs.has(unmounted)) offs.add(unmounted)
 					} else {
 						const set = new Set<() => void>()
 

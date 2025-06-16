@@ -1,4 +1,4 @@
-import { exec, execSync, spawn } from 'child_process'
+import { spawn } from 'child_process'
 import { resolve } from 'path'
 import Watchpack from 'watchpack'
 
@@ -6,38 +6,44 @@ import type { ChildProcess } from 'child_process'
 
 const watcher = new Watchpack({})
 const is_win = process.platform === 'win32'
-const file = resolve(`dist/index.js`)
-
+const file_path = resolve(`dist/index.js`)
 const electron_path = is_win ? 'electron.CMD' : 'electron'
 
-watcher.watch({
-	files: [file]
-})
+let electron_process: ChildProcess | null = null
 
-let electron_child_process: ChildProcess
+const start = () => {
+	electron_process = spawn(electron_path, ['.'])
 
-watcher.on('change', () => {
-	if (electron_child_process) {
-		if (is_win) {
-			spawn('taskkill', ['/pid', electron_child_process.pid!.toString(), '/f', '/t'])
-		} else {
-			electron_child_process.kill()
-		}
+	electron_process.stdout?.on('data', data => {
+		console.log('Main process output: ' + data)
+	})
+
+	electron_process.stderr?.on('data', data => {
+		console.error('Main process error: ' + data)
+	})
+
+	electron_process.on('close', code => {
+		console.log('Main process exited with code: ' + code)
+		electron_process = null
+	})
+}
+
+const restart = () => {
+	if (electron_process) {
+		console.log('Restarting Electron...')
+		electron_process.removeAllListeners()
+		electron_process.kill()
 	}
 
-	electron_child_process = exec(`${electron_path} .`, (res) => {
-		console.log('启动成功')
-	})
+	start()
+}
 
-	electron_child_process.stdout!.on('data', (data) => {
-		console.log('主线程输出: ' + data)
-	})
-
-	electron_child_process.stderr!.on('data', (data) => {
-		// console.error('主线程报错: ' + data)
-	})
-
-	electron_child_process.on('exit', (data) => {
-		console.log('主线程退出: ' + data)
-	})
+watcher.watch({
+	files: [file_path]
 })
+
+watcher.on('change', () => {
+	restart()
+})
+
+start()
