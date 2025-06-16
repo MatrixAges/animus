@@ -11,16 +11,15 @@
 		.slogan {
 			line-height: 1;
 			margin-bottom: 15px;
-			letter-spacing: 2px;
 			font-size: 81px;
 			font-weight: 600;
 		}
 
 		.desc {
-			width: 420px;
+			width: 400px;
 			line-height: 1.32;
 			margin-bottom: 36px;
-			font-size: 27px;
+			font-size: 24px;
 			font-weight: 500;
 		}
 
@@ -41,18 +40,17 @@
 	._local {
 		:global {
 			.slogan {
-				width: 300px;
-				line-height: 1.11;
-				font-size: 60px;
+				width: 360px;
+				font-size: 48px;
 			}
 
 			.desc {
-				width: 360px;
-				font-size: 21px;
+				width: 270px;
+				font-size: 16px;
 			}
 
 			.brand_wrap {
-				bottom: 36px;
+				bottom: 60px;
 
 				.name {
 					font-size: 18px;

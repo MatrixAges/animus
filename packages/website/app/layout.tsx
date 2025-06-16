@@ -57,7 +57,7 @@ const Index = async (props: PropsWithChildren) => {
 				<NextIntlClientProvider messages={messages}>
 					<AntdRegistry>
 						<ConfigProvider locale={locale} theme={theme}>
-							<App prefixCls='ani'>
+							<App prefixCls='ani' component={false}>
 								<Client {...props_client}>{children}</Client>
 							</App>
 						</ConfigProvider>
@@ -84,11 +84,8 @@ const Index = async (props: PropsWithChildren) => {
 }
 
 export const metadata: Metadata = {
-	title: `${name} - ${slogan}.`,
-	description: `${description}.`
+	title: `${name} - ${slogan}`,
+	description
 }
-
-// edge for cloudflare
-// export const runtime = 'edge'
 
 export default Index
