@@ -2,7 +2,7 @@ import { Switch } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 
-import Item from '@/layout/components/Setting/Item'
+import Item from '@/layout/components/Setting/components/Item'
 import { ListDashesIcon, PulseIcon, TextAUnderlineIcon, TextHThreeIcon, TextTIcon } from '@phosphor-icons/react'
 
 const Index = () => {
@@ -17,35 +17,35 @@ const Index = () => {
 					title={t('setting.note.toc.title')}
 					desc={t('setting.note.toc.desc')}
 				>
-					<Switch></Switch>
+					<Switch size='small'></Switch>
 				</Item>
 				<Item
 					Icon={TextHThreeIcon}
 					title={t('setting.note.show_heading_text.title')}
 					desc={t('setting.note.show_heading_text.desc')}
 				>
-					<Switch></Switch>
+					<Switch size='small'></Switch>
 				</Item>
 				<Item
 					Icon={TextTIcon}
 					title={t('setting.note.serif.title')}
 					desc={t('setting.note.serif.desc')}
 				>
-					<Switch></Switch>
+					<Switch size='small'></Switch>
 				</Item>
 				<Item
 					Icon={TextAUnderlineIcon}
 					title={t('setting.note.small_text.title')}
 					desc={t('setting.note.small_text.desc')}
 				>
-					<Switch></Switch>
+					<Switch size='small'></Switch>
 				</Item>
 				<Item
 					Icon={PulseIcon}
 					title={t('setting.note.count.title')}
 					desc={t('setting.note.count.desc')}
 				>
-					<Switch></Switch>
+					<Switch size='small'></Switch>
 				</Item>
 			</div>
 		</div>

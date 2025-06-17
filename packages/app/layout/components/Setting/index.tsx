@@ -1,9 +1,9 @@
 import { Fragment, useMemo, useRef } from 'react'
-import { Button, Drawer, Tabs } from 'antd'
+import { Drawer, Tabs } from 'antd'
 import { RefreshCw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-import { module_icon } from '@/appdata'
+import { ModuleIcon } from '@/appdata'
 import { Modal } from '@/components'
 import { useSize } from '@/hooks'
 import { ListIcon } from '@phosphor-icons/react'
@@ -28,46 +28,48 @@ const Index = (props: IPropsSetting) => {
 
 	const Menu = (
 		<div className={$cx('h_100 border_box flex flex_column', styles.menu)}>
-			<div className='settings_wrap flex flex_column'>
-				<div className='menu_items w_100 border_box flex flex_column'>
-					{setting_items.map(({ label, Icon, key }) => (
-						<Button
-							className={$cx(
-								'menu_item border_box flex justify_start align_center relative',
-								active === key && 'active'
-							)}
-							onMouseDown={() => onMenuItem(key)}
-							key={key}
-						>
-							<Icon className='icon_module' size={15} strokeWidth={1.5}></Icon>
-							<span className='menu_name'>{label}</span>
-							<If condition={key === 'global' && update_status?.type === 'has_update'}>
-								<div className='new_version flex align_center absolute'>
-									<RefreshCw
-										className='icon'
-										size={9}
-										strokeWidth={2.4}
-									></RefreshCw>
-									{(update_status as HasUpdate)?.version}
-								</div>
-							</If>
-						</Button>
-					))}
-					<div className='divider w_100 border_box'></div>
-					{module_items.map(({ label, key }) => (
-						<Button
-							className={$cx(
-								'menu_item border_box flex justify_start align_center',
-								active === key && 'active'
-							)}
-							onMouseDown={() => onMenuItem(key)}
-							key={key}
-						>
-							{module_icon[key]}
-							<span className='menu_name'>{label}</span>
-						</Button>
-					))}
-				</div>
+			<div className='menu_items w_100 border_box flex flex_column'>
+				{setting_items.map(({ label, Icon, key }) => (
+					<div
+						className={$cx(
+							'menu_item border_box flex justify_start align_center relative clickable',
+							active === key && 'active'
+						)}
+						onMouseDown={() => onMenuItem(key)}
+						key={key}
+					>
+						<Icon
+							className='icon_module'
+							size={16}
+							weight={active === key ? 'bold' : 'regular'}
+						></Icon>
+						<span className='menu_name'>{label}</span>
+						<If condition={key === 'global' && update_status?.type === 'has_update'}>
+							<div className='new_version flex align_center absolute'>
+								<RefreshCw className='icon' size={9} strokeWidth={2.4}></RefreshCw>
+								{(update_status as HasUpdate)?.version}
+							</div>
+						</If>
+					</div>
+				))}
+				<div className='divider w_100 border_box'></div>
+				{module_items.map(({ label, key }) => (
+					<div
+						className={$cx(
+							'menu_item border_box flex justify_start align_center clickable',
+							active === key && 'active'
+						)}
+						onMouseDown={() => onMenuItem(key)}
+						key={key}
+					>
+						<ModuleIcon
+							module={key}
+							size={16}
+							weight={active === key ? 'bold' : 'regular'}
+						></ModuleIcon>
+						<span className='menu_name'>{label}</span>
+					</div>
+				))}
 			</div>
 		</div>
 	)

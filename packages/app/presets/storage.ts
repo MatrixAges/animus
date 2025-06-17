@@ -1,3 +1,3 @@
 import { setPrefix } from 'stk/storage'
 
-setPrefix('intel')
+setPrefix('animus')

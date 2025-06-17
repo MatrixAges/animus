@@ -11,9 +11,9 @@
 	}
 
 	:global {
-		.if-modal-root {
-			.if-modal-mask,
-			.if-modal-wrap {
+		.ani-modal-root {
+			.ani-modal-mask,
+			.ani-modal-wrap {
 				position: absolute;
 			}
 		}

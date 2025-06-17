@@ -34,11 +34,12 @@
 	max-height: 100%;
 	margin: 0 auto;
 	border-radius: var(--radius);
-	background-color: var(--color_bg);
+	background-color: var(--bg_modal);
 
 	.header {
+		height: 41px;
 		line-height: 1;
-		padding: 9px 18px;
+		padding: 0 18px;
 		border-bottom: 1px dashed var(--color_border_light);
 
 		:global {
@@ -62,8 +63,10 @@
 
 	.body {
 		overflow-y: scroll;
-		max-height: calc(100% - 40px);
-		padding: 18px;
+
+		.has_header {
+			max-height: calc(100% - 40px);
+		}
 	}
 }
 

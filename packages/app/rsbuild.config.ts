@@ -14,7 +14,7 @@ export default {
 	html: { title: 'Animus - Grow with AI.', template: './public/index.html' },
 	plugins: [pluginReact(), pluginSvgr()],
 	performance: { removeConsole: is_prod },
-	server: { port: 666, cors: { origin: ['http://localhost:8787'] } },
+	server: { open: false, port: 666, cors: { origin: ['http://localhost:8787'] } },
 	tools: {
 		lightningcssLoader: { targets: 'chrome >= 120', exclude: { isSelector: true } },
 		postcss: { postcssOptions: { config: false, plugins: postcss_plugins.map(item => require(item)) } },

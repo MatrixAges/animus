@@ -16,7 +16,7 @@ export default class Index {
 	lang = 'en' as Lang
 	theme = 'light' as Theme
 	auto_theme = false
-	visible = false
+	visible = true
 	active = 'general'
 	visible_menu = false
 

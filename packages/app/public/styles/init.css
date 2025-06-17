@@ -31,7 +31,7 @@ body {
 	color: var(--color_text);
 	background-color: var(--color_bg);
 	font-family: var(--font_family);
-	font-size: 16px;
+	font-size: 14px;
 	text-rendering: optimizeLegibility;
 	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;

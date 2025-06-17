@@ -2,7 +2,7 @@ export default {
 	general: {
 		title: '通用设置',
 		normal: {
-			title: '设置',
+			title: '偏好设置',
 			language: {
 				title: '语言',
 				desc: '应用所使用的语言'

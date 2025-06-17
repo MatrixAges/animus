@@ -1,2 +1,2 @@
-export { default as Normal } from './Normal'
+export { default as Preferences } from './Preferences'
 export { default as Update } from './Update'

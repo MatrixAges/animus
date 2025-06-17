@@ -1,4 +1,4 @@
-import { platform } from 'os'
+import { platform } from 'process'
 
 import { getAppPath, getPath, is_dev, show_devtool } from '@desktop/utils'
 
@@ -24,7 +24,7 @@ export const window_options = {
 	}
 } as BrowserWindowConstructorOptions
 
-switch (platform()) {
+switch (platform) {
 	case 'darwin':
 		window_options['transparent'] = true
 		window_options['vibrancy'] = 'under-window'

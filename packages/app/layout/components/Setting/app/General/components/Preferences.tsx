@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
-import { Select, Tooltip } from 'antd'
+import { Button, Select, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 
 import { locale_options, themes } from '@/appdata'
 import { useGlobal } from '@/context'
-import Item from '@/layout/components/Setting/Item'
+import { Item } from '@/layout/components/Setting/components'
 import { clearStorage } from '@/utils'
 import { CircuitryIcon, MoonIcon, PaletteIcon, SunIcon, TranslateIcon } from '@phosphor-icons/react'
 
@@ -39,19 +39,27 @@ const Index = () => {
 						mouseEnterDelay={0.6}
 						styles={{ root: { width: 180 } }}
 					>
-						<button
+						<Button
 							className={$cx(
-								'btn_auto_theme btn_action flex justify_center align_center clickable mr_12',
+								'btn_action flex justify_center align_center clickable mr_12',
 								global.setting.auto_theme && 'active'
 							)}
 							onClick={global.setting.toggleAutoTheme}
+							shape='circle'
+							variant='text'
 						>
 							{global.setting.theme === 'light' ? (
-								<MoonIcon size={18}></MoonIcon>
+								<MoonIcon
+									size={18}
+									weight={global.setting.auto_theme ? 'fill' : 'regular'}
+								></MoonIcon>
 							) : (
-								<SunIcon size={18}></SunIcon>
+								<SunIcon
+									size={18}
+									weight={global.setting.auto_theme ? 'fill' : 'regular'}
+								></SunIcon>
 							)}
-						</button>
+						</Button>
 					</Tooltip>
 					<Select
 						className='select'
@@ -68,9 +76,9 @@ const Index = () => {
 					title={t('setting.general.normal.cache.title')}
 					desc={t('setting.general.normal.cache.desc')}
 				>
-					<button className='btn flex justify_center align_center clickable' onClick={clearStorage}>
+					<Button className='btn flex justify_center align_center clickable' onClick={clearStorage}>
 						{t('setting.general.normal.cache.clear')}
-					</button>
+					</Button>
 				</Item>
 			</div>
 		</Fragment>

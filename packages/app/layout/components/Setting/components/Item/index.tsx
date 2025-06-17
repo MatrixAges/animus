@@ -1,23 +1,25 @@
+import styles from './index.module.css'
+
 import type { Icon } from '@phosphor-icons/react'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 
 interface IProps extends PropsWithChildren {
 	Icon: Icon
-	title: string
-	desc?: string
+	title: ReactNode
+	desc?: ReactNode
 }
 
 const Index = (props: IProps) => {
 	const { children, Icon, title, desc } = props
 
 	return (
-		<div className='setting_item w_100 border_box flex justify_between align_center'>
+		<div className={$cx('w_100 border_box flex justify_between align_center', styles._local)}>
 			<div className='title_wrap flex align_center'>
-				<Icon size={24}></Icon>
+				<Icon className={$cx(styles.setting_icon)} size={21}></Icon>
 				<div className='text_wrap flex flex_column'>
-					<span className='title'>{title}</span>
+					<span className={styles.title}>{title}</span>
 					<If condition={desc}>
-						<span className='desc'>{desc}</span>
+						<span className={styles.desc}>{desc}</span>
 					</If>
 				</div>
 			</div>

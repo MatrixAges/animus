@@ -19,6 +19,7 @@ window.$app = {
 
 window.$t = (() => {}) as any
 window.$copy = rfdc({ proto: true })
+// @ts-ignore
 window.$cx = cx
 window.$navigate = (() => {}) as any
 

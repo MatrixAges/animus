@@ -1,0 +1,49 @@
+.clickable {
+	cursor: pointer;
+	user-select: none;
+	transition: scale ease 0.12s;
+
+	&:hover {
+		scale: 1.02;
+	}
+
+	&:active {
+		scale: 0.96;
+	}
+}
+
+.inline_flex {
+	display: inline-flex;
+}
+
+.color_bg {
+	background-color: var(--color_bg);
+}
+
+.color_main {
+	color: var(--color_main);
+}
+
+.color_text_light {
+	color: var(--color_text_light);
+}
+
+.color_danger {
+	color: var(--color_danger);
+}
+
+.color_warning {
+	color: var(--color_warning);
+}
+
+.transparent {
+	opacity: 0;
+}
+
+.is_drag {
+	-webkit-app-region: drag;
+}
+
+.no_drag {
+	-webkit-app-region: none;
+}

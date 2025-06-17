@@ -13,13 +13,13 @@ export default defineConfig({
 	mode: is_dev ? 'development' : 'production',
 	lib: [{ format: 'cjs' }],
 	source: {
-		entry: {
-			index: './src/index.ts'
-		},
+		entry: { index: './src/index.ts' },
+		define: { 'process.env.DEVTOOL': JSON.stringify(is_dev ? '1' : '0') },
 		decorators: { version: 'legacy' }
 	},
 	output: {
 		sourceMap: is_dev,
+		cleanDistPath: false,
 		target: 'node',
 		filename: { js: 'index.js' },
 		...prod_output

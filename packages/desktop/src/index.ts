@@ -1,6 +1,6 @@
 import '@desktop/utils/locale'
 
-import { app, BrowserWindow, ipcMain, WebContentsView } from 'electron'
+import { app, BrowserWindow, ipcMain, nativeTheme, WebContentsView } from 'electron'
 import { createIPCHandler } from 'electron-trpc/main'
 
 import config from '../config'
@@ -15,6 +15,10 @@ conf.registerRendererListener()
 if (!app.requestSingleInstanceLock()) app.exit()
 
 app.commandLine.appendSwitch('lang', 'en-US')
+
+nativeTheme.themeSource = 'light'
+
+console.log(4232222333)
 
 class App {
 	private window: BrowserWindow | null

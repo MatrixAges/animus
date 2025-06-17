@@ -1,8 +1,8 @@
 export default {
 	general: {
-		title: 'Setting',
+		title: 'General',
 		normal: {
-			title: 'Setting',
+			title: 'Preferences',
 			language: {
 				title: 'Language',
 				desc: 'Languages used by application'

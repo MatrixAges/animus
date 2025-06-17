@@ -1,0 +1,5 @@
+@import './Message.css';
+
+.ani {
+	color: var(--color_text);
+}

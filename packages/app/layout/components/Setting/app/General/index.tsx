@@ -1,11 +1,9 @@
-import { Normal, Update } from './components'
-
-import styles from './index.module.css'
+import { Preferences, Update } from './components'
 
 const Index = () => {
 	return (
-		<div className={$cx('w_100 flex flex_column', styles._local)}>
-			<Normal></Normal>
+		<div className='w_100 flex flex_column'>
+			<Preferences></Preferences>
 			<Update></Update>
 		</div>
 	)

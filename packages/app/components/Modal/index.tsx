@@ -126,7 +126,6 @@ const Index = (props: IProps) => {
 						className={$cx(
 							styles.content_wrap,
 							on_body && styles.on_body,
-							class_name,
 							'modal_wrap w_100 h_100 border_box flex align_center'
 						)}
 						ref={ref_content_wrap}
@@ -137,7 +136,11 @@ const Index = (props: IProps) => {
 						style={{ zIndex: z_index ? z_index + 1 : 1002 }}
 					>
 						<div
-							className={$cx(styles.content, 'modal_content border_box flex flex_column')}
+							className={$cx(
+								'modal_content border_box flex flex_column',
+								styles.content,
+								class_name
+							)}
 							style={{
 								width: width ?? 360,
 								min_height,
@@ -148,8 +151,9 @@ const Index = (props: IProps) => {
 							{Header}
 							<div
 								className={$cx(
+									'modal_body w_100 border_box flex',
 									styles.body,
-									'modal_body w_100 border_box flex flex_column'
+									Header && styles.has_header
 								)}
 								ref={getRef}
 							>

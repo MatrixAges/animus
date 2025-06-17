@@ -18,35 +18,33 @@ export default (theme: Theme) => {
 	const vars = getVars(theme)
 
 	return {
+		cssVar: true,
+		hashed: false,
 		token: {
 			...common_antd.token,
 			colorPrimary: vars.color_text,
 			colorText: vars.color_text,
 			colorTextBase: vars.color_text,
-			colorBgBase: vars.color_bg,
-			colorBgContainer: vars.color_bg,
-			colorBgElevated: vars.color_bg,
+			colorBgBase: vars.color_bg_1,
+			colorBgContainer: vars.color_bg_1,
+			colorBgElevated: vars.color_bg_1,
 			colorBgLayout: vars.color_bg_1,
 			colorFillTertiary: vars.color_bg_1,
-			colorBorder: theme === 'dark' ? vars.color_border : vars.color_border_light,
-			colorBorderSecondary: vars.color_border_light,
+			colorBorder: theme === 'dark' ? vars.color_border_light : vars.color_border_soft,
+			colorBorderSecondary: vars.color_border_soft,
 			controlItemBgActive: vars.color_bg_2,
-			switchHeight: 34,
 			boxShadow: vars.shadow,
-			borderRadiusXS: 3,
-			borderRadiusSM: 6,
+			borderRadiusXS: 2,
+			borderRadiusSM: 4,
 			borderRadius: 6
 		},
 		components: {
+			Button: {
+				defaultShadow: 'unset'
+			},
 			Select: {
 				optionActiveBg: vars.color_bg_2,
-				optionPadding: '4px 8px',
-				colorBorder: 'transparent'
-			},
-			Switch: {
-				controlHeight: 24,
-				controlHeightSM: 22,
-				controlHeightXS: 20
+				optionPadding: '4px 8px'
 			},
 			DatePicker: {
 				cellHeight: 26,
