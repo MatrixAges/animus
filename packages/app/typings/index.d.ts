@@ -13,11 +13,10 @@ declare module '*.svg?react' {
 	export default content
 }
 
-declare function If(props: {
-	condition: boolean | string | number | React.ReactNode | undefined
-	children: React.ReactNode
-}): any
+type Condition = boolean | string | number | React.ReactNode | undefined
+
+declare function If(props: { condition: Condition; children: React.ReactNode }): any
 
 declare function Choose(props: { children: React.ReactNode }): any
-declare function When(props: { condition: boolean; children: React.ReactNode }): any
+declare function When(props: { condition: Condition; children: React.ReactNode }): any
 declare function Otherwise(props: { children: React.ReactNode }): any

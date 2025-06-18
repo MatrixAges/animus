@@ -3,9 +3,17 @@ import i18next from 'i18next'
 import { makeAutoObservable } from 'mobx'
 import { initReactI18next } from 'react-i18next'
 import { injectable } from 'tsyringe'
-
 import { Util } from '@/models'
-import { getLang, resourcesToBackend, setGlobalAnimation, relaunch } from '@/utils'
+import {
+	getLang,
+	resourcesToBackend,
+	setGlobalAnimation,
+	relaunch,
+	ipc,
+	is_electron,
+	theme_match_media,
+	getSystemTheme
+} from '@/utils'
 import { setStorageWhenChange } from 'stk/mobx'
 import { local } from 'stk/storage'
 
@@ -14,9 +22,10 @@ import type { Lang, Theme } from '@/types'
 @injectable()
 export default class Index {
 	lang = 'en' as Lang
-	theme = 'light' as Theme
+	theme = 'system' as Theme
 	auto_theme = false
-	visible = true
+	glass = true
+	visible = false
 	active = 'general'
 	visible_menu = false
 
@@ -26,15 +35,17 @@ export default class Index {
 		this.lang = local.lang ?? getLang(navigator.language)
 
 		this.setLocale(this.lang)
-		this.setTheme(local.theme || 'light', true)
+		this.setTheme(local.theme || 'system', true)
+		this.setGlass(local.glass ?? true)
 
 		// setTimeout(() =>(this.global = container.resolve(Global)), 0)
 	}
 
 	init() {
-		this.util.acts = [setStorageWhenChange(['lang', 'theme'], this)]
+		this.util.acts = [setStorageWhenChange(['lang', 'theme', 'glass'], this)]
 
 		this.checkTheme()
+		this.on()
 	}
 
 	setLocale(lang: Lang) {
@@ -61,12 +72,38 @@ export default class Index {
 		relaunch()
 	}
 
+	getSystemTheme(v: Theme) {
+		this.offThemeChange()
+
+		if (v !== 'system') return v
+
+		const theme = getSystemTheme()
+
+		this.onThemeChange()
+
+		return theme
+	}
+
+	handleThemeChange(e: MediaQueryListEvent) {
+		this.setTheme(e.matches ? 'dark' : 'light')
+	}
+
+	onThemeChange() {
+		theme_match_media.addEventListener('change', this.handleThemeChange)
+	}
+
+	offThemeChange() {
+		theme_match_media.removeEventListener('change', this.handleThemeChange)
+	}
+
 	setTheme(v: Theme, initial?: boolean) {
+		const theme = this.getSystemTheme(v)
+
 		const change = () => {
 			this.theme = v
 
-			document.documentElement.setAttribute('data-theme', v)
-			document.documentElement.style.colorScheme = v
+			document.documentElement.setAttribute('data-theme', theme)
+			document.documentElement.style.colorScheme = theme
 		}
 
 		if (!initial) {
@@ -76,6 +113,8 @@ export default class Index {
 		} else {
 			change()
 		}
+
+		if (is_electron) ipc.app.setTheme.mutate({ theme: v })
 	}
 
 	toggleAutoTheme() {
@@ -92,7 +131,29 @@ export default class Index {
 		this.setTheme(hour >= 6 && hour < 18 ? 'light' : 'dark')
 	}
 
+	setGlass(v: Index['glass']) {
+		this.glass = v
+
+		if (this.glass) {
+			document.documentElement.setAttribute('data-glass', '1')
+		} else {
+			document.documentElement.removeAttribute('data-glass')
+		}
+	}
+
+	toggleSetting() {
+		this.visible = !this.visible
+	}
+
+	on() {
+		$app.Event.on('app.toggleSetting', this.toggleSetting)
+	}
+
 	off() {
+		this.offThemeChange()
+
 		this.util.off()
+
+		$app.Event.off('app.toggleSetting', this.toggleSetting)
 	}
 }

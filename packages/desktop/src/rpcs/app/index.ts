@@ -7,6 +7,7 @@ import exit from './exit'
 import install from './install'
 import on from './on'
 import relaunch from './relaunch'
+import setTheme from './setTheme'
 import update from './update'
 
 export default router({
@@ -17,5 +18,6 @@ export default router({
 	update,
 	checkUpdate,
 	download,
-	install
+	install,
+	setTheme
 })

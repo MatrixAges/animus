@@ -10,11 +10,9 @@ if (is_prod) prod_output!['minify'] = {}
 
 export default {
 	mode: is_dev ? 'development' : 'production',
-	lib: [{ format: 'esm' }],
 	source: { decorators: { version: 'legacy' } },
 	output: {
 		sourceMap: is_dev,
-		target: 'web',
 		injectStyles: true,
 		cleanDistPath: is_prod,
 		filename: {
@@ -24,20 +22,21 @@ export default {
 		...prod_output
 	},
 	performance: {
-		chunkSplit: { strategy: 'split-by-module' }
+		chunkSplit: { strategy: 'split-by-experience' }
+	}
+} as RslibConfig
+
+export const tools = {
+	lightningcssLoader: {
+		targets: 'chrome >= 120',
+		exclude: { isSelector: true }
 	},
-	tools: {
-		lightningcssLoader: {
-			targets: 'chrome >= 120',
-			exclude: { isSelector: true }
-		},
-		postcss: () => {
-			return {
-				postcssOptions: {
-					config: false,
-					plugins: postcss_plugins.map(item => require(item))
-				}
+	postcss: () => {
+		return {
+			postcssOptions: {
+				config: false,
+				plugins: postcss_plugins.map(item => require(item))
 			}
 		}
 	}
-} as RslibConfig
+} as RslibConfig['tools']

@@ -1,10 +1,9 @@
-import { ipcLink } from 'electron-trpc/renderer'
+import { ipcLink } from 'erpc/renderer'
 
 import { createTRPCClient } from '@trpc/client'
 
 import type { Router } from '@desktop/rpcs'
 
 export default createTRPCClient<Router>({
-	// @ts-ignore
-	links: globalThis.electronTRPC ? [ipcLink()] : []
+	links: window.$erpc ? [ipcLink()] : []
 })

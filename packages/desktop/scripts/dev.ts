@@ -14,12 +14,17 @@ let electron_process: ChildProcess | null = null
 const start = () => {
 	electron_process = spawn(electron_path, ['.'])
 
-	electron_process.stdout?.on('data', data => {
+	electron_process.stdout?.on('data', (data: Buffer) => {
 		console.log('Main process output: ' + data)
 	})
 
-	electron_process.stderr?.on('data', data => {
-		console.error('Main process error: ' + data)
+	electron_process.stderr?.on('data', (data: Buffer) => {
+		const err = data.toString()
+		const ignore = ['Autofill.enable', 'Autofill.setAddresses', `Unexpected token 'H'`]
+
+		if (!new RegExp(ignore.join('|')).test(err)) {
+			console.error('Main process error: ' + err)
+		}
 	})
 
 	electron_process.on('close', code => {

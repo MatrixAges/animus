@@ -1,4 +1,4 @@
-export type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'system'
 export type Lang = 'en' | 'zh-cn'
 export type Module = 'note' | 'card' | 'chat' | 'flow' | 'database' | 'linkcase' | 'library'
 
@@ -31,11 +31,7 @@ export interface Shortcut {
 	readonly: boolean
 	special_key?: string
 	options?: {
-		scope?: string
-		element?: HTMLElement | null
 		keyup?: boolean | null
 		keydown?: boolean | null
-		capture?: boolean
-		splitKey?: string
 	}
 }

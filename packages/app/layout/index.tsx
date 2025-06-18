@@ -26,15 +26,21 @@ const Index = () => {
 
 	useGlobalUtils()
 
-	// return <div className='w_100vw h_100vh flex justify_center align_center is_drag'>666</div>
+	useLayoutEffect(() => {
+		global.init()
+
+		return () => {
+			global.off()
+		}
+	}, [])
 
 	const props_config_provider: ConfigProviderProps = {
 		prefixCls: 'ani',
 		iconPrefixCls: 'ani-icon',
 		theme,
 		locale,
-		virtual: false,
-		getPopupContainer: n => n?.parentElement!
+		virtual: false
+		// getPopupContainer: n => n?.parentElement!
 	}
 
 	const props_stacks: IPropsStacks = {

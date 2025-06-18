@@ -8,6 +8,7 @@
 	"tabWidth": 6,
 	"jsxSingleQuote": true,
 	"bracketSpacing": true,
+	"bracketSameLine": true,
 	"arrowParens": "avoid",
 	"importOrder": [
 		"^react$|^(react)$",

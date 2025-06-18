@@ -1,51 +1,34 @@
-import { rspack } from '@rspack/core'
+import { deepmerge } from 'deepmerge-ts'
 
-import type { Configuration } from '@rspack/core'
+import { build } from '@rslib/core'
 
-const common = {
-	module: {
-		rules: [
+import { rslib } from '../../../config'
+
+import type { RslibConfig } from '@rslib/core'
+
+build(
+	deepmerge(rslib, {
+		lib: [
 			{
-				test: /\.ts$/,
-				type: 'javascript/auto',
-				exclude: [/node_modules/],
-				loader: 'builtin:swc-loader',
-				options: { jsc: { parser: { syntax: 'typescript' } } }
+				source: { entry: { preload: `${process.cwd()}/scripts/preload.ts` } },
+				format: 'cjs',
+				bundle: true,
+				autoExternal: false,
+				tools: { rspack: { target: 'electron-preload' } }
+			},
+			{
+				source: { entry: { notarize: `${process.cwd()}/scripts/notarize.ts` } },
+				externals: ['@electron/notarize', 'electron-builder'],
+				format: 'cjs'
 			}
-		]
-	}
-} as Configuration
-
-rspack(
-	[
-		{
-			entry: `${process.cwd()}/scripts/preload.ts`,
-			target: 'electron-preload',
-			output: {
-				clean: false,
-				library: { type: 'commonjs' },
-				filename: 'preload.js'
-			},
-			...common
-		},
-		{
-			entry: `${process.cwd()}/scripts/notarize.ts`,
-			externals: ['@electron/notarize', 'electron-builder'],
-			output: {
-				clean: false,
-				library: { type: 'commonjs' },
-				filename: 'notarize.js'
-			},
-			...common
+		],
+		output: {
+			target: 'node',
+			legalComments: 'none',
+			cleanDistPath: false,
+			filename: { js: '[name].js' }
 		}
-	],
-	async (e, stats) => {
-		const err = e || stats?.hasErrors?.()
-
-		if (err) {
-			console.log(err, stats?.toString({}))
-
-			return
-		}
-	}
-)
+	} as RslibConfig)
+).catch(err => {
+	console.log(err)
+})

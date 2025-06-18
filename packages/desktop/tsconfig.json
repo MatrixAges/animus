@@ -9,6 +9,7 @@
 		"baseUrl": "../",
 		"esModuleInterop": true,
 		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
 		"paths": {
 			"@desktop/*": ["./desktop/src/*"],
 			"@app/*": ["./app/*"]

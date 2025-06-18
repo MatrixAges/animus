@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { exposeConf } from 'electron-conf/preload'
-import { exposeElectronTRPC } from 'electron-trpc/main'
+import { exposeElectronTRPC } from 'erpc/main'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 

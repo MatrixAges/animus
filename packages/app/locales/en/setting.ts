@@ -12,9 +12,14 @@ export default {
 				desc: 'App theme color, component color',
 				options: {
 					light: 'Light',
-					dark: 'Dark'
+					dark: 'Dark',
+					system: 'System'
 				},
 				auto_theme: 'Auto theme, light theme from 6AM to 6PM, dark theme the rest of time'
+			},
+			glass: {
+				title: 'Glass Window',
+				desc: 'Transparent window with glass effect after enabled.'
 			},
 			cache: {
 				title: 'Cache',
@@ -38,6 +43,7 @@ export default {
 	},
 	shortcuts: {
 		title: 'Shortcuts',
+		'app.toggleSetting': 'Toggle Setting Panel',
 		'app.openSearch': 'Open Search Panel',
 		'app.closeSearch': 'Close Search Panel',
 		keydown: 'Key Down',

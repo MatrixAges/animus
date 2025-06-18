@@ -13,4 +13,4 @@ export const locale_options = [
 	}
 ]
 
-export const themes = ['light', 'dark'] as const
+export const themes = ['light', 'dark', 'system'] as const

@@ -2,6 +2,7 @@ import type { App, RxDB } from '@/types'
 import type { MessageInstance } from 'antd/es/message/interface'
 import type { ModalStaticFunctions } from 'antd/es/modal/confirm'
 import type { NotificationInstance } from 'antd/es/notification/interface'
+import type { GlobalERPC } from 'erpc/renderer'
 import type { TFunction } from 'i18next'
 import type { memo } from 'react'
 import type { NavigateFunction } from 'react-router-dom'
@@ -19,6 +20,8 @@ interface $App {
 
 declare global {
 	interface Window {
+		$erpc?: GlobalERPC
+
 		$shell?: {
 			type: 'electron'
 			platform: 'darwin' | 'win32'

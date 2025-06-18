@@ -1,12 +1,13 @@
 .menu {
 	overflow-y: scroll;
 	width: 162px;
-	background-color: var(--color_bg_1);
+	background-color: var(--bg_component);
 	font-size: 13px;
 
 	:global {
 		.menu_items {
 			padding: 12px;
+			gap: 2px;
 
 			.divider {
 				width: calc(100% - 12px);
@@ -30,7 +31,7 @@
 				}
 
 				&.active {
-					background-color: var(--color_bg_2);
+					background-color: var(--bg_active);
 					font-weight: 500;
 				}
 

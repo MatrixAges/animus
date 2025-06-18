@@ -1,4 +1,6 @@
 .ani-select-dropdown {
+	backdrop-filter: var(--glass_blur);
+
 	.rc-virtual-list-holder-inner {
 		gap: 2px;
 	}

@@ -35,6 +35,7 @@
 	margin: 0 auto;
 	border-radius: var(--radius);
 	background-color: var(--bg_modal);
+	backdrop-filter: var(--glass_blur);
 
 	.header {
 		height: 41px;

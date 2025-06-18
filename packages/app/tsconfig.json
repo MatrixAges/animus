@@ -12,6 +12,7 @@
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
 		"paths": {
 			"@/*": ["./app/*"],
 			"@shared/*": ["./shared/*"],

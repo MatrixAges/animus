@@ -1,7 +1,9 @@
 import { autoUpdater } from 'electron-updater'
 
-import { p } from '@desktop/utils'
+import { is_dev, p } from '@desktop/utils'
 
 export default p.query(async () => {
+	if (is_dev) return
+
 	autoUpdater.checkForUpdates()
 })

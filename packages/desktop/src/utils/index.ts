@@ -1,5 +1,6 @@
 export { default as relaunch } from './relaunch'
 export { default as conf } from './conf'
+export { default as getThemeColor } from './getThemeColor'
 
 export * from './paths'
 export * from './is'

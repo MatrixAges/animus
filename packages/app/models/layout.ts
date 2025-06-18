@@ -32,18 +32,18 @@ export default class Index {
 	}
 
 	onWindowBlur() {
-		ipc.app.on.subscribe(undefined, {
-			onData: ({ type, value }) => {
-				switch (type) {
-					case 'blur':
-						if (this.blur !== value) this.blur = value
-						break
-					case 'maximize':
-						if (this.maximize !== value) this.maximize = value
-						break
-				}
-			}
-		})
+		// ipc.app.on.subscribe(undefined, {
+		// 	onData: ({ type, value }) => {
+		// 		switch (type) {
+		// 			case 'blur':
+		// 				if (this.blur !== value) this.blur = value
+		// 				break
+		// 			case 'maximize':
+		// 				if (this.maximize !== value) this.maximize = value
+		// 				break
+		// 		}
+		// 	}
+		// })
 	}
 
 	toggleDirTreeVisible() {

@@ -1,3 +1,3 @@
 if (window.$shell?.type === 'electron') {
-	setTimeout(() => window.$shell?.stopLoading(), 0)
+	setTimeout(() => window.$shell?.stopLoading(), 450)
 }

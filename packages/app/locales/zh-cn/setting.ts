@@ -12,9 +12,14 @@ export default {
 				desc: '应用主题色、组件颜色',
 				options: {
 					light: '浅色',
-					dark: '深色'
+					dark: '深色',
+					system: '跟随系统'
 				},
 				auto_theme: '自动切换主题，6点到18点浅色主题，其余时间深色主题'
+			},
+			glass: {
+				title: '毛玻璃窗口',
+				desc: '开启后窗口将透明，且有毛玻璃效果'
 			},
 			cache: {
 				title: '应用缓存',
@@ -38,6 +43,7 @@ export default {
 	},
 	shortcuts: {
 		title: '快捷键',
+		'app.toggleSetting': '切换设置面板',
 		'app.openSearch': '唤起搜索面板',
 		'app.closeSearch': '关闭搜索面板',
 		keydown: '按下键',

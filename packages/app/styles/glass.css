@@ -1,0 +1,39 @@
+:root {
+	--glass_blur: saturate(150%) blur(36px);
+
+	--opacity_bg: 1;
+	--opacity_modal: 1;
+	--opacity_component: 1;
+	--opacity_dropdown: 1;
+	--opacity_active: 0.048;
+	--opacity_selected: 0.09;
+
+	--bg: rgba(var(--color_bg_1_rgb), var(--opacity_bg));
+	--bg_modal: rgba(var(--color_bg_rgb), var(--opacity_modal));
+	--bg_component: rgba(var(--color_bg_1_rgb), var(--opacity_component));
+	--bg_dropdown: rgba(var(--color_std_rgb), var(--opacity_dropdown));
+	--bg_active: rgba(var(--color_contrast_rgb), var(--opacity_active));
+	--bg_selected: rgba(var(--color_contrast_rgb), var(--opacity_selected));
+}
+
+[data-glass='1'] {
+	--opacity_bg: 0;
+	--opacity_modal: 0.72;
+	--opacity_component: 0.18;
+	--opacity_dropdown: 0.36;
+}
+
+[data-theme='dark'] {
+	--opacity_dropdown: 0.03;
+
+	--bg_modal: rgba(var(--color_bg_1_rgb), var(--opacity_modal));
+	--bg_component: rgba(var(--color_bg_2_rgb), var(--opacity_component));
+	--bg_dropdown: rgba(255, 255, 255, var(--opacity_dropdown));
+
+	&[data-glass='1'] {
+		--opacity_modal: 0.12;
+		--opacity_component: 0.03;
+		--bg_modal: rgba(255, 255, 255, var(--opacity_modal));
+		--bg_component: rgba(255, 255, 255, var(--opacity_component));
+	}
+}

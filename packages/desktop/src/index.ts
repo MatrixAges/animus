@@ -1,22 +1,15 @@
 import '@desktop/utils/locale'
+import '@desktop/utils/entry'
 
-import { app, BrowserWindow, ipcMain, nativeTheme, WebContentsView } from 'electron'
-import { createIPCHandler } from 'electron-trpc/main'
+import { app, BrowserWindow, ipcMain, WebContentsView } from 'electron'
+import { createIPCHandler } from 'erpc/main'
 
 import config from '../config'
 import { Main, Menu, Tray } from './app'
 import { routers } from './rpcs'
-import { conf, is_mac, show_devtool } from './utils'
+import { conf, getThemeColor, is_mac, show_devtool } from './utils'
 
 import type { Tray as TrayType } from 'electron'
-
-conf.registerRendererListener()
-
-if (!app.requestSingleInstanceLock()) app.exit()
-
-app.commandLine.appendSwitch('lang', 'en-US')
-
-nativeTheme.themeSource = 'light'
 
 console.log(1)
 
@@ -85,7 +78,14 @@ class App {
 
 		loading_view.setBounds({ x: 0, y: 0, width, height })
 		loading_view.webContents.loadURL(config.loading_url)
-		loading_view.webContents.on('dom-ready', () => window.show())
+
+		loading_view.webContents.executeJavaScript(
+			`document.documentElement.setAttribute("data-theme", "${getThemeColor()}")`
+		)
+
+		loading_view.webContents.on('dom-ready', () => {
+			window.show()
+		})
 	}
 
 	events() {

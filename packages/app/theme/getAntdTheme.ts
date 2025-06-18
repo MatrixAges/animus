@@ -1,4 +1,4 @@
-import { match } from 'ts-pattern'
+import { getSystemTheme } from '@/utils'
 
 import common_antd from './common/antd'
 import dark from './dark'
@@ -6,16 +6,29 @@ import light from './light'
 
 import type { Theme } from '@/types'
 import type { ThemeConfig } from 'antd'
+import type { DeepRequired } from 'ts-essentials'
 
-export const getVars = (theme: Theme) => {
-	return match(theme)
-		.with('light', () => light)
-		.with('dark', () => dark)
-		.exhaustive()
+export const getVars = (theme: Exclude<Theme, 'system'>) => {
+	switch (theme) {
+		case 'light':
+			return light
+		case 'dark':
+			return dark
+	}
 }
 
 export default (theme: Theme) => {
-	const vars = getVars(theme)
+	const target_theme = theme === 'system' ? getSystemTheme() : theme
+	const is_dark = target_theme === 'dark'
+	const vars = getVars(target_theme)
+
+	const getTargetConfig = <T extends object>(
+		common: Partial<T>,
+		dark_config: Partial<T>,
+		light_config: Partial<T>
+	) => {
+		return Object.assign(common, is_dark ? dark_config : light_config) as T
+	}
 
 	return {
 		cssVar: true,
@@ -26,13 +39,13 @@ export default (theme: Theme) => {
 			colorText: vars.color_text,
 			colorTextBase: vars.color_text,
 			colorBgBase: vars.color_bg_1,
-			colorBgContainer: vars.color_bg_1,
-			colorBgElevated: vars.color_bg_1,
+			colorBgContainer: 'var(--bg_component)',
+			colorBgElevated: 'var(--bg_dropdown)',
 			colorBgLayout: vars.color_bg_1,
 			colorFillTertiary: vars.color_bg_1,
 			colorBorder: theme === 'dark' ? vars.color_border_light : vars.color_border_soft,
 			colorBorderSecondary: vars.color_border_soft,
-			controlItemBgActive: vars.color_bg_2,
+			controlItemBgActive: 'var(--bg_selected)',
 			boxShadow: vars.shadow,
 			borderRadiusXS: 2,
 			borderRadiusSM: 4,
@@ -43,11 +56,33 @@ export default (theme: Theme) => {
 				defaultShadow: 'unset'
 			},
 			Select: {
-				optionActiveBg: vars.color_bg_2,
+				optionActiveBg: 'var(--bg_selected)',
 				optionPadding: '0 8px',
 				optionHeight: 26,
 				optionLineHeight: '26px'
 			},
+			Switch: getTargetConfig<DeepRequired<ThemeConfig>['components']['Switch']>(
+				{
+					handleSizeSM: 12,
+					trackHeightSM: 18,
+					trackMinWidthSM: 30,
+					handleShadow: 'unset'
+				},
+				{
+					handleBg: 'rgba(var(--color_contrast_rgb),0.6)',
+					colorPrimary: 'rgba(var(--color_contrast_rgb),0.24)',
+					colorPrimaryHover: 'rgba(var(--color_contrast_rgb),0.18)',
+					colorTextTertiary: 'var(--bg_component)',
+					colorTextQuaternary: 'var(--bg_component)'
+				},
+				{
+					handleBg: 'rgba(var(--color_std_rgb),0.9)',
+					colorPrimary: 'rgba(var(--color_contrast_rgb),0.72)',
+					colorPrimaryHover: 'rgba(var(--color_contrast_rgb),0.81)',
+					colorTextTertiary: 'rgba(var(--color_contrast_rgb),0.06)',
+					colorTextQuaternary: 'rgba(var(--color_contrast_rgb),0.06)'
+				}
+			),
 			DatePicker: {
 				cellHeight: 26,
 				cellWidth: 26,

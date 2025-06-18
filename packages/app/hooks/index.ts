@@ -1,5 +1,4 @@
 export { default as useTheme } from './useTheme'
-export { default as useSystemTheme } from './useSystemTheme'
 export { default as useStackId } from './useStackId'
 export { default as useStackEffect } from './useStackEffect'
 export { default as useAntdLocale } from './useAntdLocale'

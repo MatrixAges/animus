@@ -23,27 +23,24 @@ export default class Index {
 	}
 
 	onAppUpdate() {
-		ipc.app.update.subscribe(undefined, {
-			onData: args => {
-				switch (args.type) {
-					case 'can_update':
-						this.update_status = { type: 'has_update', version: args.value }
-						break
-					case 'cant_update':
-						if (!this.update_silence) $message.info($t('setting.general.update.no_update'))
-
-						break
-					case 'progress':
-						this.update_status = { type: 'downloading', percent: args.value }
-
-						break
-					case 'downloaded':
-						this.update_status = { type: 'downloaded' }
-
-						break
-				}
-			}
-		})
+		// ipc.app.update.subscribe(undefined, {
+		// 	onData: args => {
+		// 		switch (args.type) {
+		// 			case 'can_update':
+		// 				this.update_status = { type: 'has_update', version: args.value }
+		// 				break
+		// 			case 'cant_update':
+		// 				if (!this.update_silence) $message.info($t('setting.general.update.no_update'))
+		// 				break
+		// 			case 'progress':
+		// 				this.update_status = { type: 'downloading', percent: args.value }
+		// 				break
+		// 			case 'downloaded':
+		// 				this.update_status = { type: 'downloaded' }
+		// 				break
+		// 		}
+		// 	}
+		// })
 	}
 
 	checkUpdate(silence?: boolean) {

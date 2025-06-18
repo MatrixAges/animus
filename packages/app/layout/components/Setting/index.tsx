@@ -36,13 +36,11 @@ const Index = (props: IPropsSetting) => {
 							active === key && 'active'
 						)}
 						onMouseDown={() => onMenuItem(key)}
-						key={key}
-					>
+						key={key}>
 						<Icon
 							className='icon_module'
 							size={16}
-							weight={active === key ? 'bold' : 'regular'}
-						></Icon>
+							weight={active === key ? 'bold' : 'regular'}></Icon>
 						<span className='menu_name'>{label}</span>
 						<If condition={key === 'global' && update_status?.type === 'has_update'}>
 							<div className='new_version flex align_center absolute'>
@@ -60,13 +58,11 @@ const Index = (props: IPropsSetting) => {
 							active === key && 'active'
 						)}
 						onMouseDown={() => onMenuItem(key)}
-						key={key}
-					>
+						key={key}>
 						<ModuleIcon
 							module={key}
 							size={16}
-							weight={active === key ? 'bold' : 'regular'}
-						></ModuleIcon>
+							weight={active === key ? 'bold' : 'regular'}></ModuleIcon>
 						<span className='menu_name'>{label}</span>
 					</div>
 				))}
@@ -78,17 +74,14 @@ const Index = (props: IPropsSetting) => {
 		<Modal
 			class_name={$cx('relative', styles.modal)}
 			open={visible}
-			z_index={2000}
 			mask_closable
 			getRef={v => (ref.current = v)}
-			onClose={onClose}
-		>
+			onClose={onClose}>
 			{narrow ? (
 				<Fragment>
 					<div
 						className='btn_toggle_menu flex justify_center align_center absolute clickable no_drag'
-						onClick={toggleMenu}
-					>
+						onClick={toggleMenu}>
 						<ListIcon size={15}></ListIcon>
 					</div>
 					<Drawer
@@ -101,8 +94,7 @@ const Index = (props: IPropsSetting) => {
 						maskClosable
 						rootStyle={{ position: 'absolute' }}
 						getContainer={() => ref.current!}
-						onClose={toggleMenu}
-					>
+						onClose={toggleMenu}>
 						{Menu}
 					</Drawer>
 				</Fragment>
@@ -114,8 +106,7 @@ const Index = (props: IPropsSetting) => {
 					items={module_items!.concat(setting_items as any)}
 					activeKey={active}
 					renderTabBar={() => null as unknown as ReactElement}
-					destroyOnHidden
-				></Tabs>
+					destroyOnHidden></Tabs>
 			</div>
 		</Modal>
 	)

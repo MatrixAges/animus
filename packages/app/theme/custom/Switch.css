@@ -1,0 +1,9 @@
+[data-theme='dark'] {
+	.ani-switch {
+		border: var(--border_light);
+	}
+}
+
+.ani-switch {
+	border: var(--border_softlight);
+}

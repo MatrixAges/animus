@@ -1,0 +1,37 @@
+{
+	"name": "erpc",
+	"description": "Trpc support for electron",
+	"version": "0.0.0",
+	"exports": {
+		"./main": {
+			"types": "./dist/main/index.d.ts",
+			"require": "./dist/main/index.js",
+			"default": "./dist/main/index.js"
+		},
+		"./renderer": {
+			"types": "./dist/renderer/index.d.ts",
+			"require": "./dist/renderer/index.js",
+			"default": "./dist/renderer/index.js"
+		}
+	},
+	"license": "MIT",
+	"files": ["dist"],
+	"scripts": {
+		"build": "rslib build && tsc"
+	},
+	"devDependencies": {
+		"@rslib/core": "^0.10.0",
+		"@trpc/client": "^11.3.1",
+		"@trpc/server": "^11.3.1",
+		"@types/node": "^24.0.3",
+		"deepmerge-ts": "^7.1.5",
+		"electron": "^36.4.0",
+		"superjson": "^2.2.2",
+		"zod": "^3.25.67"
+	},
+	"peerDependencies": {
+		"@trpc/client": ">=11.0.0",
+		"@trpc/server": ">=11.0.0",
+		"electron": ">30.0.0"
+	}
+}
