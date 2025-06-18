@@ -1,6 +1,8 @@
 ._local {
-	padding: 12px 0;
-	border-bottom: var(--border_soft);
+	padding: 12px 18px;
+	margin-bottom: 4px;
+	border-radius: var(--radius);
+	background-color: var(--color_bg_1);
 
 	.setting_icon {
 		margin-right: 16px;

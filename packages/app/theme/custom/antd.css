@@ -1,4 +1,5 @@
 @import './Message.css';
+@import './Select.css';
 
 .ani {
 	color: var(--color_text);

@@ -44,7 +44,9 @@ export default (theme: Theme) => {
 			},
 			Select: {
 				optionActiveBg: vars.color_bg_2,
-				optionPadding: '4px 8px'
+				optionPadding: '0 8px',
+				optionHeight: 26,
+				optionLineHeight: '26px'
 			},
 			DatePicker: {
 				cellHeight: 26,

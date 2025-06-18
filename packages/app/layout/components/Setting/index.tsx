@@ -109,7 +109,7 @@ const Index = (props: IPropsSetting) => {
 			) : (
 				Menu
 			)}
-			<div className={$cx('h_100 border_box flex flex_column', styles._local)}>
+			<div className={$cx('h_100 border_box flex flex_column', styles.tabs_wrap)}>
 				<Tabs
 					items={module_items!.concat(setting_items as any)}
 					activeKey={active}

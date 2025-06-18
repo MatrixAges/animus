@@ -24,6 +24,6 @@
 	--font_mono: 'Menlo', 'Consolas', monospace;
 
 	--bg: rgba(var(--color_bg_1_rgb), var(--opacity_bg));
-	--bg_modal: rgba(var(--color_bg_1_rgb), var(--opacity_modal));
+	--bg_modal: rgba(var(--color_bg_rgb), var(--opacity_modal));
 	--bg_component: rgba(var(--color_bg_1_rgb), var(--opacity_component));
 }

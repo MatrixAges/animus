@@ -1,8 +1,10 @@
 ._local {
 	:global {
 		.row_item_wrap {
-			padding: 12px 0;
-			border-bottom: var(--border_soft);
+			padding: 12px 18px;
+			margin-bottom: 4px;
+			border-radius: var(--radius);
+			background-color: var(--color_bg_1);
 
 			.row_item {
 				.key_action {

@@ -11,14 +11,12 @@
 		"submodule:init": "git submodule update --init --recursive",
 		"submodule:update": "git submodule sync && git submodule update --recursive --remote --merge"
 	},
-	"lint-staged": {
-		"*.{css,md,js,jsx,ts,tsx}": [
-			"prettier --write"
-		]
+	"simple-git-hooks": {
+            "pre-commit":"pnpm pretty-quick --pattern \"**/*.*(md|css|js|jsx|ts|tsx)\" --staged"
 	},
 	"devDependencies": {
-		"lefthook": "^1.11.13",
-		"lint-staged": "^15.5.1",
+		"pretty-quick": "^4.2.2",
+		"simple-git-hooks": "^2.13.0",
 		"prettier": "^3.5.3",
 		"turbo": "^2.5.0",
             "@ianvs/prettier-plugin-sort-imports":"^4.4.2"

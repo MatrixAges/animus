@@ -18,7 +18,7 @@ app.commandLine.appendSwitch('lang', 'en-US')
 
 nativeTheme.themeSource = 'light'
 
-console.log(4232222333)
+console.log(1)
 
 class App {
 	private window: BrowserWindow | null

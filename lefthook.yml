@@ -1,4 +1,0 @@
-pre-commit:
-      commands:
-            format:
-                  run: pnpx lint-staged --allow-empty && git add -u
