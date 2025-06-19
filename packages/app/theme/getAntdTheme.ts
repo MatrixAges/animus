@@ -1,14 +1,12 @@
-import { getSystemTheme } from '@/utils'
-
 import common_antd from './common/antd'
 import dark from './dark'
 import light from './light'
 
-import type { Theme } from '@/types'
+import type { ThemeValue } from '@/types'
 import type { ThemeConfig } from 'antd'
 import type { DeepRequired } from 'ts-essentials'
 
-export const getVars = (theme: Exclude<Theme, 'system'>) => {
+export const getVars = (theme: ThemeValue) => {
 	switch (theme) {
 		case 'light':
 			return light
@@ -17,10 +15,9 @@ export const getVars = (theme: Exclude<Theme, 'system'>) => {
 	}
 }
 
-export default (theme: Theme) => {
-	const target_theme = theme === 'system' ? getSystemTheme() : theme
-	const is_dark = target_theme === 'dark'
-	const vars = getVars(target_theme)
+export default (theme: ThemeValue) => {
+	const is_dark = theme === 'dark'
+	const vars = getVars(theme)
 
 	const getTargetConfig = <T extends object>(
 		common: Partial<T>,
@@ -88,9 +85,6 @@ export default (theme: Theme) => {
 				cellWidth: 26,
 				fontSize: 12
 			},
-			Dropdown: {
-				controlItemBgHover: vars.color_bg_2
-			},
 			Input: {
 				colorPrimaryHover: vars.color_text_grey
 			},
@@ -115,6 +109,15 @@ export default (theme: Theme) => {
 			},
 			Pagination: {
 				controlHeight: 24
+			},
+			Dropdown: {
+				controlItemBgHover: vars.color_bg_2
+			},
+			Tooltip: {
+				colorBgSpotlight: 'var(--bg_dropdown)',
+				fontSize: 12,
+				boxShadowSecondary: 'unset',
+				colorTextLightSolid: 'var(--color_text)'
 			}
 		}
 	} as ThemeConfig

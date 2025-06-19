@@ -22,7 +22,8 @@ import type { Lang, Theme } from '@/types'
 @injectable()
 export default class Index {
 	lang = 'en' as Lang
-	theme = 'system' as Theme
+	theme_source = 'system' as Theme
+	theme_value = 'light' as Exclude<Theme, 'system'>
 	auto_theme = false
 	glass = true
 	visible = false
@@ -35,14 +36,14 @@ export default class Index {
 		this.lang = local.lang ?? getLang(navigator.language)
 
 		this.setLocale(this.lang)
-		this.setTheme(local.theme || 'system', true)
+		this.setTheme(local.theme_source || 'system', true)
 		this.setGlass(local.glass ?? true)
 
 		// setTimeout(() =>(this.global = container.resolve(Global)), 0)
 	}
 
 	init() {
-		this.util.acts = [setStorageWhenChange(['lang', 'theme', 'glass'], this)]
+		this.util.acts = [setStorageWhenChange(['lang', 'theme_source', 'glass'], this)]
 
 		this.checkTheme()
 		this.on()
@@ -72,23 +73,13 @@ export default class Index {
 		relaunch()
 	}
 
-	getSystemTheme(v: Theme) {
-		this.offThemeChange()
-
-		if (v !== 'system') return v
-
-		const theme = getSystemTheme()
-
-		this.onThemeChange()
-
-		return theme
-	}
-
 	handleThemeChange(e: MediaQueryListEvent) {
-		this.setTheme(e.matches ? 'dark' : 'light')
+		this.setThemeValue(e.matches ? 'dark' : 'light')
 	}
 
 	onThemeChange() {
+		this.offThemeChange()
+
 		theme_match_media.addEventListener('change', this.handleThemeChange)
 	}
 
@@ -96,14 +87,28 @@ export default class Index {
 		theme_match_media.removeEventListener('change', this.handleThemeChange)
 	}
 
-	setTheme(v: Theme, initial?: boolean) {
-		const theme = this.getSystemTheme(v)
+	async setTheme(v: Index['theme_source'], initial?: boolean) {
+		if (is_electron) await ipc.app.setTheme.mutate({ theme: v })
 
+		if (v === 'system') {
+			this.onThemeChange()
+		} else {
+			this.offThemeChange()
+		}
+
+		console.log(v)
+
+		this.theme_source = v
+
+		this.setThemeValue(v !== 'system' ? v : getSystemTheme(), initial)
+	}
+
+	setThemeValue(v: Index['theme_value'], initial?: boolean) {
 		const change = () => {
-			this.theme = v
+			this.theme_value = v
 
-			document.documentElement.setAttribute('data-theme', theme)
-			document.documentElement.style.colorScheme = theme
+			document.documentElement.setAttribute('data-theme', v)
+			document.documentElement.style.colorScheme = v
 		}
 
 		if (!initial) {
@@ -113,8 +118,6 @@ export default class Index {
 		} else {
 			change()
 		}
-
-		if (is_electron) ipc.app.setTheme.mutate({ theme: v })
 	}
 
 	toggleAutoTheme() {
@@ -139,6 +142,8 @@ export default class Index {
 		} else {
 			document.documentElement.removeAttribute('data-glass')
 		}
+
+		if (is_electron) ipc.app.setGlass.mutate({ glass: v })
 	}
 
 	toggleSetting() {

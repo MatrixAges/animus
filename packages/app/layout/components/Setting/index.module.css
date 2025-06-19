@@ -1,29 +1,28 @@
 .menu {
 	overflow-y: scroll;
 	width: 162px;
-	background-color: var(--bg_component);
 	font-size: 13px;
 
 	:global {
 		.menu_items {
-			padding: 12px;
+			padding: 12px 0;
 			gap: 2px;
 
 			.divider {
-				width: calc(100% - 12px);
+				width: 100%;
 				margin-top: 4px;
 				margin-bottom: 4px;
-				margin-left: 6px;
 				border-bottom: var(--border_soft);
 			}
 
 			.menu_item {
 				height: 30px;
 				line-height: 1;
-				padding: 0 6px;
-				border-radius: var(--radius);
+				padding: 0 12px;
+				border-top-right-radius: 15px;
+				border-bottom-right-radius: 15px;
 				opacity: 0.6;
-				gap: 6px;
+				gap: 8px;
 
 				&:hover,
 				&.active {
@@ -33,6 +32,16 @@
 				&.active {
 					background-color: var(--bg_active);
 					font-weight: 500;
+
+					&::before {
+						position: absolute;
+						right: 12px;
+						width: 6px;
+						height: 6px;
+						border-radius: 50%;
+						background-color: var(--color_text_greylight);
+						content: '';
+					}
 				}
 
 				.new_version {
@@ -54,9 +63,24 @@
 }
 
 .menu_drawer {
+	outline: none;
+
+	.menu {
+		background-color: unset;
+
+		:global {
+			.menu_items {
+				.menu_item {
+					border-radius: 0;
+				}
+			}
+		}
+	}
+
 	:global {
 		.ani-drawer-content-wrapper {
 			padding: 0;
+			background-color: var(--color_bg_2);
 
 			.ani-drawer-content {
 				border-radius: 0;
@@ -67,6 +91,12 @@
 				}
 			}
 		}
+	}
+}
+
+[data-glass='1'] {
+	.menu_drawer_mask {
+		background-color: rgba(var(--color_bg_rgb), 0.72) !important;
 	}
 }
 
@@ -91,10 +121,10 @@
 			width: 24px;
 			height: 24px;
 			border-radius: var(--radius_3);
-			background-color: var(--color_bg);
+			background-color: var(--bg_component);
 
 			&:hover {
-				background-color: var(--color_bg_2);
+				background-color: var(--bg_active);
 			}
 		}
 	}
@@ -153,7 +183,7 @@
 	}
 
 	.modal {
-		width: calc(100vw - 60px) !important;
+		width: calc(100vw - 36px) !important;
 	}
 
 	.tabs_wrap {

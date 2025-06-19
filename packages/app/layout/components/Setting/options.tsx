@@ -1,7 +1,6 @@
 import { CommandIcon, InfoIcon, SlidersHorizontalIcon } from '@phosphor-icons/react'
 
-import { About, General, Shortcuts } from './app'
-import { Note } from './modules'
+import { App_About, App_General, App_Shortcuts, Module_Note } from './components'
 
 import type { Icon } from '@phosphor-icons/react'
 import type { TFunction } from 'i18next'
@@ -13,19 +12,19 @@ export const getSettingItems = (t: TFunction<'translation', undefined>) => {
 			label: t('setting.general.title'),
 			Icon: SlidersHorizontalIcon,
 			key: 'general',
-			children: <General></General>
+			children: <App_General></App_General>
 		},
 		{
 			label: t('setting.shortcuts.title'),
 			Icon: CommandIcon,
 			key: 'shortcuts',
-			children: <Shortcuts></Shortcuts>
+			children: <App_Shortcuts></App_Shortcuts>
 		},
 		{
 			label: t('setting.about.title'),
 			Icon: InfoIcon,
 			key: 'about',
-			children: <About></About>
+			children: <App_About></App_About>
 		}
 	]
 
@@ -42,7 +41,7 @@ export const getModuleItems = (t: TFunction<'translation', undefined>) => {
 		{
 			label: t('app.module.note'),
 			key: 'note',
-			children: <Note></Note>
+			children: <Module_Note></Module_Note>
 		}
 	] as const
 }

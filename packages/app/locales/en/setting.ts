@@ -19,7 +19,7 @@ export default {
 			},
 			glass: {
 				title: 'Glass Window',
-				desc: 'Transparent window with glass effect after enabled.'
+				desc: 'Transparent window with glass effect after enabled'
 			},
 			cache: {
 				title: 'Cache',

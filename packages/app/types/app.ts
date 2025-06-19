@@ -1,4 +1,5 @@
 export type Theme = 'light' | 'dark' | 'system'
+export type ThemeValue = Exclude<Theme, 'system'>
 export type Lang = 'en' | 'zh-cn'
 export type Module = 'note' | 'card' | 'chat' | 'flow' | 'database' | 'linkcase' | 'library'
 

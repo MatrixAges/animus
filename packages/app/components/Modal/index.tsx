@@ -120,49 +120,56 @@ const Index = (props: IProps) => {
 					></motion.div>
 				)}
 			</AnimatePresence>
-			<AnimatePresence>
-				{open && (
-					<motion.div
-						className={$cx(
-							styles.content_wrap,
-							on_body && styles.on_body,
-							'modal_wrap w_100 h_100 border_box flex align_center'
-						)}
-						ref={ref_content_wrap}
-						initial={{ transform: 'translate3d(0px, -30px, 0px)', opacity: 0 }}
-						animate={{ transform: 'translate3d(0px, 0px, 0px)', opacity: 1 }}
-						exit={{ transform: 'translate3d(0px, 30px, 0px)', opacity: 0 }}
-						transition={{ duration: 0.18, ease: 'easeInOut' }}
-						style={{ zIndex: z_index ? z_index + 1 : 1002 }}
-					>
-						<div
-							className={$cx(
-								'modal_content border_box flex flex_column',
-								styles.content,
-								class_name
+			{exsit && (
+				<div
+					className={$cx(
+						styles.content_wrap,
+						on_body && styles.on_body,
+						'modal_wrap w_100 h_100 border_box flex align_center'
+					)}
+					ref={ref_content_wrap}
+					style={{ zIndex: z_index ? z_index + 1 : 1002 }}
+				>
+					{
+						<AnimatePresence>
+							{open && (
+								<motion.div
+									className={$cx(
+										'modal_content border_box flex flex_column',
+										styles.content,
+										class_name
+									)}
+									ref={ref_content}
+									initial={{
+										transform: 'translate3d(0px, -30px, 0px)',
+										opacity: 0
+									}}
+									animate={{ transform: 'translate3d(0px, 0px, 0px)', opacity: 1 }}
+									exit={{ transform: 'translate3d(0px, 30px, 0px)', opacity: 0 }}
+									transition={{ duration: 0.18, ease: 'easeInOut' }}
+									style={{
+										width: width ?? 360,
+										min_height,
+										...(height ? { height, overflowY: 'scroll' } : {})
+									}}
+								>
+									{Header}
+									<div
+										className={$cx(
+											'modal_body w_100 border_box flex',
+											styles.body,
+											Header && styles.has_header
+										)}
+										ref={getRef}
+									>
+										{children}
+									</div>
+								</motion.div>
 							)}
-							style={{
-								width: width ?? 360,
-								min_height,
-								...(height ? { height, overflowY: 'scroll' } : {})
-							}}
-							ref={ref_content}
-						>
-							{Header}
-							<div
-								className={$cx(
-									'modal_body w_100 border_box flex',
-									styles.body,
-									Header && styles.has_header
-								)}
-								ref={getRef}
-							>
-								{children}
-							</div>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
+						</AnimatePresence>
+					}
+				</div>
+			)}
 		</Fragment>
 	)
 

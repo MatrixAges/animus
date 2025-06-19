@@ -17,7 +17,7 @@ const Index = () => {
 	useLayoutEffect(() => {
 		setFieldsValue({
 			lang: global.setting.lang,
-			theme: global.setting.theme,
+			theme: global.setting.theme_source,
 			glass: global.setting.glass
 		})
 	}, [])

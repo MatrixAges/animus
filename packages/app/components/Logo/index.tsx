@@ -1,8 +1,3 @@
-import { observer } from 'mobx-react-lite'
-import { local } from 'stk/storage'
-
-import { useGlobal } from '@/context'
-
 export interface IProps {
 	class_name?: HTMLDivElement['className']
 	size?: number
@@ -10,9 +5,7 @@ export interface IProps {
 }
 
 const Index = (props: IProps) => {
-	const global = useGlobal()
-	const is_dark = (global?.setting?.theme || local.theme) === 'dark'
-	const { class_name, size = 48, color = is_dark ? 'var(--color_text)' : 'var(--color_main)' } = props
+	const { class_name, size = 48, color = 'var(--color_contrast)' } = props
 
 	return (
 		<div className={$cx('flex', class_name)} style={{ width: size, height: size }}>
@@ -27,4 +20,4 @@ const Index = (props: IProps) => {
 	)
 }
 
-export default new $app.handle(Index).by(observer).by($app.memo).get()
+export default $app.memo(Index)

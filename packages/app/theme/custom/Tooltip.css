@@ -1,0 +1,4 @@
+.ani-tooltip {
+	border-radius: var(--radius);
+	backdrop-filter: var(--glass_blur);
+}

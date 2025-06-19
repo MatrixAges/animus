@@ -19,7 +19,7 @@ export default {
 			},
 			glass: {
 				title: '毛玻璃窗口',
-				desc: '开启后窗口将透明，且有毛玻璃效果'
+				desc: '开启窗口毛玻璃效果'
 			},
 			cache: {
 				title: '应用缓存',

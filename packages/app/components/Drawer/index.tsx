@@ -133,42 +133,47 @@ const Index = (props: IProps) => {
 					></motion.div>
 				)}
 			</AnimatePresence>
-			<AnimatePresence>
-				{open && (
-					<div
-						className={$cx(
-							styles.content_wrap,
-							styles.on_body,
-							align,
-							class_name,
-							'modal_wrap w_100 h_100 border_box flex'
-						)}
-						ref={ref_content_wrap}
-						style={{ zIndex: z_index ? z_index + 1 : 1002 }}
-					>
-						<motion.div
-							className={$cx(styles.content, 'modal_content border_box flex flex_column')}
-							initial={{ transform }}
-							animate={{ transform: 'translate3d(0px, 0px, 0px)' }}
-							exit={{ transform }}
-							transition={{ duration: 0.18, ease: 'easeInOut' }}
-							style={style}
-							ref={ref_content}
-						>
-							{Header}
-							<div
+			{exsit && (
+				<div
+					className={$cx(
+						styles.content_wrap,
+						styles.on_body,
+						align,
+						class_name,
+						'modal_wrap w_100 h_100 border_box flex'
+					)}
+					ref={ref_content_wrap}
+					style={{ zIndex: z_index ? z_index + 1 : 1002 }}
+				>
+					<AnimatePresence>
+						{open && (
+							<motion.div
 								className={$cx(
-									styles.body,
-									'modal_body w_100 border_box flex flex_column'
+									styles.content,
+									'modal_content border_box flex flex_column'
 								)}
-								ref={getRef}
+								initial={{ transform }}
+								animate={{ transform: 'translate3d(0px, 0px, 0px)' }}
+								exit={{ transform }}
+								transition={{ duration: 0.18, ease: 'easeInOut' }}
+								style={style}
+								ref={ref_content}
 							>
-								{children}
-							</div>
-						</motion.div>
-					</div>
-				)}
-			</AnimatePresence>
+								{Header}
+								<div
+									className={$cx(
+										styles.body,
+										'modal_body w_100 border_box flex flex_column'
+									)}
+									ref={getRef}
+								>
+									{children}
+								</div>
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
+			)}
 		</Fragment>
 	)
 

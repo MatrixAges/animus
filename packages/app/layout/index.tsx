@@ -2,16 +2,15 @@ import { useLayoutEffect, useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { App, ConfigProvider } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useOutlet } from 'react-router-dom'
 import { container } from 'tsyringe'
 
 import { GlobalProvider } from '@/context'
-import { useAntdLocale, useTheme } from '@/hooks'
+import { useAntdLocale } from '@/hooks'
 import Global from '@/models/global'
 import { is_win_electron } from '@/utils'
 
 import { AntdApp, Setting, Stacks, WinActions } from './components'
-import { useGlobalUtils } from './hooks'
+import { useAntdTheme, useGlobalUtils } from './hooks'
 
 import styles from './index.module.css'
 
@@ -21,7 +20,7 @@ import type { IPropsSetting, IPropsStacks } from './types'
 const Index = () => {
 	const [global] = useState(() => container.resolve(Global))
 	const locale = useAntdLocale(global.setting.lang)
-	const theme = useTheme(global.setting.theme)
+	const antd_theme = useAntdTheme(global.setting.theme_value)
 	const columns = $copy(global.stack.columns)
 
 	useGlobalUtils()
@@ -37,10 +36,9 @@ const Index = () => {
 	const props_config_provider: ConfigProviderProps = {
 		prefixCls: 'ani',
 		iconPrefixCls: 'ani-icon',
-		theme,
+		theme: antd_theme,
 		locale,
 		virtual: false
-		// getPopupContainer: n => n?.parentElement!
 	}
 
 	const props_stacks: IPropsStacks = {

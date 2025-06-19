@@ -29,6 +29,10 @@ const start = () => {
 
 	electron_process.on('close', code => {
 		console.log('Main process exited with code: ' + code)
+
+		electron_process!.removeAllListeners()
+		electron_process!.kill()
+
 		electron_process = null
 	})
 }

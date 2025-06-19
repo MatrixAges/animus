@@ -31,7 +31,8 @@
 
 .content {
 	height: 100%;
-	background-color: var(--color_bg);
+	background-color: var(--bg_modal);
+	backdrop-filter: var(--glass_blur);
 
 	.header {
 		height: 40px;
