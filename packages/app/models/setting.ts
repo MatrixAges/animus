@@ -16,6 +16,7 @@ import {
 } from '@/utils'
 import { setStorageWhenChange } from 'stk/mobx'
 import { local } from 'stk/storage'
+import { commands } from '@/appdata'
 
 import type { Lang, Theme } from '@/types'
 
@@ -96,14 +97,14 @@ export default class Index {
 			this.offThemeChange()
 		}
 
-		console.log(v)
-
 		this.theme_source = v
 
 		this.setThemeValue(v !== 'system' ? v : getSystemTheme(), initial)
 	}
 
 	setThemeValue(v: Index['theme_value'], initial?: boolean) {
+		if (v === this.theme_value) return
+
 		const change = () => {
 			this.theme_value = v
 
@@ -151,7 +152,7 @@ export default class Index {
 	}
 
 	on() {
-		$app.Event.on('app.toggleSetting', this.toggleSetting)
+		$app.Event.on(commands['app.toggleSetting'], this.toggleSetting)
 	}
 
 	off() {
@@ -159,6 +160,6 @@ export default class Index {
 
 		this.util.off()
 
-		$app.Event.off('app.toggleSetting', this.toggleSetting)
+		$app.Event.off(commands['app.toggleSetting'], this.toggleSetting)
 	}
 }

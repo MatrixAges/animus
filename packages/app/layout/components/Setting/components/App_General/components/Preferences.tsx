@@ -23,7 +23,11 @@ const Index = () => {
 					title={t('setting.general.normal.language.title')}
 					desc={t('setting.general.normal.language.desc')}
 				>
-					<Select className='select' options={locale_options}></Select>
+					<Select
+						className='select'
+						options={locale_options}
+						popupMatchSelectWidth={false}
+					></Select>
 				</Item>
 				<Item
 					name='theme'
@@ -67,6 +71,7 @@ const Index = () => {
 							label: t(`setting.general.normal.theme.options.${item}`),
 							value: item
 						}))}
+						popupMatchSelectWidth={false}
 					></Select>
 				</Item>
 				<Item

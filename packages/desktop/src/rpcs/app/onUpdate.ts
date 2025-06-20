@@ -13,7 +13,7 @@ type Res =
 	| { type: 'cant_update' }
 	| { type: 'progress'; value: number }
 	| { type: 'downloaded' }
-	| { type: 'error'; value: Error }
+	| { type: 'error'; value: string }
 
 export default p.subscription(async function* (args) {
 	const { signal } = args
@@ -28,18 +28,18 @@ export default p.subscription(async function* (args) {
 	const onCantUpdate = () => emit('UPDATE', { type: 'downloaded' })
 	const onProgress = (args: ProgressInfo) => emit('UPDATE', { type: 'progress', value: Math.floor(args.percent) })
 	const onDownloaded = () => emit('UPDATE', { type: 'downloaded' })
-	const onError = (args: Error) => emit('UPDATE', { type: 'error', value: args })
-
-	autoUpdater.on('update-available', onCanUpdate)
-	autoUpdater.on('update-not-available', onCantUpdate)
-	autoUpdater.on('download-progress', onProgress)
-	autoUpdater.on('update-downloaded', onDownloaded)
-	autoUpdater.on('error', onError)
+	const onError = (args: Error) => emit('UPDATE', { type: 'error', value: args.message })
 
 	try {
 		for await (const [data] of on(event, 'UPDATE', { signal })) {
 			yield data as Res
 		}
+
+		autoUpdater.on('update-available', onCanUpdate)
+		autoUpdater.on('update-not-available', onCantUpdate)
+		autoUpdater.on('download-progress', onProgress)
+		autoUpdater.on('update-downloaded', onDownloaded)
+		autoUpdater.on('error', onError)
 	} finally {
 		autoUpdater.off('update-available', onCanUpdate)
 		autoUpdater.off('update-not-available', onCantUpdate)

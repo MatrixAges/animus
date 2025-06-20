@@ -124,7 +124,7 @@ const Index = (props: IProps) => {
 			<AnimatePresence>
 				{open && (
 					<motion.div
-						className={$cx(styles.mask, styles.on_body, mask_class_name, 'w_100 h_100')}
+						className={$cx(styles.mask, styles.on_body, mask_class_name, 'w_100 h_100 no_drag')}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -140,7 +140,7 @@ const Index = (props: IProps) => {
 						styles.on_body,
 						align,
 						class_name,
-						'modal_wrap w_100 h_100 border_box flex'
+						'modal_wrap w_100 h_100 border_box flex no_drag'
 					)}
 					ref={ref_content_wrap}
 					style={{ zIndex: z_index ? z_index + 1 : 1002 }}

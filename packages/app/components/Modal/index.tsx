@@ -110,7 +110,7 @@ const Index = (props: IProps) => {
 							styles.mask,
 							on_body && styles.on_body,
 							mask_class_name,
-							'w_100 h_100'
+							'w_100 h_100 no_drag'
 						)}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -125,7 +125,7 @@ const Index = (props: IProps) => {
 					className={$cx(
 						styles.content_wrap,
 						on_body && styles.on_body,
-						'modal_wrap w_100 h_100 border_box flex align_center'
+						'modal_wrap w_100 h_100 border_box flex align_center no_drag'
 					)}
 					ref={ref_content_wrap}
 					style={{ zIndex: z_index ? z_index + 1 : 1002 }}

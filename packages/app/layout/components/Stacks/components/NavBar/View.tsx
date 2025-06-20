@@ -3,8 +3,7 @@ import { useMemoizedFn } from 'ahooks'
 import { Button } from 'antd'
 import { useDoubleClick } from 'stk/react'
 
-import { module_icon } from '@/appdata'
-import { Emoji } from '@/components'
+import { Emoji, ModuleIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -65,7 +64,9 @@ const Index = (props: IPropsStacksNavBarView) => {
 									hue={view.file.icon_hue}
 								></Emoji>
 							</When>
-							<Otherwise>{module_icon[view.module]}</Otherwise>
+							<Otherwise>
+								<ModuleIcon module={view.module}></ModuleIcon>
+							</Otherwise>
 						</Choose>
 					</div>
 					<span className='name_wrap ml_2'>{view.file.name}</span>

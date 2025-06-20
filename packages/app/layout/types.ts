@@ -1,20 +1,33 @@
-import type { GlobalModel } from '@/context'
-import type { App, Setting } from '@/models'
-import type { Module } from '@/types'
+import type { App, Layout, Setting, Stack } from '@/models'
+import type { Module, ViodFn } from '@/types'
+
+export interface IPropsSidebar {
+	toggleSetting: ViodFn
+	closeSidebar: ViodFn
+}
+
+export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}
+
+export interface IPropsEmpty {
+	sidebar_fold: Layout['sidebar_fold']
+	showSidebar: ViodFn
+	toggleSetting: ViodFn
+}
 
 export interface IPropsStacks {
-	columns: GlobalModel['stack']['columns']
-	focus: GlobalModel['stack']['focus']
-	container_width: GlobalModel['stack']['container_width']
-	resizing: GlobalModel['stack']['resizing']
-	click: GlobalModel['stack']['click']
-	remove: GlobalModel['stack']['remove']
-	update: GlobalModel['stack']['update']
-	move: GlobalModel['stack']['move']
-	resize: GlobalModel['stack']['resize']
+	columns: Stack['columns']
+	focus: Stack['focus']
+	container_width: Stack['container_width']
+	resizing: Stack['resizing']
+	click: Stack['click']
+	remove: Stack['remove']
+	update: Stack['update']
+	move: Stack['move']
+	resize: Stack['resize']
 	setResizing: (v: boolean) => boolean
-	observe: GlobalModel['stack']['observe']
-	unobserve: GlobalModel['stack']['unobserve']
+	observe: Stack['observe']
+	unobserve: Stack['unobserve']
+	showSidebar: ViodFn
 }
 
 export interface IPropsSetting {
@@ -24,22 +37,22 @@ export interface IPropsSetting {
 	visible_menu: Setting['visible_menu']
 	onClose: () => void
 	onMenuItem: (key: string) => void
-	toggleMenu: () => void
+	toggleMenu: ViodFn
 }
 
 export interface IPropsStacks {
-	columns: GlobalModel['stack']['columns']
-	focus: GlobalModel['stack']['focus']
-	container_width: GlobalModel['stack']['container_width']
-	resizing: GlobalModel['stack']['resizing']
-	click: GlobalModel['stack']['click']
-	remove: GlobalModel['stack']['remove']
-	update: GlobalModel['stack']['update']
-	move: GlobalModel['stack']['move']
-	resize: GlobalModel['stack']['resize']
+	columns: Stack['columns']
+	focus: Stack['focus']
+	container_width: Stack['container_width']
+	resizing: Stack['resizing']
+	click: Stack['click']
+	remove: Stack['remove']
+	update: Stack['update']
+	move: Stack['move']
+	resize: Stack['resize']
 	setResizing: (v: boolean) => boolean
-	observe: GlobalModel['stack']['observe']
-	unobserve: GlobalModel['stack']['unobserve']
+	observe: Stack['observe']
+	unobserve: Stack['unobserve']
 }
 
 export interface IPropsStacksNavBar

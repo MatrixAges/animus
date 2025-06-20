@@ -1,0 +1,16 @@
+._local {
+	line-height: 1;
+	padding: 6px 0;
+
+	:global {
+		.module_item {
+			padding: 8px 12px;
+			border-radius: var(--radius);
+			gap: 12px;
+
+			svg {
+				font-size: 16px;
+			}
+		}
+	}
+}

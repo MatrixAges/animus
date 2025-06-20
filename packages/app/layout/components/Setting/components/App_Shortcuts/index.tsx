@@ -28,13 +28,6 @@ const Index = () => {
 					<div className='row_item setting_item w_100 border_box flex justify_between align_center'>
 						<span className='name'>{t(`setting.shortcuts.${item.event_path}`)}</span>
 						<div className='flex align_center'>
-							<If condition={item?.options?.keyup}>
-								<span className='key_action'>
-									{item?.options?.keyup
-										? t('setting.shortcuts.keyup')
-										: t('setting.shortcuts.keydown')}
-								</span>
-							</If>
 							<div className='key_bindings flex justify_end'>
 								{getKeyMap(item).map(key => {
 									const Icon = icons[key as keyof typeof icons]

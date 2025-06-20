@@ -1,0 +1,9 @@
+._local {
+	:global {
+		.body_wrap {
+			overflow-y: scroll;
+			height: calc(100% - 36px - 30px);
+			padding: 0 6px;
+		}
+	}
+}

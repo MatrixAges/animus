@@ -7,21 +7,26 @@ import { container } from 'tsyringe'
 import { GlobalProvider } from '@/context'
 import { useAntdLocale } from '@/hooks'
 import Global from '@/models/global'
-import { is_win_electron } from '@/utils'
 
-import { AntdApp, Setting, Stacks, WinActions } from './components'
+import { AntdApp, Empty, Setting, Sidebar, Stacks } from './components'
 import { useAntdTheme, useGlobalUtils } from './hooks'
 
 import styles from './index.module.css'
 
 import type { ConfigProviderProps } from 'antd/es/config-provider'
-import type { IPropsSetting, IPropsStacks } from './types'
+import type { IPropsEmpty, IPropsSetting, IPropsSidebar, IPropsStacks } from './types'
 
 const Index = () => {
 	const [global] = useState(() => container.resolve(Global))
-	const locale = useAntdLocale(global.setting.lang)
-	const antd_theme = useAntdTheme(global.setting.theme_value)
-	const columns = $copy(global.stack.columns)
+
+	const setting = global.setting
+	const stack = global.stack
+	const layout = global.layout
+
+	const locale = useAntdLocale(setting.lang)
+	const antd_theme = useAntdTheme(setting.theme_value)
+
+	const columns = $copy(stack.columns)
 
 	useGlobalUtils()
 
@@ -33,6 +38,17 @@ const Index = () => {
 		}
 	}, [])
 
+	const props_sidebar: IPropsSidebar = {
+		toggleSetting: setting.toggleSetting,
+		closeSidebar: layout.toggleSidebar
+	}
+
+	const props_empty: IPropsEmpty = {
+		sidebar_fold: layout.sidebar_fold,
+		showSidebar: layout.toggleSidebar,
+		toggleSetting: setting.toggleSetting
+	}
+
 	const props_config_provider: ConfigProviderProps = {
 		prefixCls: 'ani',
 		iconPrefixCls: 'ani-icon',
@@ -43,30 +59,31 @@ const Index = () => {
 
 	const props_stacks: IPropsStacks = {
 		columns,
-		focus: $copy(global.stack.focus),
-		container_width: global.stack.container_width,
-		resizing: global.stack.resizing,
-		remove: useMemoizedFn(global.stack.remove),
-		click: useMemoizedFn(global.stack.click),
-		update: useMemoizedFn(global.stack.update),
-		move: useMemoizedFn(global.stack.move),
-		resize: useMemoizedFn(global.stack.resize),
-		setResizing: useMemoizedFn((v: boolean) => (global.stack.resizing = v)),
-		observe: useMemoizedFn(global.stack.observe),
-		unobserve: useMemoizedFn(global.stack.unobserve)
+		focus: $copy(stack.focus),
+		container_width: stack.container_width,
+		resizing: stack.resizing,
+		remove: stack.remove,
+		click: stack.click,
+		update: stack.update,
+		move: stack.move,
+		resize: stack.resize,
+		setResizing: useMemoizedFn((v: boolean) => (stack.resizing = v)),
+		observe: stack.observe,
+		unobserve: stack.unobserve,
+		showSidebar: setting.toggleSetting
 	}
 
 	const props_setting: IPropsSetting = {
 		update_status: $copy(global.app.update_status),
-		visible: global.setting.visible,
-		active: global.setting.active,
-		visible_menu: global.setting.visible_menu,
-		onClose: useMemoizedFn(() => (global.setting.visible = false)),
-		toggleMenu: useMemoizedFn(() => (global.setting.visible_menu = !global.setting.visible_menu)),
+		visible: setting.visible,
+		active: setting.active,
+		visible_menu: setting.visible_menu,
+		onClose: useMemoizedFn(() => (setting.visible = false)),
+		toggleMenu: useMemoizedFn(() => (setting.visible_menu = !setting.visible_menu)),
 		onMenuItem: useMemoizedFn((key: string) => {
-			global.setting.active = key
+			setting.active = key
 
-			if (global.setting.visible_menu) global.setting.visible_menu = false
+			if (setting.visible_menu) setting.visible_menu = false
 		})
 	}
 
@@ -75,24 +92,21 @@ const Index = () => {
 			<ConfigProvider {...props_config_provider}>
 				<App prefixCls='ani'>
 					<AntdApp></AntdApp>
-					{/* <div className='w_100vw h_100vh border_box relative'>
-						<Choose>
-							<When condition={columns.length > 0}>
-								<Stacks {...props_stacks}></Stacks>
-							</When>
-							<Otherwise>
-								<div
-									className='is_drag w_100 absolute z_index_10 top_0 left_0 flex justify_end'
-									style={{ height: 36 }}
-								>
-									<If condition={is_win_electron}>
-										<WinActions></WinActions>
-									</If>
-								</div>
-							</Otherwise>
-						</Choose>
-					</div> */}
-					<img className='w_100vw h_100vh' src='/bg.jpg' style={{ objectFit: 'cover' }} />
+					<div className={$cx('w_100', styles.container, layout.sidebar_fold && styles.fold)}>
+						<div className={$cx('h_100vh fixed top_0 left_0', styles.sidebar_container)}>
+							<Sidebar {...props_sidebar}></Sidebar>
+						</div>
+						<div className={$cx('h_100vh border_box relative', styles.stacks_container)}>
+							<Choose>
+								<When condition={columns.length > 0}>
+									<Stacks {...props_stacks}></Stacks>
+								</When>
+								<Otherwise>
+									<Empty {...props_empty}></Empty>
+								</Otherwise>
+							</Choose>
+						</div>
+					</div>
 					<Setting {...props_setting}></Setting>
 				</App>
 			</ConfigProvider>
@@ -101,3 +115,6 @@ const Index = () => {
 }
 
 export default new $app.handle(Index).by(observer).by($app.memo).get()
+
+export * from './types'
+export * from './components'

@@ -1,9 +1,16 @@
+import { commands } from './commands'
+
 import type { Shortcuts } from '@/models'
 
 export default [
 	{
 		key_bindings: { darwin: 'command+,', win32: 'ctrl+,' },
-		event_path: 'app.toggleSetting',
+		event_path: commands['app.toggleSetting'],
+		readonly: true
+	},
+	{
+		key_bindings: { darwin: 'command+b', win32: 'ctrl+b' },
+		event_path: commands['app.toggleSidebar'],
 		readonly: true
 	},
 	{

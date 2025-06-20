@@ -17,7 +17,7 @@ export const window_options = {
 	minHeight: 445,
 	transparent: true,
 	visualEffectState: 'active',
-	trafficLightPosition: { x: 9, y: 10 },
+	trafficLightPosition: { x: 10, y: 10 },
 	webPreferences: {
 		enableWebSQL: false,
 		spellcheck: false,

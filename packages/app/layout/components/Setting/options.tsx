@@ -2,46 +2,39 @@ import { CommandIcon, InfoIcon, SlidersHorizontalIcon } from '@phosphor-icons/re
 
 import { App_About, App_General, App_Shortcuts, Module_Note } from './components'
 
-import type { Icon } from '@phosphor-icons/react'
-import type { TFunction } from 'i18next'
-import type { JSX } from 'react'
+import type { ElementOf } from 'ts-essentials'
 
-export const getSettingItems = (t: TFunction<'translation', undefined>) => {
-	const target = [
+export const app_setting_items = (
+	[
 		{
-			label: t('setting.general.title'),
+			label: 'setting.general.title',
 			Icon: SlidersHorizontalIcon,
 			key: 'general',
 			children: <App_General></App_General>
 		},
 		{
-			label: t('setting.shortcuts.title'),
+			label: 'setting.shortcuts.title',
 			Icon: CommandIcon,
 			key: 'shortcuts',
 			children: <App_Shortcuts></App_Shortcuts>
 		},
 		{
-			label: t('setting.about.title'),
+			label: 'setting.about.title',
 			Icon: InfoIcon,
 			key: 'about',
 			children: <App_About></App_About>
 		}
-	]
+	] as const
+).slice()
 
-	return target.filter(item => item) as Array<{
-		label: string
-		Icon: Icon
-		key: string
-		children: JSX.Element
-	}>
-}
-
-export const getModuleItems = (t: TFunction<'translation', undefined>) => {
-	return [
+export const module_setting_items = (
+	[
 		{
-			label: t('app.module.note'),
+			label: 'app.module.note',
 			key: 'note',
 			children: <Module_Note></Module_Note>
 		}
 	] as const
-}
+).slice()
+
+export type SettingType = ElementOf<typeof app_setting_items>['key'] | ElementOf<typeof module_setting_items>['key']

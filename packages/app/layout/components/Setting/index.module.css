@@ -1,11 +1,10 @@
 .menu {
 	overflow-y: scroll;
 	width: 162px;
-	font-size: 13px;
 
 	:global {
 		.menu_items {
-			padding: 12px 0;
+			padding: 6px 6px;
 			gap: 2px;
 
 			.divider {
@@ -18,9 +17,11 @@
 			.menu_item {
 				height: 30px;
 				line-height: 1;
-				padding: 0 12px;
+				padding: 0 8px;
+				border-top-left-radius: var(--radius);
 				border-top-right-radius: 15px;
 				border-bottom-right-radius: 15px;
+				border-bottom-left-radius: var(--radius);
 				opacity: 0.6;
 				gap: 8px;
 
@@ -30,8 +31,7 @@
 				}
 
 				&.active {
-					background-color: var(--bg_active);
-					font-weight: 500;
+					opacity: 1;
 
 					&::before {
 						position: absolute;
@@ -39,7 +39,7 @@
 						width: 6px;
 						height: 6px;
 						border-radius: 50%;
-						background-color: var(--color_text_greylight);
+						background-color: var(--color_text);
 						content: '';
 					}
 				}
@@ -124,7 +124,7 @@
 			background-color: var(--bg_component);
 
 			&:hover {
-				background-color: var(--bg_active);
+				background-color: var(--bg_hover);
 			}
 		}
 	}

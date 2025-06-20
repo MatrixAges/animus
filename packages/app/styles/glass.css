@@ -5,22 +5,30 @@
 	--opacity_modal: 1;
 	--opacity_component: 1;
 	--opacity_dropdown: 1;
-	--opacity_active: 0.036;
+	--opacity_hover: 0.036;
+	--opacity_active: 0.048;
 	--opacity_selected: 0.09;
 
-	--bg: rgba(var(--color_bg_1_rgb), var(--opacity_bg));
+	--opacity_border_glass: 0.036;
+
+	--bg: rgba(var(--color_bg_rgb), var(--opacity_bg));
 	--bg_modal: rgba(var(--color_bg_rgb), var(--opacity_modal));
 	--bg_component: rgba(var(--color_bg_1_rgb), var(--opacity_component));
 	--bg_dropdown: rgba(var(--color_std_rgb), var(--opacity_dropdown));
+	--bg_hover: rgba(var(--color_contrast_rgb), var(--opacity_hover));
 	--bg_active: rgba(var(--color_contrast_rgb), var(--opacity_active));
 	--bg_selected: rgba(var(--color_contrast_rgb), var(--opacity_selected));
+
+	--border_glass: 1px solid rgba(var(--color_contrast_rgb), var(--opacity_border_glass));
 }
 
 [data-glass='1'] {
 	--opacity_bg: 0;
 	--opacity_modal: 0.72;
 	--opacity_component: 0.18;
-	--opacity_dropdown: 0.36;
+	--opacity_dropdown: 0.81;
+
+	--opacity_border_glass: 0.03;
 }
 
 [data-theme='dark'] {

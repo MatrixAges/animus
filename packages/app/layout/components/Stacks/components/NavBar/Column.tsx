@@ -13,7 +13,7 @@ import styles from './index.module.css'
 import type { IPropsStacksNavBarColumn } from '../../../../types'
 
 const Index = (props: IPropsStacksNavBarColumn) => {
-	const { column, column_index, column_is_last, focus, resizing, click, remove, update, showHomeDrawer } = props
+	const { column, column_index, column_is_last, focus, resizing, click, remove, update, showSidebar } = props
 	const { active, isOver, setNodeRef } = useDroppable({
 		id: `nav_column_${column_index}`,
 		data: { type: 'stack', column: column_index }
@@ -33,7 +33,7 @@ const Index = (props: IPropsStacksNavBarColumn) => {
 		>
 			<div
 				className='btn_homepage h_100 border_box flex justify_center align_center clickable no_drag'
-				onClick={showHomeDrawer}
+				onClick={showSidebar}
 			>
 				<SidebarIcon></SidebarIcon>
 			</div>
@@ -48,7 +48,16 @@ const Index = (props: IPropsStacksNavBarColumn) => {
 				>
 					{column.views.map((view, view_index) => (
 						<View
-							{...{ column_index, view_index, view, focus, click, remove, update }}
+							{...{
+								column_index,
+								view_index,
+								view,
+								focus,
+								click,
+								remove,
+								update,
+								showSidebar
+							}}
 							key={view.id}
 						></View>
 					))}

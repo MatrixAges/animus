@@ -15,5 +15,6 @@ export { default as useDeepLayoutEffect } from './useDeepLayoutEffect'
 export { default as useCreateEffect } from './useCreateEffect'
 export { default as useCreateLayoutEffect } from './useCreateLayoutEffect'
 export { default as useSetting } from './useSetting'
+export { default as useDelegate } from './useDelegate'
 
 export * from './useAntdApp'

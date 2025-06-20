@@ -47,3 +47,17 @@
 .no_drag {
 	-webkit-app-region: none;
 }
+
+.clickit {
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--bg_hover);
+	}
+
+	&:active,
+	&.active {
+		color: var(--color_text);
+		background-color: var(--bg_active);
+	}
+}

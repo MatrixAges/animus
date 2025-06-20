@@ -4,13 +4,12 @@ import { injectable } from 'tsyringe'
 import { Util } from '@/models'
 import { ipc, is_electron } from '@/utils'
 import { setStorageWhenChange } from 'stk/mobx'
-import { getComputedStyleValue } from 'stk/utils'
+import { commands } from '@/appdata'
 
 @injectable()
 export default class Index {
-	menu_width = 0
-	menu_fold = false
-	blur = false
+	sidebar_width = 0
+	sidebar_fold = false
 	maximize = false
 
 	constructor(public util: Util) {
@@ -18,45 +17,46 @@ export default class Index {
 	}
 
 	init() {
-		this.util.acts = [setStorageWhenChange(['menu_width'], this)]
+		this.util.acts = [setStorageWhenChange(['sidebar_width', 'sidebar_fold'], this)]
 
-		if (this.menu_width === 0) {
-			this.setDirTreeWidth(getComputedStyleValue(document.documentElement, '--menu_width'))
-
-			return
-		}
-
-		this.setDirTreeWidth(this.menu_width)
+		this.setDirTreeWidth(this.sidebar_width, true)
 
 		if (is_electron) this.onWindowBlur()
+
+		this.on()
 	}
 
 	onWindowBlur() {
-		// ipc.app.on.subscribe(undefined, {
-		// 	onData: ({ type, value }) => {
-		// 		switch (type) {
-		// 			case 'blur':
-		// 				if (this.blur !== value) this.blur = value
-		// 				break
-		// 			case 'maximize':
-		// 				if (this.maximize !== value) this.maximize = value
-		// 				break
-		// 		}
-		// 	}
-		// })
+		const off = ipc.app.onApp.subscribe(undefined, {
+			onData: ({ type, value }) => {
+				switch (type) {
+					case 'maximize':
+						if (this.maximize !== value) this.maximize = value
+						break
+				}
+			}
+		})
+
+		this.util.acts.push(off.unsubscribe)
 	}
 
-	toggleDirTreeVisible() {
-		this.menu_fold = !this.menu_fold
+	setDirTreeWidth(v: number, initial?: boolean) {
+		if (!initial) this.sidebar_width = v
+
+		document.documentElement.style.setProperty('--sidebar_width', v + 'px')
 	}
 
-	setDirTreeWidth(v: number) {
-		this.menu_width = v
+	toggleSidebar() {
+		this.sidebar_fold = !this.sidebar_fold
+	}
 
-		document.documentElement.style.setProperty('--menu_width', v + 'px')
+	on() {
+		$app.Event.on(commands['app.toggleSidebar'], this.toggleSidebar)
 	}
 
 	off() {
 		this.util.off()
+
+		$app.Event.off(commands['app.toggleSidebar'], this.toggleSidebar)
 	}
 }

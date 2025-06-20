@@ -1,0 +1,17 @@
+._local {
+	height: 36px;
+	padding: 0 6px;
+	border-bottom: var(--border_glass);
+
+	:global {
+		.actions_wrap {
+			gap: 6px;
+
+			.btn_action {
+				width: 24px;
+				height: 24px;
+				border-radius: var(--radius);
+			}
+		}
+	}
+}

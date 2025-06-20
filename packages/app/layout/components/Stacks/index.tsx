@@ -25,7 +25,7 @@ const Index = (props: IPropsStacks) => {
 		setResizing,
 		observe,
 		unobserve,
-		showHomeDrawer
+		showSidebar
 	} = props
 	const [drag_view, setDragView] = useState<{ column_index: number; view_index: number; view: Stack.View }>(null!)
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
@@ -56,7 +56,7 @@ const Index = (props: IPropsStacks) => {
 		click,
 		remove,
 		update,
-		showHomeDrawer
+		showSidebar
 	}
 
 	const props_content: IPropsStacksContent = {
@@ -80,7 +80,7 @@ const Index = (props: IPropsStacks) => {
 							view_index={drag_view.view_index}
 							view={drag_view.view}
 							drag_overlay
-							{...{ focus, click, remove, update }}
+							{...{ focus, click, remove, update, showSidebar }}
 						></View>
 					)}
 				</DragOverlay>

@@ -1,14 +1,18 @@
+import { modules } from '@/appdata'
+
+import type { ElementOf } from 'ts-essentials'
+
 export type Theme = 'light' | 'dark' | 'system'
 export type ThemeValue = Exclude<Theme, 'system'>
 export type Lang = 'en' | 'zh-cn'
-export type Module = 'note' | 'card' | 'chat' | 'flow' | 'database' | 'linkcase' | 'library'
+export type Module = ElementOf<typeof modules>
 
 export interface File {
 	module: Module
 	icon: string
 	name: string
 	id: string
-	dirty?: boolean
+	changed?: boolean
 	[key: string]: any
 }
 
@@ -22,7 +26,12 @@ export interface Downloading {
 	percent: number
 }
 
-export type UpdateState = null | HasUpdate | Downloading | { type: 'downloaded' }
+export interface UpdateError {
+	type: 'error'
+	message: string
+}
+
+export type UpdateState = null | HasUpdate | Downloading | UpdateError | { type: 'downloaded' }
 
 export type EventPath = 'app.openSearch' | 'app.closeSearch'
 

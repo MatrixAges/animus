@@ -40,8 +40,8 @@ export default (theme: ThemeValue) => {
 			colorBgElevated: 'var(--bg_dropdown)',
 			colorBgLayout: vars.color_bg_1,
 			colorFillTertiary: vars.color_bg_1,
-			colorBorder: theme === 'dark' ? vars.color_border_light : vars.color_border_soft,
-			colorBorderSecondary: vars.color_border_soft,
+			colorBorder: vars.color_border_soft,
+			colorBorderSecondary: vars.color_border_softlight,
 			controlItemBgActive: 'var(--bg_selected)',
 			boxShadow: vars.shadow,
 			borderRadiusXS: 2,
@@ -116,7 +116,6 @@ export default (theme: ThemeValue) => {
 			Tooltip: {
 				colorBgSpotlight: 'var(--bg_dropdown)',
 				fontSize: 12,
-				boxShadowSecondary: 'unset',
 				colorTextLightSolid: 'var(--color_text)'
 			}
 		}

@@ -5,18 +5,18 @@ import checkUpdate from './checkUpdate'
 import download from './download'
 import exit from './exit'
 import install from './install'
-import on from './on'
+import onApp from './onApp'
+import onUpdate from './onUpdate'
 import relaunch from './relaunch'
 import setGlass from './setGlass'
 import setTheme from './setTheme'
-import update from './update'
 
 export default router({
-	on,
+	onApp,
+	onUpdate,
 	exit,
 	relaunch,
 	actions,
-	update,
 	checkUpdate,
 	download,
 	install,
