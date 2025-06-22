@@ -1,11 +1,13 @@
-import { Operation, TRPCClientError, TRPCLink } from '@trpc/client'
+import { TRPCClientError } from '@trpc/client'
 import { getTransformer } from '@trpc/client/unstable-internals'
-import { observable, Observer } from '@trpc/server/observable'
+import { observable } from '@trpc/server/observable'
 
 import { transformResult } from './utils'
 
+import type { Operation, TRPCLink } from '@trpc/client'
 import type { TransformerOptions } from '@trpc/client/unstable-internals'
 import type { AnyTRPCRouter, inferRouterContext, inferTRPCClientTypes, TRPCProcedureType } from '@trpc/server'
+import type { Observer } from '@trpc/server/observable'
 import type { TRPCResponseMessage } from '@trpc/server/rpc'
 import type { GlobalERPC } from '../types'
 

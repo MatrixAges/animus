@@ -1,0 +1,23 @@
+._local {
+	line-height: 1.2;
+	margin: 12px 0;
+
+	:global {
+		.title {
+			padding: 8px 10px;
+			color: var(--color_text_grey);
+		}
+
+		.list_wrap {
+			.list_item_wrap {
+				padding: 8px 10px;
+				border-radius: var(--radius);
+				gap: 8px;
+
+				svg {
+					font-size: 16px;
+				}
+			}
+		}
+	}
+}

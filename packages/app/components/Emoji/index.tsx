@@ -1,21 +1,13 @@
 export interface IProps {
-	shortcodes: string
 	className?: string
+	shortcodes: string
 	size?: number
-	hue?: number
 }
 
 const Index = (props: IProps) => {
-	const { shortcodes, className, size, hue } = props
+	const { className, shortcodes, size } = props
 
-	return (
-		<em-emoji
-			className={$cx(className, hue && 'has_hue')}
-			shortcodes={shortcodes}
-			size={`${size}px`}
-			style={hue ? { filter: `hue-rotate(${hue}deg)` } : {}}
-		></em-emoji>
-	)
+	return <em-emoji className={$cx(className)} shortcodes={shortcodes} size={`${size}px`}></em-emoji>
 }
 
 export default $app.memo(Index)

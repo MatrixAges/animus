@@ -1,4 +1,4 @@
-import { Header, Modules } from './components'
+import { Header, List, Modules } from './components'
 
 import styles from './index.module.css'
 
@@ -18,6 +18,7 @@ const Index = (props: IPropsSidebar) => {
 			<div className='body_wrap w_100 border_box'>
 				<div className='content_wrap w_100 border_box flex flex_column'>
 					<Modules></Modules>
+					<List></List>
 				</div>
 			</div>
 		</div>

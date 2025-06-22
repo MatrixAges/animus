@@ -8,6 +8,10 @@ export interface IPropsSidebar {
 
 export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}
 
+export interface IPropsSidebarList {
+	title: string
+}
+
 export interface IPropsEmpty {
 	sidebar_fold: Layout['sidebar_fold']
 	showSidebar: ViodFn

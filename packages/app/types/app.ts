@@ -8,10 +8,10 @@ export type Lang = 'en' | 'zh-cn'
 export type Module = ElementOf<typeof modules>
 
 export interface File {
+	id: string
 	module: Module
 	icon: string
 	name: string
-	id: string
 	changed?: boolean
 	[key: string]: any
 }
