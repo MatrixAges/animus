@@ -6,6 +6,7 @@ export { default as Drawer } from './Drawer'
 export { default as Modal } from './Modal'
 export { default as Logo } from './Logo'
 export { default as Emoji } from './Emoji'
+export { default as Icon } from './Icon'
 
 export type { IProps as IPropsLoading } from './Loading'
 export type { IProps as IPropsLoadingCircle } from './LoadingCircle'

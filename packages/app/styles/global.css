@@ -1,17 +1,3 @@
-.clickable {
-	cursor: pointer;
-	user-select: none;
-	transition: scale ease 0.12s;
-
-	&:hover {
-		scale: 1.02;
-	}
-
-	&:active {
-		scale: 0.96;
-	}
-}
-
 .inline_flex {
 	display: inline-flex;
 }
@@ -48,8 +34,25 @@
 	-webkit-app-region: none;
 }
 
+.clickable {
+	cursor: pointer;
+	user-select: none;
+	user-select: none;
+	transition: scale ease 0.12s;
+
+	&:hover {
+		scale: 1.02;
+	}
+
+	&:active {
+		scale: 0.96;
+	}
+}
+
 .clickit {
 	cursor: pointer;
+	user-select: none;
+	transition: scale ease 0.06s;
 
 	&:hover {
 		background-color: var(--bg_hover);
@@ -59,5 +62,6 @@
 	&.active {
 		color: var(--color_text);
 		background-color: var(--bg_active);
+		scale: 0.99;
 	}
 }

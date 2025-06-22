@@ -1,7 +1,9 @@
 import type { App, Layout, Setting, Stack } from '@/models'
-import type { Module, ViodFn } from '@/types'
+import type { File, Module, ViodFn } from '@/types'
 
 export interface IPropsSidebar {
+	favorite_items: App['favorite_items']
+	recent_items: App['recent_items']
 	toggleSetting: ViodFn
 	closeSidebar: ViodFn
 }
@@ -10,6 +12,7 @@ export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting'
 
 export interface IPropsSidebarList {
 	title: string
+	items: Array<File>
 }
 
 export interface IPropsEmpty {

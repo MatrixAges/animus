@@ -2,7 +2,7 @@
 	:global {
 		.body_wrap {
 			overflow-y: scroll;
-			height: calc(100% - 36px - 30px);
+			height: calc(100% - 36px);
 			padding: 0 6px;
 		}
 	}

@@ -4,10 +4,30 @@ import { injectable } from 'tsyringe'
 import { Util } from '@/models'
 import { ipc, is_electron, info } from '@/utils'
 
-import type { UpdateState } from '@/types'
+import type { UpdateState, File } from '@/types'
+
+const favorite_items = [
+	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'OpenAI Translator' },
+	{ id: '7', module: 'chat', icon: 'google-chrome-logo', name: 'Web Designer' },
+	{ id: '8', module: 'chat', icon: 'shopping-cart-simple', name: 'Shopping Director' },
+	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Overview' },
+	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Deep Learning Trends' },
+	{ id: '5', module: 'note', icon: 'bandaids', name: 'AI in Healthcare' }
+] as Array<File>
+
+const recent_items = [
+	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'Insight Chat' },
+	{ id: '7', module: 'chat', icon: 'google-chrome-logo', name: 'Smart Web' },
+	{ id: '8', module: 'chat', icon: 'shopping-cart-simple', name: 'Cognitive Shop' },
+	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Lab' },
+	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Trends Vision' },
+	{ id: '5', module: 'note', icon: 'bandaids', name: 'Health Mind' }
+] as Array<File>
 
 @injectable()
 export default class Index {
+	favorite_items = favorite_items
+	recent_items = recent_items
 	update_silence = true
 	update_status = null as UpdateState
 

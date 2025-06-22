@@ -1,15 +1,28 @@
+import { useTranslation } from 'react-i18next'
+
 import { Header, List, Modules } from './components'
 
 import styles from './index.module.css'
 
-import type { IPropsSidebar, IPropsSidebarHeader } from '@/layout'
+import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarList } from '@/layout'
 
 const Index = (props: IPropsSidebar) => {
-	const { toggleSetting, closeSidebar } = props
+	const { favorite_items, recent_items, toggleSetting, closeSidebar } = props
+	const { t } = useTranslation()
 
 	const props_header: IPropsSidebarHeader = {
 		toggleSetting,
 		closeSidebar
+	}
+
+	const props_favorite: IPropsSidebarList = {
+		title: t('layout.Sidebar.favorite'),
+		items: favorite_items
+	}
+
+	const props_recent: IPropsSidebarList = {
+		title: t('layout.Sidebar.recent'),
+		items: recent_items
 	}
 
 	return (
@@ -18,7 +31,8 @@ const Index = (props: IPropsSidebar) => {
 			<div className='body_wrap w_100 border_box'>
 				<div className='content_wrap w_100 border_box flex flex_column'>
 					<Modules></Modules>
-					<List></List>
+					<List {...props_favorite}></List>
+					<List {...props_recent}></List>
 				</div>
 			</div>
 		</div>

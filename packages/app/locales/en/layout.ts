@@ -3,7 +3,11 @@ export default {
 		sidebar: 'Sidebar',
 		chat: 'Chat',
 		search: 'Search',
-		setting: 'setting',
+		setting: 'Setting',
 		exit: 'Exit'
+	},
+	Sidebar: {
+		favorite: 'Favorite',
+		recent: 'Recent'
 	}
 }

@@ -19,6 +19,7 @@ import type { IPropsEmpty, IPropsSetting, IPropsSidebar, IPropsStacks } from './
 const Index = () => {
 	const [global] = useState(() => container.resolve(Global))
 
+	const app = global.app
 	const setting = global.setting
 	const stack = global.stack
 	const layout = global.layout
@@ -39,6 +40,8 @@ const Index = () => {
 	}, [])
 
 	const props_sidebar: IPropsSidebar = {
+		favorite_items: $copy(app.favorite_items),
+		recent_items: $copy(app.recent_items),
 		toggleSetting: setting.toggleSetting,
 		closeSidebar: layout.toggleSidebar
 	}

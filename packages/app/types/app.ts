@@ -1,4 +1,4 @@
-import { modules } from '@/appdata'
+import { icons, modules } from '@/appdata'
 
 import type { ElementOf } from 'ts-essentials'
 
@@ -6,12 +6,14 @@ export type Theme = 'light' | 'dark' | 'system'
 export type ThemeValue = Exclude<Theme, 'system'>
 export type Lang = 'en' | 'zh-cn'
 export type Module = ElementOf<typeof modules>
+export type Icon = keyof typeof icons | (string & {})
 
 export interface File {
 	id: string
 	module: Module
-	icon: string
+	icon: Icon
 	name: string
+	path: string
 	changed?: boolean
 	[key: string]: any
 }

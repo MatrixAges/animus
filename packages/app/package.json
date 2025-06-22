@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "rsbuild dev",
 		"build": "rsbuild build",
-		"build:theme": "bun ./build/theme"
+		"build:theme": "bun ./build/theme",
+		"build:icons": "bun ./build/icons"
 	},
 	"keywords": [],
 	"dependencies": {
