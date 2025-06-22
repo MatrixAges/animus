@@ -14,6 +14,7 @@ const Index = (props: IPropsStacksContentView) => {
 				view_index={view_index}
 				module={view.module}
 				id={view.id}
+				type={view.type}
 				width={width}
 				container_width={container_width}
 				click={click}

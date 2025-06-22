@@ -1,40 +1,27 @@
 import type { App, Layout, Setting, Stack } from '@/models'
-import type { File, Module, ViodFn } from '@/types'
+import type { Module, Stack as StackType, ViodFn } from '@/types'
 
 export interface IPropsSidebar {
 	favorite_items: App['favorite_items']
 	recent_items: App['recent_items']
 	toggleSetting: ViodFn
 	closeSidebar: ViodFn
+	addPage: (v: Module) => void
 }
 
 export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}
 
+export interface IPropsSidebarModules extends Pick<IPropsSidebar, 'addPage'> {}
+
 export interface IPropsSidebarList {
 	title: string
-	items: Array<File>
+	items: Array<StackType.Item>
 }
 
 export interface IPropsEmpty {
 	sidebar_fold: Layout['sidebar_fold']
 	showSidebar: ViodFn
 	toggleSetting: ViodFn
-}
-
-export interface IPropsStacks {
-	columns: Stack['columns']
-	focus: Stack['focus']
-	container_width: Stack['container_width']
-	resizing: Stack['resizing']
-	click: Stack['click']
-	remove: Stack['remove']
-	update: Stack['update']
-	move: Stack['move']
-	resize: Stack['resize']
-	setResizing: (v: boolean) => boolean
-	observe: Stack['observe']
-	unobserve: Stack['unobserve']
-	showSidebar: ViodFn
 }
 
 export interface IPropsSetting {
@@ -48,6 +35,7 @@ export interface IPropsSetting {
 }
 
 export interface IPropsStacks {
+	sidebar_fold: Layout['sidebar_fold']
 	columns: Stack['columns']
 	focus: Stack['focus']
 	container_width: Stack['container_width']
@@ -60,6 +48,7 @@ export interface IPropsStacks {
 	setResizing: (v: boolean) => boolean
 	observe: Stack['observe']
 	unobserve: Stack['unobserve']
+	showSidebar: ViodFn
 }
 
 export interface IPropsStacksNavBar
@@ -73,7 +62,6 @@ export interface IPropsStacksNavBar
 		| 'setResizing'
 		| 'observe'
 		| 'unobserve'
-		| 'showSetting'
 	> {
 	resizing: boolean
 }
@@ -85,7 +73,7 @@ export interface IPropsStacksNavBarColumn extends Omit<IPropsStacksNavBar, 'colu
 }
 
 export interface IPropsStacksNavBarView
-	extends Omit<IPropsStacksNavBarColumn, 'column' | 'move' | 'resizing' | 'showHomeDrawer'> {
+	extends Omit<IPropsStacksNavBarColumn, 'sidebar_fold' | 'column' | 'move' | 'resizing' | 'showHomeDrawer'> {
 	view_index: number
 	view: IPropsStacksNavBar['columns'][number]['views'][number]
 	drag_overlay?: boolean
@@ -124,6 +112,7 @@ export interface IPropsStacksContentView {
 export interface IPropsStacksView {
 	column_index: number
 	view_index: number
+	type: StackType.Item['type']
 	module: Module
 	id: string
 	width: number

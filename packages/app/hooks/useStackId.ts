@@ -1,7 +1,7 @@
-import { useStackSelector } from '@/context/stack'
+import { useStack } from '@/context/stack'
 
 export default () => {
-	const id = useStackSelector(v => v?.id)
+	const { id } = useStack()
 
 	return id
 }

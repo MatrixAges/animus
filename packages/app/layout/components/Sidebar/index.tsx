@@ -4,15 +4,19 @@ import { Header, List, Modules } from './components'
 
 import styles from './index.module.css'
 
-import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarList } from '@/layout'
+import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarList, IPropsSidebarModules } from '@/layout'
 
 const Index = (props: IPropsSidebar) => {
-	const { favorite_items, recent_items, toggleSetting, closeSidebar } = props
+	const { favorite_items, recent_items, toggleSetting, closeSidebar, addPage } = props
 	const { t } = useTranslation()
 
 	const props_header: IPropsSidebarHeader = {
 		toggleSetting,
 		closeSidebar
+	}
+
+	const props_modules: IPropsSidebarModules = {
+		addPage
 	}
 
 	const props_favorite: IPropsSidebarList = {
@@ -30,7 +34,7 @@ const Index = (props: IPropsSidebar) => {
 			<Header {...props_header}></Header>
 			<div className='body_wrap w_100 border_box'>
 				<div className='content_wrap w_100 border_box flex flex_column'>
-					<Modules></Modules>
+					<Modules {...props_modules}></Modules>
 					<List {...props_favorite}></List>
 					<List {...props_recent}></List>
 				</div>

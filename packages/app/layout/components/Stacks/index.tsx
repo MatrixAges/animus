@@ -13,6 +13,7 @@ import type { IPropsStacks, IPropsStacksContent, IPropsStacksNavBar } from '../.
 
 const Index = (props: IPropsStacks) => {
 	const {
+		sidebar_fold,
 		columns,
 		focus,
 		container_width,
@@ -27,7 +28,7 @@ const Index = (props: IPropsStacks) => {
 		unobserve,
 		showSidebar
 	} = props
-	const [drag_view, setDragView] = useState<{ column_index: number; view_index: number; view: Stack.View }>(null!)
+	const [drag_view, setDragView] = useState<{ column_index: number; view_index: number; view: Stack.Item }>(null!)
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 
 	useEffect(() => {
@@ -45,11 +46,11 @@ const Index = (props: IPropsStacks) => {
 
 	const onDragEnd = useMemoizedFn(({ active, over }: DragEndEvent) => {
 		setDragView(null!)
-
 		move({ active, over })
 	})
 
 	const props_nav_bar: IPropsStacksNavBar = {
+		sidebar_fold,
 		columns,
 		focus,
 		resizing,

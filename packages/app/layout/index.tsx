@@ -13,6 +13,7 @@ import { useAntdTheme, useGlobalUtils } from './hooks'
 
 import styles from './index.module.css'
 
+import type { Module } from '@/types'
 import type { ConfigProviderProps } from 'antd/es/config-provider'
 import type { IPropsEmpty, IPropsSetting, IPropsSidebar, IPropsStacks } from './types'
 
@@ -43,7 +44,8 @@ const Index = () => {
 		favorite_items: $copy(app.favorite_items),
 		recent_items: $copy(app.recent_items),
 		toggleSetting: setting.toggleSetting,
-		closeSidebar: layout.toggleSidebar
+		closeSidebar: layout.toggleSidebar,
+		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module, active: true }))
 	}
 
 	const props_empty: IPropsEmpty = {
@@ -61,6 +63,7 @@ const Index = () => {
 	}
 
 	const props_stacks: IPropsStacks = {
+		sidebar_fold: layout.sidebar_fold,
 		columns,
 		focus: $copy(stack.focus),
 		container_width: stack.container_width,
@@ -73,7 +76,7 @@ const Index = () => {
 		setResizing: useMemoizedFn((v: boolean) => (stack.resizing = v)),
 		observe: stack.observe,
 		unobserve: stack.unobserve,
-		showSidebar: setting.toggleSetting
+		showSidebar: layout.toggleSidebar
 	}
 
 	const props_setting: IPropsSetting = {
@@ -95,8 +98,19 @@ const Index = () => {
 			<ConfigProvider {...props_config_provider}>
 				<App prefixCls='ani'>
 					<AntdApp></AntdApp>
-					<div className={$cx('w_100', styles.container, layout.sidebar_fold && styles.fold)}>
-						<div className={$cx('h_100vh fixed top_0 left_0', styles.sidebar_container)}>
+					<div
+						className={$cx(
+							'w_100 relative',
+							styles.container,
+							layout.sidebar_fold && styles.fold
+						)}
+					>
+						<div
+							className={$cx(
+								'h_100vh border_box absolute top_0 left_0',
+								styles.sidebar_container
+							)}
+						>
 							<Sidebar {...props_sidebar}></Sidebar>
 						</div>
 						<div className={$cx('h_100vh border_box relative', styles.stacks_container)}>

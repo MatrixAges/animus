@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
-import { Button } from 'antd'
-import { useDoubleClick } from 'stk/react'
+import { useTranslation } from 'react-i18next'
 
 import { Emoji, ModuleIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
@@ -13,6 +12,7 @@ import type { IPropsStacksNavBarView } from '@/layout/types'
 
 const Index = (props: IPropsStacksNavBarView) => {
 	const { column_index, view_index, view, focus, drag_overlay, click, remove, update } = props
+	const { t } = useTranslation()
 
 	const { attributes, listeners, transform, transition, isDragging, setNodeRef } = useSortable({
 		id: view.id,
@@ -26,13 +26,10 @@ const Index = (props: IPropsStacksNavBarView) => {
 		[column_index, view_index, focus]
 	)
 
-	const fixedItem = useDoubleClick(position => update({ position, v: { fixed: true } }))
-
 	const onMouseDown = useMemoizedFn(e => {
 		if (e.button !== 0) return
 
 		click({ column: column_index, view: view_index })
-		fixedItem({ column: column_index, view: view_index })
 	})
 
 	return (
@@ -43,42 +40,40 @@ const Index = (props: IPropsStacksNavBarView) => {
 			{...attributes}
 			{...listeners}
 		>
-			<Button
+			<div
 				className={$cx(
-					'nav_bar_item_wrap h_100 border_box',
+					'nav_bar_item_wrap h_100 border_box flex align_center clickit',
 					view.active && 'active',
-					view.fixed && 'is_fixed',
 					isDragging && 'isDragging',
 					drag_overlay && 'drag_overlay',
 					is_focus && 'is_focus'
 				)}
 				onMouseDown={onMouseDown}
 			>
-				<div className='nav_bar_item w_100 h_100 border_box flex align_center'>
-					<div className='icon_wrap h_100 flex align_center'>
-						<Choose>
-							<When condition={!!view.file.icon}>
-								<Emoji
-									shortcodes={view.file.icon!}
-									size={12}
-									hue={view.file.icon_hue}
-								></Emoji>
-							</When>
-							<Otherwise>
-								<ModuleIcon module={view.module}></ModuleIcon>
-							</Otherwise>
-						</Choose>
-					</div>
-					<span className='name_wrap ml_2'>{view.file.name}</span>
+				<div className='nav_bar_item w_100 border_box flex align_center'>
+					<Choose>
+						<When condition={view.type === 'page'}>
+							<span className='icon_wrap flex align_center'>
+								<ModuleIcon module={view.module} weight='fill'></ModuleIcon>
+							</span>
+							<span className='name_wrap'>{t(`app.module.${view.module}`)}</span>
+						</When>
+						<Otherwise>
+							<span className='icon_wrap flex align_center'>
+								<Emoji shortcodes={view.icon!} size={12}></Emoji>
+							</span>
+							<span className='name_wrap'>{view.name}</span>
+						</Otherwise>
+					</Choose>
 					<div
-						className='btn_remove flex justify_center align_center clickable ml_2'
+						className='btn_remove flex justify_center align_center clickit'
 						onMouseDown={e => e.stopPropagation()}
 						onClick={() => remove({ column: column_index, view: view_index })}
 					>
 						<XIcon size={12} weight='bold'></XIcon>
 					</div>
 				</div>
-			</Button>
+			</div>
 		</div>
 	)
 }

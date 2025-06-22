@@ -1,6 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 
-import { LazyPage } from '@/components'
+import { LazyModule, LazyPage } from '@/components'
 import { StackContext } from '@/context/stack'
 
 import styles from './index.module.css'
@@ -8,7 +8,7 @@ import styles from './index.module.css'
 import type { IPropsStacksView } from '@/layout/types'
 
 const Index = (props: IPropsStacksView) => {
-	const { column_index, view_index, module, id, width, container_width, click } = props
+	const { column_index, view_index, type, module, id, width, container_width, click } = props
 
 	const onMouseDown = useMemoizedFn(() => click({ column: column_index, view: view_index }, true))
 
@@ -16,7 +16,14 @@ const Index = (props: IPropsStacksView) => {
 		<StackContext.Provider value={{ module, id, width, container_width }}>
 			<div className={$cx('w_100 h_100 relative', styles.position_wrap)} onMouseDown={onMouseDown}>
 				<div id={id} className={$cx('__view_container w_100 h_100', styles._local)}>
-					<LazyPage module={module} props={{ id }} />
+					<Choose>
+						<When condition={type === 'page'}>
+							<LazyPage module={module} />
+						</When>
+						<Otherwise>
+							<LazyModule module={module} props={{ id }}></LazyModule>
+						</Otherwise>
+					</Choose>
 				</div>
 			</div>
 		</StackContext.Provider>

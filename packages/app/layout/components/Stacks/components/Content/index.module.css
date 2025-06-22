@@ -1,6 +1,6 @@
 .Column {
 	height: calc(100vh - 36px);
-	border-right: var(--border);
+	border-right: var(--border_glass);
 	transition: width ease 0.18s;
 
 	&:last-child {

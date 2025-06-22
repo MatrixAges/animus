@@ -11,7 +11,7 @@ import { conf, getThemeColor, is_mac, show_devtool } from './utils'
 
 import type { Tray as TrayType } from 'electron'
 
-console.log(21)
+console.log(2222221)
 
 class App {
 	private window: BrowserWindow | null

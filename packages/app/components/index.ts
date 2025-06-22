@@ -1,4 +1,5 @@
 export { default as LazyPage } from './LazyPage'
+export { default as LazyModule } from './LazyModule'
 export { default as ModuleIcon } from './ModuleIcon'
 export { default as Loading } from './Loading'
 export { default as LoadingCircle } from './LoadingCircle'

@@ -13,7 +13,19 @@ import styles from './index.module.css'
 import type { IPropsStacksNavBarColumn } from '../../../../types'
 
 const Index = (props: IPropsStacksNavBarColumn) => {
-	const { column, column_index, column_is_last, focus, resizing, click, remove, update, showSidebar } = props
+	const {
+		sidebar_fold,
+		column,
+		column_index,
+		column_is_last,
+		focus,
+		resizing,
+		click,
+		remove,
+		update,
+		showSidebar
+	} = props
+
 	const { active, isOver, setNodeRef } = useDroppable({
 		id: `nav_column_${column_index}`,
 		data: { type: 'stack', column: column_index }
@@ -26,22 +38,26 @@ const Index = (props: IPropsStacksNavBarColumn) => {
 				styles.Column,
 				resizing && styles.resizing,
 				active?.data?.current?.column !== column_index && isOver && styles.isOver,
-				is_mac_electron && styles.mac_with_homepage
+				sidebar_fold && is_mac_electron && styles.mac_with_sidebar_btn
 			)}
 			style={{ width: `${column.width}%` }}
 			ref={setNodeRef}
 		>
-			<div
-				className='btn_homepage h_100 border_box flex justify_center align_center clickable no_drag'
-				onClick={showSidebar}
-			>
-				<SidebarIcon></SidebarIcon>
-			</div>
+			<If condition={sidebar_fold}>
+				<div className='btn_sidebar_wrap h_100 flex justify_center align_center'>
+					<div
+						className='btn_sidebar border_box flex justify_center align_center clickit no_drag'
+						onClick={showSidebar}
+					>
+						<SidebarIcon></SidebarIcon>
+					</div>
+				</div>
+			</If>
 			<SortableContext items={column.views} strategy={horizontalListSortingStrategy}>
 				<ScrollMenu
 					wrapperClassName={$cx(
 						'scroll_wrap',
-						is_mac_electron && 'is_mac_electron',
+						sidebar_fold && is_mac_electron && 'is_mac_electron',
 						is_win_electron && column_is_last && 'column_is_last'
 					)}
 					onWheel={onWheel}

@@ -3,10 +3,10 @@ export default {
 		note: 'Note',
 		chat: 'Chat',
 		research: 'Research',
-		linkcase: 'Linkcase',
-		database: 'Database',
 		agent: 'Agent',
 		flow: 'Flow',
-		library: 'Library'
+		linkcase: 'Linkcase',
+		library: 'Library',
+		database: 'Database'
 	}
 }

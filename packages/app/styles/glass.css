@@ -19,7 +19,8 @@
 	--bg_active: rgba(var(--color_contrast_rgb), var(--opacity_active));
 	--bg_selected: rgba(var(--color_contrast_rgb), var(--opacity_selected));
 
-	--border_glass: 1px solid rgba(var(--color_contrast_rgb), var(--opacity_border_glass));
+	--color_border_glass: rgba(var(--color_contrast_rgb), var(--opacity_border_glass));
+	--border_glass: 1px solid var(--color_border_glass);
 }
 
 [data-glass='1'] {

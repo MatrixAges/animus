@@ -4,7 +4,7 @@ import { injectable } from 'tsyringe'
 import { Util } from '@/models'
 import { ipc, is_electron, info } from '@/utils'
 
-import type { UpdateState, File } from '@/types'
+import type { UpdateState, Stack } from '@/types'
 
 const favorite_items = [
 	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'OpenAI Translator' },
@@ -13,7 +13,7 @@ const favorite_items = [
 	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Overview' },
 	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Deep Learning Trends' },
 	{ id: '5', module: 'note', icon: 'bandaids', name: 'AI in Healthcare' }
-] as Array<File>
+] as Array<Stack.Item>
 
 const recent_items = [
 	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'Insight Chat' },
@@ -22,7 +22,7 @@ const recent_items = [
 	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Lab' },
 	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Trends Vision' },
 	{ id: '5', module: 'note', icon: 'bandaids', name: 'Health Mind' }
-] as Array<File>
+] as Array<Stack.Item>
 
 @injectable()
 export default class Index {
@@ -43,7 +43,7 @@ export default class Index {
 	}
 
 	onAppUpdate() {
-		ipc.app.onUpdate.subscribe(undefined, {
+		const off = ipc.app.onUpdate.subscribe(undefined, {
 			onData: args => {
 				switch (args.type) {
 					case 'can_update':
@@ -66,6 +66,8 @@ export default class Index {
 				}
 			}
 		})
+
+		this.util.acts.push(off.unsubscribe)
 	}
 
 	checkUpdate(silence?: boolean) {

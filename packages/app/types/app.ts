@@ -8,16 +8,6 @@ export type Lang = 'en' | 'zh-cn'
 export type Module = ElementOf<typeof modules>
 export type Icon = keyof typeof icons | (string & {})
 
-export interface File {
-	id: string
-	module: Module
-	icon: Icon
-	name: string
-	path: string
-	changed?: boolean
-	[key: string]: any
-}
-
 export interface HasUpdate {
 	type: 'has_update'
 	version: string

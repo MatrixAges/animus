@@ -6,7 +6,7 @@
 
 		.stacks_container {
 			width: 100vw;
-			translate: 0;
+			margin-left: 0;
 		}
 	}
 
@@ -18,11 +18,11 @@
 	}
 
 	.stacks_container {
-		width: calc(100vw- var(--sidebar_width));
+		width: calc(100vw - var(--sidebar_width));
+		margin-left: var(--sidebar_width);
 		transition:
 			width ease 0.18s,
-			translate ease 0.18s;
-		translate: var(--sidebar_width);
-		will-change: width, translate;
+			margin-left ease 0.18s;
+		will-change: width, margin-left;
 	}
 }

@@ -1,12 +1,27 @@
-import { File } from './app'
+import { Icon, Module } from './app'
 
 export namespace Stack {
-	export interface View extends File {
-		active: boolean
+	export interface PageItem {
+		type: 'page'
+		module: Module
+	}
+
+	export interface ModuleItem {
+		type: 'module'
+		module: Module
+		icon: Icon
+		name: string
+		changed?: boolean
+	}
+
+	export type Item = (PageItem | ModuleItem) & {
+		id: string
+		active?: boolean
+		[key: string]: any
 	}
 
 	export interface Column {
-		views: Array<View>
+		views: Array<Item>
 		width: number
 	}
 

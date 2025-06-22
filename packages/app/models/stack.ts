@@ -7,9 +7,10 @@ import { Util } from '@/models'
 import { arrayMove } from '@dnd-kit/sortable'
 import { setStorageWhenChange, useInstanceWatch } from 'stk/mobx'
 
-import type { Stack, File } from '@/types'
+import type { Stack } from '@/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import type { Watch } from 'stk/mobx'
+import type { Module } from '@/types'
 
 @injectable()
 export default class Index {
@@ -19,20 +20,12 @@ export default class Index {
 	container_width = 0
 	resizing = false
 
-	watch = {
-		columns: v => {
-			if (v!.length) return
-
-			this.focus = { column: -1, view: -1 }
-		}
-	} as Watch<Index>
-
 	constructor(public util: Util) {
-		makeAutoObservable(this, { util: false, observer: false, watch: false }, { autoBind: true })
+		makeAutoObservable(this, { util: false, observer: false }, { autoBind: true })
 	}
 
 	init() {
-		this.util.acts = [setStorageWhenChange(['columns', 'focus'], this), ...useInstanceWatch(this)]
+		this.util.acts = [setStorageWhenChange(['columns', 'focus'], this)]
 
 		this.getObserver()
 
@@ -55,8 +48,8 @@ export default class Index {
 		return {}
 	}
 
-	add(view: Stack.View) {
-		$app.Event.emit('global.app.setLatest', view.id)
+	add(view: Stack.Item) {
+		// $app.Event.emit('global.app.setLatest', view.id)
 
 		const exsit_view = this.find(view.id)
 
@@ -74,7 +67,7 @@ export default class Index {
 			this.columns = [{ views: [view], width: 100 }]
 			this.focus = { column: 0, view: 0 }
 
-			return
+			return this.updateColumnsFocus()
 		}
 
 		const target_views = this.columns[this.focus.column]?.views
@@ -82,7 +75,7 @@ export default class Index {
 		if (!target_views) {
 			this.focus = { column: -1, view: -1 }
 
-			return
+			return this.updateColumnsFocus()
 		}
 
 		const last_view = target_views.at(-1)
@@ -179,16 +172,18 @@ export default class Index {
 		}
 	}
 
-	update({ position, v }: { position: Stack.Position; v: Partial<Stack.View> }) {
+	update(args: { position: Stack.Position; v: Partial<Stack.Item> }) {
+		const { position, v } = args
+
 		this.columns[position.column].views[position.view] = {
 			...this.columns[position.column].views[position.view],
 			...v
-		}
+		} as Stack.Item
 
 		this.updateColumnsFocus()
 	}
 
-	updateFile(v: File) {
+	updateFile(v: Stack.Item) {
 		const exsit_view = this.find(v.id)
 
 		if (!exsit_view?.view) return

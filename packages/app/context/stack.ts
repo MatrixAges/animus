@@ -1,4 +1,5 @@
-import { createContext, useContext, useContextSelector } from 'stk/react'
+// import { createContext, useContext, useContextSelector } from 'stk/react'
+import { createContext, useContext } from 'react'
 
 import type { Module } from '@/types'
 
@@ -16,6 +17,6 @@ export const useStack = () => {
 	return useContext(StackContext)
 }
 
-export const useStackSelector = <Selected>(selector: (value: StackContext) => Selected) => {
-	return useContextSelector(StackContext, selector)
-}
+// export const useStackSelector = <Selected>(selector: (value: StackContext) => Selected) => {
+// 	return useStack()
+// }
