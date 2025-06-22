@@ -41,7 +41,8 @@
 		:global {
 			.slogan {
 				width: 360px;
-				font-size: 48px;
+				margin-bottom: 12px;
+				font-size: 45px;
 			}
 
 			.desc {
@@ -50,8 +51,6 @@
 			}
 
 			.brand_wrap {
-				bottom: 60px;
-
 				.name {
 					font-size: 18px;
 				}
