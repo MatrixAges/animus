@@ -119,12 +119,6 @@ importers:
       react-i18next:
         specifier: ^15.5.3
         version: 15.5.3(i18next@25.2.1(typescript@5.8.3))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)(typescript@5.8.3)
-      react-router:
-        specifier: ^7.6.2
-        version: 7.6.2(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
-      react-router-dom:
-        specifier: ^7.6.2
-        version: 7.6.2(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       rfdc:
         specifier: ^1.4.1
         version: 1.4.1
@@ -318,7 +312,7 @@ importers:
         version: 0.5.17
       ahooks:
         specifier: ^3.8.5
-        version: 3.8.5(react@19.1.0)
+        version: 3.8.5(react@0.0.0-experimental-06e89951-20250620)
       classix:
         specifier: ^2.2.2
         version: 2.2.2
@@ -332,11 +326,11 @@ importers:
         specifier: ^6.13.7
         version: 6.13.7
       react:
-        specifier: ^19.1.0
-        version: 19.1.0
+        specifier: 0.0.0-experimental-06e89951-20250620
+        version: 0.0.0-experimental-06e89951-20250620
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
+        specifier: 0.0.0-experimental-06e89951-20250620
+        version: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
       rfdc:
         specifier: ^1.4.1
         version: 1.4.1
@@ -6526,23 +6520,6 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
-  react-router-dom@7.6.2:
-    resolution: {integrity: sha512-Q8zb6VlTbdYKK5JJBLQEN06oTUa/RAbG/oQS1auK1I0TbJOXktqm+QENEVJU6QvWynlXPRBXI3fiOQcSEA78rA==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-
-  react-router@7.6.2:
-    resolution: {integrity: sha512-U7Nv3y+bMimgWjhlT5CRdzHPu2/KVmqPwKUCChW8en5P3znxUqwlYFlbmyj8Rgp1SF6zs5X4+77kBVknkg6a0w==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-
   react-smooth@4.0.4:
     resolution: {integrity: sha512-gnGKTpYwqL0Iii09gHobNolvX4Kiq4PKx6eWBCYYix+8cdw+cGo3do906l1NBPKkSWx1DghC1dlWG9L2uGd61Q==}
     peerDependencies:
@@ -6799,9 +6776,6 @@ packages:
   serve-static@2.2.0:
     resolution: {integrity: sha512-61g9pCh0Vnh7IutZjtLGGpTA355+OPn2TyDv/6ivP2h/AdAVX9azsoxmg2/M6nZeQZNYBEwIcsne1mJd9oQItQ==}
     engines: {node: '>= 18'}
-
-  set-cookie-parser@2.7.1:
-    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -15561,20 +15535,6 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react-router-dom@7.6.2(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620):
-    dependencies:
-      react: 0.0.0-experimental-06e89951-20250620
-      react-dom: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
-      react-router: 7.6.2(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
-
-  react-router@7.6.2(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620):
-    dependencies:
-      cookie: 1.0.2
-      react: 0.0.0-experimental-06e89951-20250620
-      set-cookie-parser: 2.7.1
-    optionalDependencies:
-      react-dom: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
-
   react-smooth@4.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       fast-equals: 5.2.2
@@ -15912,8 +15872,6 @@ snapshots:
       send: 1.2.0
     transitivePeerDependencies:
       - supports-color
-
-  set-cookie-parser@2.7.1: {}
 
   setprototypeof@1.2.0: {}
 

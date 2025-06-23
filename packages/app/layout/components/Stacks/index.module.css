@@ -3,18 +3,13 @@
 		.nav_bar_item_wrap {
 			position: relative;
 			line-height: 1;
-			padding: 0 12px;
+			padding: 0 10px;
 			border-right: var(--border_glass);
 			background-color: var(--bg);
 
 			&:hover {
-				.icon_module_wrap {
-					display: none;
-				}
-
 				.btn_remove {
-					display: flex;
-					color: rgba(var(--color_text_rgb), 0.72);
+					opacity: 1;
 				}
 			}
 
@@ -25,12 +20,8 @@
 					opacity: 1;
 				}
 
-				.icon_module_wrap {
-					display: none;
-				}
-
 				.btn_remove {
-					display: flex;
+					opacity: 1;
 				}
 			}
 
@@ -54,7 +45,6 @@
 			.nav_bar_item {
 				opacity: 0.6;
 				font-size: 12px;
-				gap: 6px;
 
 				.icon_wrap {
 					margin-bottom: -1px;
@@ -64,22 +54,18 @@
 					overflow: scroll;
 					max-width: 90px;
 					line-height: 16px;
+					margin-right: 4px;
+					margin-left: 6px;
 					outline: none;
 				}
 			}
 
-			.icon_module_wrap {
-				display: flex;
-				width: 18px;
-				height: 18px;
-			}
-
 			.btn_remove {
-				display: none;
 				width: 16px;
 				height: 16px;
 				border-radius: var(--radius_3);
-				color: rgba(var(--color_text_rgb), 0.3);
+				opacity: 0;
+				color: rgba(var(--color_text_rgb), 0.48);
 			}
 		}
 	}

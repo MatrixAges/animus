@@ -9,7 +9,7 @@ const is_prod = process.env.NODE_ENV === 'production'
 const postcss_plugins = ['postcss-import', 'postcss-nested', 'postcss-calc']
 
 export default {
-	source: { entry: { index: './runtime/index.tsx' }, decorators: { version: 'legacy' } },
+	source: { entry: { index: './index.tsx' }, decorators: { version: 'legacy' } },
 	output: { legalComments: 'none' },
 	html: { title: 'Animus - Grow with AI', template: './public/index.html' },
 	plugins: [pluginReact(), pluginSvgr()],

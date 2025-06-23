@@ -45,7 +45,7 @@ const Index = () => {
 		recent_items: $copy(app.recent_items),
 		toggleSetting: setting.toggleSetting,
 		closeSidebar: layout.toggleSidebar,
-		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module, active: true }))
+		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module }))
 	}
 
 	const props_empty: IPropsEmpty = {

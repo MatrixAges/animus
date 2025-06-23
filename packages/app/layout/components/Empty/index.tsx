@@ -65,7 +65,7 @@ const Index = (props: IPropsEmpty) => {
 					styles._local
 				)}
 			>
-				<Logo class_name='logo' size={150} color='var(--color_border_light)'></Logo>
+				<Logo className='logo' size={150} color='var(--color_border_light)'></Logo>
 				<div className='actions_wrap flex absolute' ref={ref}>
 					{actions.map(({ title, Icon }) => (
 						<Tooltip title={t(`layout.Empty.${title}`)} key={title}>

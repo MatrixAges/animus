@@ -1,16 +1,17 @@
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 
+import { Show } from '@/components'
 import { WinActions } from '@/layout/components'
 import { is_mac_electron, is_win_electron, onWheel } from '@/utils'
 import { useDroppable } from '@dnd-kit/core'
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
-import { House, SidebarIcon } from '@phosphor-icons/react'
+import { SidebarIcon } from '@phosphor-icons/react'
 
 import View from './View'
 
 import styles from './index.module.css'
 
-import type { IPropsStacksNavBarColumn } from '../../../../types'
+import type { IPropsStacksNavBarColumn } from '@/layout'
 
 const Index = (props: IPropsStacksNavBarColumn) => {
 	const {
@@ -38,21 +39,25 @@ const Index = (props: IPropsStacksNavBarColumn) => {
 				styles.Column,
 				resizing && styles.resizing,
 				active?.data?.current?.column !== column_index && isOver && styles.isOver,
-				sidebar_fold && is_mac_electron && styles.mac_with_sidebar_btn
+				sidebar_fold && column_index === 0 && is_mac_electron && styles.mac_with_sidebar_btn
 			)}
 			style={{ width: `${column.width}%` }}
 			ref={setNodeRef}
 		>
-			<If condition={sidebar_fold}>
-				<div className='btn_sidebar_wrap h_100 flex justify_center align_center'>
-					<div
-						className='btn_sidebar border_box flex justify_center align_center clickit no_drag'
-						onClick={showSidebar}
-					>
-						<SidebarIcon></SidebarIcon>
-					</div>
+			<Show
+				className='btn_sidebar_wrap h_100 flex justify_center align_center overflow_hidden'
+				initial={{ width: 0 }}
+				animate={{ width: 36 }}
+				exit={{ width: 0 }}
+				visible={sidebar_fold}
+			>
+				<div
+					className='btn_sidebar border_box flex justify_center align_center clickit no_drag'
+					onClick={showSidebar}
+				>
+					<SidebarIcon></SidebarIcon>
 				</div>
-			</If>
+			</Show>
 			<SortableContext items={column.views} strategy={horizontalListSortingStrategy}>
 				<ScrollMenu
 					wrapperClassName={$cx(

@@ -1,6 +1,6 @@
 import Column from './Column'
 
-import type { IPropsStacksContent } from '@/layout/types'
+import type { IPropsStacksContent } from '@/layout'
 
 const Index = (props: IPropsStacksContent) => {
 	const { columns, container_width, resizing, click, resize, setResizing } = props

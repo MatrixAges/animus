@@ -5,12 +5,10 @@ import { injectable } from 'tsyringe'
 
 import { Util } from '@/models'
 import { arrayMove } from '@dnd-kit/sortable'
-import { setStorageWhenChange, useInstanceWatch } from 'stk/mobx'
+import { setStorageWhenChange } from 'stk/mobx'
 
 import type { Stack } from '@/types'
 import type { DragEndEvent } from '@dnd-kit/core'
-import type { Watch } from 'stk/mobx'
-import type { Module } from '@/types'
 
 @injectable()
 export default class Index {
@@ -78,13 +76,7 @@ export default class Index {
 			return this.updateColumnsFocus()
 		}
 
-		const last_view = target_views.at(-1)
-
-		if (!last_view) {
-			target_views.push(view)
-		} else {
-			target_views.splice(target_views.length - 1, 1, view)
-		}
+		target_views.push(view)
 
 		target_views.forEach(item => (item.active = false))
 

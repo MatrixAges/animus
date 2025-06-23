@@ -2,7 +2,7 @@ import { unstable_Activity as Activity } from 'react'
 
 import View from '../View'
 
-import type { IPropsStacksContentView } from '@/layout/types'
+import type { IPropsStacksContentView } from '@/layout'
 
 const Index = (props: IPropsStacksContentView) => {
 	const { column_index, view_index, view, width, container_width, click } = props

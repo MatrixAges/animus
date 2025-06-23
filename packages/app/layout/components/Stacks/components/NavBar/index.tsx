@@ -1,6 +1,6 @@
 import Column from './Column'
 
-import type { IPropsStacksNavBar } from '../../../../types'
+import type { IPropsStacksNavBar } from '@/layout'
 
 const Index = (props: IPropsStacksNavBar) => {
 	const { sidebar_fold, columns, focus, resizing, click, remove, update, showSidebar } = props

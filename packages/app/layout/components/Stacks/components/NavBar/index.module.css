@@ -7,6 +7,16 @@
 		border-right: none;
 	}
 
+	&::before {
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background-color: var(--color_border_glass);
+		content: '';
+		transition: width ease 0.18s;
+	}
+
 	&::after {
 		position: absolute;
 		z-index: 0;
@@ -27,12 +37,7 @@
 
 	&.mac_with_sidebar_btn {
 		&::before {
-			bottom: 0;
-			left: 0;
 			width: 72px;
-			height: 1px;
-			background-color: var(--color_border_glass);
-			content: '';
 		}
 	}
 
@@ -57,6 +62,7 @@
 			--width_mac_light: 0px;
 			--width_win_actions: 0px;
 			width: calc(100% - var(--width_mac_light) - var(--width_win_actions));
+			transition: width ease 0.18s;
 
 			&.is_mac_electron {
 				--width_mac_light: 12px;

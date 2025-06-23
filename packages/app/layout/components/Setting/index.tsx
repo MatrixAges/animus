@@ -67,7 +67,7 @@ const Index = (props: IPropsSetting) => {
 
 	return (
 		<Modal
-			class_name={$cx('relative', styles.modal)}
+			className={$cx('relative', styles.modal)}
 			open={visible}
 			mask_closable
 			getRef={v => (ref.current = v)}

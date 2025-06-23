@@ -12,7 +12,7 @@ import type { MouseEvent, ReactNode } from 'react'
 export interface IProps {
 	children: ReactNode
 	open: boolean
-	class_name?: HTMLDivElement['className']
+	className?: HTMLDivElement['className']
 	mask_class_name?: HTMLDivElement['className']
 	title?: string | number
 	width?: string | number
@@ -30,7 +30,7 @@ const Index = (props: IProps) => {
 	const {
 		children,
 		open,
-		class_name,
+		className,
 		mask_class_name,
 		title,
 		width,
@@ -137,7 +137,7 @@ const Index = (props: IProps) => {
 									className={$cx(
 										'modal_content border_box flex flex_column',
 										styles.content,
-										class_name
+										className
 									)}
 									ref={ref_content}
 									initial={{

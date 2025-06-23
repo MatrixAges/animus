@@ -3,17 +3,17 @@ import styles from './index.module.css'
 import type { ReactNode } from 'react'
 
 export interface IProps {
-	class_name?: string
+	className?: string
 	size?: number
 	desc?: string
 	logo: ReactNode
 }
 
 const Index = (props: IProps) => {
-	const { class_name, size = 96, desc, logo } = props
+	const { className, size = 96, desc, logo } = props
 
 	return (
-		<div className={$cx('flex flex_column justify_center align_center', styles._local, class_name)}>
+		<div className={$cx('flex flex_column justify_center align_center', styles._local, className)}>
 			<div className='loading_wrap relative'>
 				<div
 					className='loading_icon bottom w_100 h_100 absolute top_0 left_0'

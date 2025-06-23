@@ -1,0 +1,92 @@
+._local {
+	max-width: var(--content_width);
+	padding: 18px 36px;
+	margin: 0 auto;
+	font-family: var(--font_serif);
+
+	:global {
+		.hello {
+			margin: 0;
+			margin-bottom: 12px;
+			color: var(--color_text_grey);
+			text-align: center;
+			font-size: 36px;
+			font-weight: 500;
+		}
+
+		.textarea {
+			min-height: 102px;
+			line-height: var(--line_height);
+			padding: 12px;
+			border: none;
+			border-radius: var(--radius);
+			outline: 1px solid transparent;
+			background-color: var(--bg_component);
+			resize: none;
+			transition: outline ease 0.18s;
+			font-family: var(--font_serif);
+			font-size: 14px;
+			field-sizing: content;
+
+			&:focus {
+				outline: 1px solid var(--color_text_grey);
+			}
+		}
+
+		.section_title_wrap {
+			margin-top: 30px;
+			margin-bottom: 12px;
+
+			.section_title {
+				margin: 0;
+				font-size: 14px;
+				font-weight: 500;
+			}
+
+			.btn_action {
+				width: 20px;
+				height: 20px;
+				border-radius: var(--radius_4);
+				font-size: 16px;
+			}
+		}
+
+		.role_items {
+			gap: 12px;
+
+			.role_item {
+				flex: 1;
+				padding: 6px 12px;
+				border-radius: var(--radius);
+				background-color: var(--bg_component);
+				gap: 6px;
+
+				.icon_wrap {
+					padding-top: 3px;
+					font-size: 21px;
+				}
+			}
+		}
+
+		.recent_items {
+			overflow: hidden;
+			border-radius: var(--radius);
+			background-color: var(--bg_component);
+
+			.recent_item {
+				padding: 8px 12px;
+				border-bottom: var(--border_glass);
+
+				&:last-child {
+					border-bottom: unset;
+				}
+
+				&:hover {
+					.question {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+}

@@ -13,7 +13,7 @@ export interface IProps {
 	children: ReactNode
 	open: boolean
 	placement?: 'left' | 'right' | 'top' | 'bottom'
-	class_name?: HTMLDivElement['className']
+	className?: HTMLDivElement['className']
 	mask_class_name?: HTMLDivElement['className']
 	title?: string | number
 	width?: string | number
@@ -30,7 +30,7 @@ const Index = (props: IProps) => {
 		children,
 		open,
 		placement = 'left',
-		class_name,
+		className,
 		mask_class_name,
 		title,
 		width,
@@ -139,7 +139,7 @@ const Index = (props: IProps) => {
 						styles.content_wrap,
 						styles.on_body,
 						align,
-						class_name,
+						className,
 						'modal_wrap w_100 h_100 border_box flex no_drag'
 					)}
 					ref={ref_content_wrap}

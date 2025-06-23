@@ -5,7 +5,6 @@ import type { NotificationInstance } from 'antd/es/notification/interface'
 import type { GlobalERPC } from 'erpc/renderer'
 import type { TFunction } from 'i18next'
 import type { memo } from 'react'
-import type { NavigateFunction } from 'react-router-dom'
 import type Emittery from 'stk/emittery'
 import type { handle } from 'stk/react'
 
@@ -36,7 +35,6 @@ declare global {
 		$t: TFunction<'translation', undefined>
 		$copy: $Copy
 		$cx: $CX
-		$navigate: NavigateFunction
 
 		$app: $App
 		$db: RxDB.DBContent
@@ -52,7 +50,6 @@ declare global {
 	let $t: TFunction<'translation', undefined>
 	let $copy: $Copy
 	let $cx: $CX
-	let $navigate: NavigateFunction
 
 	let $app: $App
 	let $db: RxDB.DBContent

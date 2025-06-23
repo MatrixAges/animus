@@ -5,7 +5,7 @@ import { StackContext } from '@/context/stack'
 
 import styles from './index.module.css'
 
-import type { IPropsStacksView } from '@/layout/types'
+import type { IPropsStacksView } from '@/layout'
 
 const Index = (props: IPropsStacksView) => {
 	const { column_index, view_index, type, module, id, width, container_width, click } = props

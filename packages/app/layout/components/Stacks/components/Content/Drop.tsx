@@ -2,7 +2,7 @@ import { useDroppable } from '@dnd-kit/core'
 
 import styles from './index.module.css'
 
-import type { IPropsStacksContentDrop } from '@/layout/types'
+import type { IPropsStacksContentDrop } from '@/layout'
 
 const Index = (props: IPropsStacksContentDrop) => {
 	const { column_index, direction } = props

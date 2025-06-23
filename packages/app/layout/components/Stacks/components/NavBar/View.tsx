@@ -8,7 +8,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { XIcon } from '@phosphor-icons/react'
 
-import type { IPropsStacksNavBarView } from '@/layout/types'
+import type { IPropsStacksNavBarView } from '@/layout'
 
 const Index = (props: IPropsStacksNavBarView) => {
 	const { column_index, view_index, view, focus, drag_overlay, click, remove, update } = props
