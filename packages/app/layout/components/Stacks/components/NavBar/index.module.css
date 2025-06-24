@@ -32,7 +32,7 @@
 	}
 
 	&.isOver {
-		background-color: var(--color_bg);
+		background-color: var(--bg_component);
 	}
 
 	&.mac_with_sidebar_btn {

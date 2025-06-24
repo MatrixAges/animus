@@ -1,6 +1,7 @@
 ._local {
 	max-width: var(--content_width);
-	padding: 18px 36px;
+	padding: 36px;
+	padding-top: 18px;
 	margin: 0 auto;
 	font-family: var(--font_serif);
 
@@ -12,25 +13,6 @@
 			text-align: center;
 			font-size: 36px;
 			font-weight: 500;
-		}
-
-		.textarea {
-			min-height: 102px;
-			line-height: var(--line_height);
-			padding: 12px;
-			border: none;
-			border-radius: var(--radius);
-			outline: 1px solid transparent;
-			background-color: var(--bg_component);
-			resize: none;
-			transition: outline ease 0.18s;
-			font-family: var(--font_serif);
-			font-size: 14px;
-			field-sizing: content;
-
-			&:focus {
-				outline: 1px solid var(--color_text_grey);
-			}
 		}
 
 		.section_title_wrap {

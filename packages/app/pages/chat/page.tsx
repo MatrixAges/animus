@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 
-import { Icon } from '@/components'
+import { Chatbox, Icon } from '@/components'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
@@ -26,8 +26,7 @@ const Index = () => {
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local)}>
 			<h1 className='hello'>What's good, today?</h1>
-			<textarea className='textarea w_100 border_box' placeholder='Can I help you with?'></textarea>
-			<div></div>
+			<Chatbox></Chatbox>
 			<div className='section_title_wrap flex justify_between align_center'>
 				<h2 className='section_title'>Role</h2>
 				<div className='btn_action flex justify_center align_center clickable'>

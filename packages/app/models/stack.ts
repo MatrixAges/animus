@@ -62,7 +62,7 @@ export default class Index {
 		}
 
 		if (this.focus.column === -1) {
-			this.columns = [{ views: [view], width: 100 }]
+			this.columns = [{ views: [{ ...view, active: true }], width: 100 }]
 			this.focus = { column: 0, view: 0 }
 
 			return this.updateColumnsFocus()
@@ -76,11 +76,8 @@ export default class Index {
 			return this.updateColumnsFocus()
 		}
 
-		target_views.push(view)
-
 		target_views.forEach(item => (item.active = false))
-
-		target_views[target_views.length - 1].active = true
+		target_views.push({ ...view, active: true })
 
 		this.focus.view = target_views.length - 1
 

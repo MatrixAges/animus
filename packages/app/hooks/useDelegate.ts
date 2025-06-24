@@ -41,6 +41,7 @@ export default <T extends HTMLElement>(
 				el.removeEventListener(event_type, handler)
 			}
 		}
+
 		if (!visible) return
 
 		if (visible && duration) {

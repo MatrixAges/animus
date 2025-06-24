@@ -22,7 +22,7 @@
 		local('STIXTwoText'),
 		url('../font/STIXTwoText/STIXTwoText.ttf') format('truetype');
 
-	descent-override: 0%;
+	descent-override: 6%;
 }
 @font-face {
 	font-family: 'STIXTwoText';
@@ -31,5 +31,5 @@
 		local('STIXTwoText'),
 		url('../font/STIXTwoText/STIXTwoText-Italic.ttf') format('truetype');
 
-	descent-override: 0%;
+	descent-override: 6%;
 }
