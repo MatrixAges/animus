@@ -10,6 +10,4 @@ if (!app.requestSingleInstanceLock()) app.exit()
 
 app.commandLine.appendSwitch('lang', 'en-US')
 
-console.log(conf.get('theme_source'))
-
 nativeTheme.themeSource = (conf.get('theme_source') || 'system') as Theme

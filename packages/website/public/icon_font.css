@@ -21,6 +21,8 @@
 	src:
 		local('STIXTwoText'),
 		url('./font/STIXTwoText/STIXTwoText.ttf') format('truetype');
+
+	descent-override: 0%;
 }
 @font-face {
 	font-family: 'STIXTwoText';
@@ -28,4 +30,6 @@
 	src:
 		local('STIXTwoText'),
 		url('./font/STIXTwoText/STIXTwoText-Italic.ttf') format('truetype');
+
+	descent-override: 0%;
 }
