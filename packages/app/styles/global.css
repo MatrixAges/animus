@@ -64,6 +64,9 @@
 	&.active {
 		color: var(--color_text);
 		background-color: var(--bg_active);
-		scale: 0.99;
+	}
+
+	&:active {
+		scale: 0.98;
 	}
 }

@@ -1,10 +1,10 @@
 [data-theme='dark'] {
 	&:not([data-glass='1']) {
-		.ani-tooltip {
-			.ani-tooltip-arrow {
+		.ani-popover {
+			.ani-popover-arrow {
 				&::before,
 				&::after {
-					background-color: rgba(var(--color_contrast_rgb), 0.02);
+					background-color: rgba(var(--color_contrast_rgb), 0.03);
 				}
 			}
 		}
@@ -12,8 +12,8 @@
 }
 
 [data-glass='1'] {
-	.ani-tooltip {
-		.ani-tooltip-arrow {
+	.ani-popover {
+		.ani-popover-arrow {
 			&::before,
 			&::after {
 				background-color: rgba(var(--color_bg_1_rgb), 1);
@@ -22,11 +22,11 @@
 	}
 }
 
-.ani-tooltip {
+.ani-popover {
 	border-radius: var(--radius);
 	backdrop-filter: var(--glass_blur);
 
-	.ani-tooltip-arrow {
+	.ani-popover-arrow {
 		&::before,
 		&::after {
 			background-color: rgba(var(--color_bg_1_rgb), 0.48);

@@ -2,7 +2,7 @@
 	padding: 12px 18px;
 	margin-bottom: 4px;
 	border-radius: var(--radius);
-	background-color: var(--bg_component);
+	background-color: var(--bg_card);
 
 	.setting_icon {
 		margin-right: 16px;

@@ -26,7 +26,7 @@ const Index = () => {
 	const layout = global.layout
 
 	const locale = useAntdLocale(setting.lang)
-	const antd_theme = useAntdTheme(setting.theme_value)
+	const antd_theme = useAntdTheme(setting.theme_value, setting.glass)
 
 	const columns = $copy(stack.columns)
 

@@ -2,6 +2,8 @@
 @import './Select.css';
 @import './Switch.css';
 @import './Tooltip.css';
+@import './Popover.css';
+@import './Slider.css';
 
 .ani {
 	color: var(--color_text);

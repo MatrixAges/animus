@@ -15,7 +15,7 @@ export const getVars = (theme: ThemeValue) => {
 	}
 }
 
-export default (theme: ThemeValue) => {
+export default (theme: ThemeValue, glass: boolean) => {
 	const is_dark = theme === 'dark'
 	const vars = getVars(theme)
 
@@ -26,6 +26,8 @@ export default (theme: ThemeValue) => {
 	) => {
 		return Object.assign(common, is_dark ? dark_config : light_config) as T
 	}
+
+	const boxShadowSecondary = is_dark && !glass ? 'unset' : 'var(--shadow)'
 
 	return {
 		cssVar: true,
@@ -43,7 +45,7 @@ export default (theme: ThemeValue) => {
 			colorBorder: vars.color_border_soft,
 			colorBorderSecondary: vars.color_border_softlight,
 			controlItemBgActive: 'var(--bg_selected)',
-			boxShadow: vars.shadow,
+			boxShadow: 'var(--shadow)',
 			borderRadiusXS: 2,
 			borderRadiusSM: 4,
 			borderRadius: 6
@@ -60,9 +62,9 @@ export default (theme: ThemeValue) => {
 			},
 			Switch: getTargetConfig<DeepRequired<ThemeConfig>['components']['Switch']>(
 				{
-					handleSizeSM: 12,
-					trackHeightSM: 18,
-					trackMinWidthSM: 30,
+					handleSizeSM: 10,
+					trackHeightSM: 16,
+					trackMinWidthSM: 28,
 					handleShadow: 'unset'
 				},
 				{
@@ -95,8 +97,14 @@ export default (theme: ThemeValue) => {
 				colorBgLayout: vars.color_bg_1
 			},
 			Slider: {
+				railSize: 2.4,
 				handleSize: 8,
-				handleSizeHover: 10
+				handleSizeHover: 8,
+				handleLineWidth: 1.6,
+				handleLineWidthHover: 1.6,
+				handleActiveOutlineColor: 'transparent',
+				railBg: 'rgba(var(--color_contrast_rgb),0.06)',
+				railHoverBg: 'rgba(var(--color_contrast_rgb),0.12)'
 			},
 			Radio: {
 				dotSize: 9,
@@ -116,7 +124,11 @@ export default (theme: ThemeValue) => {
 			Tooltip: {
 				colorBgSpotlight: 'var(--bg_dropdown)',
 				fontSize: 12,
-				colorTextLightSolid: 'var(--color_text)'
+				colorTextLightSolid: 'var(--color_text)',
+				boxShadowSecondary
+			},
+			Popover: {
+				boxShadowSecondary
 			}
 		}
 	} as ThemeConfig

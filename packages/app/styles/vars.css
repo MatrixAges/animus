@@ -23,4 +23,5 @@
 		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	--font_serif: 'STIXTwoText', Georgia, 'Times New Roman', Times, '宋体', SimSun, serif;
 	--font_mono: 'Menlo', 'Consolas', monospace;
+	--font_stiff: 'Tektur';
 }

@@ -33,3 +33,14 @@
 
 	descent-override: 6%;
 }
+
+/** Tektur */
+@font-face {
+	font-family: 'Tektur';
+	font-style: normal;
+	src:
+		local('Tektur'),
+		url('../font/Tektur.ttf') format('truetype');
+
+	descent-override: 24%;
+}

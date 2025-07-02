@@ -1,0 +1,68 @@
+._local {
+	width: 240px;
+	font-size: 12px;
+
+	:global {
+		.ani-popover-inner {
+			padding: 16px;
+		}
+
+		.config_items {
+			gap: 16px;
+
+			.config_item {
+				.header {
+					line-height: 1;
+
+					.title_wrap {
+						gap: 4px;
+
+						.icon {
+							color: var(--color_text_grey);
+							font-size: 13px;
+						}
+					}
+
+					.value {
+						width: 48px;
+						line-height: 1;
+						border: none;
+						background-color: unset;
+
+						input {
+							line-height: 1;
+							padding: 0;
+							border-radius: 0;
+							text-align: right;
+							font-family: var(--font_stiff);
+							font-size: 12px;
+						}
+					}
+				}
+
+				.changer {
+					.slider {
+						margin: 0 2px;
+						margin-top: 10px;
+					}
+
+					.input_number {
+						margin-top: 10px;
+						background-color: unset;
+
+						.ani-input-number-input-wrap {
+							height: 24px;
+
+							input {
+								line-height: 24px;
+								padding: 0 6px;
+								font-family: var(--font_stiff);
+								font-size: 12px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

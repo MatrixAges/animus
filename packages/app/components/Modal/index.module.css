@@ -1,6 +1,10 @@
 [data-theme='dark'] {
 	.mask {
-		background-color: rgba(0, 0, 0, 0.75);
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+
+	.content {
+		border: var(--border_glass);
 	}
 }
 

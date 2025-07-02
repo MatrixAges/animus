@@ -1,0 +1,7 @@
+.ani-slider {
+	.ani-slider-handle {
+		&::after {
+			background-color: var(--color_bg_1);
+		}
+	}
+}
