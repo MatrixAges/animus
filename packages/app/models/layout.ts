@@ -2,13 +2,14 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models'
-import { ipc, is_electron } from '@/utils'
-import { setStorageWhenChange } from 'stk/mobx'
-import { commands } from '@/appdata'
+import { ipc, is_electron, set_store_options } from '@/utils'
+import { setStoreWhenChange } from 'stk/mobx'
+import { commands, config_keys } from '@/appdata'
+
+const { sidebar_fold } = config_keys
 
 @injectable()
 export default class Index {
-	sidebar_width = 0
 	sidebar_fold = false
 	maximize = false
 
@@ -16,10 +17,10 @@ export default class Index {
 		makeAutoObservable(this, { util: false }, { autoBind: true })
 	}
 
-	init() {
-		this.util.acts = [setStorageWhenChange(['sidebar_width', 'sidebar_fold'], this)]
+	async init() {
+		const off = await setStoreWhenChange([sidebar_fold], this, set_store_options)
 
-		this.setDirTreeWidth(this.sidebar_width, true)
+		this.util.acts = [off]
 
 		if (is_electron) this.onWindowBlur()
 
@@ -38,12 +39,6 @@ export default class Index {
 		})
 
 		this.util.acts.push(off.unsubscribe)
-	}
-
-	setDirTreeWidth(v: number, initial?: boolean) {
-		if (!initial) this.sidebar_width = v
-
-		document.documentElement.style.setProperty('--sidebar_width', v + 'px')
 	}
 
 	toggleSidebar() {

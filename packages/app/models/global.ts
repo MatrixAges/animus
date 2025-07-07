@@ -5,25 +5,26 @@ import { Setting, Stack, Shortcuts, Layout, App } from '@/models'
 @singleton()
 export default class GlobalModel {
 	constructor(
-		public app: App,
 		public setting: Setting,
+		public layout: Layout,
 		public stack: Stack,
-		public shortcuts: Shortcuts,
-		public layout: Layout
+		public app: App,
+		public shortcuts: Shortcuts
 	) {}
 
-	init() {
+	async init() {
+		await this.setting.init()
+		await this.layout.init()
+		await this.stack.init()
+
 		this.app.init()
-		this.setting.init()
-		this.stack.init()
 		this.shortcuts.init()
-		this.layout.init()
 	}
 
 	off() {
-		this.app.off()
 		this.setting.off()
-		this.stack.off()
 		this.layout.off()
+		this.app.off()
+		this.stack.off()
 	}
 }

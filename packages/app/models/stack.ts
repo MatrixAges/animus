@@ -22,7 +22,7 @@ export default class Index {
 		makeAutoObservable(this, { util: false, observer: false }, { autoBind: true })
 	}
 
-	init() {
+	async init() {
 		this.util.acts = [setStorageWhenChange(['columns', 'focus'], this)]
 
 		this.getObserver()

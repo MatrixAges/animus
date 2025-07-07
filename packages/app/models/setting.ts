@@ -12,13 +12,16 @@ import {
 	ipc,
 	is_electron,
 	theme_match_media,
-	getSystemTheme
+	getSystemTheme,
+	conf,
+	set_store_options
 } from '@/utils'
-import { setStorageWhenChange } from 'stk/mobx'
-import { local } from 'stk/storage'
-import { commands } from '@/appdata'
+import { setStoreWhenChange } from 'stk/mobx'
+import { commands, config_keys } from '@/appdata'
 
 import type { Lang, Theme } from '@/types'
+
+const { lang, theme_source, glass } = config_keys
 
 @injectable()
 export default class Index {
@@ -33,24 +36,23 @@ export default class Index {
 
 	constructor(public util: Util) {
 		makeAutoObservable(this, { util: false }, { autoBind: true })
-
-		this.lang = local.lang ?? getLang(navigator.language)
-
-		this.setLocale(this.lang)
-		this.setTheme(local.theme_source || 'system', true)
-		this.setGlass(local.glass ?? true)
-
-		// setTimeout(() =>(this.global = container.resolve(Global)), 0)
 	}
 
-	init() {
-		this.util.acts = [setStorageWhenChange(['lang', 'theme_source', 'glass'], this)]
+	async init() {
+		const off = await setStoreWhenChange([lang, theme_source, glass], this, set_store_options)
+
+		this.util.acts = [off]
+
+		await this.setLocale(this.lang ?? getLang(navigator.language))
+
+		this.setTheme(this.theme_source || 'system', true)
+		this.setGlass(this.glass ?? true)
 
 		this.checkTheme()
 		this.on()
 	}
 
-	setLocale(lang: Lang) {
+	async setLocale(lang: Lang) {
 		i18next
 			.use(resourcesToBackend)
 			.use(initReactI18next)
@@ -62,14 +64,17 @@ export default class Index {
 				interpolation: { escapeValue: false }
 			})
 
-		import(`@/locales/dayjs/${lang}`).then(res => dayjs.locale(lang, res.default))
+		const res = await import(`@/locales/dayjs/${lang}`)
+
+		dayjs.locale(lang, res.default)
 	}
 
 	setLang(lang: Lang) {
 		if (lang === this.lang) return
 
 		this.lang = lang
-		local.lang = lang
+
+		conf.set('lang', lang)
 
 		relaunch()
 	}

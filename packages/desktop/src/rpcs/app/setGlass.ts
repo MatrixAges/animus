@@ -10,6 +10,4 @@ export default p.input(input_type).mutation(async ({ input, ctx }) => {
 	if (conf.get('glass') === glass) return
 
 	setWindowGlass(ctx.win, glass)
-
-	conf.set('glass', glass)
 })

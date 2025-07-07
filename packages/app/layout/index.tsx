@@ -17,7 +17,7 @@ import type { Module } from '@/types'
 import type { ConfigProviderProps } from 'antd/es/config-provider'
 import type { IPropsEmpty, IPropsSetting, IPropsSidebar, IPropsStacks } from './types'
 
-const Index = () => {
+const Index = observer(() => {
 	const [global] = useState(() => container.resolve(Global))
 
 	const app = global.app
@@ -31,14 +31,6 @@ const Index = () => {
 	const columns = $copy(stack.columns)
 
 	useGlobalUtils()
-
-	useLayoutEffect(() => {
-		global.init()
-
-		return () => {
-			global.off()
-		}
-	}, [])
 
 	const props_sidebar: IPropsSidebar = {
 		favorite_items: $copy(app.favorite_items),
@@ -129,9 +121,26 @@ const Index = () => {
 			</ConfigProvider>
 		</GlobalProvider>
 	)
+})
+
+const Layout = () => {
+	const [loading, setLoading] = useState(true)
+	const [global] = useState(() => container.resolve(Global))
+
+	useLayoutEffect(() => {
+		global.init().then(_ => setLoading(false))
+
+		return () => {
+			global.off()
+		}
+	}, [])
+
+	if (loading) return null
+
+	return <Index></Index>
 }
 
-export default new $app.handle(Index).by(observer).by($app.memo).get()
+export default new $app.handle(Layout).by(observer).by($app.memo).get()
 
 export * from './types'
 export * from './components'
