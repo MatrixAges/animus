@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 
 import {
 	BookmarksIcon,
-	BooksIcon,
-	BroadcastIcon,
 	ChatIcon,
+	CirclesThreePlusIcon,
 	CowboyHatIcon,
 	CubeTransparentIcon,
 	DatabaseIcon,
 	FeatherIcon,
+	GraphIcon,
 	TreeStructureIcon
 } from '@phosphor-icons/react'
 
@@ -16,14 +16,15 @@ import type { Module } from '@/types'
 import type { Icon, IconProps } from '@phosphor-icons/react'
 
 const module_icon = {
-	note: FeatherIcon,
 	chat: ChatIcon,
 	research: CubeTransparentIcon,
-	linkcase: BookmarksIcon,
-	database: DatabaseIcon,
 	agent: CowboyHatIcon,
 	flow: TreeStructureIcon,
-	library: BooksIcon
+	linkcase: BookmarksIcon,
+	memory: GraphIcon,
+	note: FeatherIcon,
+	database: DatabaseIcon,
+	artifact: CirclesThreePlusIcon
 } as Record<Module, Icon>
 
 interface IProps extends IconProps {

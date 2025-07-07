@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 
-import { Emoji, ModuleIcon } from '@/components'
+import { ModuleIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -59,9 +59,7 @@ const Index = (props: IPropsStacksNavBarView) => {
 							<span className='name_wrap'>{t(`app.module.${view.module}`)}</span>
 						</When>
 						<Otherwise>
-							<span className='icon_wrap flex align_center'>
-								<Emoji shortcodes={view.icon!} size={12}></Emoji>
-							</span>
+							<span className='icon_wrap flex align_center'></span>
 							<span className='name_wrap'>{view.name}</span>
 						</Otherwise>
 					</Choose>

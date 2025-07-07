@@ -37,6 +37,8 @@
 
 [data-theme='dark'] {
 	&:not([data-glass='1']) {
+		--opacity_card: 1;
+		--opacity_component: 1;
 		--opacity_dropdown: 0.06;
 
 		--bg_dropdown: rgba(var(--color_contrast_rgb), var(--opacity_dropdown));

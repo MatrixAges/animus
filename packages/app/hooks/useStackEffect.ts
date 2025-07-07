@@ -7,19 +7,19 @@ import { useStackId } from '@/hooks'
 import type { DependencyList } from 'react'
 
 interface Args {
-	mounted: (args: { setDom: (v: HTMLDivElement) => void }) => void
+	mounted: (args: { bind: (v: HTMLDivElement) => void }) => void
 	unmounted?: () => void
-	show?: () => void
-	deps: DependencyList
+	onShow?: () => void
+	deps?: DependencyList
 }
 
 export default (args: Args) => {
-	const { mounted, unmounted, show, deps } = args
+	const { mounted, unmounted, onShow, deps = [] } = args
 	const ref_dom = useRef<HTMLDivElement | null>(null)
 	const ref_deps = useRef<DependencyList>(null)
 	const id = useStackId()
 
-	const setDom = useMemoizedFn((v: HTMLDivElement) => {
+	const bind = useMemoizedFn((v: HTMLDivElement) => {
 		if (!v) return
 
 		ref_dom.current = v
@@ -30,17 +30,28 @@ export default (args: Args) => {
 
 		ref_deps.current = deps
 
-		mounted({ setDom })
+		mounted({ bind })
 	}, deps)
 
 	useLayoutEffect(() => {
-		if (!unmounted) return
+		if (!unmounted) {
+			if (!onShow) return
+
+			setTimeout(() => {
+				if (ref_dom.current?.isConnected) {
+					onShow()
+				}
+			}, 0)
+
+			return
+		}
+
 		if (!id) return unmounted
 
 		return () => {
 			setTimeout(() => {
 				if (ref_dom.current?.isConnected) {
-					show?.()
+					onShow?.()
 
 					const offs = $stack_offs.get(id)
 
@@ -60,5 +71,5 @@ export default (args: Args) => {
 		}
 	}, [id])
 
-	return { setDom }
+	return { bind }
 }

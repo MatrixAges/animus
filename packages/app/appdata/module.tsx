@@ -1,3 +1,13 @@
 export const modules = (
-	['note', 'chat', 'research', 'agent', 'flow', 'linkcase', 'library', 'database'] as const
+	[
+		'chat',
+		'research',
+		// 'agent',
+		// 'flow',
+		// 'linkcase',
+		'memory'
+		// 'note',
+		// 'database'
+		// 'artifact' // html...
+	] as const
 ).slice()

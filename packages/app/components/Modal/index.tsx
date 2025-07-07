@@ -173,11 +173,7 @@ const Index = (props: IProps) => {
 		</Fragment>
 	)
 
-	if (container) {
-		return createPortal(Content, container)
-	}
-
-	return Content
+	return createPortal(Content, container)
 }
 
 export default $app.memo(Index)

@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 
 import { Chatbox, Icon } from '@/components'
+import { useStackEffect } from '@/hooks'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
@@ -23,8 +24,13 @@ const recent_items = [
 ]
 
 const Index = () => {
+	const { bind } = useStackEffect({
+		mounted: () => {},
+		onShow: () => {}
+	})
+
 	return (
-		<div className={$cx('w_100 border_box flex flex_column', styles._local)}>
+		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
 			<h1 className='hello'>What's good, today?</h1>
 			<Chatbox></Chatbox>
 			<div className='section_title_wrap flex justify_between align_center'>
