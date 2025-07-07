@@ -22,6 +22,6 @@ export default {
 	color_border_light: 'rgba(255, 255, 255, 0.06)',
 	color_border_soft: 'rgba(255, 255, 255, 0.036)',
 	color_border_softlight: 'rgba(255, 255, 255, 0.021)',
-	shadow: '0 0 42px rgba(var(--color_contrast_rgb), 0.12)',
+	shadow: '0 0 30px rgba(var(--color_contrast_rgb), 0.06)',
 	wave: 'rgba(var(--color_text_rgb), 0.3)'
 }

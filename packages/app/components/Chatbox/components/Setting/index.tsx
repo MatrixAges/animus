@@ -11,8 +11,8 @@ const Index = () => {
 	const [max_token, setMaxToken] = useState(0)
 
 	const Content = (
-		<div className='config_items border_box flex flex_column'>
-			<div className='config_item flex flex_column'>
+		<div className='setting_items border_box flex flex_column'>
+			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
 						<span className='title'>Temperature</span>
@@ -46,7 +46,7 @@ const Index = () => {
 					></Slider>
 				</div>
 			</div>
-			<div className='config_item flex flex_column'>
+			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
 						<span className='title'>Top P</span>
@@ -80,7 +80,7 @@ const Index = () => {
 					></Slider>
 				</div>
 			</div>
-			<div className='config_item flex flex_column'>
+			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
 						<span className='title'>Max Output Tokens</span>

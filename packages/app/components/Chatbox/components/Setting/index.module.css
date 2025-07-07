@@ -7,10 +7,10 @@
 			padding: 16px;
 		}
 
-		.config_items {
+		.setting_items {
 			gap: 16px;
 
-			.config_item {
+			.setting_item {
 				.header {
 					line-height: 1;
 

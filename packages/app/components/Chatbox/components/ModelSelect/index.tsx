@@ -18,7 +18,7 @@ const options = [
 ]
 
 const Index = () => {
-	return <Select className={styles._local} options={options} defaultValue='Gemini 2.0 Flash'></Select>
+	return <Select className={styles._local} showSearch options={options} defaultValue='Gemini 2.0 Flash'></Select>
 }
 
 export default $app.memo(Index)
