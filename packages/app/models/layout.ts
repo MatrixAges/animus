@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models'
-import { ipc, is_electron, set_store_options } from '@/utils'
+import { ipc, is_electron, store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { commands, config_keys } from '@/appdata'
 
@@ -18,7 +18,7 @@ export default class Index {
 	}
 
 	async init() {
-		const off = await setStoreWhenChange([sidebar_fold], this, set_store_options)
+		const off = await setStoreWhenChange([sidebar_fold], this, store_options)
 
 		this.util.acts = [off]
 

@@ -9,6 +9,86 @@
 		}
 	}
 
+	&:global(.ani-select-multiple) {
+		&:global(.ani-select-open) {
+			:global {
+				.ani-select-selector {
+					padding-right: 6px;
+				}
+
+				.ani-select-arrow {
+					display: none;
+				}
+			}
+		}
+
+		:global {
+			.ani-select-selector {
+				padding-right: 16px;
+
+				&::after {
+					display: none;
+				}
+
+				.ani-select-selection-wrap {
+					height: 100%;
+
+					&::after {
+						display: none;
+					}
+
+					.ani-select-selection-overflow {
+						.ani-select-selection-overflow-item {
+							max-width: unset;
+							height: 100%;
+
+							&:nth-last-of-type(1),
+							&:nth-last-of-type(2) {
+								&::after {
+									display: none;
+								}
+							}
+
+							&::after {
+								margin-right: 4px;
+								margin-left: 1px;
+								content: ',';
+							}
+
+							.ani-select-selection-item {
+								height: 100%;
+								padding: 0;
+								margin: 0;
+								border: none;
+								background-color: unset;
+
+								.ani-select-selection-item-content {
+									line-height: 24px;
+									margin-right: 0;
+								}
+
+								.ani-select-selection-item-remove {
+									display: none;
+								}
+							}
+						}
+
+						.ani-select-selection-overflow-item-suffix {
+							height: 1em;
+							min-height: unset;
+							margin-left: 4px;
+
+							.ani-select-selection-search {
+								.ani-select-selection-search-input {
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	:global {
 		.ani-select-selector {
 			padding: 0 6px;
@@ -35,4 +115,18 @@
 
 .popup {
 	font-family: var(--font_serif);
+
+	:global {
+		.rc-virtual-list {
+			.rc-virtual-list-holder-inner {
+				.ani-select-item-option {
+					gap: 12px;
+
+					&.ani-select-item-option-selected {
+						background-color: unset;
+					}
+				}
+			}
+		}
+	}
 }

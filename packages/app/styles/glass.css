@@ -1,5 +1,5 @@
 :root {
-	--glass_blur: saturate(150%) blur(12px);
+	--glass_blur: saturate(150%) blur(15px);
 
 	--opacity_bg: 1;
 	--opacity_modal: 0.72;

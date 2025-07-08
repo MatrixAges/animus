@@ -2,6 +2,8 @@ import { Select } from '@/components'
 
 import styles from './index.module.css'
 
+import type { IPropsModelSelect } from '../../types'
+
 const options = [
 	{
 		label: 'Gemini 2.0 Flash',
@@ -17,8 +19,24 @@ const options = [
 	}
 ]
 
-const Index = () => {
-	return <Select className={styles._local} showSearch options={options} defaultValue='Gemini 2.0 Flash'></Select>
+const Index = (props: IPropsModelSelect) => {
+	const { select_model, setSelectModel } = props
+
+	return (
+		<Select
+			className={styles._local}
+			popupClassName={styles.popup}
+			placement='bottomRight'
+			showSearch
+			mode='multiple'
+			maxCount={3}
+			popupMatchSelectWidth={false}
+			defaultValue={[options[0]['value']]}
+			options={options}
+			value={select_model}
+			onChange={setSelectModel}
+		></Select>
+	)
 }
 
 export default $app.memo(Index)

@@ -4,7 +4,7 @@ import { App, ConfigProvider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { container } from 'tsyringe'
 
-import { GlobalProvider } from '@/context'
+import { GlobalModel, GlobalProvider } from '@/context'
 import { useAntdLocale } from '@/hooks'
 import Global from '@/models/global'
 
@@ -17,9 +17,7 @@ import type { Module } from '@/types'
 import type { ConfigProviderProps } from 'antd/es/config-provider'
 import type { IPropsEmpty, IPropsSetting, IPropsSidebar, IPropsStacks } from './types'
 
-const Index = observer(() => {
-	const [global] = useState(() => container.resolve(Global))
-
+const Index = observer(({ global }: { global: GlobalModel }) => {
 	const app = global.app
 	const setting = global.setting
 	const stack = global.stack
@@ -137,7 +135,7 @@ const Layout = () => {
 
 	if (loading) return null
 
-	return <Index></Index>
+	return <Index global={global}></Index>
 }
 
 export default new $app.handle(Layout).by(observer).by($app.memo).get()

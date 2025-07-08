@@ -14,7 +14,7 @@ import {
 	theme_match_media,
 	getSystemTheme,
 	conf,
-	set_store_options
+	store_options
 } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { commands, config_keys } from '@/appdata'
@@ -39,7 +39,7 @@ export default class Index {
 	}
 
 	async init() {
-		const off = await setStoreWhenChange([lang, theme_source, glass], this, set_store_options)
+		const off = await setStoreWhenChange([lang, theme_source, glass], this, store_options)
 
 		this.util.acts = [off]
 

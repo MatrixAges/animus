@@ -1,26 +1,37 @@
-import { useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 import { InputNumber, Popover, Slider, Switch, Tooltip } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 import { GearSixIcon, InfoIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
-const Index = () => {
-	const [temperature, setTemperature] = useState(0.7)
-	const [top_p, setTopP] = useState(0.4)
-	const [max_token, setMaxToken] = useState(0)
+import type { FocusEvent } from 'react'
+import type { IPropsSetting } from '../../types'
+
+const Index = (props: IPropsSetting) => {
+	const { temperature, top_p, max_ouput_tokens, setTemperature, setTopP, setMaxOutputTokens } = props
+	const { t } = useTranslation()
+
+	const onBlurTemperature = useMemoizedFn((e: FocusEvent<HTMLInputElement>) =>
+		setTemperature(parseFloat(e.target.value ?? 0))
+	)
+
+	const onBlurTopP = useMemoizedFn((e: FocusEvent<HTMLInputElement>) => setTopP(parseFloat(e.target.value ?? 0)))
+
+	const onSwitchMaxOutputTokens = useMemoizedFn((v: boolean) => setMaxOutputTokens(v ? 10000 : 0))
+
+	const onBlurMaxOutputTokens = useMemoizedFn((e: FocusEvent<HTMLInputElement>) =>
+		setMaxOutputTokens(parseFloat(e.target.value ?? 0))
+	)
 
 	const Content = (
 		<div className='setting_items border_box flex flex_column'>
 			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
-						<span className='title'>Temperature</span>
-						<Tooltip
-							destroyOnHidden
-							arrow={false}
-							title='Control the randomness of the returned text, lower is less random'
-						>
+						<span className='title'>{t('chatbox.temperature.title')}</span>
+						<Tooltip destroyOnHidden arrow={false} title={t('chatbox.temperature.desc')}>
 							<InfoIcon className='icon'></InfoIcon>
 						</Tooltip>
 					</div>
@@ -31,7 +42,7 @@ const Index = () => {
 						max={2}
 						precision={2}
 						value={temperature}
-						onBlur={e => setTemperature(parseFloat(e.target.value))}
+						onBlur={onBlurTemperature}
 					></InputNumber>
 				</div>
 				<div className='changer w_100'>
@@ -41,7 +52,7 @@ const Index = () => {
 						min={0}
 						max={2}
 						step={0.1}
-						value={temperature}
+						defaultValue={temperature}
 						onChange={setTemperature}
 					></Slider>
 				</div>
@@ -49,12 +60,8 @@ const Index = () => {
 			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
-						<span className='title'>Top P</span>
-						<Tooltip
-							destroyOnHidden
-							arrow={false}
-							title='The cumulative probability of the most likely tokens to return'
-						>
+						<span className='title'>{t('chatbox.top_p.title')}</span>
+						<Tooltip destroyOnHidden arrow={false} title={t('chatbox.top_p.desc')}>
 							<InfoIcon className='icon'></InfoIcon>
 						</Tooltip>
 					</div>
@@ -65,7 +72,7 @@ const Index = () => {
 						max={1}
 						precision={2}
 						value={top_p}
-						onBlur={e => setTopP(parseFloat(e.target.value))}
+						onBlur={onBlurTopP}
 					></InputNumber>
 				</div>
 				<div className='changer w_100'>
@@ -75,7 +82,7 @@ const Index = () => {
 						min={0}
 						max={1}
 						step={0.1}
-						value={top_p}
+						defaultValue={top_p}
 						onChange={setTopP}
 					></Slider>
 				</div>
@@ -83,19 +90,15 @@ const Index = () => {
 			<div className='setting_item flex flex_column'>
 				<div className='header w_100 flex justify_between align_center'>
 					<div className='title_wrap flex align_center'>
-						<span className='title'>Max Output Tokens</span>
-						<Tooltip
-							destroyOnHidden
-							arrow={false}
-							title='The maximum number of tokens to return, set to 0 to disable'
-						>
+						<span className='title'>{t('chatbox.max_ouput_tokens.title')}</span>
+						<Tooltip destroyOnHidden arrow={false} title={t('chatbox.max_ouput_tokens.desc')}>
 							<InfoIcon className='icon'></InfoIcon>
 						</Tooltip>
 					</div>
 					<Switch
 						size='small'
-						checked={max_token > 0}
-						onChange={v => setMaxToken(v ? 10000 : 0)}
+						checked={max_ouput_tokens > 0}
+						onChange={onSwitchMaxOutputTokens}
 					></Switch>
 				</div>
 				<div className='changer w_100'>
@@ -104,9 +107,9 @@ const Index = () => {
 						min={0}
 						precision={0}
 						step={100}
-						disabled={!max_token}
-						value={max_token}
-						onChange={v => setMaxToken(v || 0)}
+						disabled={!max_ouput_tokens}
+						value={max_ouput_tokens}
+						onBlur={onBlurMaxOutputTokens}
 					></InputNumber>
 				</div>
 			</div>
@@ -114,7 +117,13 @@ const Index = () => {
 	)
 
 	return (
-		<Popover rootClassName={styles._local} trigger={['click']} placement='bottom' content={Content}>
+		<Popover
+			rootClassName={styles._local}
+			trigger={['click']}
+			placement='bottom'
+			destroyOnHidden
+			content={Content}
+		>
 			<div>
 				<div className='option_item flex justify_center align_center clickit'>
 					<GearSixIcon></GearSixIcon>

@@ -6,3 +6,7 @@
 		}
 	}
 }
+
+.popup {
+	min-width: 180px !important;
+}

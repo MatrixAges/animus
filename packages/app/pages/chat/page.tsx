@@ -1,11 +1,17 @@
+import { useState } from 'react'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
+import { container } from 'tsyringe'
 
 import { Chatbox, Icon } from '@/components'
 import { useStackEffect } from '@/hooks'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
+import Model from './model'
+
 import styles from './index.module.css'
+
+import type { IPropsChatbox } from '@/components'
 
 const role_items = [
 	{ id: '0', name: 'Web Designer', icon: 'angular-logo' },
@@ -24,15 +30,19 @@ const recent_items = [
 ]
 
 const Index = () => {
+	const [x] = useState(container.resolve(Model))
+
 	const { bind } = useStackEffect({
-		mounted: () => {},
-		onShow: () => {}
+		mounted: () => x.init(),
+		unmounted: () => x.off()
 	})
+
+	const props_chatbox: IPropsChatbox = {}
 
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
 			<h1 className='hello'>What's good, today?</h1>
-			<Chatbox></Chatbox>
+			<Chatbox {...props_chatbox}></Chatbox>
 			<div className='section_title_wrap flex justify_between align_center'>
 				<h2 className='section_title'>Role</h2>
 				<div className='btn_action flex justify_center align_center clickable'>
