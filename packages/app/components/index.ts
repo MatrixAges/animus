@@ -19,3 +19,5 @@ export type { IProps as IPropsLogo } from './Logo'
 export type { IProps as IPropsShow } from './Show'
 export type { IProps as IPropsSelect } from './Select'
 export type { IProps as IPropsChatbox } from './Chatbox'
+
+export * from './ModuleIcon'

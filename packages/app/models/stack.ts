@@ -17,17 +17,16 @@ export default class Index {
 	focus = { column: -1, view: -1 } as Stack.Position
 	container_width = 0
 	resizing = false
+	temp = {} as Record<string, any>
 
 	constructor(public util: Util) {
-		makeAutoObservable(this, { util: false, observer: false }, { autoBind: true })
+		makeAutoObservable(this, { util: false, temp: false, observer: false }, { autoBind: true })
 	}
 
 	async init() {
 		this.util.acts = [setStorageWhenChange(['columns', 'focus'], this)]
 
 		this.getObserver()
-
-		this.on()
 	}
 
 	find(id: string) {
@@ -296,6 +295,18 @@ export default class Index {
 		this.removeStackOffs()
 	}
 
+	getTemp(id: string) {
+		const target = this.temp[id]
+
+		delete this.temp[id]
+
+		return target
+	}
+
+	setTemp(id: string, obj: any) {
+		this.temp[id] = obj
+	}
+
 	getObserver() {
 		this.observer = new ResizeObserver(
 			debounce(elements => {
@@ -317,8 +328,6 @@ export default class Index {
 	unobserve() {
 		this.observer?.disconnect()
 	}
-
-	on() {}
 
 	off() {
 		this.observer?.disconnect()

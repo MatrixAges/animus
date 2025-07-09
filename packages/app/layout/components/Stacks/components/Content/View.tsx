@@ -14,9 +14,11 @@ const Index = (props: IPropsStacksContentView) => {
 				view_index={view_index}
 				module={view.module}
 				id={view.id}
+				filename={view.filename}
 				type={view.type}
 				width={width}
 				container_width={container_width}
+				create={view.create}
 				click={click}
 			></View>
 		</Activity>

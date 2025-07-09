@@ -1,39 +1,39 @@
 {
-  "name": "erpc",
-  "description": "Trpc support for electron",
-  "version": "0.0.0",
-  "exports": {
-    "./main": {
-      "types": "./dist/main/index.d.ts",
-      "require": "./dist/main/index.js",
-      "default": "./dist/main/index.js"
-    },
-    "./renderer": {
-      "types": "./dist/renderer/index.d.ts",
-      "require": "./dist/renderer/index.js",
-      "default": "./dist/renderer/index.js"
-    }
-  },
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "rslib build && tsc"
-  },
-  "devDependencies": {
-    "@rslib/core": "^0.10.4",
-    "@trpc/client": "^11.4.3",
-    "@trpc/server": "^11.4.3",
-    "@types/node": "^24.0.10",
-    "deepmerge-ts": "^7.1.5",
-    "electron": "^37.2.0",
-    "superjson": "^2.2.2",
-    "zod": "^3.25.75"
-  },
-  "peerDependencies": {
-    "@trpc/client": ">=11.0.0",
-    "@trpc/server": ">=11.0.0",
-    "electron": ">30.0.0"
-  }
+	"name": "erpc",
+	"description": "Trpc support for electron",
+	"version": "0.0.0",
+	"exports": {
+		"./main": {
+			"types": "./dist/main/index.d.ts",
+			"require": "./dist/main/index.js",
+			"default": "./dist/main/index.js"
+		},
+		"./renderer": {
+			"types": "./dist/renderer/index.d.ts",
+			"require": "./dist/renderer/index.js",
+			"default": "./dist/renderer/index.js"
+		}
+	},
+	"license": "MIT",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "rslib build && tsc"
+	},
+	"devDependencies": {
+		"@rslib/core": "^0.10.5",
+		"@trpc/client": "^11.4.3",
+		"@trpc/server": "^11.4.3",
+		"@types/node": "^24.0.12",
+		"deepmerge-ts": "^7.1.5",
+		"electron": "^37.2.0",
+		"superjson": "^2.2.2",
+		"zod": "^3.25.76"
+	},
+	"peerDependencies": {
+		"@trpc/client": ">=11.0.0",
+		"@trpc/server": ">=11.0.0",
+		"electron": ">30.0.0"
+	}
 }

@@ -1,0 +1,15 @@
+import { object, string } from 'zod'
+
+import { p, setLRUMap } from '@desktop/utils'
+
+const input_type = object({
+	module: string()
+})
+
+export default p.input(input_type).mutation(async ({ input }) => {
+	const { module } = input
+
+	if (module !== 'global') setLRUMap({ module, filename: 'recent', type: 'clear' })
+
+	setLRUMap({ module: 'global', filename: 'recent', type: 'clear' })
+})

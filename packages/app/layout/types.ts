@@ -115,7 +115,9 @@ export interface IPropsStacksView {
 	type: StackType.Item['type']
 	module: Module
 	id: string
+	filename: string
 	width: number
 	container_width: IPropsStacksContent['container_width']
+	create?: boolean
 	click: IPropsStacksContent['click']
 }

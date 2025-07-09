@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 import { container } from 'tsyringe'
 
 import { useStackEffect } from '@/hooks'
-import { ArrowElbowDownLeftIcon, ArrowUpIcon } from '@phosphor-icons/react'
+import { ArrowElbowDownLeftIcon, ArrowUpIcon, CommandIcon } from '@phosphor-icons/react'
 
 import { Config, File, ModelSelect, Setting } from './components'
 import Model from './model'
@@ -52,9 +52,7 @@ const Index = (props: IProps) => {
 		setSelectModel: useMemoizedFn(v => (x.select_model = v))
 	}
 
-	const EnterIcon = useMemo(() => (x.newline_by_enter ? ArrowElbowDownLeftIcon : ArrowUpIcon), [x.newline_by_enter])
-
-	const setRefTextArea = useMemoizedFn(v => (x.ref_textarea = v))
+	const setRefTextArea = useMemoizedFn(v => v && (x.ref_textarea = v))
 
 	return (
 		<div className={$cx('w_100 border_box flex flex_column relative', styles._local)} ref={bind}>
@@ -72,10 +70,21 @@ const Index = (props: IProps) => {
 				<div className='gap_wrap flex align_center'>
 					<ModelSelect {...props_model_select}></ModelSelect>
 					<div
-						className='btn_submit option_item flex justify_center align_center clickit'
-						onClick={x.onSubmit}
+						className={$cx(
+							'btn_submit option_item flex justify_center align_center clickit',
+							x.newline_by_enter && 'newline_by_enter'
+						)}
+						onClick={x.submit}
 					>
-						<EnterIcon weight='bold'></EnterIcon>
+						<Choose>
+							<When condition={x.newline_by_enter}>
+								<CommandIcon weight='bold'></CommandIcon>
+								<ArrowElbowDownLeftIcon weight='bold'></ArrowElbowDownLeftIcon>
+							</When>
+							<Otherwise>
+								<ArrowUpIcon weight='bold'></ArrowUpIcon>
+							</Otherwise>
+						</Choose>
 					</div>
 				</div>
 			</div>

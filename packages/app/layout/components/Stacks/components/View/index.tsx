@@ -8,7 +8,7 @@ import styles from './index.module.css'
 import type { IPropsStacksView } from '@/layout'
 
 const Index = (props: IPropsStacksView) => {
-	const { column_index, view_index, type, module, id, width, container_width, click } = props
+	const { column_index, view_index, type, module, id, filename, width, container_width, create, click } = props
 
 	const onMouseDown = useMemoizedFn(() => click({ column: column_index, view: view_index }, true))
 
@@ -21,7 +21,7 @@ const Index = (props: IPropsStacksView) => {
 							<LazyPage module={module} />
 						</When>
 						<Otherwise>
-							<LazyModule module={module} props={{ id }}></LazyModule>
+							<LazyModule module={module} props={{ id, filename, create }}></LazyModule>
 						</Otherwise>
 					</Choose>
 				</div>

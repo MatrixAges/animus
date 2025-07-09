@@ -1,7 +1,7 @@
 export default {
 	placeholder: 'Can I help you with?',
 	prompt_rewriting: 'Prompt rewriting',
-	newline_by_enter: 'New line by Enter',
+	newline_by_enter: 'Newline by Enter',
 	web_search: 'Web Search',
 	builtin_search: 'LLM Builtin Search',
 	temperature: {

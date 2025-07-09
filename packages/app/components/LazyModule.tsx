@@ -1,16 +1,16 @@
 import { lazy, Suspense, useMemo } from 'react'
 
-import type { Module } from '@/types'
+import type { Module, Stack } from '@/types'
 
 interface IProps {
 	module: Module
-	props: { id: string }
+	props: Stack.ModuleProps
 }
 
 const Index = (_props: IProps) => {
 	const { module, props } = _props
 
-	const Component = useMemo(() => lazy(() => import(`../pages/${module}/page`)), [module])
+	const Component = useMemo(() => lazy(() => import(`@/modules/${module}/id`)), [module])
 
 	return (
 		<Suspense fallback={null}>

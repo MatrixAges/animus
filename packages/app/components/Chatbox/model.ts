@@ -4,8 +4,13 @@ import { Util } from '@/models'
 import { store_options as default_store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
+import { id } from 'stk/common'
+import { GlobalModel } from '@/context'
+import Decimal from 'decimal.js'
+import { ipc } from '@/utils'
 
 import type { IProps } from './types'
+import type { Stack, Chat } from '@/types'
 
 @injectable()
 export default class Index {
@@ -20,8 +25,11 @@ export default class Index {
 
 	ref_textarea = null as unknown as HTMLTextAreaElement
 
-	constructor(public util: Util) {
-		makeAutoObservable(this, { util: false, ref_textarea: false }, { autoBind: true })
+	constructor(
+		public util: Util,
+		public global: GlobalModel
+	) {
+		makeAutoObservable(this, { util: false, global: false, ref_textarea: false }, { autoBind: true })
 	}
 
 	async init(args: { store_options?: IProps['store_options'] }) {
@@ -47,10 +55,81 @@ export default class Index {
 		this.on()
 	}
 
-	submit() {
+	async submit() {
 		const value = this.ref_textarea.value
 
-		console.log(value)
+		if (!value) return
+		if (!this.select_model.length) return
+
+		const name = value.replace(/[\r\n]+/g, '').slice(0, 12)
+		const stack = this.global.stack
+		const stack_item = { type: 'module', module: 'chat', name } as Stack.Item
+
+		const options = {
+			prompt_rewriting: this.prompt_rewriting,
+			newline_by_enter: this.newline_by_enter,
+			web_search_enabled: this.web_search_enabled,
+			web_search_engine: this.web_search_engine,
+			temperature: this.temperature,
+			top_p: this.top_p,
+			max_ouput_tokens: this.max_ouput_tokens,
+			question: value,
+			name
+		} as Chat.Options
+
+		if (this.select_model.length === 1) {
+			const chat_id = id()
+			const model = this.select_model[0]
+			const filename = `${name}(${model}).${chat_id}`
+			const target_options = { ...options, model }
+
+			stack.setTemp(chat_id, target_options)
+			stack.add({ ...stack_item, id: chat_id, filename })
+
+			ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options }, recent: true })
+			ipc.app.list.add.mutate({ module: 'chat', items: [{ filename, name }] })
+			ipc.app.recent.add.mutate({ module: 'chat', items: [filename] })
+		} else {
+			const width = new Decimal(Decimal.div(100, this.select_model.length).toFixed(2)).toNumber()
+			const list_items = [] as Array<{ filename: string; name: string }>
+
+			this.select_model.forEach((item, index) => {
+				const chat_id = id()
+				const view = { ...stack_item, id: chat_id, active: true }
+				const filename = `${name}(${item}).${chat_id}`
+				const target_options = { ...options, model: item }
+
+				stack.setTemp(chat_id, target_options)
+
+				list_items.push({ filename, name })
+
+				if (stack.columns[index]) {
+					const views = stack.columns[index].views
+
+					stack.columns[index].width = width
+
+					views.forEach(view => (view.active = false))
+					views.push(view)
+				} else {
+					stack.columns[index] = {
+						views: [view],
+						width
+					} as Stack.Column
+				}
+
+				ipc.app.write.mutate({
+					module: 'chat',
+					filename,
+					data: { options: target_options },
+					recent: true
+				})
+			})
+
+			stack.columns = $copy(stack.columns)
+
+			ipc.app.list.add.mutate({ module: 'chat', items: list_items })
+			ipc.app.recent.add.mutate({ module: 'chat', items: list_items.map(item => item.filename) })
+		}
 	}
 
 	onKeydown(e: KeyboardEvent) {
@@ -81,6 +160,7 @@ export default class Index {
 	}
 
 	off() {
+		console.log(123)
 		this.util.off()
 	}
 }

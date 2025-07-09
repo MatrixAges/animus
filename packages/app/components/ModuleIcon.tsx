@@ -15,7 +15,7 @@ import {
 import type { Module } from '@/types'
 import type { Icon, IconProps } from '@phosphor-icons/react'
 
-const module_icon = {
+export const module_icon = {
 	chat: ChatIcon,
 	research: CubeTransparentIcon,
 	agent: CowboyHatIcon,
@@ -26,6 +26,18 @@ const module_icon = {
 	database: DatabaseIcon,
 	artifact: CirclesThreePlusIcon
 } as Record<Module, Icon>
+
+export const module_icon_string = {
+	chat: 'chat',
+	research: 'cube-transparent',
+	agent: 'cowboy-hat',
+	flow: 'tree-structure',
+	linkcase: 'bookmarks',
+	memory: 'graph',
+	note: 'feather',
+	database: 'database',
+	artifact: 'circles-three-plus'
+} as Record<Module, string>
 
 interface IProps extends IconProps {
 	module: Module

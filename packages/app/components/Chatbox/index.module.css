@@ -52,6 +52,11 @@
 				&.btn_submit {
 					color: var(--color_bg);
 					background-color: var(--color_text);
+					transition: padding ease 0.3s;
+
+					&.newline_by_enter {
+						padding: 0 8px;
+					}
 				}
 			}
 		}
