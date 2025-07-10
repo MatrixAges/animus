@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Logo } from '@/components'
 import { useDelegate } from '@/hooks'
-import { WinActions } from '@/layout'
 import { ipc, is_win_electron } from '@/utils'
 import { ChatIcon, GearSixIcon, MagnifyingGlassIcon, SidebarIcon, SignOutIcon } from '@phosphor-icons/react'
+
+import WinActions from '../WinActions'
 
 import styles from './index.module.css'
 

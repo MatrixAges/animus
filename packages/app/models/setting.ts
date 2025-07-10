@@ -18,6 +18,7 @@ import {
 } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { commands, config_keys } from '@/appdata'
+import { config, locales } from 'zod'
 
 import type { Lang, Theme } from '@/types'
 
@@ -67,6 +68,19 @@ export default class Index {
 		const res = await import(`@/locales/dayjs/${lang}`)
 
 		dayjs.locale(lang, res.default)
+
+		let zod_locale
+
+		switch (lang) {
+			case 'en':
+				zod_locale = locales.en()
+				break
+			case 'zh-cn':
+				zod_locale = locales.zhCN()
+				break
+		}
+
+		config(zod_locale)
 	}
 
 	setLang(lang: Lang) {
