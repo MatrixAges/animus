@@ -1,10 +1,10 @@
 import type { Links, Provider } from '@/ai'
 
 export const links = {
-	website: 'https://openai.com/',
-	api_key: 'https://platform.openai.com/api-keys',
-	doc: 'https://platform.openai.com/docs/overview',
-	model_spec: 'https://platform.openai.com/docs/models'
+	website: 'https://anthropic.com/',
+	api_key: 'https://console.anthropic.com/settings/keys',
+	doc: 'https://docs.anthropic.com/en/docs',
+	model_spec: 'https://docs.anthropic.com/en/docs/about-claude/models/overview'
 } as Links
 
 export default {
@@ -14,73 +14,50 @@ export default {
 		'': [
 			{
 				enabled: true,
-				id: 'gpt-4.1',
-				name: 'GPT 4.1',
+				id: 'claude-4-opus-20250514',
+				name: 'Claude 4 Opus',
 				features: {
 					function_calling: true,
 					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			}
-		],
-		'GPT 4o': [
-			{
-				enabled: true,
-				id: 'gpt-4o',
-				name: 'GPT 4o',
-				features: {
-					function_calling: true,
-					structured_output: true,
+					reasoning: true,
+					reasoning_optional: true,
 					web_search: true,
 					image_input: true
 				}
 			},
 			{
 				enabled: true,
-				id: 'gpt-4o-mini',
-				name: 'GPT 4o Mini',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			}
-		],
-		'': [
-			{
-				enabled: true,
-				id: 'o4-mini',
-				name: 'o4 Mini',
+				id: 'claude-4-sonnet-20250514',
+				name: 'Claude 4 Sonnet',
 				features: {
 					function_calling: true,
 					structured_output: true,
 					reasoning: true,
+					reasoning_optional: true,
 					web_search: true,
 					image_input: true
 				}
 			},
 			{
 				enabled: true,
-				id: 'o3',
-				name: 'o3',
+				id: 'claude-3-7-sonnet-20250219',
+				name: 'Claude 3.7 Sonnet',
 				features: {
 					function_calling: true,
 					structured_output: true,
 					reasoning: true,
+					reasoning_optional: true,
 					web_search: true,
 					image_input: true
 				}
 			},
 			{
 				enabled: true,
-				id: 'o3-mini',
-				name: 'o3 Mini',
+				id: 'claude-3-5-haiku-20241022',
+				name: 'Claude 3.5 Haiku',
 				features: {
 					function_calling: true,
 					structured_output: true,
-					reasoning: true,
 					web_search: true,
 					image_input: true
 				}

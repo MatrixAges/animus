@@ -1,62 +1,47 @@
-import type { Provider } from '@/ai'
+import type { Links, Provider } from '@/ai'
+
+export const links = {
+	website: 'https://v0.dev',
+	api_key: 'https://v0.dev',
+	doc: 'https://v0.dev/docs/introduction',
+	model_spec: 'https://v0.dev/docs/v0-model-api'
+} as Links
 
 export default {
-	links: {
-		website: 'https://x.ai',
-		api_key: 'https://console.x.ai',
-		doc: 'https://docs.x.ai/docs/overview',
-		model_spec: 'https://docs.x.ai/docs/models'
-	},
-	form: {
-		enabled: false,
-		api_key: '',
-		api_base_url: 'https://api.x.ai',
-		models: {
-			'': [
-				{
-					id: 'grok-4-0709',
-					name: 'Grok 4',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						reasoning: true
-					}
-				},
-				{
-					id: 'grok-3',
-					name: 'Grok 3',
-					features: {
-						function_calling: true,
-						structured_output: true
-					}
-				},
-				{
-					id: 'grok-3-fast',
-					name: 'Grok 3-fast',
-					features: {
-						function_calling: true,
-						structured_output: true
-					}
-				},
-				{
-					id: 'grok-3-mini',
-					name: 'Grok 3-mini',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						reasoning: true
-					}
-				},
-				{
-					id: 'grok-3-mini-fast',
-					name: 'Grok 3-mini-fast',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						reasoning: true
-					}
+	enabled: false,
+	api_key: '',
+	models: {
+		'': [
+			{
+				enabled: true,
+				id: 'v0-1.5-md',
+				name: 'V0 1.5 MD',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					image_input: true
 				}
-			]
-		}
+			},
+			{
+				enabled: true,
+				id: 'v0-1.5-lg',
+				name: 'V0 1.5 LG',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					image_input: true
+				}
+			},
+			{
+				enabled: true,
+				id: 'v0-1.0-md',
+				name: 'V0 1.0- MD',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					image_input: true
+				}
+			}
+		]
 	}
 } as Provider

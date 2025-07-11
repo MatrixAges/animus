@@ -1,88 +1,81 @@
 import type { Links, Provider } from '@/ai'
 
 export const links = {
-	website: 'https://openai.com/',
-	api_key: 'https://platform.openai.com/api-keys',
-	doc: 'https://platform.openai.com/docs/overview',
-	model_spec: 'https://platform.openai.com/docs/models'
+	website: 'https://openrouter.ai/',
+	api_key: 'https://openrouter.ai/settings/keys',
+	doc: 'https://openrouter.ai/docs/quick-start',
+	model_spec: 'https://openrouter.ai/models'
 } as Links
 
 export default {
 	enabled: false,
 	api_key: '',
 	models: {
-		'': [
+		Deepseek: [
 			{
 				enabled: true,
-				id: 'gpt-4.1',
-				name: 'GPT 4.1',
+				id: 'deepseek/deepseek-r1-0528:free',
+				name: 'Deepseek R1',
 				features: {
 					function_calling: true,
 					structured_output: true,
-					web_search: true,
-					image_input: true
+					reasoning: true
+				}
+			},
+			{
+				enabled: true,
+				id: 'deepseek/deepseek-chat-v3-0324:free',
+				name: 'Deepseek V3',
+				features: {
+					function_calling: true,
+					structured_output: true
 				}
 			}
 		],
-		'GPT 4o': [
+		'Gemini 2.0': [
 			{
 				enabled: true,
-				id: 'gpt-4o',
-				name: 'GPT 4o',
+				id: 'google/gemini-2.0-flash-exp:free',
+				name: 'Gemini 2.0 Flash',
 				features: {
 					function_calling: true,
 					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'gpt-4o-mini',
-				name: 'GPT 4o Mini',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
+					web_search: true
 				}
 			}
 		],
-		'': [
+		Qwen: [
 			{
 				enabled: true,
-				id: 'o4-mini',
-				name: 'o4 Mini',
+				id: 'qwen/qwen3-32b:free',
+				name: 'Qwen 32B',
 				features: {
 					function_calling: true,
 					structured_output: true,
 					reasoning: true,
-					web_search: true,
-					image_input: true
+					web_search: true
 				}
 			},
 			{
 				enabled: true,
-				id: 'o3',
-				name: 'o3',
+				id: 'qwen/qwen3-14b:free',
+				name: 'Qwen 14B',
 				features: {
 					function_calling: true,
 					structured_output: true,
 					reasoning: true,
-					web_search: true,
-					image_input: true
+					web_search: true
 				}
 			},
 			{
 				enabled: true,
-				id: 'o3-mini',
-				name: 'o3 Mini',
+				id: 'qwen/qwq-32b:free',
+				name: 'Qwq 32B',
 				features: {
 					function_calling: true,
 					structured_output: true,
 					reasoning: true,
-					web_search: true,
-					image_input: true
+					web_search: true
 				}
 			}
 		]

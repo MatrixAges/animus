@@ -1,46 +1,65 @@
-import type { Provider } from '@/ai'
+import type { Links, Provider } from '@/ai'
+
+export const links = {
+	website: 'https://x.ai',
+	api_key: 'https://console.x.ai',
+	doc: 'https://docs.x.ai/docs/overview',
+	model_spec: 'https://docs.x.ai/docs/models'
+} as Links
 
 export default {
-	links: {
-		website: 'https://v0.dev',
-		api_key: 'https://v0.dev',
-		doc: 'https://v0.dev/docs/introduction',
-		model_spec: 'https://v0.dev/docs/v0-model-api'
-	},
-	form: {
-		enabled: false,
-		api_key: '',
-		api_base_url: 'https://api.v0.dev/v1',
-		models: {
-			'': [
-				{
-					id: 'v0-1.5-md',
-					name: 'V0 1.5-md',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						image_input: true
-					}
-				},
-				{
-					id: 'v0-1.5-lg',
-					name: 'V0 1.5-lg',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						image_input: true
-					}
-				},
-				{
-					id: 'v0-1.0-md',
-					name: 'V0 1.0-md',
-					features: {
-						function_calling: true,
-						structured_output: true,
-						image_input: true
-					}
+	enabled: false,
+	api_key: '',
+	models: {
+		'': [
+			{
+				enabled: true,
+				id: 'grok-4-0709',
+				name: 'Grok 4',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					reasoning: true
 				}
-			]
-		}
+			},
+			{
+				enabled: true,
+				id: 'grok-3',
+				name: 'Grok 3',
+				features: {
+					function_calling: true,
+					structured_output: true
+				}
+			},
+			{
+				enabled: true,
+				id: 'grok-3-fast',
+				name: 'Grok 3 Fast',
+				features: {
+					function_calling: true,
+					structured_output: true
+				}
+			},
+			{
+				enabled: true,
+				id: 'grok-3-mini',
+				name: 'Grok 3 Mini',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					reasoning: true
+				}
+			},
+			{
+				enabled: true,
+				id: 'grok-3-mini-fast',
+				name: 'Grok 3 Mini Fast',
+				features: {
+					function_calling: true,
+					structured_output: true,
+					reasoning: true
+				}
+			}
+		]
 	}
 } as Provider
