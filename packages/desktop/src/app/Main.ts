@@ -1,7 +1,8 @@
 import { BrowserWindow, shell } from 'electron'
 
+import { conf } from '@desktop/utils'
+
 import config from '../../config'
-import { conf } from '../utils'
 
 export default class Index extends BrowserWindow {
 	private window: BrowserWindow | null

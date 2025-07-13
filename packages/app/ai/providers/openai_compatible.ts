@@ -1,4 +1,11 @@
-import type { OpenaiCompatibleProvider } from '@/ai'
+import type { Links, OpenaiCompatibleProvider } from '@/ai'
+
+export const links = {
+	website: '',
+	api_key: '',
+	doc: '',
+	model_spec: ''
+} as Links
 
 export default {
 	enabled: false,

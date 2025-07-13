@@ -1,4 +1,4 @@
-import { Icon, Module } from './app'
+import { Icon, IconType, Module } from './app'
 
 export namespace Stack {
 	export interface PageItem {
@@ -12,6 +12,7 @@ export namespace Stack {
 		name: string
 		filename: string
 		icon?: Icon
+		icon_type?: IconType
 		changed?: boolean
 	}
 

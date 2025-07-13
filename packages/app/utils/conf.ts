@@ -4,7 +4,7 @@ import { is_electron } from './is'
 
 import type { StoreOptions } from 'stk/mobx'
 
-const conf = new Conf<any>()
+const conf = new Conf<any>({ name: 'appdata' })
 
 export default conf
 

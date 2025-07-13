@@ -1,9 +1,10 @@
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { app } from 'electron'
 
 import { conf } from '@desktop/utils'
 
-import { productName } from '../../package.json'
-
-export const app_data_path = join(app.getPath('documents'), `/.${productName}`)
+export const app_data_path = join(app.getPath('documents'), `/.${app.name}`)
 export const user_data_path = join(app_data_path, `/${conf.get('workspace') || 'default'}`)
+
+export const getAppPath = (v: string) => resolve(__dirname, '../app_dist/', v)
+export const getPath = (v: string) => resolve(__dirname, '../', v)

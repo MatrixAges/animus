@@ -1,6 +1,6 @@
 import { nativeTheme } from 'electron'
 
-import conf from './conf'
+import { conf } from '@desktop/utils'
 
 import type { Theme } from '@app/types'
 

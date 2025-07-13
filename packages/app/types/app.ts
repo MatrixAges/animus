@@ -37,3 +37,10 @@ export interface Shortcut {
 		keydown?: boolean | null
 	}
 }
+
+export type IconType = 'icon' | 'emoji'
+
+export interface Workspace {
+	icon: string
+	name: string
+}

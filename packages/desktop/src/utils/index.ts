@@ -4,7 +4,6 @@ export { default as getThemeColor } from './getThemeColor'
 export { default as setWindowGlass } from './setWindowGlass'
 export { default as moveObject } from './moveObject'
 
-export * from './paths'
 export * from './is'
 export * from './trpc'
 export * from './time'

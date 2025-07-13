@@ -29,7 +29,7 @@
 	.ani-popover-arrow {
 		&::before,
 		&::after {
-			background-color: rgba(var(--color_bg_1_rgb), 0.48);
+			background-color: rgba(var(--color_bg_1_rgb), 0.36);
 		}
 	}
 }

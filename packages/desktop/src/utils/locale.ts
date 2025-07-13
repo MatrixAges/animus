@@ -3,8 +3,7 @@ import i18next from 'i18next'
 
 import en from '@desktop/locales/en'
 import zh_cn from '@desktop/locales/zh-cn'
-
-import { conf } from './'
+import { conf } from '@desktop/utils'
 
 import type { Lang } from '@app/types'
 
