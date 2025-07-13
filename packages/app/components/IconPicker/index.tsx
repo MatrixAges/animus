@@ -12,8 +12,6 @@ import styles from './index.module.css'
 
 import type { PropsWithChildren } from 'react'
 
-const { Search } = Input
-
 interface IProps extends PropsWithChildren {}
 
 const Index = (props: IProps) => {
