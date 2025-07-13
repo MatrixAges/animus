@@ -18,10 +18,10 @@ const Index = () => {
 				<a className='media_item' href='https://getanimus.ai'>
 					{t('setting.about.media.website')}
 				</a>
-				<a className='media_item' href='https://github.com/connectionsai/animus'>
+				<a className='media_item' href='https://github.com/MatrixAges/animus'>
 					{t('setting.about.media.github')}
 				</a>
-				<a className='media_item' href='https://github.com/connectionsai/animus/blob/master/LICENSE'>
+				<a className='media_item' href='https://github.com/MatrixAges/animus/blob/master/LICENSE'>
 					{t('setting.about.media.license')}
 				</a>
 			</div>

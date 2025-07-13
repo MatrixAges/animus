@@ -13,6 +13,6 @@ export const nav_links = [
 	},
 	{
 		title: 'Github',
-		href: 'https://github.com/connectionsai/animus'
+		href: 'https://github.com/MatrixAges/animus'
 	}
 ]

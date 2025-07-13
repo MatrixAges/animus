@@ -12,5 +12,5 @@ const input_type = object({
 export default p.input(input_type).mutation(async ({ input }) => {
 	const { module, filename, data, recent } = input
 
-	await write({ module, filename, data, recent })
+	await write({ module, filename, data })
 })

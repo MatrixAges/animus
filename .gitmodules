@@ -1,3 +1,3 @@
 [submodule "packages/stk"]
 	path = packages/stk
-	url = https://github.com/connectionsai/stk.git
+	url = https://github.com/MatrixAges/stk.git
