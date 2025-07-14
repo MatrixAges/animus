@@ -5,7 +5,9 @@ import { IconPicker } from '@/components'
 const Index = () => {
 	return (
 		<div className='w_100 h_100 flex justify_center align_center'>
-			<IconPicker></IconPicker>
+			<IconPicker>
+				<button>icon picker</button>
+			</IconPicker>
 		</div>
 	)
 }

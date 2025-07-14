@@ -62,6 +62,9 @@ importers:
       '@trpc/client':
         specifier: ^11.4.3
         version: 11.4.3(@trpc/server@11.4.3(typescript@5.8.3))(typescript@5.8.3)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
       ahooks:
         specifier: ^3.9.0
         version: 3.9.0(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
@@ -110,6 +113,9 @@ importers:
       lucide-react:
         specifier: ^0.525.0
         version: 0.525.0(react@0.0.0-experimental-06e89951-20250620)
+      lz-string:
+        specifier: ^1.5.0
+        version: 1.5.0
       mobx:
         specifier: ^6.13.7
         version: 6.13.7

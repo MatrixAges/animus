@@ -2,7 +2,7 @@
 	width: 252px;
 
 	:global {
-		.control_wrap {
+		.input_search_wrap {
 			padding: 12px;
 			padding-bottom: 0;
 			gap: 8px;
@@ -42,12 +42,17 @@
 					line-height: 1;
 					border-radius: 50%;
 					user-select: none;
+					transition: scale ease 0.12s;
 					font-size: 20px;
 					aspect-ratio: 1;
 
 					&:hover {
 						outline: var(--border);
 						background-color: var(--color_bg_1);
+					}
+
+					&:active {
+						scale: 0.9;
 					}
 				}
 			}

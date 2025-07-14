@@ -1,30 +1,23 @@
-import { writeFileSync } from 'fs'
 import { join } from 'path'
 import { Index } from 'flexsearch'
+import { writeFile } from 'fs-extra'
+import { compressToBase64 } from 'lz-string'
+
+import { index_options } from '@/appdata/flexsearch'
 
 const output_path = join(process.cwd(), '/icons')
 
-const indexes = new Index({
-	cache: 100,
-	tokenize: 'full',
-	context: { resolution: 9, depth: 3, bidirectional: true }
-})
+const generateIndexes = async (lang: 'en' | 'zh-cn', type: 'icons' | 'emojis') => {
+	const { default: data } = await import(`../icons/${lang}/${type}`)
 
-const generateIndexes = async (lang: 'en' | 'zh-cn') => {
-	const icons = await import(`../icons/${lang}/icons`)
-	const emojis = await import(`../icons/${lang}/emojis`)
+	const indexes = new Index(index_options)
 
-	Object.keys(icons).forEach(key => {
-		const tags = (icons as Record<string, string[]>)[key]
+	Object.keys(data).forEach(key => {
+		const tags = [...data[key]]
 
-		tags.push(key)
-		tags.forEach(item => indexes.add(key, item))
-	})
+		if (type === 'icons') tags.unshift(key)
 
-	Object.keys(emojis).forEach(key => {
-		const tags = (icons as Record<string, string[]>)[key]
-
-		tags.forEach(item => indexes.add(key, item))
+		indexes.add(key, tags.join(' '))
 	})
 
 	const export_index = {} as Record<string, any>
@@ -35,8 +28,10 @@ const generateIndexes = async (lang: 'en' | 'zh-cn') => {
 		}
 	})
 
-	writeFileSync(join(output_path, `/${lang}/indexes`), JSON.stringify(export_index))
+	writeFile(join(output_path, `/${lang}/${type}.index`), compressToBase64(JSON.stringify(export_index)))
 }
 
-generateIndexes('en')
-generateIndexes('zh-cn')
+generateIndexes('en', 'icons')
+generateIndexes('en', 'emojis')
+generateIndexes('zh-cn', 'icons')
+generateIndexes('zh-cn', 'emojis')
