@@ -8,6 +8,7 @@ export const config_keys = flat({
 	chat: {
 		config: {
 			prompt_rewriting: '',
+			use_preset: '',
 			newline_by_enter: '',
 			web_search: {
 				enabled: '',

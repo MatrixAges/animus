@@ -1,0 +1,17 @@
+._local {
+	:global {
+		.textarea {
+			min-height: 72px;
+			line-height: var(--line_height);
+			padding: 8px 12px;
+			border: none;
+			border-radius: unset;
+			outline: unset;
+			background-color: unset;
+			resize: none;
+			font-family: var(--font_serif);
+			font-size: 14px;
+			field-sizing: content;
+		}
+	}
+}

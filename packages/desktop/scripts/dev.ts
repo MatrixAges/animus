@@ -20,7 +20,12 @@ const start = () => {
 
 	electron_process.stderr?.on('data', (data: Buffer) => {
 		const err = data.toString()
-		const ignore = ['Autofill.enable', 'Autofill.setAddresses', `Unexpected token 'H'`]
+		const ignore = [
+			'Autofill.enable',
+			'Autofill.setAddresses',
+			`Unexpected token 'H'`,
+			'_ISSetPhysicalKeyboardCapsLockLED'
+		]
 
 		if (!new RegExp(ignore.join('|')).test(err)) {
 			console.error('Main process error: ' + err)

@@ -3,6 +3,7 @@ import { useClickAway } from 'ahooks'
 import { AnimatePresence, motion } from 'motion/react'
 import { createPortal } from 'react-dom'
 
+import { useStackId } from '@/hooks'
 import { XIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
@@ -20,6 +21,7 @@ export interface IProps {
 	height?: string | number
 	mask_closable?: boolean
 	z_index?: number
+	in_stack?: boolean
 	header?: (onClose: IProps['onClose']) => ReactNode
 	onClose?: (e?: MouseEvent<HTMLElement>) => void
 	getContainer?: () => Element
@@ -38,6 +40,7 @@ const Index = (props: IProps) => {
 		height,
 		mask_closable,
 		z_index,
+		in_stack,
 		header,
 		onClose,
 		getContainer,
@@ -48,7 +51,9 @@ const Index = (props: IProps) => {
 	const [on_body, setOnbody] = useState(false)
 	const [exsit, setExsit] = useState(false)
 
-	const container = getContainer?.() || document.body
+	const id = useStackId()
+
+	const container = in_stack ? document.getElementById(id)! : getContainer?.() || document.body
 
 	useEffect(() => {
 		if (open) {

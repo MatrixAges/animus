@@ -7,12 +7,12 @@ import { container } from 'tsyringe'
 import { useStackEffect } from '@/hooks'
 import { ArrowElbowDownLeftIcon, ArrowUpIcon, CommandIcon } from '@phosphor-icons/react'
 
-import { Config, File, ModelSelect, Setting } from './components'
+import { Config, File, ModelSelect, Setting, SystemPrompt } from './components'
 import Model from './model'
 
 import styles from './index.module.css'
 
-import type { IProps, IPropsConfig, IPropsFile, IPropsModelSelect, IPropsSetting } from './types'
+import type { IProps, IPropsConfig, IPropsFile, IPropsModelSelect, IPropsSetting, IPropsSystemPrompt } from './types'
 
 const Index = (props: IProps) => {
 	const { store_options } = props
@@ -27,12 +27,19 @@ const Index = (props: IProps) => {
 
 	const props_file: IPropsFile = {}
 
+	const props_system_prompt: IPropsSystemPrompt = {
+		system_prompt: x.system_prompt,
+		setSystemPrompt: useMemoizedFn(v => (x.system_prompt = v))
+	}
+
 	const props_config: IPropsConfig = {
 		prompt_rewriting: x.prompt_rewriting,
+		use_preset: x.use_preset,
 		newline_by_enter: x.newline_by_enter,
 		web_search_enabled: x.web_search_enabled,
 		web_search_engine: x.web_search_engine,
 		setPromptRewriting: useMemoizedFn(v => (x.prompt_rewriting = v)),
+		setUsePreset: useMemoizedFn(v => (x.use_preset = v)),
 		setNewLineByEnter: useMemoizedFn(v => (x.newline_by_enter = v)),
 		setWebSearchEnabled: useMemoizedFn(v => (x.web_search_enabled = v)),
 		setWebSearchEngine: useMemoizedFn(v => (x.web_search_engine = v))
@@ -64,6 +71,7 @@ const Index = (props: IProps) => {
 			<div className='option_items w_100 border_box flex justify_between align_center absolute bottom_0'>
 				<div className='gap_wrap flex align_center'>
 					<File {...props_file}></File>
+					<SystemPrompt {...props_system_prompt}></SystemPrompt>
 					<Config {...props_config}></Config>
 					<Setting {...props_setting}></Setting>
 				</div>

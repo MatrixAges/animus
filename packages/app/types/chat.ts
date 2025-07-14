@@ -1,5 +1,6 @@
 export namespace Chat {
 	export type Options = {
+		system_prompt: string
 		prompt_rewriting: boolean
 		newline_by_enter: boolean
 		web_search_enabled: boolean

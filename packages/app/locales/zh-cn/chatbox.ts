@@ -1,6 +1,11 @@
 export default {
+	system_prompt: {
+		title: '系统提示词',
+		desc: '输入系统提示词，指定角色和功能'
+	},
 	placeholder: '我可以帮您做什么？',
 	prompt_rewriting: '提示词优化',
+	use_preset: '使用模型预设',
 	newline_by_enter: '回车键换行',
 	web_search: '网页搜索',
 	builtin_search: '模型内置搜索',

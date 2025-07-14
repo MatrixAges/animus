@@ -14,7 +14,9 @@ import type { Stack, Chat } from '@/types'
 
 @injectable()
 export default class Index {
+	system_prompt = ''
 	prompt_rewriting = false
+	use_preset = false
 	newline_by_enter = false
 	web_search_enabled = false
 	web_search_engine = ''
@@ -38,6 +40,7 @@ export default class Index {
 		const off = await setStoreWhenChange(
 			[
 				{ [config_keys['chat.config.prompt_rewriting']]: 'prompt_rewriting' },
+				{ [config_keys['chat.config.use_preset']]: 'use_preset' },
 				{ [config_keys['chat.config.newline_by_enter']]: 'newline_by_enter' },
 				{ [config_keys['chat.config.web_search.enabled']]: 'web_search_enabled' },
 				{ [config_keys['chat.config.web_search.engine']]: 'web_search_engine' },
@@ -66,6 +69,7 @@ export default class Index {
 		const stack_item = { type: 'module', module: 'chat', name } as Stack.Item
 
 		const options = {
+			system_prompt: this.system_prompt,
 			prompt_rewriting: this.prompt_rewriting,
 			newline_by_enter: this.newline_by_enter,
 			web_search_enabled: this.web_search_enabled,
@@ -160,7 +164,6 @@ export default class Index {
 	}
 
 	off() {
-		console.log(123)
 		this.util.off()
 	}
 }

@@ -10,6 +10,7 @@ export const schema = object({
 				enabled: boolean(),
 				id: string(),
 				name: string(),
+				preset_id: string().optional(),
 				vision: boolean().optional(),
 				voice: boolean().optional(),
 				features: object({
@@ -60,3 +61,5 @@ export type OpenaiCompatibleProvider = Infer<typeof custom_schema>
 export type OllamaProvider = Infer<typeof ollama_schema>
 export type AzureOpenaiProvider = Infer<typeof azure_openai_schema>
 export type AmazonBedrockProvider = Infer<typeof amazon_bedrock_schema>
+
+export * from './preset'

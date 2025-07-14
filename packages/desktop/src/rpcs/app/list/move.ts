@@ -1,29 +1,23 @@
 import dayjs from 'dayjs'
-import { array, object, string } from 'zod'
+import { object, string } from 'zod'
 
-import { p, read, write } from '@desktop/utils'
+import { moveObject, p, read, write } from '@desktop/utils'
 
 const input_type = object({
 	module: string(),
-	items: array(
-		object({
-			filename: string(),
-			name: string()
-		})
-	)
+	from_key: string(),
+	to_key: string()
 })
 
 export default p.input(input_type).mutation(async ({ input }) => {
-	const { module, items } = input
+	const { module, from_key, to_key } = input
 
 	const list = (await read({ module, filename: 'list' })) || {}
-	const now = dayjs().valueOf()
 
-	items.forEach(item => {
-		const { filename, name } = item
+	list[from_key].update_at = dayjs().valueOf()
+	list[to_key].update_at = dayjs().valueOf()
 
-		list[filename] = { name, create_at: now, update_at: now }
-	})
+	const target_items = moveObject(list, from_key, to_key)
 
-	await write({ module, filename: 'list', data: list })
+	await write({ module, filename: 'list', data: target_items })
 })

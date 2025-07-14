@@ -13,10 +13,12 @@ import type { IPropsConfig } from '../../types'
 const Index = (props: IPropsConfig) => {
 	const {
 		prompt_rewriting,
+		use_preset,
 		newline_by_enter,
 		web_search_enabled,
 		web_search_engine,
 		setPromptRewriting,
+		setUsePreset,
 		setNewLineByEnter,
 		setWebSearchEnabled,
 		setWebSearchEngine
@@ -33,6 +35,12 @@ const Index = (props: IPropsConfig) => {
 					<span className='title'>{t('chatbox.prompt_rewriting')}</span>
 				</div>
 				<Switch size='small' value={prompt_rewriting} onChange={setPromptRewriting}></Switch>
+			</div>
+			<div className='config_item w_100 flex justify_between align_center'>
+				<div className='title_wrap flex align_center'>
+					<span className='title'>{t('chatbox.use_preset')}</span>
+				</div>
+				<Switch size='small' value={use_preset} onChange={setUsePreset}></Switch>
 			</div>
 			<div className='config_item w_100 flex justify_between align_center'>
 				<div className='title_wrap flex align_center'>

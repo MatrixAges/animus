@@ -1,6 +1,11 @@
 export default {
+	system_prompt: {
+		title: 'System Prompt',
+		desc: 'Enter system prompts, specify roles and abilities'
+	},
 	placeholder: 'Can I help you with?',
 	prompt_rewriting: 'Prompt rewriting',
+	use_preset: 'Use preset setting',
 	newline_by_enter: 'Newline by Enter',
 	web_search: 'Web Search',
 	builtin_search: 'LLM Builtin Search',
