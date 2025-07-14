@@ -1,4 +1,5 @@
-import { icons, modules } from '@/appdata'
+import { modules } from '@/appdata'
+import { icons } from '@/icons'
 
 import type { ElementOf } from 'ts-essentials'
 

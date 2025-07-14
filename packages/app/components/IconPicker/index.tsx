@@ -17,10 +17,37 @@ interface IProps extends PropsWithChildren {}
 const Index = (props: IProps) => {
 	const { children } = props
 	const [x] = useState(container.resolve(Model))
-	const ref = useDelegate(v => (x.type = v))
+	const ref = useDelegate(v => x.onChangeType(v))
 
 	const Content = (
 		<div className={$cx('border_box', styles._local)}>
+			<div className='control_wrap flex flex_column w_100 border_box'>
+				<Input
+					className='input_search w_100 border_box'
+					prefix={<MagnifyingGlassIcon />}
+					onChange={x.onChangeInput}
+				/>
+			</div>
+			<div className='icon_items_wrap w_100'>
+				<div className='icon_items w_100 border_box flex flex_wrap'>
+					{Object.keys(x.icons).map((item, index) => (
+						<div
+							className={$cx(
+								'icon_item flex justify_center align_center',
+								item.codePointAt(0)?.toString()
+							)}
+							key={index}
+						>
+							<Choose>
+								<When condition={x.type === 'icon'}>
+									<i className={`ph ph-${item}`}></i>
+								</When>
+								<Otherwise>{item}</Otherwise>
+							</Choose>
+						</div>
+					))}
+				</div>
+			</div>
 			<div className='types_wrap w_100 border_box flex align_center' ref={ref}>
 				<div
 					className={$cx(
@@ -42,27 +69,6 @@ const Index = (props: IProps) => {
 				>
 					<SmileyWinkIcon weight='bold'></SmileyWinkIcon>
 					<span className='text'>Emoji</span>
-				</div>
-			</div>
-			<div className='control_wrap flex flex_column w_100 border_box'>
-				<Input
-					className='input_search w_100 border_box'
-					prefix={<MagnifyingGlassIcon />}
-					onChange={x.onChange}
-				/>
-			</div>
-			<div className='icon_items_wrap w_100'>
-				<div className='icon_items w_100 border_box flex flex_wrap'>
-					{Object.keys(x.icons).map((item, index) => (
-						<div className='icon_item flex justify_center align_center' key={index}>
-							<Choose>
-								<When condition={x.type === 'icon'}>
-									<i className={`ph ph-${item}`}></i>
-								</When>
-								<Otherwise>123</Otherwise>
-							</Choose>
-						</div>
-					))}
 				</div>
 			</div>
 		</div>

@@ -95,6 +95,9 @@ importers:
       es-toolkit:
         specifier: ^1.39.7
         version: 1.39.7
+      flexsearch:
+        specifier: ^0.8.205
+        version: 0.8.205
       hotkeys-js:
         specifier: ^3.13.15
         version: 3.13.15

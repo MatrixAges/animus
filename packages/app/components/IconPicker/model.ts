@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-import { icons } from '@/appdata'
+import { emojis, icons } from '@/icons'
 
 import type { IconType } from '@/types'
 import type { ChangeEvent } from 'react'
@@ -8,11 +8,24 @@ import type { ChangeEvent } from 'react'
 export default class Index {
 	type = 'icon' as IconType
 	input = ''
-	icons = icons
+	icons = icons as Record<string, Array<string>>
 
 	constructor() {
-		makeAutoObservable(this, {}, { autoBind: true })
+		makeAutoObservable(this, { icons: false }, { autoBind: true })
 	}
 
-	onChange(e: ChangeEvent<HTMLInputElement>) {}
+	onChangeType(v: Index['type']) {
+		switch (v) {
+			case 'icon':
+				this.icons = icons
+				break
+			case 'emoji':
+				this.icons = emojis
+				break
+		}
+
+		this.type = v
+	}
+
+	onChangeInput(e: ChangeEvent<HTMLInputElement>) {}
 }

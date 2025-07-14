@@ -6,7 +6,8 @@
 		"dev": "rsbuild dev",
 		"build": "rsbuild build",
 		"build:theme": "bun ./build/theme",
-		"build:icons": "bun ./build/icons"
+		"build:icons": "bun ./build/icons",
+		"build:icons_indexes": "bun ./build/icons_indexes"
 	},
 	"keywords": [],
 	"dependencies": {
@@ -33,6 +34,7 @@
 		"electron-conf": "^1.3.0",
 		"erpc": "workspace:*",
 		"es-toolkit": "^1.39.7",
+		"flexsearch": "^0.8.205",
 		"hotkeys-js": "^3.13.15",
 		"i18next": "^25.3.2",
 		"json-parse-even-better-errors": "^4.0.0",
