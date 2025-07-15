@@ -1,25 +1,49 @@
 import { Index as SearchIndex } from 'flexsearch'
-import { decompressFromBase64 } from 'lz-string'
+import { decompressFromUint8Array } from 'lz-string'
 import { makeAutoObservable } from 'mobx'
+import { ofetch } from 'ofetch'
 
 import { config_keys, index_options } from '@/appdata'
-import { emojis, icons } from '@/icons'
+import { Lru } from '@/models/common'
 import { conf } from '@/utils'
+import { injectable } from 'tsyringe'
 
 import type { IconType } from '@/types'
 import type { ChangeEvent, CompositionEvent } from 'react'
 
+@injectable()
 export default class Index {
 	visible = false
 	compositing = false
 	type = 'icon' as IconType
-	icons = icons as Array<string>
+	icons = [] as Array<string>
 	loading = false
 	indexes = null as unknown as SearchIndex
 	signal = 0
 
-	constructor() {
-		makeAutoObservable(this, { icons: false, indexes: false }, { autoBind: true })
+	get recent() {
+		return this.type === 'icon' ? Object.keys(this.lru_icons.all) : Object.keys(this.lru_emojis.all)
+	}
+
+	constructor(
+		public lru_icons: Lru,
+		public lru_emojis: Lru
+	) {
+		makeAutoObservable(
+			this,
+			{
+				lru_icons: false,
+				lru_emojis: false,
+				icons: false,
+				indexes: false
+			},
+			{ autoBind: true }
+		)
+	}
+
+	init() {
+		this.lru_icons.init('icon_picker_recent_icons')
+		this.lru_emojis.init('icon_picker_recent_emojis')
 	}
 
 	onOpenChange(v: boolean) {
@@ -28,32 +52,56 @@ export default class Index {
 		if (v) {
 			this.indexes = new SearchIndex(index_options)
 
-			this.loadIndexes()
+			this.getIndexes()
 		} else {
 			this.indexes.clear()
 			this.indexes = null as unknown as SearchIndex
 		}
 	}
 
-	getIcons(v?: Index['type']) {
-		switch (v || this.type) {
-			case 'icon':
-				this.icons = icons
-				break
-			case 'emoji':
-				this.icons = emojis
-				break
-		}
-
-		this.signal += 1
-	}
-
 	onChangeType(v: Index['type']) {
-		this.getIcons(v)
+		if (this.type === v) return
 
 		this.type = v
 
-		this.loadIndexes()
+		this.getIcons()
+		this.getIndexes()
+	}
+
+	clearRecent() {
+		this.type === 'icon' ? this.lru_icons.clear() : this.lru_emojis.clear()
+	}
+
+	async getIcons() {
+		const { default: icons } = await import(`@/icons/en/${this.type}s.json`)
+
+		this.icons = icons
+		this.signal += 1
+	}
+
+	async getIndexes() {
+		this.loading = true
+
+		this.indexes.clear()
+
+		const lang = await conf.get(config_keys.lang)
+
+		const [_, { default: url }] = await Promise.all([
+			this.getIcons(),
+			import(`@/icons/${lang}/${this.type}s.index`)
+		])
+
+		const res = await ofetch(url, { responseType: 'arrayBuffer' })
+
+		const indexes = JSON.parse(decompressFromUint8Array(new Uint8Array(res)))
+
+		Object.keys(indexes).forEach(key => {
+			const value = indexes[key]
+
+			this.indexes.import(key, value)
+		})
+
+		this.loading = false
 	}
 
 	async onChangeInput(e: CompositionEvent<HTMLInputElement> | ChangeEvent<HTMLInputElement>) {
@@ -72,22 +120,8 @@ export default class Index {
 		this.loading = false
 	}
 
-	async loadIndexes() {
-		this.loading = true
-
-		this.indexes.clear()
-
-		const lang = await conf.get(config_keys.lang)
-		const { default: res } = await import(`@/icons/${lang}/${this.type}s.index`)
-
-		const indexes = JSON.parse(decompressFromBase64(res))
-
-		Object.keys(indexes).forEach(key => {
-			const value = indexes[key]
-
-			this.indexes.import(key, value)
-		})
-
-		this.loading = false
+	off() {
+		this.lru_icons.off()
+		this.lru_emojis.off()
 	}
 }

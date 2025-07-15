@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
-import { Util } from '@/models'
+import { Util } from '@/models/common'
 import { store_options as default_store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'

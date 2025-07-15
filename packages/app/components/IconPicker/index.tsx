@@ -1,28 +1,49 @@
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { Input, Popover } from 'antd'
 import { debounce } from 'es-toolkit/compat'
 import { observer } from 'mobx-react-lite'
 import { container } from 'tsyringe'
 
 import { useDelegate } from '@/hooks'
-import { AtomIcon, MagnifyingGlassIcon, SmileyWinkIcon } from '@phosphor-icons/react'
+import { AtomIcon, MagnifyingGlassIcon, SmileyWinkIcon, TrashIcon } from '@phosphor-icons/react'
 
 import LoadingCircle from '../LoadingCircle'
 import Model from './model'
 
 import styles from './index.module.css'
 
+import type { TooltipPlacement } from 'antd/es/tooltip'
 import type { PropsWithChildren } from 'react'
 
-interface IProps extends PropsWithChildren {}
+interface IProps extends PropsWithChildren {
+	type?: 'icon' | 'emoji' | 'all'
+	placement?: TooltipPlacement
+	onSelect: (v: string, type: 'icon' | 'emoji') => void
+}
 
 const Index = (props: IProps) => {
-	const { children } = props
+	const { type = 'all', placement, onSelect, children } = props
 	const [x] = useState(container.resolve(Model))
+
+	useLayoutEffect(() => {
+		if (type !== 'all') x.type = type
+
+		x.init()
+
+		return () => x.off()
+	}, [type])
+
 	const ref_type = useDelegate(v => x.onChangeType(v), { visible: x.visible })
+
 	const ref_icons = useDelegate(
 		v => {
-			console.log(v)
+			onSelect(v, x.type)
+
+			if (x.type === 'icon') {
+				x.lru_icons.set(v)
+			} else {
+				x.lru_emojis.set(v)
+			}
 		},
 		{ visible: x.visible }
 	)
@@ -39,7 +60,7 @@ const Index = (props: IProps) => {
 					onChange={debounce(x.onChangeInput, 360)}
 				/>
 			</div>
-			<div className='icon_items_wrap w_100 relative' ref={ref_icons}>
+			<div className={$cx('icon_items_wrap w_100 relative', type !== 'all' && 'not_all')} ref={ref_icons}>
 				<Choose>
 					<When condition={x.loading}>
 						<div className='loading_wrap w_100 h_100 absolute top_0 left_0 flex justify_center align_center'>
@@ -47,56 +68,90 @@ const Index = (props: IProps) => {
 						</div>
 					</When>
 					<Otherwise>
-						<div className={$cx('icon_items w_100 border_box flex flex_wrap', x.signal)}>
-							{x.icons.map((item, index) => (
-								<div
-									className={$cx(
-										'icon_item flex justify_center align_center',
-										item.codePointAt(0)?.toString()
-									)}
-									data-key={item}
-									key={index}
-								>
-									<Choose>
-										<When condition={x.type === 'icon'}>
-											<i className={`ph ph-${item}`}></i>
-										</When>
-										<Otherwise>{item}</Otherwise>
-									</Choose>
+						<div className='w_100 flex flex_column'>
+							<If condition={x.recent.length}>
+								<div className='recent_items_wrap w_100 border_box'>
+									<div className='header_wrap flex justify_between align_center'>
+										<span className='title'>Recent</span>
+										<TrashIcon
+											className='clickable'
+											onClick={x.clearRecent}
+										></TrashIcon>
+									</div>
+									<div className='recent_items w_100 border_box flex flex_wrap'>
+										{x.recent.map((item, index) => (
+											<div
+												className='icon_item flex justify_center align_center'
+												data-key={item}
+												key={index}
+											>
+												<Choose>
+													<When condition={x.type === 'icon'}>
+														<i className={`ph ph-${item}`}></i>
+													</When>
+													<Otherwise>{item}</Otherwise>
+												</Choose>
+											</div>
+										))}
+									</div>
 								</div>
-							))}
+							</If>
+							<div className={$cx('icon_items w_100 border_box flex flex_wrap', x.signal)}>
+								{x.icons.map((item, index) => (
+									<div
+										className='icon_item flex justify_center align_center'
+										data-key={item}
+										key={index}
+									>
+										<Choose>
+											<When condition={x.type === 'icon'}>
+												<i className={`ph ph-${item}`}></i>
+											</When>
+											<Otherwise>{item}</Otherwise>
+										</Choose>
+									</div>
+								))}
+							</div>
 						</div>
 					</Otherwise>
 				</Choose>
 			</div>
-			<div className='types_wrap w_100 border_box flex align_center' ref={ref_type}>
-				<div
-					className={$cx(
-						'type_item flex justify_center align_center clickit',
-						x.type === 'icon' && 'active'
-					)}
-					data-key='icon'
-				>
-					<AtomIcon weight='bold'></AtomIcon>
-					<span className='text'>Icon</span>
+			<If condition={type === 'all'}>
+				<div className='types_wrap w_100 border_box flex align_center' ref={ref_type}>
+					<div
+						className={$cx(
+							'type_item flex justify_center align_center clickit',
+							x.type === 'icon' && 'active'
+						)}
+						data-key='icon'
+					>
+						<AtomIcon weight='bold'></AtomIcon>
+						<span className='text'>Icon</span>
+					</div>
+					<span className='divider'></span>
+					<div
+						className={$cx(
+							'type_item flex justify_center align_center clickit',
+							x.type === 'emoji' && 'active'
+						)}
+						data-key='emoji'
+					>
+						<SmileyWinkIcon weight='bold'></SmileyWinkIcon>
+						<span className='text'>Emoji</span>
+					</div>
 				</div>
-				<span className='divider'></span>
-				<div
-					className={$cx(
-						'type_item flex justify_center align_center clickit',
-						x.type === 'emoji' && 'active'
-					)}
-					data-key='emoji'
-				>
-					<SmileyWinkIcon weight='bold'></SmileyWinkIcon>
-					<span className='text'>Emoji</span>
-				</div>
-			</div>
+			</If>
 		</div>
 	)
 
 	return (
-		<Popover rootClassName={styles.popover} trigger={['click']} content={Content} onOpenChange={x.onOpenChange}>
+		<Popover
+			rootClassName={styles.popover}
+			trigger={['click']}
+			placement={placement}
+			content={Content}
+			onOpenChange={x.onOpenChange}
+		>
 			{children}
 		</Popover>
 	)

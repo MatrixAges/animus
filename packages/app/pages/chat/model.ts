@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
-import { Util } from '@/models'
+import { Util } from '@/models/common'
 
 @injectable()
 export default class Index {

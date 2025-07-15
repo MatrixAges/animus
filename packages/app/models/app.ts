@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
-import { Util } from '@/models'
+import { Util } from '@/models/common'
 import { ipc, is_electron, info } from '@/utils'
 
 import type { UpdateState, Stack } from '@/types'

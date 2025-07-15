@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { Index } from 'flexsearch'
 import { writeFile } from 'fs-extra'
-import { compressToBase64 } from 'lz-string'
+import { compressToUint8Array } from 'lz-string'
 
 import { index_options } from '@/appdata/flexsearch'
 
@@ -28,7 +28,11 @@ const generateIndexes = async (lang: 'en' | 'zh-cn', type: 'icons' | 'emojis') =
 		}
 	})
 
-	writeFile(join(output_path, `/${lang}/${type}.index`), compressToBase64(JSON.stringify(export_index)))
+	if (lang === 'en') {
+		writeFile(join(output_path, `/en/${type}.json`), JSON.stringify(Object.keys(data)))
+	}
+
+	writeFile(join(output_path, `/${lang}/${type}.index`), compressToUint8Array(JSON.stringify(export_index)))
 }
 
 generateIndexes('en', 'icons')

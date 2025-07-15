@@ -19,8 +19,14 @@ export default {
 		lightningcssLoader: { targets: 'chrome >= 120', exclude: { isSelector: true } },
 		postcss: { postcssOptions: { config: false, plugins: postcss_plugins.map(item => require(item)) } },
 		swc: { jsc: { experimental: { plugins: [['swc-plugin-jsx-control-statements', {}]] } } },
-		rspack: (_, { appendRules }) => {
-			appendRules({ test: /\.index$/, type: 'asset/source' })
+		rspack: (config, { appendRules, mergeConfig }) => {
+			appendRules({ test: /\.index$/, type: 'asset/resource' })
+
+			return mergeConfig(config, {
+				experiments: {
+					lazyCompilation: { entries: false, imports: true }
+				}
+			})
 		}
 	}
 } as RsbuildConfig

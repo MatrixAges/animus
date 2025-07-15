@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { makeAutoObservable } from 'mobx'
 import { initReactI18next } from 'react-i18next'
 import { injectable } from 'tsyringe'
-import { Util } from '@/models'
+import { Util } from '@/models/common'
 import {
 	getLang,
 	resourcesToBackend,

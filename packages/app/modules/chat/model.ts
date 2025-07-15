@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 import { GlobalModel } from '@/context'
-import { Util } from '@/models'
+import { Util } from '@/models/common'
 import { ipc } from '@/utils'
 
 import type { Chat, Stack } from '@/types'
