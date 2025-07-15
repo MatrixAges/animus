@@ -31,7 +31,7 @@ export default class Index {
 	theme_value = 'light' as Exclude<Theme, 'system'>
 	auto_theme = false
 	glass = true
-	visible = false
+	visible = true
 	active = 'general'
 	visible_menu = false
 
@@ -83,12 +83,12 @@ export default class Index {
 		config(zod_locale)
 	}
 
-	setLang(lang: Lang) {
-		if (lang === this.lang) return
+	setLang(v: Lang) {
+		if (v === this.lang) return
 
-		this.lang = lang
+		this.lang = v
 
-		conf.set('lang', lang)
+		conf.set(lang, v)
 
 		relaunch()
 	}

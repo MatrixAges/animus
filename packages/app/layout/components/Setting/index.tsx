@@ -7,6 +7,7 @@ import { Modal, ModuleIcon } from '@/components'
 import { useDelegate, useSize } from '@/hooks'
 import { ListIcon } from '@phosphor-icons/react'
 
+import { Workspaces } from './components'
 import { app_setting_items, module_setting_items } from './options'
 
 import styles from './index.module.css'
@@ -26,7 +27,7 @@ const Index = (props: IPropsSetting) => {
 	const ref_list = useDelegate((v: SettingType) => onMenuItem(v), { visible, duration: 180 })
 
 	const Menu = (
-		<div className={$cx('h_100 border_box flex flex_column', styles.menu)}>
+		<div className={$cx('h_100 border_box flex flex_column relative', styles.menu)}>
 			<div className='menu_items w_100 border_box flex flex_column' ref={ref_list}>
 				{app_setting_items.map(({ label, Icon, key }) => (
 					<div
@@ -62,6 +63,7 @@ const Index = (props: IPropsSetting) => {
 					</div>
 				))}
 			</div>
+			<Workspaces></Workspaces>
 		</div>
 	)
 

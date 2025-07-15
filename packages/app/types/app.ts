@@ -1,5 +1,5 @@
 import { modules } from '@/appdata'
-import { icons } from '@/icons'
+import icons from '@/icons/en/icons'
 
 import type { ElementOf } from 'ts-essentials'
 
@@ -41,7 +41,11 @@ export interface Shortcut {
 
 export type IconType = 'icon' | 'emoji'
 
-export interface Workspace {
+export interface AppIcon {
 	icon: string
+	icon_type: IconType
+}
+
+export interface Workspace extends AppIcon {
 	name: string
 }

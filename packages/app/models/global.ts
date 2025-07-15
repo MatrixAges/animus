@@ -16,8 +16,8 @@ export default class GlobalModel {
 		await this.setting.init()
 		await this.layout.init()
 		await this.stack.init()
+		await this.app.init()
 
-		this.app.init()
 		this.shortcuts.init()
 	}
 

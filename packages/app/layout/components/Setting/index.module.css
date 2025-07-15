@@ -1,6 +1,7 @@
 .menu {
 	overflow-y: scroll;
 	width: 162px;
+	padding-bottom: 72px;
 
 	:global {
 		.menu_items {

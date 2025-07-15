@@ -1,12 +1,15 @@
-import type { Icon } from '@/types'
+import type { Icon, IconType } from '@/types'
 
 interface IProps {
 	id: Icon
 	size?: number | string
+	icon_type?: IconType
 }
 
 const Index = (props: IProps) => {
-	const { id, size } = props
+	const { id, size, icon_type = 'icon' } = props
+
+	if (icon_type === 'emoji') return id
 
 	return <i className={`ph ph-${id}`} style={{ fontSize: size }}></i>
 }

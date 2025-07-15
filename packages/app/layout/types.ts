@@ -24,6 +24,10 @@ export interface IPropsEmpty {
 	toggleSetting: ViodFn
 }
 
+export interface IPropsWorkspaces {
+	workspaces: App['workspaces']
+}
+
 export interface IPropsSetting {
 	update_status: App['update_status']
 	visible: Setting['visible']

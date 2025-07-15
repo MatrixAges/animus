@@ -1,6 +1,8 @@
 import { flat } from '@/utils'
 
 export const config_keys = flat({
+	workspaces: '',
+	workspace: '',
 	lang: '',
 	theme_source: '',
 	glass: '',

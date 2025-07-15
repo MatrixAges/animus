@@ -1,0 +1,98 @@
+._local {
+	padding: 6px;
+
+	:global {
+		.ani-select {
+			height: unset;
+
+			&.ani-select-open {
+				.ani-select-selector {
+					.ani-select-selection-item {
+						.target_wrap {
+							.desc {
+								opacity: 0.36;
+							}
+						}
+					}
+				}
+			}
+
+			.ani-select-selector {
+				padding: 0;
+
+				.ani-select-selection-item {
+					.target_wrap {
+						line-height: 1;
+						padding: 6px 8px;
+						gap: 8px;
+
+						.icon_wrap {
+							font-size: 21px;
+						}
+
+						.right_wrap {
+							width: calc(100% - 21px - 8px);
+						}
+
+						.name {
+							text-transform: capitalize;
+							font-weight: 500;
+						}
+
+						.desc {
+							margin-top: 4px;
+							color: var(--color_text_greylight);
+							font-size: 12px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.popup {
+	padding: 0;
+
+	:global {
+		.btn_edit {
+			line-height: 1;
+			padding: 10px 0;
+			font-size: 12px;
+		}
+
+		.rc-virtual-list {
+			border-top: var(--border_light);
+		}
+
+		.ani-select-item-option {
+			padding: 0;
+
+			&.ani-select-item-option-active {
+				background-color: unset;
+			}
+		}
+
+		.workspace_item {
+			padding: 6px 10px;
+			text-transform: capitalize;
+
+			&:hover {
+				background-color: var(--bg_hover);
+			}
+
+			.left_wrap {
+				width: calc(100% - 18px);
+				gap: 8px;
+
+				.icon_wrap {
+					font-size: 15px;
+				}
+
+				.name {
+					width: calc(100% - 15px -8px);
+				}
+			}
+		}
+	}
+}

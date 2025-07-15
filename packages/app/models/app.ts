@@ -2,9 +2,14 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models/common'
-import { ipc, is_electron, info } from '@/utils'
+import { ipc, is_electron, info, store_options } from '@/utils'
+import { setStoreWhenChange } from 'stk/mobx'
+import { config_keys } from '@/appdata'
+import { arrayMove } from '@dnd-kit/sortable'
 
-import type { UpdateState, Stack } from '@/types'
+import type { UpdateState, Stack, Workspace } from '@/types'
+
+const { workspaces, workspace } = config_keys
 
 const favorite_items = [
 	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'OpenAI Translator' },
@@ -26,6 +31,8 @@ const recent_items = [
 
 @injectable()
 export default class Index {
+	workspaces = [] as Array<Workspace>
+	workspace = 'default'
 	favorite_items = favorite_items
 	recent_items = recent_items
 	update_silence = true
@@ -35,11 +42,44 @@ export default class Index {
 		makeAutoObservable(this, { util: false }, { autoBind: true })
 	}
 
-	init() {
+	async init() {
+		const off = await setStoreWhenChange([workspaces, workspace], this, store_options)
+
+		this.util.acts = [off]
+
+		if (!this.workspaces.length) {
+			this.workspaces.push({ name: 'default', icon: 'cube', icon_type: 'icon' })
+
+			this.workspaces = $copy(this.workspaces)
+			this.workspace = 'default'
+		}
+
 		if (is_electron) {
 			this.onAppUpdate()
 			this.checkUpdate(true)
 		}
+	}
+
+	onSelectWorkspace(index: number) {
+		this.workspace = this.workspaces[index].name
+	}
+
+	addWorkspace(v: Workspace) {
+		if (this.workspaces.find(item => item.name === v.name)) return
+
+		this.workspaces.push(v)
+
+		this.workspaces = $copy(this.workspaces)
+	}
+
+	removeWorkspace(index: number) {
+		this.workspaces.splice(index, 1)
+
+		this.workspaces = $copy(this.workspaces)
+	}
+
+	moveWorkspace(from: number, to: number) {
+		this.workspaces = $copy(arrayMove(this.workspaces, from, to))
 	}
 
 	onAppUpdate() {

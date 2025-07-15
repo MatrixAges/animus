@@ -5,8 +5,8 @@ export const modules = (
 		// 'agent',
 		// 'flow',
 		// 'linkcase',
-		'memory'
-		// 'note',
+		'memory',
+		'note'
 		// 'database'
 		// 'artifact' // html...
 	] as const

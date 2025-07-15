@@ -1,21 +1,21 @@
-import { useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
-import { container } from 'tsyringe'
 
-import { GlobalModel } from '@/context'
+import { useGlobal } from '@/context'
 
 import icons from './icons'
 
 import styles from './index.module.css'
 
+import type { Shortcuts } from '@/models'
+
 const Index = () => {
-	const [global] = useState(() => container.resolve(GlobalModel))
+	const global = useGlobal()
 	const keys = $copy(global.shortcuts.keys)
 	const { t } = useTranslation()
 
-	const getKeyMap = useMemoizedFn((item: GlobalModel['shortcuts']['keys'][number]) => {
+	const getKeyMap = useMemoizedFn((item: Shortcuts['keys'][number]) => {
 		const key = item.special_key || global.shortcuts.getKeybinds(item.key_bindings)
 
 		return key.split('+')
