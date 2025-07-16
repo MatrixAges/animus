@@ -3,7 +3,6 @@
 		.textarea {
 			min-height: 72px;
 			line-height: var(--line_height);
-			padding: 8px 12px;
 			border: none;
 			border-radius: unset;
 			outline: unset;

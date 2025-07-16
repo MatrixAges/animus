@@ -36,16 +36,15 @@
 .content {
 	overflow: hidden;
 	max-height: 100%;
+	padding: 18px;
 	margin: 0 auto;
 	border-radius: var(--radius);
 	background-color: var(--bg_modal);
 	backdrop-filter: var(--glass_blur);
 
 	.header {
-		height: 41px;
 		line-height: 1;
-		padding: 0 12px;
-		border-bottom: var(--border_light);
+		margin-bottom: 15px;
 
 		:global {
 			.title {
@@ -67,8 +66,6 @@
 	}
 
 	.body {
-		overflow-y: scroll;
-
 		.has_header {
 			max-height: calc(100% - 40px);
 		}

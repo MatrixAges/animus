@@ -5,7 +5,7 @@
 
 	:global {
 		.menu_items {
-			padding: 6px 6px;
+			padding: 6px;
 			gap: 2px;
 
 			.divider {
@@ -153,7 +153,7 @@
 					.ani-tabs-tabpane {
 						overflow-y: scroll;
 						height: 100%;
-						padding: 21px 24px 60px;
+						padding: 18px 18px 60px;
 					}
 				}
 			}

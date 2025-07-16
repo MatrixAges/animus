@@ -31,7 +31,7 @@ export default class Index {
 	theme_value = 'light' as Exclude<Theme, 'system'>
 	auto_theme = false
 	glass = true
-	visible = true
+	visible = false
 	active = 'general'
 	visible_menu = false
 

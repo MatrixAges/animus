@@ -5,7 +5,8 @@ import { Util } from '@/models/common'
 import { ipc, is_electron, info, store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
-import { arrayMove } from '@dnd-kit/sortable'
+import { uniqBy } from 'es-toolkit'
+import { diff } from 'just-diff'
 
 import type { UpdateState, Stack, Workspace } from '@/types'
 
@@ -52,6 +53,8 @@ export default class Index {
 
 			this.workspaces = $copy(this.workspaces)
 			this.workspace = 'default'
+
+			ipc.app.workspace.add.mutate({ items: ['default'] })
 		}
 
 		if (is_electron) {
@@ -64,22 +67,23 @@ export default class Index {
 		this.workspace = this.workspaces[index].name
 	}
 
-	addWorkspace(v: Workspace) {
-		if (this.workspaces.find(item => item.name === v.name)) return
+	setWorkspaces(v: Index['workspaces']) {
+		const items = uniqBy(
+			v.filter(item => item.name && item.icon),
+			item => item.name
+		)
 
-		this.workspaces.push(v)
+		const res = diff(this.workspaces, items)
+		const add_items = res.filter(item => item.op === 'add').map(item => item.value.name)
 
-		this.workspaces = $copy(this.workspaces)
-	}
+		const remove_items = res
+			.filter(item => item.op === 'remove')
+			.map(item => this.workspaces[item.path.at(0) as number].name)
 
-	removeWorkspace(index: number) {
-		this.workspaces.splice(index, 1)
+		this.workspaces = $copy(items)
 
-		this.workspaces = $copy(this.workspaces)
-	}
-
-	moveWorkspace(from: number, to: number) {
-		this.workspaces = $copy(arrayMove(this.workspaces, from, to))
+		if (add_items.length) ipc.app.workspace.add.mutate({ items: add_items })
+		if (remove_items.length) ipc.app.workspace.remove.mutate({ items: remove_items })
 	}
 
 	onAppUpdate() {

@@ -12,11 +12,15 @@ import recent from './recent'
 import relaunch from './relaunch'
 import setGlass from './setGlass'
 import setTheme from './setTheme'
+import store from './store'
+import workspace from './workspace'
 import write from './write'
 
 export default router({
 	list,
 	recent,
+	store,
+	workspace,
 	onApp,
 	onUpdate,
 	exit,

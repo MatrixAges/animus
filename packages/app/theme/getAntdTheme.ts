@@ -52,7 +52,8 @@ export default (theme: ThemeValue, glass: boolean) => {
 		},
 		components: {
 			Button: {
-				defaultShadow: 'unset'
+				defaultShadow: 'unset',
+				primaryColor: vars.color_bg
 			},
 			Select: {
 				optionActiveBg: 'var(--bg_selected)',

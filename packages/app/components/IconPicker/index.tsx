@@ -18,11 +18,13 @@ import type { PropsWithChildren } from 'react'
 interface IProps extends PropsWithChildren {
 	type?: 'icon' | 'emoji' | 'all'
 	placement?: TooltipPlacement
+	zIndex?: number
+	hide_arrow?: boolean
 	onSelect: (v: string, type: 'icon' | 'emoji') => void
 }
 
 const Index = (props: IProps) => {
-	const { type = 'all', placement, onSelect, children } = props
+	const { type = 'all', placement, zIndex, hide_arrow, onSelect, children } = props
 	const [x] = useState(container.resolve(Model))
 
 	useLayoutEffect(() => {
@@ -149,6 +151,8 @@ const Index = (props: IProps) => {
 			rootClassName={styles.popover}
 			trigger={['click']}
 			placement={placement}
+			zIndex={zIndex || 600}
+			arrow={hide_arrow ? false : undefined}
 			content={Content}
 			onOpenChange={x.onOpenChange}
 		>

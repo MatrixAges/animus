@@ -3,13 +3,12 @@ import { any, object, string } from 'zod'
 import { p, write } from '@desktop/utils'
 
 const input_type = object({
-	module: string(),
-	filename: string(),
-	data: any()
+	key: string(),
+	value: any()
 })
 
 export default p.input(input_type).mutation(async ({ input }) => {
-	const { module, filename, data } = input
+	const { key, value } = input
 
-	await write({ module, filename, data })
+	await write({ module: 'store', filename: key, data: value, ext: 'key' })
 })

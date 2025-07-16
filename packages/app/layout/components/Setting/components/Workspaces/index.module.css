@@ -3,7 +3,21 @@
 
 	:global {
 		.ani-select {
+			align-items: center;
 			height: unset;
+
+			&:hover {
+				.ani-select-arrow {
+					.toggle_icon {
+						display: none;
+					}
+
+					.btn_edit {
+						display: flex;
+						color: var(--color_text);
+					}
+				}
+			}
 
 			&.ani-select-open {
 				.ani-select-selector {
@@ -47,22 +61,46 @@
 					}
 				}
 			}
+
+			.ani-select-arrow {
+				z-index: 10;
+				top: unset;
+				right: 8px;
+				padding: 2px;
+				margin-top: unset;
+				inset-inline-start: unset;
+				user-select: unset;
+				vertical-align: unset;
+				pointer-events: unset;
+				aspect-ratio: 1;
+
+				.suffix_icon {
+					margin-inline-end: 0;
+					border-radius: 50%;
+
+					&:hover {
+						outline: var(--border);
+						outline-offset: 3px;
+						background-color: unset;
+					}
+				}
+
+				.btn_edit {
+					display: none;
+				}
+			}
 		}
 	}
 }
 
 .popup {
-	padding: 0;
+	padding: 4px;
 
 	:global {
-		.btn_edit {
-			line-height: 1;
-			padding: 10px 0;
-			font-size: 12px;
-		}
-
 		.rc-virtual-list {
-			border-top: var(--border_light);
+			.rc-virtual-list-holder-inner {
+				gap: 0;
+			}
 		}
 
 		.ani-select-item-option {
@@ -70,16 +108,17 @@
 
 			&.ani-select-item-option-active {
 				background-color: unset;
+
+				.workspace_item {
+					background-color: var(--bg_hover);
+				}
 			}
 		}
 
 		.workspace_item {
-			padding: 6px 10px;
+			padding: 4px 10px;
+			border-radius: var(--radius);
 			text-transform: capitalize;
-
-			&:hover {
-				background-color: var(--bg_hover);
-			}
 
 			.left_wrap {
 				width: calc(100% - 18px);

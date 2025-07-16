@@ -25,8 +25,8 @@
 		"@rslib/core": "^0.10.5",
 		"@trpc/client": "^11.4.3",
 		"@trpc/server": "^11.4.3",
-		"@types/node": "^24.0.13",
+		"@types/node": "^24.0.14",
 		"deepmerge-ts": "^7.1.5",
-		"electron": "^37.2.1"
+		"electron": "^37.2.2"
 	}
 }

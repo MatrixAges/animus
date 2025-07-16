@@ -1,0 +1,28 @@
+.ani-modal {
+	&.ani-modal-confirm {
+		border-radius: var(--radius);
+		background-color: var(--bg_modal);
+		backdrop-filter: var(--glass_blur);
+
+		&.danger {
+			outline: 2px solid var(--color_text);
+
+			.ani-btn {
+				outline: 1px solid var(--color_text);
+			}
+
+			.ani-btn-primary {
+				background-color: var(--color_danger);
+			}
+		}
+
+		.ani-modal-content {
+			background-color: unset;
+
+			.ani-icon {
+				margin-top: 2.7px;
+				font-size: 18px;
+			}
+		}
+	}
+}

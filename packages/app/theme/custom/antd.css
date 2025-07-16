@@ -4,6 +4,7 @@
 @import './Tooltip.css';
 @import './Popover.css';
 @import './Slider.css';
+@import './Modal.css';
 
 .ani {
 	color: var(--color_text);
