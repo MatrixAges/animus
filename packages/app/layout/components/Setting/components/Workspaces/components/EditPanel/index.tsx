@@ -1,6 +1,7 @@
 import { useDynamicList, useMemoizedFn } from 'ahooks'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 
 import { useGlobal } from '@/context'
 import { DndContext } from '@dnd-kit/core'
@@ -20,6 +21,7 @@ interface IProps {
 const Index = (props: IProps) => {
 	const { onClose } = props
 	const global = useGlobal()
+	const { t } = useTranslation()
 
 	const app = global.app
 	const workspaces = $copy(app.workspaces)
@@ -58,18 +60,18 @@ const Index = (props: IProps) => {
 			</div>
 			<div className='w_100 border_box flex actions_wrap'>
 				<Button
-					className='w_100'
+					className='btn w_100'
 					icon={<PlusIcon weight='bold'></PlusIcon>}
 					onClick={() => push({ icon: '', icon_type: 'icon', name: '' })}
 				>
-					Add
+					{t('add')}
 				</Button>
 				<Button
-					className='btn_save w_100'
+					className='btn w_100'
 					icon={<FloppyDiskIcon weight='bold'></FloppyDiskIcon>}
 					onClick={save}
 				>
-					Save
+					{t('save')}
 				</Button>
 			</div>
 		</div>

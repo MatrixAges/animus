@@ -1,4 +1,5 @@
 import { Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 import { Icon, IconPicker } from '@/components'
 import { confirm } from '@/utils'
@@ -21,6 +22,7 @@ interface IProps {
 
 const Index = (props: IProps) => {
 	const { workspaces, workspace, item, index, getKey, remove, replace } = props
+	const { t } = useTranslation()
 
 	const { attributes, listeners, transform, transition, setNodeRef, setActivatorNodeRef } = useSortable({
 		id: getKey(index),
@@ -49,7 +51,7 @@ const Index = (props: IProps) => {
 			</IconPicker>
 			<Input
 				className='input_name'
-				placeholder='A unique name'
+				placeholder={t('app.workspace.name_placeholder')}
 				maxLength={18}
 				value={item.name}
 				onChange={e => {
@@ -63,8 +65,8 @@ const Index = (props: IProps) => {
 						? async () => {
 								if (workspaces.find(i => i.name === item.name)) {
 									const res = await confirm({
-										title: '注意',
-										content: '移除工作区将会删除该工作区下的所有文件，确认删除该工作区？点击保存生效，请谨慎操作！',
+										title: t('notice'),
+										content: t('app.workspace.confirm'),
 										zIndex: 3001,
 										danger: true
 									})

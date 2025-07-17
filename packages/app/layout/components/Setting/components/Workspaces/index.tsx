@@ -2,6 +2,7 @@ import { Fragment, useMemo } from 'react'
 import { useToggle } from 'ahooks'
 import { Select } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 
 import { Icon, Modal } from '@/components'
 import { useGlobal } from '@/context'
@@ -16,6 +17,7 @@ import type { Workspace } from '@/types'
 const Index = () => {
 	const global = useGlobal()
 	const [open, { toggle }] = useToggle()
+	const { t } = useTranslation()
 
 	const app = global.app
 	const workspaces = $copy(app.workspaces)
@@ -74,13 +76,19 @@ const Index = () => {
 							</div>
 							<div className='right_wrap flex flex_column'>
 								<span className='name w_100 line_clamp_1'>{target.name}</span>
-								<span className='desc'>Workspace</span>
+								<span className='desc'>{t('app.workspace.title')}</span>
 							</div>
 						</div>
 					)}
 				></Select>
 			</div>
-			<Modal className={styles.edit_wrap} title='Workspaces' z_index={2000} open={open} onClose={toggle}>
+			<Modal
+				className={styles.edit_wrap}
+				title={t('app.workspace.title')}
+				z_index={2000}
+				open={open}
+				onClose={toggle}
+			>
 				<EditPanel onClose={toggle}></EditPanel>
 			</Modal>
 		</Fragment>

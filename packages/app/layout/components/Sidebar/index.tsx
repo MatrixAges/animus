@@ -7,7 +7,7 @@ import styles from './index.module.css'
 import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarList, IPropsSidebarModules } from '@/layout'
 
 const Index = (props: IPropsSidebar) => {
-	const { favorite_items, recent_items, toggleSetting, closeSidebar, addPage } = props
+	const { favorite, recent, toggleSetting, closeSidebar, addPage } = props
 	const { t } = useTranslation()
 
 	const props_header: IPropsSidebarHeader = {
@@ -21,12 +21,12 @@ const Index = (props: IPropsSidebar) => {
 
 	const props_favorite: IPropsSidebarList = {
 		title: t('layout.Sidebar.favorite'),
-		items: favorite_items
+		items: favorite
 	}
 
 	const props_recent: IPropsSidebarList = {
 		title: t('layout.Sidebar.recent'),
-		items: recent_items
+		items: recent
 	}
 
 	return (

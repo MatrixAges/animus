@@ -41,11 +41,19 @@ export interface Shortcut {
 
 export type IconType = 'icon' | 'emoji'
 
-export interface AppIcon {
+export interface IconProps {
 	icon: string
 	icon_type: IconType
 }
 
-export interface Workspace extends AppIcon {
+export interface Workspace extends IconProps {
 	name: string
 }
+
+export interface ListItem extends IconProps {
+	id: string
+	module: Module
+	name: string
+}
+
+export type List = Record<string, ListItem>

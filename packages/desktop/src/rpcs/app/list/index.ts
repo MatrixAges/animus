@@ -1,13 +1,15 @@
 import { router } from '@desktop/utils'
 
 import add from './add'
-import get from './get'
 import move from './move'
+import query from './query'
 import remove from './remove'
+import update from './update'
 
 export default router({
 	add,
 	remove,
 	move,
-	get
+	query,
+	update
 })

@@ -31,8 +31,8 @@ const Index = observer(({ global }: { global: GlobalModel }) => {
 	useGlobalUtils()
 
 	const props_sidebar: IPropsSidebar = {
-		favorite_items: $copy(app.favorite_items),
-		recent_items: $copy(app.recent_items),
+		favorite: $copy(app.favorite),
+		recent: $copy(app.recent),
 		toggleSetting: setting.toggleSetting,
 		closeSidebar: layout.toggleSidebar,
 		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module }))

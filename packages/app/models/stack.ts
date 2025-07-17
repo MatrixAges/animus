@@ -6,7 +6,7 @@ import { injectable } from 'tsyringe'
 import { Util } from '@/models/common'
 import { arrayMove } from '@dnd-kit/sortable'
 import { setStoreWhenChange } from 'stk/mobx'
-import { user_store_options } from '@/utils'
+import { getUserStoreOptions } from '@/utils'
 
 import type { Stack } from '@/types'
 import type { DragEndEvent } from '@dnd-kit/core'
@@ -25,7 +25,7 @@ export default class Index {
 	}
 
 	async init() {
-		const off = await setStoreWhenChange(['columns', 'focus'], this, user_store_options)
+		const off = await setStoreWhenChange(['columns', 'focus'], this, getUserStoreOptions('store'))
 
 		this.util.acts = [off]
 
@@ -53,8 +53,6 @@ export default class Index {
 
 		const exsit_view = this.find(view.id)
 
-		console.log($copy(this.columns), $copy(this.focus))
-
 		if (exsit_view?.view) {
 			this.columns[exsit_view.column_index].views.forEach(item => (item.active = false))
 
@@ -69,7 +67,6 @@ export default class Index {
 			this.columns = [{ views: [{ ...view, active: true }], width: 100 }]
 			this.focus = { column: 0, view: 0 }
 
-			console.log(123)
 			return this.updateColumnsFocus()
 		}
 
@@ -85,8 +82,6 @@ export default class Index {
 		target_views.push({ ...view, active: true })
 
 		this.focus.view = target_views.length - 1
-
-		console.log(666)
 
 		this.updateColumnsFocus()
 	}

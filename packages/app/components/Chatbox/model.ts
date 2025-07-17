@@ -10,7 +10,7 @@ import Decimal from 'decimal.js'
 import { ipc } from '@/utils'
 
 import type { IProps } from './types'
-import type { Stack, Chat } from '@/types'
+import type { Stack, Chat, ListItem } from '@/types'
 
 @injectable()
 export default class Index {
@@ -86,16 +86,17 @@ export default class Index {
 			const model = this.select_model[0]
 			const filename = `${name}(${model}).${chat_id}`
 			const target_options = { ...options, model }
+			const target_item = { module: 'chat', id: filename, name, icon: '', icon_type: 'icon' } as ListItem
 
 			stack.setTemp(chat_id, target_options)
 			stack.add({ ...stack_item, id: chat_id, filename })
 
-			ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options }, recent: true })
-			ipc.app.list.add.mutate({ module: 'chat', items: [{ filename, name }] })
-			ipc.app.recent.add.mutate({ module: 'chat', items: [filename] })
+			ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options } })
+			ipc.app.list.add.mutate({ module: 'chat', filename: 'list', items: [target_item] })
+			ipc.app.recent.add.mutate({ module: 'chat', items: [target_item] })
 		} else {
 			const width = new Decimal(Decimal.div(100, this.select_model.length).toFixed(2)).toNumber()
-			const list_items = [] as Array<{ filename: string; name: string }>
+			const list_items = [] as Array<ListItem>
 
 			this.select_model.forEach((item, index) => {
 				const chat_id = id()
@@ -103,9 +104,17 @@ export default class Index {
 				const filename = `${name}(${item}).${chat_id}`
 				const target_options = { ...options, model: item }
 
+				const target_item = {
+					module: 'chat',
+					id: filename,
+					name,
+					icon: '',
+					icon_type: 'icon'
+				} as ListItem
+
 				stack.setTemp(chat_id, target_options)
 
-				list_items.push({ filename, name })
+				list_items.push(target_item)
 
 				if (stack.columns[index]) {
 					const views = stack.columns[index].views
@@ -121,18 +130,13 @@ export default class Index {
 					} as Stack.Column
 				}
 
-				ipc.app.write.mutate({
-					module: 'chat',
-					filename,
-					data: { options: target_options },
-					recent: true
-				})
+				ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options } })
 			})
 
 			stack.columns = $copy(stack.columns)
 
-			ipc.app.list.add.mutate({ module: 'chat', items: list_items })
-			ipc.app.recent.add.mutate({ module: 'chat', items: list_items.map(item => item.filename) })
+			ipc.app.list.add.mutate({ module: 'chat', filename: 'list', items: list_items })
+			ipc.app.recent.add.mutate({ module: 'chat', items: list_items })
 		}
 	}
 

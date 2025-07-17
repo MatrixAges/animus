@@ -24,15 +24,17 @@ export const write = async (args: Args & { merge?: boolean; default_value?: any 
 	}
 
 	await writeFile(
-		join(user_data_path, module ? `/${module}` : '', `/${filename}.${ext}`),
+		join(user_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`),
 		JSON.stringify(target_data, null, 6)
 	)
 }
 
 export const read = async (args: Omit<Args, 'data'>) => {
-	const { filename, module, ext } = args
+	const { filename, module, ext = 'json' } = args
 
-	const [err, res] = await to(readFile(join(user_data_path, module ? `/${module}` : '', `/${filename}.${ext}`)))
+	const [err, res] = await to(
+		readFile(join(user_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`))
+	)
 
 	if (err) return undefined
 

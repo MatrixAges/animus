@@ -1,7 +1,7 @@
 ._local {
 	:global {
 		.workspace_items {
-			margin-bottom: 16px;
+			margin-bottom: 12px;
 			gap: 4px;
 
 			.workspace_item {
@@ -11,9 +11,9 @@
 				.btn {
 					width: 30px;
 					height: 30px;
-					border: 1px solid transparent;
+					border: var(--border_soft);
 					border-radius: var(--radius);
-					background-color: var(--bg_component);
+					background-color: var(--bg_card);
 					font-size: 16px;
 				}
 
@@ -24,6 +24,7 @@
 				.input_name {
 					width: calc(100% - 96px - 12px);
 					height: 32px;
+					background-color: var(--bg_card);
 				}
 			}
 		}
@@ -31,8 +32,8 @@
 		.actions_wrap {
 			gap: 8px;
 
-			.btn_save {
-				background-color: var(--bg_component);
+			.btn {
+				background-color: var(--bg_card);
 			}
 		}
 	}

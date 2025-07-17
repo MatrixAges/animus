@@ -1,9 +1,9 @@
 import type { App, Layout, Setting, Stack } from '@/models'
-import type { Module, Stack as StackType, ViodFn } from '@/types'
+import type { List, Module, Stack as StackType, ViodFn } from '@/types'
 
 export interface IPropsSidebar {
-	favorite_items: App['favorite_items']
-	recent_items: App['recent_items']
+	favorite: App['favorite']
+	recent: App['recent']
 	toggleSetting: ViodFn
 	closeSidebar: ViodFn
 	addPage: (v: Module) => void
@@ -15,7 +15,7 @@ export interface IPropsSidebarModules extends Pick<IPropsSidebar, 'addPage'> {}
 
 export interface IPropsSidebarList {
 	title: string
-	items: Array<StackType.Item>
+	items: List
 }
 
 export interface IPropsEmpty {

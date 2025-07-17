@@ -12,6 +12,7 @@ export { default as Select } from './Select'
 export { default as Chatbox } from './Chatbox'
 export { default as ProviderIcon } from './ProviderIcon'
 export { default as IconPicker } from './IconPicker'
+export { default as Empty } from './Empty'
 
 export type { IProps as IPropsLoading } from './Loading'
 export type { IProps as IPropsLoadingCircle } from './LoadingCircle'

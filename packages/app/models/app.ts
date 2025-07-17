@@ -2,40 +2,22 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models/common'
-import { ipc, is_electron, info, store_options } from '@/utils'
+import { ipc, is_electron, info, getUserStoreOptions, store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { uniqBy } from 'es-toolkit'
 import { diff } from 'just-diff'
 
-import type { UpdateState, Stack, Workspace } from '@/types'
+import type { UpdateState, Workspace, List } from '@/types'
 
-const { workspaces, workspace } = config_keys
-
-const favorite_items = [
-	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'OpenAI Translator' },
-	{ id: '7', module: 'chat', icon: 'google-chrome-logo', name: 'Web Designer' },
-	{ id: '8', module: 'chat', icon: 'shopping-cart-simple', name: 'Shopping Director' },
-	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Overview' },
-	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Deep Learning Trends' },
-	{ id: '5', module: 'note', icon: 'bandaids', name: 'AI in Healthcare' }
-] as Array<Stack.Item>
-
-const recent_items = [
-	{ id: '6', module: 'chat', icon: 'open-ai-logo', name: 'Insight Chat' },
-	{ id: '7', module: 'chat', icon: 'google-chrome-logo', name: 'Smart Web' },
-	{ id: '8', module: 'chat', icon: 'shopping-cart-simple', name: 'Cognitive Shop' },
-	{ id: '1', module: 'note', icon: 'dna', name: 'Ethics Lab' },
-	{ id: '3', module: 'note', icon: 'head-circuit', name: 'Trends Vision' },
-	{ id: '5', module: 'note', icon: 'bandaids', name: 'Health Mind' }
-] as Array<Stack.Item>
+const { workspaces, workspace, favorite, recent } = config_keys
 
 @injectable()
 export default class Index {
 	workspaces = [] as Array<Workspace>
 	workspace = 'default'
-	favorite_items = favorite_items
-	recent_items = recent_items
+	favorite = {} as List
+	recent = {} as List
 	update_silence = true
 	update_status = null as UpdateState
 
@@ -44,9 +26,9 @@ export default class Index {
 	}
 
 	async init() {
-		const off = await setStoreWhenChange([workspaces, workspace], this, store_options)
+		const off_app = await setStoreWhenChange([workspaces, workspace], this, store_options)
 
-		this.util.acts = [off]
+		this.util.acts = [off_app]
 
 		if (!this.workspaces.length) {
 			this.workspaces.push({ name: 'default', icon: 'cube', icon_type: 'icon' })
@@ -61,6 +43,9 @@ export default class Index {
 			this.onAppUpdate()
 			this.checkUpdate(true)
 		}
+
+		this.getFavorite()
+		this.getRecent()
 	}
 
 	onSelectWorkspace(index: number) {
@@ -122,6 +107,22 @@ export default class Index {
 
 	install() {
 		ipc.app.install.query()
+	}
+
+	async getFavorite() {
+		const res = await ipc.app.list.query.query({ module: 'global', filename: 'favorite' })
+
+		if (!res) return
+
+		this.favorite = res
+	}
+
+	async getRecent() {
+		const res = await ipc.app.list.query.query({ module: 'global', filename: 'recent' })
+
+		if (!res) return
+
+		this.recent = res
 	}
 
 	async download() {

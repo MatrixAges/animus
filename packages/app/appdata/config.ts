@@ -1,12 +1,14 @@
 import { flat } from '@/utils'
 
 export const config_keys = flat({
-	workspaces: '',
-	workspace: '',
 	lang: '',
 	theme_source: '',
 	glass: '',
 	sidebar_fold: '',
+	workspaces: '',
+	workspace: '',
+	favorite: '',
+	recent: '',
 	chat: {
 		config: {
 			prompt_rewriting: '',

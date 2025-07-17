@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 import { Input, Popover } from 'antd'
 import { debounce } from 'es-toolkit/compat'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 import { container } from 'tsyringe'
 
 import { useDelegate } from '@/hooks'
@@ -26,14 +27,16 @@ interface IProps extends PropsWithChildren {
 const Index = (props: IProps) => {
 	const { type = 'all', placement, zIndex, hide_arrow, onSelect, children } = props
 	const [x] = useState(container.resolve(Model))
+	const { t } = useTranslation()
 
 	useLayoutEffect(() => {
+		if (!x.visible) return
 		if (type !== 'all') x.type = type
 
 		x.init()
 
 		return () => x.off()
-	}, [type])
+	}, [type, x.visible])
 
 	const ref_type = useDelegate(v => x.onChangeType(v), { visible: x.visible })
 
@@ -74,7 +77,7 @@ const Index = (props: IProps) => {
 							<If condition={x.recent.length}>
 								<div className='recent_items_wrap w_100 border_box'>
 									<div className='header_wrap flex justify_between align_center'>
-										<span className='title'>Recent</span>
+										<span className='title'>{t('recent')}</span>
 										<TrashIcon
 											className='clickable'
 											onClick={x.clearRecent}
@@ -128,7 +131,7 @@ const Index = (props: IProps) => {
 						data-key='icon'
 					>
 						<AtomIcon weight='bold'></AtomIcon>
-						<span className='text'>Icon</span>
+						<span className='text'>{t('icon')}</span>
 					</div>
 					<span className='divider'></span>
 					<div
@@ -139,7 +142,7 @@ const Index = (props: IProps) => {
 						data-key='emoji'
 					>
 						<SmileyWinkIcon weight='bold'></SmileyWinkIcon>
-						<span className='text'>Emoji</span>
+						<span className='text'>{t('emoji')}</span>
 					</div>
 				</div>
 			</If>
