@@ -54,6 +54,9 @@ export interface ListItem extends IconProps {
 	id: string
 	module: Module
 	name: string
+	desc: string
+	create_at?: number
+	update_at?: number
 }
 
 export type List = Record<string, ListItem>

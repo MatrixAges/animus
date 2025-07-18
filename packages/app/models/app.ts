@@ -10,7 +10,7 @@ import { diff } from 'just-diff'
 
 import type { UpdateState, Workspace, List } from '@/types'
 
-const { workspaces, workspace, favorite, recent } = config_keys
+const { workspaces, workspace } = config_keys
 
 @injectable()
 export default class Index {
@@ -26,9 +26,9 @@ export default class Index {
 	}
 
 	async init() {
-		const off_app = await setStoreWhenChange([workspaces, workspace], this, store_options)
+		const off = await setStoreWhenChange([workspaces, workspace], this, store_options)
 
-		this.util.acts = [off_app]
+		this.util.acts = [off]
 
 		if (!this.workspaces.length) {
 			this.workspaces.push({ name: 'default', icon: 'cube', icon_type: 'icon' })
@@ -36,7 +36,7 @@ export default class Index {
 			this.workspaces = $copy(this.workspaces)
 			this.workspace = 'default'
 
-			ipc.app.workspace.add.mutate({ items: ['default'] })
+			await ipc.app.workspace.add.mutate({ items: ['default'] })
 		}
 
 		if (is_electron) {
@@ -44,8 +44,29 @@ export default class Index {
 			this.checkUpdate(true)
 		}
 
-		this.getFavorite()
-		this.getRecent()
+		this.subscribe()
+	}
+
+	subscribe() {
+		const off = ipc.file.watch.subscribe(
+			[
+				{ type: 'workspace', path: '/favorite.json' },
+				{ type: 'workspace', path: '/recent.json' }
+			],
+			{
+				onData: res => {
+					if (res['/favorite.json']) {
+						this.favorite = res['/favorite.json']
+					}
+
+					if (res['/recent.json']) {
+						this.recent = res['/recent.json']
+					}
+				}
+			}
+		)
+
+		this.util.acts.push(off.unsubscribe)
 	}
 
 	onSelectWorkspace(index: number) {
@@ -107,22 +128,6 @@ export default class Index {
 
 	install() {
 		ipc.app.install.query()
-	}
-
-	async getFavorite() {
-		const res = await ipc.app.list.query.query({ module: 'global', filename: 'favorite' })
-
-		if (!res) return
-
-		this.favorite = res
-	}
-
-	async getRecent() {
-		const res = await ipc.app.list.query.query({ module: 'global', filename: 'recent' })
-
-		if (!res) return
-
-		this.recent = res
 	}
 
 	async download() {

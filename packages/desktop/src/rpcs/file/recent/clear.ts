@@ -9,7 +9,5 @@ const input_type = object({
 export default p.input(input_type).mutation(async ({ input }) => {
 	const { module } = input
 
-	if (module !== 'global') setLRUMap({ module, filename: 'recent', type: 'clear' })
-
-	setLRUMap({ module: 'global', filename: 'recent', type: 'clear' })
+	setLRUMap({ module, filename: 'recent', type: 'clear' })
 })

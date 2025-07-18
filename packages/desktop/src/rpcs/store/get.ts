@@ -10,5 +10,5 @@ const input_type = object({
 export default p.input(input_type).query(async ({ input }) => {
 	const { module, key } = input
 
-	return read({ module, filename: key, ext: 'key' })
+	return read({ module, filename: key })
 })

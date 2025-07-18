@@ -7,8 +7,6 @@ export const config_keys = flat({
 	sidebar_fold: '',
 	workspaces: '',
 	workspace: '',
-	favorite: '',
-	recent: '',
 	chat: {
 		config: {
 			prompt_rewriting: '',

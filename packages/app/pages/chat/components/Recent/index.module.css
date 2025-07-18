@@ -1,0 +1,25 @@
+._local {
+	:global {
+		.recent_items {
+			overflow: hidden;
+			padding: 0 12px;
+			border-radius: var(--radius);
+			background-color: var(--bg_component);
+
+			.recent_item {
+				padding: 8px 0;
+				border-bottom: var(--border_glass);
+
+				&:last-child {
+					border-bottom: unset;
+				}
+
+				&:hover {
+					.question {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+}

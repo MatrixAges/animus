@@ -45,8 +45,8 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       '@lobehub/icons':
-        specifier: ^2.14.0
-        version: 2.14.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
+        specifier: ^2.16.0
+        version: 2.16.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       '@phosphor-icons/react':
         specifier: ^2.1.10
         version: 2.1.10(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
@@ -82,7 +82,7 @@ importers:
         version: 7.1.5
       electron-conf:
         specifier: ^1.3.0
-        version: 1.3.0(electron@37.2.2)
+        version: 1.3.0(electron@37.2.3)
       erpc:
         specifier: workspace:*
         version: link:../erpc
@@ -128,6 +128,9 @@ importers:
       react:
         specifier: 0.0.0-experimental-06e89951-20250620
         version: 0.0.0-experimental-06e89951-20250620
+      react-contexify:
+        specifier: ^6.0.0
+        version: 6.0.0(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       react-dom:
         specifier: 0.0.0-experimental-06e89951-20250620
         version: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
@@ -239,10 +242,10 @@ importers:
         version: 7.1.5
       electron-conf:
         specifier: ^1.3.0
-        version: 1.3.0(electron@37.2.1)
+        version: 1.3.0(electron@37.2.3)
       electron-updater:
-        specifier: ^6.6.6
-        version: 6.6.6
+        specifier: ^6.6.7
+        version: 6.6.7
       erpc:
         specifier: workspace:*
         version: link:../erpc
@@ -261,6 +264,9 @@ importers:
       ofetch:
         specifier: ^1.4.1
         version: 1.4.1
+      watchpack:
+        specifier: ^2.4.4
+        version: 2.4.4
       zod:
         specifier: ^4.0.5
         version: 4.0.5
@@ -269,8 +275,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       '@rslib/core':
-        specifier: ^0.10.5
-        version: 0.10.5(typescript@5.8.3)
+        specifier: ^0.10.6
+        version: 0.10.6(typescript@5.8.3)
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -293,26 +299,23 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       electron:
-        specifier: 37.2.1
-        version: 37.2.1
+        specifier: 37.2.3
+        version: 37.2.3
       electron-builder:
-        specifier: ^26.0.18
-        version: 26.0.18(electron-builder-squirrel-windows@26.0.12)
+        specifier: ^26.0.19
+        version: 26.0.19(electron-builder-squirrel-windows@26.0.12)
       tinyglobby:
         specifier: ^0.2.14
         version: 0.2.14
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-      watchpack:
-        specifier: ^2.4.4
-        version: 2.4.4
 
   packages/erpc:
     devDependencies:
       '@rslib/core':
-        specifier: ^0.10.5
-        version: 0.10.5(typescript@5.8.3)
+        specifier: ^0.10.6
+        version: 0.10.6(typescript@5.8.3)
       '@trpc/client':
         specifier: ^11.4.3
         version: 11.4.3(@trpc/server@11.4.3(typescript@5.8.3))(typescript@5.8.3)
@@ -326,8 +329,8 @@ importers:
         specifier: ^7.1.5
         version: 7.1.5
       electron:
-        specifier: ^37.2.2
-        version: 37.2.2
+        specifier: ^37.2.3
+        version: 37.2.3
 
   packages/stk:
     dependencies:
@@ -363,8 +366,8 @@ importers:
         version: 0.26.0
     devDependencies:
       '@rslib/core':
-        specifier: ^0.10.5
-        version: 0.10.5(typescript@5.8.3)
+        specifier: ^0.10.6
+        version: 0.10.6(typescript@5.8.3)
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -2530,8 +2533,8 @@ packages:
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  '@lobehub/icons@2.14.0':
-    resolution: {integrity: sha512-QtTGOph46WeBh23BYsKMxLjiaM9rB/WxWQdvCzuuR8LVYVBTvKkPOZ9cpj9Oo5++UUcjKzRtHwcv+IOfpqwPKw==}
+  '@lobehub/icons@2.16.0':
+    resolution: {integrity: sha512-6TQ73k/alrJpjmgq2ZBpTM5jb23kJVArG73Z+j5Vmeh+H05VJxEIbR/nQyZ0RLO2+DYl77b7FJXy4nJabvasaw==}
     peerDependencies:
       antd: ^5.23.0
       react: ^19.0.0
@@ -3003,8 +3006,8 @@ packages:
     peerDependencies:
       '@rsbuild/core': 1.x
 
-  '@rslib/core@0.10.5':
-    resolution: {integrity: sha512-kThW/bkKgja++/AykW1fJaRK+TAiW3+ZSWiCKJxHHS87ZQc/PeRTxk2A0upHi7R3CyfdGgXGNcEBPoeBUj4zYw==}
+  '@rslib/core@0.10.6':
+    resolution: {integrity: sha512-7OLdmmQbY116gNAAsY9baCid9REr+z11qfAzwVVFw+Q8avCE6YqpcBLfrBXlfmpBikfshDmHH8EpRrQwz8gZJQ==}
     engines: {node: '>=16.7.0'}
     hasBin: true
     peerDependencies:
@@ -4085,12 +4088,12 @@ packages:
       dmg-builder: 26.0.12
       electron-builder-squirrel-windows: 26.0.12
 
-  app-builder-lib@26.0.18:
-    resolution: {integrity: sha512-hvcnsmvbJBPbnOv2gJxF36kILDM9heEptGp3B1i9/Zw4+qRmIjyGdavAllaaUpATFx/1lJ69cdTDbl7EaJVp+A==}
+  app-builder-lib@26.0.19:
+    resolution: {integrity: sha512-z7SaBAqwCG0sYYhimleOChJlu1gRMT7LVhzKt1rxQ4mkUOntQJEdkgclLYuJqIBGIwh9dat3LQbvOr504J0e6w==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      dmg-builder: 26.0.18
-      electron-builder-squirrel-windows: 26.0.18
+      dmg-builder: 26.0.19
+      electron-builder-squirrel-windows: 26.0.19
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -4245,15 +4248,15 @@ packages:
     resolution: {integrity: sha512-2/egrNDDnRaxVwK3A+cJq6UOlqOdedGA7JPqCeJjN2Zjk1/QB/6QUi3b714ScIGS7HafFXTyzJEOr5b44I3kvQ==}
     engines: {node: '>=12.0.0'}
 
-  builder-util-runtime@9.3.2:
-    resolution: {integrity: sha512-7QDXJ1FwT6d9ZhG4kuObUUPY8/ENBS/Ky26O4hR5vbeoRGavgekS2Jxv+8sCn/v23aPGU2DXRWEeJuijN2ooYA==}
+  builder-util-runtime@9.3.3:
+    resolution: {integrity: sha512-8AE+77tdJ9XTsK96e55EXJR+ZEK54r8rb0BS8PbEXw57tOX0EWV4BluGW3xkIn+Xvbp+bmQ8gECa15wlcEQxlg==}
     engines: {node: '>=12.0.0'}
 
   builder-util@26.0.11:
     resolution: {integrity: sha512-xNjXfsldUEe153h1DraD0XvDOpqGR0L5eKFkdReB7eFW5HqysDZFfly4rckda6y9dF39N3pkPlOblcfHKGw+uA==}
 
-  builder-util@26.0.17:
-    resolution: {integrity: sha512-fym+vg0kegrHBSCmkYYql2EbsLvnlUhIUKRQJ7EHjyftwMz8mibpvTRll3pzK1rtWm/VRdjl7AB397jdtg/Jmw==}
+  builder-util@26.0.19:
+    resolution: {integrity: sha512-fKHgkdq6Ra3bv7ly69o32L3ZrOhaq2qzSnQn9rUzWMEpsZ8FfZy9XOYQZ7qIdwB6iqJ4uZhjlPD8ZsGb7LYMZA==}
 
   bun-types@1.2.18:
     resolution: {integrity: sha512-04+Eha5NP7Z0A9YgDAzMk5PHR16ZuLVa83b26kH5+cp1qZW4F6FmAURngE7INf4tKOvCE69vYvDEwoNl1tGiWw==}
@@ -4869,8 +4872,8 @@ packages:
   dir-compare@4.2.0:
     resolution: {integrity: sha512-2xMCmOoMrdQIPHdsTawECdNPwlVFB9zGcz3kuhmBO6U3oU+UQjsue0i8ayLKpgBcm+hcXPMVSGUN9d+pvJ6+VQ==}
 
-  dmg-builder@26.0.18:
-    resolution: {integrity: sha512-5QNSeUVetoR1W1IOIz6o8Cs0Rwea1uNJehRdY0w3+6FTc+B4avPSy6OtNAxbvmdmx53DPh0nzxIXUGngwlfAhw==}
+  dmg-builder@26.0.19:
+    resolution: {integrity: sha512-lZyqfdM0SPqNydGtq06B7LRSxUcKU4v/p2xU0kmKqTM9WXZaQELOZ0OH/gbLCmeZz6zWEDSA31MmTJ8b/X8nYg==}
 
   dmg-license@1.0.11:
     resolution: {integrity: sha512-ZdzmqwKmECOWJpqefloC5OJy1+WZBBse5+MR88z9g9Zn4VY+WYUkAyojmhzJckH5YbbZGcYIuGAkY5/Ys5OM2Q==}
@@ -4930,8 +4933,8 @@ packages:
   electron-builder-squirrel-windows@26.0.12:
     resolution: {integrity: sha512-kpwXM7c/ayRUbYVErQbsZ0nQZX4aLHQrPEG9C4h9vuJCXylwFH8a7Jgi2VpKIObzCXO7LKHiCw4KdioFLFOgqA==}
 
-  electron-builder@26.0.18:
-    resolution: {integrity: sha512-U3EkWziThTq6V3FZue6fhbGCSiZwnW/xdWAuOmn54Fr6CI1TVszoCkZ1BHifkcI9LBwq4BDvhlb0vVLRRvqyrA==}
+  electron-builder@26.0.19:
+    resolution: {integrity: sha512-0xkN9UcIBgrbNAqeurB+CyBARZPkfiILPK0nvbioX+S86B3fgRfJnjIh+T+zowyPTTY85NN5kLfItM8twVRy5w==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -4943,8 +4946,8 @@ packages:
   electron-publish@26.0.11:
     resolution: {integrity: sha512-a8QRH0rAPIWH9WyyS5LbNvW9Ark6qe63/LqDB7vu2JXYpi0Gma5Q60Dh4tmTqhOBQt0xsrzD8qE7C+D7j+B24A==}
 
-  electron-publish@26.0.17:
-    resolution: {integrity: sha512-03hz7MEbzLmZpOCHB+TvoXvn3FW+bZyfgq2gCi4AaeqU6i8Jpx584CljFP8zuDbb0nJcN0uHhpvAWjufDkgyVg==}
+  electron-publish@26.0.19:
+    resolution: {integrity: sha512-tcQUIRuHOwaQxi+CrbpaB/5Q+vonj9fEeWkaVa3oM0DcdYHZK/nCLgWKu0kHgPheAU1ovfjVcXBpuyuFBLp2lA==}
 
   electron-to-chromium@1.5.162:
     resolution: {integrity: sha512-hQA+Zb5QQwoSaXJWEAGEw1zhk//O7qDzib05Z4qTqZfNju/FAkrm5ZInp0JbTp4Z18A6bilopdZWEYrFSsfllA==}
@@ -4952,20 +4955,15 @@ packages:
   electron-to-chromium@1.5.182:
     resolution: {integrity: sha512-Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==}
 
-  electron-updater@6.6.6:
-    resolution: {integrity: sha512-WLC95/XDda/+dgDlGPhfMzjHS3WPcOk3HZ2RIL2B9YVHAcd0SAovYe6RS4uKVs1iCF3vAR5WOwFsfhha8e4JRw==}
+  electron-updater@6.6.7:
+    resolution: {integrity: sha512-pqV0ORdUkouyUTg9X3cTCRxFXnP+DaW1cfyMIucIDhv82NcDmSxrK8chcna93kK2nwzyzcI03/NAZmuS60zwXg==}
 
   electron-winstaller@5.4.0:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@37.2.1:
-    resolution: {integrity: sha512-ae2EbzRNqIAHlftfCHtbbt6EgJUW8+zxWLONqNnn2iSrLF0O/pbxbff3xcpZYPpmFBs4uqjoi+s4QS7DQ+zZ/w==}
-    engines: {node: '>= 12.20.55'}
-    hasBin: true
-
-  electron@37.2.2:
-    resolution: {integrity: sha512-qEIUs+3elu7wOfzLEtLz4Innfe+8nQyhLh9qjrJY0d0MxdRolLMDUD9QwAQ743vDZ+bUg+gqwigzP7kV78S3hA==}
+  electron@37.2.3:
+    resolution: {integrity: sha512-JRKKn8cRDXDfkC+oWISbYs+c+L6RA776JM0NiB9bn2yV8H/LnBUlVPzKKfsXgrUIokN4YcbCw694vfAdEJwtGw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -7047,6 +7045,12 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
+  react-contexify@6.0.0:
+    resolution: {integrity: sha512-jMhz6yZI81Jv3UDj7TXqCkhdkCFEEmvwGCPXsQuA2ZUC8EbCuVQ6Cy8FzKMXa0y454XTDClBN2YFvvmoFlrFkg==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
   react-dom@0.0.0-experimental-06e89951-20250620:
     resolution: {integrity: sha512-5yD8DI0lw8L+DweRQKRBRuneh68QvZrhO/nGrSLgTUjNvFXpgeCbZmrcQvRL7ydkGMjvGEUcPrvJd6JLm3UzAQ==}
     peerDependencies:
@@ -7371,8 +7375,8 @@ packages:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
     engines: {node: '>= 18'}
 
-  rsbuild-plugin-dts@0.10.5:
-    resolution: {integrity: sha512-gjngxgV0RD4T7aKDTf7kho9IUBNjHR+Y3krYwNEnUakOiuk9Fn03MxVCcASyCsPY+H7HooI8P8wXZoPhiSWSZA==}
+  rsbuild-plugin-dts@0.10.6:
+    resolution: {integrity: sha512-rVP82fFMDHW0GirhYx+w2bER1HhkOKJ8e/bAAF2OkMUP2k2fviMpl/gsnbO8KI9vcSqsQE2QXHkj781m6W84Ow==}
     engines: {node: '>=16.7.0'}
     peerDependencies:
       '@microsoft/api-extractor': ^7
@@ -10941,7 +10945,7 @@ snapshots:
       - framer-motion
       - supports-color
 
-  '@lobehub/icons@2.14.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)':
+  '@lobehub/icons@2.16.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)':
     dependencies:
       '@lobehub/ui': 2.7.3(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       antd: 5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
@@ -10970,7 +10974,7 @@ snapshots:
       '@floating-ui/react': 0.27.13(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       '@giscus/react': 3.1.0(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       '@lobehub/fluent-emoji': 2.0.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
-      '@lobehub/icons': 2.14.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
+      '@lobehub/icons': 2.16.0(@babel/core@7.27.4)(@types/react@19.1.8)(acorn@8.14.1)(antd@5.26.5(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(framer-motion@12.23.6(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620))(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620)
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       '@mdx-js/react': 3.1.0(@types/react@19.1.8)(react@0.0.0-experimental-06e89951-20250620)
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.8)(react@0.0.0-experimental-06e89951-20250620)
@@ -11647,10 +11651,10 @@ snapshots:
       - typescript
       - webpack-hot-middleware
 
-  '@rslib/core@0.10.5(typescript@5.8.3)':
+  '@rslib/core@0.10.6(typescript@5.8.3)':
     dependencies:
       '@rsbuild/core': 1.4.7
-      rsbuild-plugin-dts: 0.10.5(@rsbuild/core@1.4.7)(typescript@5.8.3)
+      rsbuild-plugin-dts: 0.10.6(@rsbuild/core@1.4.7)(typescript@5.8.3)
       tinyglobby: 0.2.14
     optionalDependencies:
       typescript: 5.8.3
@@ -13116,7 +13120,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.12: {}
 
-  app-builder-lib@26.0.12(dmg-builder@26.0.18)(electron-builder-squirrel-windows@26.0.12):
+  app-builder-lib@26.0.12(dmg-builder@26.0.19)(electron-builder-squirrel-windows@26.0.12):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/asar': 3.2.18
@@ -13133,11 +13137,11 @@ snapshots:
       chromium-pickle-js: 0.2.0
       config-file-ts: 0.2.8-rc1
       debug: 4.4.1
-      dmg-builder: 26.0.18(electron-builder-squirrel-windows@26.0.12)
+      dmg-builder: 26.0.19(electron-builder-squirrel-windows@26.0.12)
       dotenv: 16.5.0
       dotenv-expand: 11.0.7
       ejs: 3.1.10
-      electron-builder-squirrel-windows: 26.0.12(dmg-builder@26.0.18)
+      electron-builder-squirrel-windows: 26.0.12(dmg-builder@26.0.19)
       electron-publish: 26.0.11
       fs-extra: 10.1.0
       hosted-git-info: 4.1.0
@@ -13157,7 +13161,7 @@ snapshots:
       - bluebird
       - supports-color
 
-  app-builder-lib@26.0.18(dmg-builder@26.0.18)(electron-builder-squirrel-windows@26.0.12):
+  app-builder-lib@26.0.19(dmg-builder@26.0.19)(electron-builder-squirrel-windows@26.0.12):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/asar': 3.4.1
@@ -13169,17 +13173,17 @@ snapshots:
       '@malept/flatpak-bundler': 0.4.0
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
-      builder-util: 26.0.17
-      builder-util-runtime: 9.3.2
+      builder-util: 26.0.19
+      builder-util-runtime: 9.3.3
       chromium-pickle-js: 0.2.0
       ci-info: 4.3.0
       debug: 4.4.1
-      dmg-builder: 26.0.18(electron-builder-squirrel-windows@26.0.12)
+      dmg-builder: 26.0.19(electron-builder-squirrel-windows@26.0.12)
       dotenv: 16.5.0
       dotenv-expand: 11.0.7
       ejs: 3.1.10
-      electron-builder-squirrel-windows: 26.0.12(dmg-builder@26.0.18)
-      electron-publish: 26.0.17
+      electron-builder-squirrel-windows: 26.0.12(dmg-builder@26.0.19)
+      electron-publish: 26.0.19
       fs-extra: 10.1.0
       hosted-git-info: 4.1.0
       isbinaryfile: 5.0.4
@@ -13376,7 +13380,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  builder-util-runtime@9.3.2:
+  builder-util-runtime@9.3.3:
     dependencies:
       debug: 4.4.1
       sax: 1.4.1
@@ -13405,12 +13409,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  builder-util@26.0.17:
+  builder-util@26.0.19:
     dependencies:
       7zip-bin: 5.2.0
       '@types/debug': 4.1.12
       app-builder-bin: 5.0.0-alpha.12
-      builder-util-runtime: 9.3.2
+      builder-util-runtime: 9.3.3
       chalk: 4.1.2
       ci-info: 4.3.0
       cross-spawn: 7.0.6
@@ -14047,10 +14051,10 @@ snapshots:
       minimatch: 3.1.2
       p-limit: 3.1.0
 
-  dmg-builder@26.0.18(electron-builder-squirrel-windows@26.0.12):
+  dmg-builder@26.0.19(electron-builder-squirrel-windows@26.0.12):
     dependencies:
-      app-builder-lib: 26.0.18(dmg-builder@26.0.18)(electron-builder-squirrel-windows@26.0.12)
-      builder-util: 26.0.17
+      app-builder-lib: 26.0.19(dmg-builder@26.0.19)(electron-builder-squirrel-windows@26.0.12)
+      builder-util: 26.0.19
       fs-extra: 10.1.0
       iconv-lite: 0.6.3
       js-yaml: 4.1.0
@@ -14129,9 +14133,9 @@ snapshots:
     dependencies:
       jake: 10.9.2
 
-  electron-builder-squirrel-windows@26.0.12(dmg-builder@26.0.18):
+  electron-builder-squirrel-windows@26.0.12(dmg-builder@26.0.19):
     dependencies:
-      app-builder-lib: 26.0.12(dmg-builder@26.0.18)(electron-builder-squirrel-windows@26.0.12)
+      app-builder-lib: 26.0.12(dmg-builder@26.0.19)(electron-builder-squirrel-windows@26.0.12)
       builder-util: 26.0.11
       electron-winstaller: 5.4.0
     transitivePeerDependencies:
@@ -14139,14 +14143,14 @@ snapshots:
       - dmg-builder
       - supports-color
 
-  electron-builder@26.0.18(electron-builder-squirrel-windows@26.0.12):
+  electron-builder@26.0.19(electron-builder-squirrel-windows@26.0.12):
     dependencies:
-      app-builder-lib: 26.0.18(dmg-builder@26.0.18)(electron-builder-squirrel-windows@26.0.12)
-      builder-util: 26.0.17
-      builder-util-runtime: 9.3.2
+      app-builder-lib: 26.0.19(dmg-builder@26.0.19)(electron-builder-squirrel-windows@26.0.12)
+      builder-util: 26.0.19
+      builder-util-runtime: 9.3.3
       chalk: 4.1.2
       ci-info: 4.3.0
-      dmg-builder: 26.0.18(electron-builder-squirrel-windows@26.0.12)
+      dmg-builder: 26.0.19(electron-builder-squirrel-windows@26.0.12)
       fs-extra: 10.1.0
       lazy-val: 1.0.5
       simple-update-notifier: 2.0.0
@@ -14156,15 +14160,10 @@ snapshots:
       - electron-builder-squirrel-windows
       - supports-color
 
-  electron-conf@1.3.0(electron@37.2.1):
+  electron-conf@1.3.0(electron@37.2.3):
     dependencies:
       ajv: 8.17.1
-      electron: 37.2.1
-
-  electron-conf@1.3.0(electron@37.2.2):
-    dependencies:
-      ajv: 8.17.1
-      electron: 37.2.2
+      electron: 37.2.3
 
   electron-publish@26.0.11:
     dependencies:
@@ -14179,11 +14178,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-publish@26.0.17:
+  electron-publish@26.0.19:
     dependencies:
       '@types/fs-extra': 9.0.13
-      builder-util: 26.0.17
-      builder-util-runtime: 9.3.2
+      builder-util: 26.0.19
+      builder-util-runtime: 9.3.3
       chalk: 4.1.2
       form-data: 4.0.2
       fs-extra: 10.1.0
@@ -14196,9 +14195,9 @@ snapshots:
 
   electron-to-chromium@1.5.182: {}
 
-  electron-updater@6.6.6:
+  electron-updater@6.6.7:
     dependencies:
-      builder-util-runtime: 9.3.2
+      builder-util-runtime: 9.3.3
       fs-extra: 10.1.0
       js-yaml: 4.1.0
       lazy-val: 1.0.5
@@ -14221,15 +14220,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@37.2.1:
-    dependencies:
-      '@electron/get': 2.0.3
-      '@types/node': 22.15.30
-      extract-zip: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-
-  electron@37.2.2:
+  electron@37.2.3:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.15.30
@@ -17195,6 +17186,12 @@ snapshots:
       react: 0.0.0-experimental-06e89951-20250620
       react-dom: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
 
+  react-contexify@6.0.0(react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620))(react@0.0.0-experimental-06e89951-20250620):
+    dependencies:
+      clsx: 1.2.1
+      react: 0.0.0-experimental-06e89951-20250620
+      react-dom: 0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620)
+
   react-dom@0.0.0-experimental-06e89951-20250620(react@0.0.0-experimental-06e89951-20250620):
     dependencies:
       react: 0.0.0-experimental-06e89951-20250620
@@ -17661,7 +17658,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  rsbuild-plugin-dts@0.10.5(@rsbuild/core@1.4.7)(typescript@5.8.3):
+  rsbuild-plugin-dts@0.10.6(@rsbuild/core@1.4.7)(typescript@5.8.3):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 1.4.7

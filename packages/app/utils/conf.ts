@@ -17,9 +17,9 @@ export const store_options: StoreOptions = {
 
 export const getUserStoreOptions = (module: string) => {
 	return {
-		get: is_electron ? (key: string) => ipc.app.store.get.query({ module, key }) : undefined,
+		get: is_electron ? (key: string) => ipc.store.get.query({ module, key }) : undefined,
 		set: is_electron
-			? (key: string, value: any) => ipc.app.store.set.mutate({ module, key, value: $copy(value) })
+			? (key: string, value: any) => ipc.store.set.mutate({ module, key, value: $copy(value) })
 			: undefined
 	} as StoreOptions
 }

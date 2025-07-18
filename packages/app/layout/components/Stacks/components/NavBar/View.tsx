@@ -62,7 +62,7 @@ const Index = (props: IPropsStacksNavBarView) => {
 							<span className='icon_wrap flex align_center'>
 								<Icon id={view.icon ?? module_icon_string[view.module]}></Icon>
 							</span>
-							<span className='name_wrap'>{view.name}</span>
+							<span className='name_wrap'>{view.name.slice(0, 15)}</span>
 						</Otherwise>
 					</Choose>
 					<div

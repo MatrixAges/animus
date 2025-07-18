@@ -66,6 +66,8 @@ const Index = (props: IProps) => {
 			<textarea
 				className='textarea w_100 border_box'
 				placeholder={t('chatbox.placeholder')}
+				onCompositionStart={() => (x.compositing = true)}
+				onCompositionEnd={() => (x.compositing = false)}
 				ref={setRefTextArea}
 			></textarea>
 			<div className='option_items w_100 border_box flex justify_between align_center absolute bottom_0'>

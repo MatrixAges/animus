@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'atomically'
 import to from 'await-to-js'
 import { deepmerge } from 'deepmerge-ts'
 
-import { user_data_path } from '@desktop/utils'
+import { workspace_data_path } from '@desktop/utils'
 
 interface Args {
 	filename: string
@@ -24,7 +24,7 @@ export const write = async (args: Args & { merge?: boolean; default_value?: any 
 	}
 
 	await writeFile(
-		join(user_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`),
+		join(workspace_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`),
 		JSON.stringify(target_data, null, 6)
 	)
 }
@@ -33,7 +33,9 @@ export const read = async (args: Omit<Args, 'data'>) => {
 	const { filename, module, ext = 'json' } = args
 
 	const [err, res] = await to(
-		readFile(join(user_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`))
+		readFile(
+			join(workspace_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`)
+		)
 	)
 
 	if (err) return undefined

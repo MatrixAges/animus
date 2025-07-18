@@ -53,11 +53,12 @@
 
 				.name_wrap {
 					overflow: scroll;
-					max-width: 90px;
+					max-width: 120px;
 					line-height: 16px;
 					margin-right: 4px;
 					margin-left: 6px;
 					outline: none;
+					white-space: nowrap;
 				}
 			}
 

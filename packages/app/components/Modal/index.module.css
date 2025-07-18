@@ -64,12 +64,6 @@
 			}
 		}
 	}
-
-	.body {
-		.has_header {
-			max-height: calc(100% - 40px);
-		}
-	}
 }
 
 @media (max-width: 720px) {

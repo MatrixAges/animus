@@ -120,7 +120,7 @@ export default (theme: ThemeValue, glass: boolean) => {
 				controlHeight: 24
 			},
 			Dropdown: {
-				controlItemBgHover: vars.color_bg_2
+				controlItemBgHover: 'var(--bg_selected)'
 			},
 			Tooltip: {
 				colorBgSpotlight: 'var(--bg_dropdown)',

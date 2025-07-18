@@ -26,12 +26,17 @@ export default class Index {
 	select_model = [] as Array<string>
 
 	ref_textarea = null as unknown as HTMLTextAreaElement
+	compositing = false
 
 	constructor(
 		public util: Util,
 		public global: GlobalModel
 	) {
-		makeAutoObservable(this, { util: false, global: false, ref_textarea: false }, { autoBind: true })
+		makeAutoObservable(
+			this,
+			{ util: false, global: false, ref_textarea: false, compositing: false },
+			{ autoBind: true }
+		)
 	}
 
 	async init(args: { store_options?: IProps['store_options'] }) {
@@ -64,7 +69,7 @@ export default class Index {
 		if (!value) return
 		if (!this.select_model.length) return
 
-		const name = value.replace(/[\r\n]+/g, '').slice(0, 12)
+		const name = value.replace(/[\r\n]+/g, '').slice(0, 60)
 		const stack = this.global.stack
 		const stack_item = { type: 'module', module: 'chat', name } as Stack.Item
 
@@ -86,14 +91,23 @@ export default class Index {
 			const model = this.select_model[0]
 			const filename = `${name}(${model}).${chat_id}`
 			const target_options = { ...options, model }
-			const target_item = { module: 'chat', id: filename, name, icon: '', icon_type: 'icon' } as ListItem
+
+			const target_item = {
+				module: 'chat',
+				id: filename,
+				name,
+				desc: name,
+				icon: '',
+				icon_type: 'icon'
+			} as ListItem
 
 			stack.setTemp(chat_id, target_options)
 			stack.add({ ...stack_item, id: chat_id, filename })
 
-			ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options } })
-			ipc.app.list.add.mutate({ module: 'chat', filename: 'list', items: [target_item] })
-			ipc.app.recent.add.mutate({ module: 'chat', items: [target_item] })
+			ipc.file.write.mutate({ module: 'chat', filename, data: { options: target_options } })
+			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: [target_item] })
+
+			ipc.file.recent.add.mutate({ module: 'chat', items: [target_item] })
 		} else {
 			const width = new Decimal(Decimal.div(100, this.select_model.length).toFixed(2)).toNumber()
 			const list_items = [] as Array<ListItem>
@@ -108,6 +122,7 @@ export default class Index {
 					module: 'chat',
 					id: filename,
 					name,
+					desc: name,
 					icon: '',
 					icon_type: 'icon'
 				} as ListItem
@@ -130,17 +145,20 @@ export default class Index {
 					} as Stack.Column
 				}
 
-				ipc.app.write.mutate({ module: 'chat', filename, data: { options: target_options } })
+				ipc.file.write.mutate({ module: 'chat', filename, data: { options: target_options } })
 			})
 
 			stack.columns = $copy(stack.columns)
 
-			ipc.app.list.add.mutate({ module: 'chat', filename: 'list', items: list_items })
-			ipc.app.recent.add.mutate({ module: 'chat', items: list_items })
+			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: list_items })
+			ipc.file.recent.add.mutate({ module: 'chat', items: list_items })
 		}
+
+		this.ref_textarea.value = ''
 	}
 
 	onKeydown(e: KeyboardEvent) {
+		if (this.compositing) return
 		if (e.key !== 'Enter') return
 
 		const should_submit = this.newline_by_enter

@@ -1,19 +1,13 @@
 import dayjs from 'dayjs'
-import { array, enum as Enum, object, string } from 'zod'
+import { array, object, string } from 'zod'
 
+import { list_item_schema } from '@desktop/schemas'
 import { p, read, write } from '@desktop/utils'
 
 const input_type = object({
 	module: string(),
 	filename: string(),
-	items: array(
-		object({
-			id: string(),
-			name: string(),
-			icon: string(),
-			icon_type: Enum(['icon', 'emoji'])
-		})
-	)
+	items: array(list_item_schema)
 })
 
 export default p.input(input_type).mutation(async ({ input }) => {
@@ -25,7 +19,7 @@ export default p.input(input_type).mutation(async ({ input }) => {
 	items.forEach(item => {
 		const { id, ...rest } = item
 
-		list[id] = { module, ...rest, create_at: now, update_at: now }
+		list[id] = { ...rest, module, create_at: now, update_at: now }
 	})
 
 	await write({ module, filename, data: list })

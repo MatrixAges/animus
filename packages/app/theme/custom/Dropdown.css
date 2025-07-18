@@ -1,0 +1,8 @@
+.ani-dropdown {
+	border-radius: var(--radius);
+	backdrop-filter: var(--glass_blur);
+
+	.ani-dropdown-menu {
+		background-color: unset;
+	}
+}

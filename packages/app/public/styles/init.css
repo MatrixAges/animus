@@ -23,6 +23,10 @@
 	animation: none;
 }
 
+:root {
+	text-autospace: normal;
+}
+
 html,
 body {
 	line-height: var(--line_height);

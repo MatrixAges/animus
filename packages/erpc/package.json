@@ -22,11 +22,11 @@
 		"build": "rslib build && tsc"
 	},
 	"devDependencies": {
-		"@rslib/core": "^0.10.5",
+		"@rslib/core": "^0.10.6",
 		"@trpc/client": "^11.4.3",
 		"@trpc/server": "^11.4.3",
 		"@types/node": "^24.0.14",
 		"deepmerge-ts": "^7.1.5",
-		"electron": "^37.2.2"
+		"electron": "^37.2.3"
 	}
 }
