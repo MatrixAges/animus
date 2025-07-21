@@ -6,6 +6,7 @@ export { default as relaunch } from './relaunch'
 export { default as clearStorage } from './clearStorage'
 export { default as onWheel } from './onWheel'
 export { default as conf } from './conf'
+export { default as getValuedObject } from './getValuedObject'
 
 export * from './i18n'
 export * from './theme'

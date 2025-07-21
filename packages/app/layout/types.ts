@@ -1,22 +1,20 @@
 import type { App, Layout, Setting, Stack } from '@/models'
-import type { List, Module, Stack as StackType, ViodFn } from '@/types'
+import type { Module, Stack as StackType, ViodFn } from '@/types'
+import type { FileIndexs } from '@desktop/schemas'
 
 export interface IPropsSidebar {
-	favorite: App['favorite']
-	recent: App['recent']
+	favorite: FileIndexs
+	recent: FileIndexs
 	toggleSetting: ViodFn
 	closeSidebar: ViodFn
 	addPage: (v: Module) => void
+	setFavoriteItems: App['setFavoriteItems']
+	setRecentItems: App['setRecentItems']
 }
 
 export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}
 
 export interface IPropsSidebarModules extends Pick<IPropsSidebar, 'addPage'> {}
-
-export interface IPropsSidebarList {
-	title: string
-	items: List
-}
 
 export interface IPropsEmpty {
 	sidebar_fold: Layout['sidebar_fold']

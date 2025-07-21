@@ -1,16 +1,16 @@
 :root {
 	--contexify-menu-bgColor: var(--color_bg);
-	--contexify-separator-color: var(--color_border_light);
+	--contexify-separator-color: var(--color_border_soft);
 	--contexify-item-color: var(--color_text);
 	--contexify-activeItem-color: var(--color_text);
-	--contexify-activeItem-bgColor: var(--color_bg_2);
+	--contexify-activeItem-bgColor: var(--bg_active);
 	--contexify-rightSlot-color: var(--color_text_grey);
 	--contexify-activeRightSlot-color: var(--color_text);
 	--contexify-arrow-color: var(--color_text_grey);
 	--contexify-activeArrow-color: var(--color_text);
 
 	--contexify-zIndex: 10001;
-	--contexify-menu-minWidth: 120px;
+	--contexify-menu-minWidth: 150px;
 	--contexify-menu-padding: 4px;
 	--contexify-menu-radius: 6px;
 	--contexify-menu-shadow:
@@ -73,7 +73,6 @@
 }
 
 .contexify_rightSlot {
-	display: -ms-flexbox;
 	display: flex;
 	margin-left: auto;
 	color: var(--contexify-rightSlot-color);
@@ -81,7 +80,7 @@
 
 .contexify_separator {
 	height: 1px;
-	margin: 2px 0;
+	margin: 4px 0;
 	background-color: var(--contexify-separator-color);
 	cursor: default;
 }

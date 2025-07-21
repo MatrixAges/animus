@@ -1,7 +1,6 @@
 ._local {
 	line-height: 1;
 	padding-top: 8px;
-	padding-bottom: 6px;
 
 	:global {
 		.module_item {

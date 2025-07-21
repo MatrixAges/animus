@@ -10,5 +10,7 @@ const input_type = object({
 export default p.input(input_type).query(async ({ input }) => {
 	const { module, filename } = input
 
-	return read({ module, filename })
+	const items = (await read({ module, filename })) as Array<string>
+
+	return Promise.all(Object.keys(items).map(item => read({ module: 'global', filename: `/file_index/${item}` })))
 })

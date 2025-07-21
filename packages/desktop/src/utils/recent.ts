@@ -17,14 +17,10 @@ export const setLRUMap = async (args: Args) => {
 	const recent = (
 		res
 			? LRUMapWithDelete.from(
-					Object.fromEntries(
-						Object.keys(res)
-							.reverse()
-							.map(key => [key, null])
-					),
-					6
+					Object.fromEntries((res as Array<string>).reverse().map(key => [key, null])),
+					12
 				)
-			: new LRUMapWithDelete(6)
+			: new LRUMapWithDelete(12)
 	) as LRUMapWithDelete<string, null>
 
 	if (type === 'remove') {
@@ -35,7 +31,7 @@ export const setLRUMap = async (args: Args) => {
 		items.forEach(item => recent.set(item, null))
 	}
 
-	await write({ module, filename, data: Object.fromEntries(recent.entries()) })
+	await write({ module, filename, data: Array.from(recent.keys()) })
 }
 
 export const getLRUMap = async (args: Omit<Args, 'id'>) => {

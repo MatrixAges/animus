@@ -2,14 +2,14 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models/common'
-import { ipc, is_electron, info, store_options } from '@/utils'
+import { ipc, is_electron, info, store_options, getValuedObject } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { uniqBy } from 'es-toolkit'
 import { diff } from 'just-diff'
 
 import type { UpdateState, Workspace } from '@/types'
-import type { FileIndexs } from '@desktop/schemas'
+import type { FileIndex } from '@desktop/schemas'
 import type { Lambda } from 'mobx'
 
 const { workspaces, workspace } = config_keys
@@ -20,8 +20,8 @@ export default class Index {
 	workspace = 'default'
 	favorite_ids = [] as Array<string>
 	recent_ids = [] as Array<string>
-	favorite = [] as FileIndexs
-	recent = [] as FileIndexs
+	favorite = {} as Record<string, FileIndex>
+	recent = {} as Record<string, FileIndex>
 	update_silence = true
 	update_status = null as UpdateState
 
@@ -58,6 +58,22 @@ export default class Index {
 		this.subscribe()
 	}
 
+	setFavoriteItems(index: number, v: Partial<FileIndex>) {
+		const key = Object.keys(this.favorite)[index]
+
+		this.favorite[key] = { ...this.favorite[key], ...v }
+
+		this.favorite = $copy(this.favorite)
+	}
+
+	setRecentItems(index: number, v: Partial<FileIndex>) {
+		const key = Object.keys(this.recent)[index]
+
+		this.recent[key] = { ...this.recent[key], ...v }
+
+		this.recent = $copy(this.recent)
+	}
+
 	subscribe() {
 		const off = ipc.file.watch.subscribe(
 			[
@@ -67,15 +83,15 @@ export default class Index {
 			{
 				onData: res => {
 					if (res['/favorite.json']) {
-						this.favorite = res['/favorite.json']
+						this.favorite_ids = Object.keys(res['/favorite.json'])
 
-						this.subscribeRecent()
+						this.subscribeFavorite(true)
 					}
 
 					if (res['/recent.json']) {
-						this.recent = res['/recent.json']
+						this.recent_ids = res['/recent.json']
 
-						this.subscribeRecent()
+						this.subscribeRecent(true)
 					}
 				}
 			}
@@ -84,14 +100,45 @@ export default class Index {
 		this.util.acts.push(off.unsubscribe)
 	}
 
-	subscribeFavorite() {
+	subscribeFavorite(reset?: boolean) {
 		this.off_favorite?.()
 
 		const off = ipc.file.watch.subscribe(
 			this.favorite_ids.map(item => ({ type: 'workspace', path: `/file_index/${item}.json` })),
 			{
 				onData: res => {
-					if (res) this.favorite = Object.values(res)
+					if (res) {
+						const items = Object.values(res)
+
+						items.forEach((item, index) => {
+							if (item === undefined) {
+								const id = this.favorite_ids[index]
+
+								this.favorite_ids[index] = ''
+
+								ipc.file.list.remove.mutate({
+									module: 'global',
+									filename: 'favorite',
+									id
+								})
+							}
+						})
+
+						this.favorite_ids = this.favorite_ids.filter(item => item !== '')
+
+						res = getValuedObject(res)
+
+						if (reset) {
+							this.favorite = res
+						} else {
+							this.favorite = {
+								...this.favorite,
+								...res
+							}
+						}
+					}
+
+					reset = false
 				}
 			}
 		)
@@ -99,14 +146,41 @@ export default class Index {
 		this.off_favorite = off.unsubscribe
 	}
 
-	subscribeRecent() {
+	subscribeRecent(reset?: boolean) {
 		this.off_recent?.()
 
 		const off = ipc.file.watch.subscribe(
 			this.recent_ids.map(item => ({ type: 'workspace', path: `/file_index/${item}.json` })),
 			{
 				onData: res => {
-					if (res) this.recent = Object.values(res)
+					if (res) {
+						const items = Object.values(res)
+
+						items.forEach((item, index) => {
+							if (item === undefined) {
+								const id = this.recent_ids[index]
+
+								this.recent_ids[index] = ''
+
+								ipc.file.recent.remove.mutate({ module: 'global', id })
+							}
+						})
+
+						this.recent_ids = this.recent_ids.filter(item => item !== '')
+
+						res = getValuedObject(res)
+
+						if (reset) {
+							this.recent = res
+						} else {
+							this.recent = {
+								...this.recent,
+								...res
+							}
+						}
+					}
+
+					reset = false
 				}
 			}
 		)

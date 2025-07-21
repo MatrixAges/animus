@@ -1,18 +1,19 @@
 import { useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 import { observer } from 'mobx-react-lite'
 import { container } from 'tsyringe'
 
-import { Chatbox, Icon } from '@/components'
+import { Chatbox, FileList, Icon, Modal } from '@/components'
 import { useStackEffect } from '@/hooks'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
-import { Recent } from './components'
+import { List, Recent } from './components'
 import Model from './model'
 
 import styles from './index.module.css'
 
 import type { IPropsChatbox } from '@/components'
-import type { IPropsRecent } from './types'
+import type { IPropsList, IPropsRecent } from './types'
 
 const role_items = [
 	{ id: '0', name: 'Web Designer', icon: 'angular-logo' },
@@ -32,7 +33,15 @@ const Index = () => {
 	const props_chatbox: IPropsChatbox = {}
 
 	const props_recent: IPropsRecent = {
-		recent: $copy(x.recent)
+		recent: $copy(Object.values(x.recent)),
+		setRecentItems: x.setRecentItems,
+		toggleListModal: x.toggleListModal
+	}
+
+	const props_list: IPropsList = {
+		list: $copy(x.list),
+		setListItems: x.setListItems,
+		removeListItem: x.removeListItem
 	}
 
 	return (
@@ -56,6 +65,16 @@ const Index = () => {
 				))}
 			</div>
 			<Recent {...props_recent}></Recent>
+			<Modal
+				title='Conversions'
+				in_stack
+				width='min(90%,600px)'
+				height='min(100%,600px)'
+				open={x.visible_list_modal}
+				onClose={x.toggleListModal}
+			>
+				<List {...props_list}></List>
+			</Modal>
 		</div>
 	)
 }

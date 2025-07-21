@@ -8,10 +8,11 @@ import { id as ID } from 'stk/common'
 import { GlobalModel } from '@/context'
 import Decimal from 'decimal.js'
 import { ipc } from '@/utils'
+import dayjs from 'dayjs'
 
 import type { IProps } from './types'
 import type { Stack, Chat } from '@/types'
-import type { FileIndex, FileIndexs } from '@desktop/schemas'
+import type { FileIndex } from '@desktop/schemas'
 
 @injectable()
 export default class Index {
@@ -70,9 +71,10 @@ export default class Index {
 		if (!value) return
 		if (!this.select_model.length) return
 
-		const name = value.replace(/[\r\n]+/g, '').slice(0, 60)
+		const name = value.replace(/[\r\n]+/g, '').slice(0, 30)
 		const stack = this.global.stack
 		const stack_item = { type: 'module', module: 'chat', name } as Stack.Item
+		const now = dayjs().valueOf()
 
 		const options = {
 			system_prompt: this.system_prompt,
@@ -92,7 +94,7 @@ export default class Index {
 			const model = this.select_model[0]
 			const target_options = { ...options, model }
 
-			const file_index = { module: 'chat', id, name, desc: name } as FileIndex
+			const file_index = { module: 'chat', id, name, create_at: now } as FileIndex
 
 			stack.add({ ...stack_item, id })
 
@@ -109,7 +111,7 @@ export default class Index {
 				const view = { ...stack_item, id, active: true }
 				const target_options = { ...options, model: item }
 
-				const file_index = { module: 'chat', id, name, desc: name } as FileIndex
+				const file_index = { module: 'chat', id, name, create_at: now } as FileIndex
 
 				file_indexs.push(id)
 

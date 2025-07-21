@@ -1,2 +1,6 @@
 packages:
       - 'packages/*'
+
+catalog:
+      react: 0.0.0-experimental-06e89951-20250620
+      react-dom: 0.0.0-experimental-06e89951-20250620

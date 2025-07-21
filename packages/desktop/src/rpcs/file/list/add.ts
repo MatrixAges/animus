@@ -11,9 +11,11 @@ const input_type = object({
 export default p.input(input_type).mutation(async ({ input }) => {
 	const { module, filename, items } = input
 
-	const list = (await read({ module, filename })) || []
+	const list = (await read({ module, filename })) || {}
 
-	list.push(...items)
+	items.forEach(item => {
+		list[item] = null
+	})
 
 	await write({ module, filename, data: list })
 })

@@ -31,11 +31,13 @@ const Index = observer(({ global }: { global: GlobalModel }) => {
 	useGlobalUtils()
 
 	const props_sidebar: IPropsSidebar = {
-		favorite: $copy(app.favorite),
-		recent: $copy(app.recent),
+		favorite: $copy(Object.values(app.favorite)),
+		recent: $copy(Object.values(app.recent)),
 		toggleSetting: setting.toggleSetting,
 		closeSidebar: layout.toggleSidebar,
-		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module }))
+		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module })),
+		setFavoriteItems: app.setFavoriteItems,
+		setRecentItems: app.setRecentItems
 	}
 
 	const props_empty: IPropsEmpty = {

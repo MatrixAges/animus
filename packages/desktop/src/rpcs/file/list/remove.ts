@@ -1,6 +1,8 @@
+import { join } from 'path'
+import { remove } from 'fs-extra'
 import { object, string } from 'zod'
 
-import { p, read, write } from '@desktop/utils'
+import { p, read, workspace_data_path, write } from '@desktop/utils'
 
 const input_type = object({
 	module: string(),
@@ -15,5 +17,9 @@ export default p.input(input_type).mutation(async ({ input }) => {
 
 	delete list[id]
 
-	await write({ module, filename, data: list })
+	write({ module, filename, data: list })
+
+	if (module !== 'global') {
+		remove(join(workspace_data_path, '/file_index', `/${id}.json`))
+	}
 })
