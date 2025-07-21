@@ -2,13 +2,15 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models/common'
-import { ipc, is_electron, info, getUserStoreOptions, store_options } from '@/utils'
+import { ipc, is_electron, info, store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { uniqBy } from 'es-toolkit'
 import { diff } from 'just-diff'
 
-import type { UpdateState, Workspace, List } from '@/types'
+import type { UpdateState, Workspace } from '@/types'
+import type { FileIndexs } from '@desktop/schemas'
+import type { Lambda } from 'mobx'
 
 const { workspaces, workspace } = config_keys
 
@@ -16,13 +18,22 @@ const { workspaces, workspace } = config_keys
 export default class Index {
 	workspaces = [] as Array<Workspace>
 	workspace = 'default'
-	favorite = {} as List
-	recent = {} as List
+	favorite_ids = [] as Array<string>
+	recent_ids = [] as Array<string>
+	favorite = [] as FileIndexs
+	recent = [] as FileIndexs
 	update_silence = true
 	update_status = null as UpdateState
 
+	off_favorite = null as unknown as Lambda
+	off_recent = null as unknown as Lambda
+
 	constructor(public util: Util) {
-		makeAutoObservable(this, { util: false }, { autoBind: true })
+		makeAutoObservable(
+			this,
+			{ util: false, favorite_ids: false, recent_ids: false, off_favorite: false, off_recent: false },
+			{ autoBind: true }
+		)
 	}
 
 	async init() {
@@ -57,16 +68,50 @@ export default class Index {
 				onData: res => {
 					if (res['/favorite.json']) {
 						this.favorite = res['/favorite.json']
+
+						this.subscribeRecent()
 					}
 
 					if (res['/recent.json']) {
 						this.recent = res['/recent.json']
+
+						this.subscribeRecent()
 					}
 				}
 			}
 		)
 
 		this.util.acts.push(off.unsubscribe)
+	}
+
+	subscribeFavorite() {
+		this.off_favorite?.()
+
+		const off = ipc.file.watch.subscribe(
+			this.favorite_ids.map(item => ({ type: 'workspace', path: `/file_index/${item}.json` })),
+			{
+				onData: res => {
+					if (res) this.favorite = Object.values(res)
+				}
+			}
+		)
+
+		this.off_favorite = off.unsubscribe
+	}
+
+	subscribeRecent() {
+		this.off_recent?.()
+
+		const off = ipc.file.watch.subscribe(
+			this.recent_ids.map(item => ({ type: 'workspace', path: `/file_index/${item}.json` })),
+			{
+				onData: res => {
+					if (res) this.recent = Object.values(res)
+				}
+			}
+		)
+
+		this.off_recent = off.unsubscribe
 	}
 
 	onSelectWorkspace(index: number) {
@@ -142,5 +187,7 @@ export default class Index {
 
 	off() {
 		this.util.off()
+		this.off_favorite?.()
+		this.off_recent?.()
 	}
 }

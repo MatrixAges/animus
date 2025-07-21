@@ -4,13 +4,14 @@ import { Util } from '@/models/common'
 import { store_options as default_store_options } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
-import { id } from 'stk/common'
+import { id as ID } from 'stk/common'
 import { GlobalModel } from '@/context'
 import Decimal from 'decimal.js'
 import { ipc } from '@/utils'
 
 import type { IProps } from './types'
-import type { Stack, Chat, ListItem } from '@/types'
+import type { Stack, Chat } from '@/types'
+import type { FileIndex, FileIndexs } from '@desktop/schemas'
 
 @injectable()
 export default class Index {
@@ -87,49 +88,30 @@ export default class Index {
 		} as Chat.Options
 
 		if (this.select_model.length === 1) {
-			const chat_id = id()
+			const id = ID()
 			const model = this.select_model[0]
-			const filename = `${name}(${model}).${chat_id}`
 			const target_options = { ...options, model }
 
-			const target_item = {
-				module: 'chat',
-				id: filename,
-				name,
-				desc: name,
-				icon: '',
-				icon_type: 'icon'
-			} as ListItem
+			const file_index = { module: 'chat', id, name, desc: name } as FileIndex
 
-			stack.setTemp(chat_id, target_options)
-			stack.add({ ...stack_item, id: chat_id, filename })
+			stack.add({ ...stack_item, id })
 
-			ipc.file.write.mutate({ module: 'chat', filename, data: { options: target_options } })
-			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: [target_item] })
-
-			ipc.file.recent.add.mutate({ module: 'chat', items: [target_item] })
+			ipc.file.write.mutate({ module: 'file_index', filename: id, data: file_index })
+			ipc.file.write.mutate({ module: 'chat', filename: id, data: { options: target_options } })
+			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: [id] })
+			ipc.file.recent.add.mutate({ module: 'chat', items: [id] })
 		} else {
 			const width = new Decimal(Decimal.div(100, this.select_model.length).toFixed(2)).toNumber()
-			const list_items = [] as Array<ListItem>
+			const file_indexs = [] as Array<string>
 
 			this.select_model.forEach((item, index) => {
-				const chat_id = id()
-				const view = { ...stack_item, id: chat_id, active: true }
-				const filename = `${name}(${item}).${chat_id}`
+				const id = ID()
+				const view = { ...stack_item, id, active: true }
 				const target_options = { ...options, model: item }
 
-				const target_item = {
-					module: 'chat',
-					id: filename,
-					name,
-					desc: name,
-					icon: '',
-					icon_type: 'icon'
-				} as ListItem
+				const file_index = { module: 'chat', id, name, desc: name } as FileIndex
 
-				stack.setTemp(chat_id, target_options)
-
-				list_items.push(target_item)
+				file_indexs.push(id)
 
 				if (stack.columns[index]) {
 					const views = stack.columns[index].views
@@ -139,19 +121,17 @@ export default class Index {
 					views.forEach(view => (view.active = false))
 					views.push(view)
 				} else {
-					stack.columns[index] = {
-						views: [view],
-						width
-					} as Stack.Column
+					stack.columns[index] = { views: [view], width } as Stack.Column
 				}
 
-				ipc.file.write.mutate({ module: 'chat', filename, data: { options: target_options } })
+				ipc.file.write.mutate({ module: 'file_index', filename: id, data: file_index })
+				ipc.file.write.mutate({ module: 'chat', filename: id, data: { options: target_options } })
 			})
 
 			stack.columns = $copy(stack.columns)
 
-			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: list_items })
-			ipc.file.recent.add.mutate({ module: 'chat', items: list_items })
+			ipc.file.list.add.mutate({ module: 'chat', filename: 'list', items: file_indexs })
+			ipc.file.recent.add.mutate({ module: 'chat', items: file_indexs })
 		}
 
 		this.ref_textarea.value = ''

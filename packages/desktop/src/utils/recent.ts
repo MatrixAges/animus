@@ -1,16 +1,11 @@
-import dayjs from 'dayjs'
 import { LRUMapWithDelete } from 'mnemonist'
 
 import { read, write } from './fs'
 
-import type { ListItem } from '@desktop/schemas'
-
-type RecentItem = ListItem & { create_at: number }
-
 interface Args {
 	module: string
 	filename: string
-	items?: Array<ListItem>
+	items?: Array<string>
 	type?: 'remove' | 'clear'
 }
 
@@ -25,19 +20,19 @@ export const setLRUMap = async (args: Args) => {
 					Object.fromEntries(
 						Object.keys(res)
 							.reverse()
-							.map(key => [key, res[key]])
+							.map(key => [key, null])
 					),
 					6
 				)
 			: new LRUMapWithDelete(6)
-	) as LRUMapWithDelete<string, RecentItem>
+	) as LRUMapWithDelete<string, null>
 
 	if (type === 'remove') {
-		items.forEach(item => recent.remove(item.id))
+		items.forEach(item => recent.remove(item))
 	} else if (type === 'clear') {
 		recent.clear()
 	} else {
-		items.forEach(item => recent.set(item.id, { ...item, create_at: dayjs().valueOf() }))
+		items.forEach(item => recent.set(item, null))
 	}
 
 	await write({ module, filename, data: Object.fromEntries(recent.entries()) })

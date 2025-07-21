@@ -1,12 +1,16 @@
-import { any, enum as Enum, infer as Infer, object, string } from 'zod'
+import { any, boolean, enum as Enum, infer as Infer, number, object, string } from 'zod'
 
-export const list_item_schema = object({
+export const schema_file_index = object({
 	module: string(),
 	id: string(),
 	name: string(),
 	desc: string(),
-	icon: string(),
-	icon_type: Enum(['icon', 'emoji'])
+	icon: string().optional(),
+	icon_type: Enum(['icon', 'emoji']).optional(),
+	loading: boolean().optional(),
+	create_at: number().optional(),
+	update_at: number().optional()
 }).catchall(any())
 
-export type ListItem = Infer<typeof list_item_schema>
+export type FileIndex = Infer<typeof schema_file_index>
+export type FileIndexs = Array<FileIndex>

@@ -10,16 +10,12 @@ export namespace Stack {
 		type: 'module'
 		module: Module
 		name: string
-		filename: string
 		icon?: Icon
 		icon_type?: IconType
-		changed?: boolean
 	}
 
 	export type Item = (PageItem | ModuleItem) & {
 		id: string
-		new?: boolean
-		create?: boolean
 		[key: string]: any
 	}
 
@@ -37,7 +33,5 @@ export namespace Stack {
 
 	export interface ModuleProps {
 		id: string
-		filename: string
-		create?: boolean
 	}
 }
