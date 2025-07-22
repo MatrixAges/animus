@@ -1,2 +1,5 @@
-.file_list {
+.empty_wrap {
+	padding: 36px 0;
+	border-radius: var(--radius);
+	background-color: var(--bg_component);
 }

@@ -7,6 +7,7 @@ import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { uniqBy } from 'es-toolkit'
 import { diff } from 'just-diff'
+import { moveObject } from 'stk/utils'
 
 import type { UpdateState, Workspace } from '@/types'
 import type { FileIndex } from '@desktop/schemas'
@@ -72,6 +73,25 @@ export default class Index {
 		this.recent[key] = { ...this.recent[key], ...v }
 
 		this.recent = $copy(this.recent)
+	}
+
+	moveFavorite(from: number, to: number) {
+		const keys = Object.keys(this.favorite)
+
+		this.favorite = $copy(moveObject(this.favorite, keys[from], keys[to]))
+
+		const data = Object.keys(this.favorite).reduce(
+			(total, key) => {
+				const item = this.favorite[key]
+
+				total[item.id] = null
+
+				return total
+			},
+			{} as Record<string, null>
+		)
+
+		ipc.file.write.mutate({ module: 'global', filename: 'favorite', data })
 	}
 
 	subscribe() {

@@ -1,7 +1,8 @@
 import dayjs from 'dayjs'
+import { moveObject } from 'stk/utils'
 import { object, string } from 'zod'
 
-import { moveObject, p, read, write } from '@desktop/utils'
+import { p, read, write } from '@desktop/utils'
 
 const input_type = object({
 	module: string(),

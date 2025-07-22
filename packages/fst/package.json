@@ -1,0 +1,43 @@
+{
+	"name": "fst",
+	"productName": "Animus",
+	"author": "1yasa",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "concurrently \"cross-env NODE_ENV=development rslib build -w\" \"tsc -w\"",
+		"build": "cross-env NODE_ENV=production rslib build && tsc"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./llm": {
+			"types": "./dist/llm/index.d.ts",
+			"import": "./dist/llm/index.js",
+			"default": "./dist/llm/index.js"
+		}
+	},
+	"dependencies": {
+		"atomically": "^2.0.3",
+		"await-to-js": "^3.0.0",
+		"classic-level": "^3.0.0",
+		"dayjs": "^1.11.13",
+		"deepmerge-ts": "^7.1.5",
+		"mnemonist": "^0.40.3",
+		"ofetch": "^1.4.1",
+		"zod": "^4.0.5",
+		"stk": "workspace:*"
+	},
+	"devDependencies": {
+		"@rslib/core": "catalog:",
+		"@types/node": "^24.0.14",
+		"bun": "^1.2.18",
+		"bun-types": "^1.2.18",
+		"concurrently": "^9.2.0",
+		"cross-env": "^7.0.3",
+		"typescript": "^5.8.3"
+	}
+}

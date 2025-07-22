@@ -22,7 +22,7 @@
 		"build": "rslib build && tsc"
 	},
 	"devDependencies": {
-		"@rslib/core": "^0.10.6",
+		"@rslib/core": "catalog:",
 		"@trpc/client": "^11.4.3",
 		"@trpc/server": "^11.4.3",
 		"@types/node": "^24.0.14",

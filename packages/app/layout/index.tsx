@@ -37,7 +37,8 @@ const Index = observer(({ global }: { global: GlobalModel }) => {
 		closeSidebar: layout.toggleSidebar,
 		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module })),
 		setFavoriteItems: app.setFavoriteItems,
-		setRecentItems: app.setRecentItems
+		setRecentItems: app.setRecentItems,
+		moveFavorite: app.moveFavorite
 	}
 
 	const props_empty: IPropsEmpty = {

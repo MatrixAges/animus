@@ -1,6 +1,7 @@
 import { useMemoizedFn } from 'ahooks'
+import { useTranslation } from 'react-i18next'
 
-import { FileList } from '@/components'
+import { Empty, FileList } from '@/components'
 import { ipc } from '@/utils'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
@@ -11,6 +12,7 @@ import type { IPropsRecent } from '../../types'
 
 const Index = (props: IPropsRecent) => {
 	const { recent, setRecentItems, toggleListModal } = props
+	const { t } = useTranslation()
 
 	const props_file_list: IPropsFileList = {
 		className: styles.file_list,
@@ -23,12 +25,10 @@ const Index = (props: IPropsRecent) => {
 		})
 	}
 
-	if (!recent.length) return
-
 	return (
-		<div className={$cx('w_100 border_box flex flex_column', styles._local)}>
+		<div className='w_100 border_box flex flex_column'>
 			<div className='section_title_wrap flex justify_between align_center'>
-				<h2 className='section_title'>Recent</h2>
+				<h2 className='section_title'>{t('recent')}</h2>
 				<div
 					className='btn_action flex justify_center align_center clickable'
 					onClick={toggleListModal}
@@ -36,7 +36,21 @@ const Index = (props: IPropsRecent) => {
 					<DotsThreeVerticalIcon weight='bold'></DotsThreeVerticalIcon>
 				</div>
 			</div>
-			<FileList {...props_file_list}></FileList>
+			<Choose>
+				<When condition={recent.length}>
+					<FileList {...props_file_list}></FileList>
+				</When>
+				<Otherwise>
+					<div
+						className={$cx(
+							'w_100 border_box flex justify_center align_center',
+							styles.empty_wrap
+						)}
+					>
+						<Empty></Empty>
+					</div>
+				</Otherwise>
+			</Choose>
 		</div>
 	)
 }

@@ -32,11 +32,12 @@
 		"mnemonist": "^0.40.3",
 		"ofetch": "^1.4.1",
 		"watchpack": "^2.4.4",
-		"zod": "^4.0.5"
+		"zod": "^4.0.5",
+		"stk": "workspace:*"
 	},
 	"devDependencies": {
 		"@electron/notarize": "^3.0.1",
-		"@rslib/core": "^0.10.6",
+		"@rslib/core": "catalog:",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "^24.0.14",
 		"@types/watchpack": "^2.4.4",

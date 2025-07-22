@@ -69,7 +69,7 @@ const Index = (props: IPropsEmpty) => {
 				<Logo className='logo' size={150} color='var(--color_border_light)'></Logo>
 				<div className='actions_wrap flex absolute' ref={ref}>
 					{actions.map(({ title, Icon }) => (
-						<Tooltip title={t(`layout.Empty.${title}`)} key={title}>
+						<Tooltip title={t(`layout.${title}`) as string} key={title}>
 							<div>
 								<div
 									className='btn_action border_box flex justify_center align_center clickable no_drag'

@@ -1,18 +1,23 @@
 import { useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
-import dayjs from 'dayjs'
-import { Item, Menu, Separator, useContextMenu } from 'react-contexify'
+import { Menu, Item as MenuItem, Separator, useContextMenu } from 'react-contexify'
 import { createPortal } from 'react-dom'
+import { useTranslation } from 'react-i18next'
 
-import { Icon, IconPicker, module_icon_string } from '@/components'
+import { Icon, module_icon_string } from '@/components'
 import { useDelegate } from '@/hooks'
 import { ipc } from '@/utils'
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { BookmarkSimpleIcon, PencilSimpleIcon, TrashIcon } from '@phosphor-icons/react'
+
+import Item from './Item'
 
 import styles from './index.module.css'
 
 import type { Module } from '@/types'
 import type { FileIndex, FileIndexs } from '@desktop/schemas'
+import type { DragEndEvent } from '@dnd-kit/core'
 import type { FocusEvent } from 'react'
 
 export interface IProps {
@@ -20,14 +25,18 @@ export interface IProps {
 	id: string
 	items: FileIndexs
 	flat?: boolean
+	sortable?: boolean
 	disable_favorite?: boolean
 	setItems: (index: number, v: Partial<FileIndex>) => void
 	removeItem: (id: string, index: number) => void
+	move?: (from: number, to: number) => void
 }
 
 const Index = (props: IProps) => {
-	const { className, id, items, flat, disable_favorite, setItems, removeItem } = props
+	const { className, id, items, flat, sortable, disable_favorite, setItems, removeItem, move } = props
 	const [focusing, setFocusing] = useState<number>()
+	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
+	const { t } = useTranslation()
 
 	const { show } = useContextMenu({ id })
 
@@ -53,7 +62,7 @@ const Index = (props: IProps) => {
 	})
 
 	const onChangeFileIndex = useMemoizedFn((v: Partial<FileIndex>) => {
-		ipc.file.write.mutate({ module: 'file_index', filename: items[focusing!].id, data: v })
+		ipc.file.write.mutate({ module: 'file_index', filename: items[focusing!].id, data: v, merge: true })
 	})
 
 	const onChangeIcon = useMemoizedFn((v: string, type: 'icon' | 'emoji') => {
@@ -76,6 +85,12 @@ const Index = (props: IProps) => {
 		setFocusing(undefined)
 	})
 
+	const onDragEnd = useMemoizedFn(({ active, over }: DragEndEvent) => {
+		if (!over) return
+
+		move?.(active.data.current!.index, over.data.current!.index)
+	})
+
 	const getIcon = useMemoizedFn((item: FileIndex, focusing?: boolean) => (
 		<span
 			className={$cx('icon_wrap border_box flex justify_center align_center', focusing && 'clickable')}
@@ -93,63 +108,45 @@ const Index = (props: IProps) => {
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local, flat && styles.flat, className)}>
 			<div className='list_wrap flex flex_column' ref={ref}>
-				{items.map((item, index) => (
-					<div
-						className={$cx(
-							'w_100 border_box list_item_wrap flex align_center',
-							focusing === index ? 'focusing' : 'clickit',
-							flat && 'flat justify_between'
-						)}
-						data-key={index}
-						key={item.id}
-					>
-						<div className='left_wrap w_100 border_box flex align_center'>
-							<Choose>
-								<When condition={focusing === index}>
-									<IconPicker placement='right' hide_arrow onSelect={onChangeIcon}>
-										{getIcon(item, true)}
-									</IconPicker>
-
-									<input
-										className='name line_clamp_1 border_box'
-										defaultValue={item.name}
-										onBlur={onChangeName}
-									/>
-								</When>
-								<Otherwise>
-									{getIcon(item)}
-									<span className='name line_clamp_1'>{item.name}</span>
-								</Otherwise>
-							</Choose>
-						</div>
-
-						<If condition={flat}>
-							<span className='create_at text_right'>
-								{dayjs(item.create_at).fromNow()}
-							</span>
-						</If>
-					</div>
-				))}
+				<DndContext sensors={sensors} onDragEnd={onDragEnd}>
+					<SortableContext items={items} strategy={verticalListSortingStrategy}>
+						{items.map((item, index) => (
+							<Item
+								{...{
+									item,
+									index,
+									flat,
+									sortable,
+									getIcon,
+									onChangeIcon,
+									onChangeName
+								}}
+								focusing={focusing === index}
+								key={item.id}
+							></Item>
+						))}
+					</SortableContext>
+				</DndContext>
 			</div>
 			{createPortal(
 				<Menu id={id}>
 					<If condition={!disable_favorite}>
-						<Item onClick={onAddToFavorite}>
+						<MenuItem onClick={onAddToFavorite}>
 							<BookmarkSimpleIcon size={15}></BookmarkSimpleIcon>
-							<span>Add to favorite</span>
-						</Item>
+							<span>{`${t('add')}${t('b')}${t('to')}${t('b')}${t('favorite')}`}</span>
+						</MenuItem>
 					</If>
-					<Item onClick={onEdit}>
+					<MenuItem onClick={onEdit}>
 						<PencilSimpleIcon size={15}></PencilSimpleIcon>
-						<span>Edit</span>
-					</Item>
+						<span>{t('edit')}</span>
+					</MenuItem>
 					<If condition={!disable_favorite}>
 						<Separator></Separator>
 					</If>
-					<Item onClick={onRemove}>
+					<MenuItem onClick={onRemove}>
 						<TrashIcon size={15}></TrashIcon>
-						<span>Remove</span>
-					</Item>
+						<span>{t('remove')}</span>
+					</MenuItem>
 				</Menu>,
 				document.body
 			)}

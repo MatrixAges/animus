@@ -1,5 +1,6 @@
 import ai from './ai'
 import app from './app'
+import chat from './chat'
 import chatbox from './chatbox'
 import global from './global'
 import layout from './layout'
@@ -12,6 +13,7 @@ export default {
 		setting,
 		layout,
 		chatbox,
-		ai
+		ai,
+		chat
 	}
 } as const

@@ -1,6 +1,7 @@
 ._local {
 	&.flat {
 		overflow: hidden;
+		padding: 0 12px;
 		border-radius: var(--radius);
 		background-color: var(--bg_component);
 	}
@@ -13,10 +14,11 @@
 				gap: 6px;
 
 				&.flat {
-					padding: 8px 12px;
+					padding: 8px 0;
 					border-bottom: var(--border_glass);
+					border-radius: unset;
 
-					&:last-child {
+					&:nth-last-of-type(3) {
 						border-bottom: unset;
 					}
 
@@ -31,7 +33,7 @@
 					}
 
 					&.focusing {
-						padding: 6px;
+						padding: 6px 0;
 
 						.left_wrap {
 							.name {

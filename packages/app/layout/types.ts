@@ -10,6 +10,7 @@ export interface IPropsSidebar {
 	addPage: (v: Module) => void
 	setFavoriteItems: App['setFavoriteItems']
 	setRecentItems: App['setRecentItems']
+	moveFavorite: App['moveFavorite']
 }
 
 export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}

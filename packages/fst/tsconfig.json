@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"lib": ["ESNEXT"],
+		"moduleResolution": "Bundler",
+		"strict": true,
+		"baseUrl": "../",
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"@fst/*": ["./fst/src/*"]
+		},
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
+	},
+	"include": ["src", "typings"]
+}

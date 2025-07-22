@@ -12,7 +12,8 @@ import type { IPropsFileList } from '@/components'
 import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarModules } from '@/layout'
 
 const Index = (props: IPropsSidebar) => {
-	const { favorite, recent, toggleSetting, closeSidebar, addPage, setFavoriteItems, setRecentItems } = props
+	const { favorite, recent, toggleSetting, closeSidebar, addPage, setFavoriteItems, setRecentItems, moveFavorite } =
+		props
 	const { t } = useTranslation()
 
 	const props_header: IPropsSidebarHeader = {
@@ -27,11 +28,13 @@ const Index = (props: IPropsSidebar) => {
 	const props_favorite: IPropsFileList = {
 		id: 'sidebar_favorite',
 		items: favorite,
+		sortable: true,
 		disable_favorite: true,
 		setItems: setFavoriteItems,
 		removeItem: useMemoizedFn(id => {
 			ipc.file.list.remove.mutate({ module: 'global', filename: 'favorite', id })
-		})
+		}),
+		move: moveFavorite
 	}
 
 	const props_recent: IPropsFileList = {
@@ -50,11 +53,11 @@ const Index = (props: IPropsSidebar) => {
 				<div className='content_wrap w_100 border_box flex flex_column'>
 					<Modules {...props_modules}></Modules>
 					<If condition={favorite.length}>
-						<span className='list_title'>{t('layout.Sidebar.favorite')}</span>
+						<span className='list_title'>{t('favorite')}</span>
 						<FileList {...props_favorite}></FileList>
 					</If>
 					<If condition={recent.length}>
-						<span className='list_title'>{t('layout.Sidebar.recent')}</span>
+						<span className='list_title'>{t('recent')}</span>
 						<FileList {...props_recent}></FileList>
 					</If>
 				</div>

@@ -1,3 +1,0 @@
-# Omniflow
-
-Flow for mind.

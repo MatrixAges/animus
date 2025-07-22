@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { useMemoizedFn } from 'ahooks'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 import { container } from 'tsyringe'
 
-import { Chatbox, FileList, Icon, Modal } from '@/components'
+import { Chatbox, Icon, Modal } from '@/components'
 import { useStackEffect } from '@/hooks'
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react'
 
@@ -24,6 +24,7 @@ const role_items = [
 
 const Index = () => {
 	const [x] = useState(container.resolve(Model))
+	const { t } = useTranslation()
 
 	const { bind } = useStackEffect({
 		mounted: () => x.init(),
@@ -46,10 +47,10 @@ const Index = () => {
 
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
-			<h1 className='hello'>What's good, today?</h1>
+			<h1 className='hello'>{t('chat.greeting')}</h1>
 			<Chatbox {...props_chatbox}></Chatbox>
 			<div className='section_title_wrap flex justify_between align_center'>
-				<h2 className='section_title'>Role</h2>
+				<h2 className='section_title'>{t('role')}</h2>
 				<div className='btn_action flex justify_center align_center clickable'>
 					<DotsThreeVerticalIcon weight='bold'></DotsThreeVerticalIcon>
 				</div>
@@ -66,7 +67,7 @@ const Index = () => {
 			</div>
 			<Recent {...props_recent}></Recent>
 			<Modal
-				title='Conversions'
+				title={t('conversation') + t('s')}
 				in_stack
 				width='min(90%,600px)'
 				height='min(100%,600px)'

@@ -105,14 +105,12 @@ export default class Index {
 
 	async getList() {
 		this.list = await ipc.file.list.query.query({ module: 'chat', filename: 'list' })
-
-		console.log($copy(this.list))
 	}
 
 	async removeListItem(id: string, index: number) {
 		const res = await confirm({
 			title: $t('notice'),
-			content: '确认删除？删除列表想将会删除本地保存的文件，不可恢复！'
+			content: $t('remove_confirm')
 		})
 
 		if (!res) return

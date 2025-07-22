@@ -9,10 +9,10 @@
 		.hello {
 			margin: 0;
 			margin-bottom: 12px;
-			color: var(--color_text_grey);
+			color: var(--color_text_light);
 			text-align: center;
 			font-size: 36px;
-			font-weight: 500;
+			font-weight: 400;
 		}
 
 		.section_title_wrap {
