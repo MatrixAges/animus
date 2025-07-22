@@ -32,7 +32,7 @@ export default class Index {
 	auto_theme = false
 	glass = true
 	visible = false
-	active = 'general'
+	active = 'providers'
 	visible_menu = false
 
 	constructor(public util: Util) {

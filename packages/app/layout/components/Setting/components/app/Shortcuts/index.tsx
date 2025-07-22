@@ -23,6 +23,7 @@ const Index = () => {
 
 	return (
 		<div className={$cx('w_100 flex flex_column', styles._local)}>
+			<span className='setting_title'>{t('setting.shortcuts.title')}</span>
 			{keys.map((item, index) => (
 				<div className='row_item_wrap w_100 border_box' key={index}>
 					<div className='row_item setting_item w_100 border_box flex justify_between align_center'>

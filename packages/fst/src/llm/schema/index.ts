@@ -4,7 +4,7 @@ export const schema = object({
 	enabled: boolean(),
 	api_key: string(),
 	models: record(
-		string('').describe('group_name'),
+		string().meta({ name: 'group' }),
 		array(
 			object({
 				enabled: boolean(),

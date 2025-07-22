@@ -1,4 +1,7 @@
 export default {
+	providers: {
+		title: '模型提供商'
+	},
 	general: {
 		title: '通用设置',
 		normal: {

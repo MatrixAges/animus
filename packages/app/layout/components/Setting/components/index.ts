@@ -1,6 +1,2 @@
-export { default as App_General } from './App_General'
-export { default as App_Shortcuts } from './App_Shortcuts'
-export { default as App_About } from './App_About'
-export { default as Module_Note } from './Module_Note'
 export { default as Item } from './Item'
 export { default as Workspaces } from './Workspaces'

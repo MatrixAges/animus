@@ -1,4 +1,7 @@
 export default {
+	providers: {
+		title: 'Providers'
+	},
 	general: {
 		title: 'General',
 		normal: {

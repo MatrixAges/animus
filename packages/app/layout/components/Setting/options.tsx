@@ -1,28 +1,35 @@
-import { CommandIcon, InfoIcon, SlidersHorizontalIcon } from '@phosphor-icons/react'
+import { CommandIcon, InfoIcon, OpenAiLogoIcon, SlidersHorizontalIcon } from '@phosphor-icons/react'
 
-import { App_About, App_General, App_Shortcuts, Module_Note } from './components'
+import { About, General, Providers, Shortcuts } from './components/app'
+import { Note } from './components/module'
 
 import type { ElementOf } from 'ts-essentials'
 
 export const app_setting_items = (
 	[
 		{
+			label: 'setting.providers.title',
+			Icon: OpenAiLogoIcon,
+			key: 'providers',
+			children: <Providers></Providers>
+		},
+		{
 			label: 'setting.general.title',
 			Icon: SlidersHorizontalIcon,
 			key: 'general',
-			children: <App_General></App_General>
+			children: <General></General>
 		},
 		{
 			label: 'setting.shortcuts.title',
 			Icon: CommandIcon,
 			key: 'shortcuts',
-			children: <App_Shortcuts></App_Shortcuts>
+			children: <Shortcuts></Shortcuts>
 		},
 		{
 			label: 'setting.about.title',
 			Icon: InfoIcon,
 			key: 'about',
-			children: <App_About></App_About>
+			children: <About></About>
 		}
 	] as const
 ).slice()
@@ -32,7 +39,7 @@ export const module_setting_items = (
 		{
 			label: 'app.module.note',
 			key: 'note',
-			children: <Module_Note></Module_Note>
+			children: <Note></Note>
 		}
 	] as const
 ).slice()

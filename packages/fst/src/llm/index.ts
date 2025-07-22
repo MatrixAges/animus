@@ -51,7 +51,7 @@ export const providers = {
 	anthropic: {
 		links: anthropic.links,
 		config: anthropic.default,
-		schema: anthropic
+		schema: schema
 	},
 	azure_openai: {
 		links: azure_openai.links,

@@ -1,14 +1,19 @@
 {
 	"compilerOptions": {
-		"target": "ES2022",
+		"target": "ESNext",
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"lib": ["ESNEXT"],
 		"moduleResolution": "Bundler",
-		"strict": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"strict": false,
+		"outDir": "dist",
 		"baseUrl": "../",
-		"esModuleInterop": true,
 		"isolatedModules": true,
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"allowImportingTsExtensions": true,
 		"forceConsistentCasingInFileNames": true,
 		"paths": {
 			"@fst/*": ["./fst/src/*"]
@@ -16,5 +21,5 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true
 	},
-	"include": ["src", "typings"]
+	"include": ["src"]
 }

@@ -162,14 +162,13 @@
 		.setting_title {
 			display: flex;
 			line-height: 1;
-			margin-bottom: 8px;
+			margin-bottom: 12px;
 			font-size: 16px;
 			font-weight: 500;
 		}
 
 		.setting_items {
-			padding: 6px 0;
-			margin-bottom: 24px;
+			margin-bottom: 30px;
 
 			&:last-child {
 				margin-bottom: 0;

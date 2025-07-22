@@ -104,6 +104,9 @@ importers:
       flexsearch:
         specifier: ^0.8.205
         version: 0.8.205
+      fst:
+        specifier: workspace:*
+        version: link:../fst
       hotkeys-js:
         specifier: ^3.13.15
         version: 3.13.15
@@ -192,6 +195,9 @@ importers:
       '@types/dom-view-transitions':
         specifier: ^1.0.6
         version: 1.0.6
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
       '@types/node':
         specifier: ^24.0.14
         version: 24.0.14
@@ -12796,8 +12802,7 @@ snapshots:
 
   '@types/js-cookie@3.0.6': {}
 
-  '@types/json-schema@7.0.15':
-    optional: true
+  '@types/json-schema@7.0.15': {}
 
   '@types/jsonfile@6.1.4':
     dependencies:
