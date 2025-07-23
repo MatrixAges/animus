@@ -1,10 +1,11 @@
 import type { App, Layout, Setting, Stack } from '@/models'
-import type { Module, Stack as StackType, ViodFn } from '@/types'
+import type { Module, Stack as StackType, ViodFn, Workspace } from '@/types'
 import type { FileIndexs } from '@desktop/schemas'
 
 export interface IPropsSidebar {
 	favorite: FileIndexs
 	recent: FileIndexs
+	workspace: Workspace
 	toggleSetting: ViodFn
 	closeSidebar: ViodFn
 	addPage: (v: Module) => void
@@ -13,7 +14,7 @@ export interface IPropsSidebar {
 	moveFavorite: App['moveFavorite']
 }
 
-export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'toggleSetting' | 'closeSidebar'> {}
+export interface IPropsSidebarHeader extends Pick<IPropsSidebar, 'workspace' | 'toggleSetting' | 'closeSidebar'> {}
 
 export interface IPropsSidebarModules extends Pick<IPropsSidebar, 'addPage'> {}
 

@@ -83,6 +83,9 @@ importers:
       classix:
         specifier: ^2.2.2
         version: 2.2.2
+      color:
+        specifier: ^5.0.0
+        version: 5.0.0
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13

@@ -27,7 +27,6 @@ const Index = (props: IPropsSystemPrompt) => {
 				title={t('chatbox.system_prompt.title')}
 				width='min(90%,600px)'
 				height='min(100%,600px)'
-				in_stack
 				open={open}
 				onClose={toggle}
 			>

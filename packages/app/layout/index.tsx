@@ -7,8 +7,9 @@ import { container } from 'tsyringe'
 import { GlobalModel, GlobalProvider } from '@/context'
 import { useAntdLocale } from '@/hooks'
 import Global from '@/models/global'
+import Setting from '@/setting'
 
-import { AntdApp, Empty, Setting, Sidebar, Stacks } from './components'
+import { AntdApp, Empty, Sidebar, Stacks } from './components'
 import { useAntdTheme, useGlobalUtils } from './hooks'
 
 import styles from './index.module.css'
@@ -33,6 +34,7 @@ const Index = observer(({ global }: { global: GlobalModel }) => {
 	const props_sidebar: IPropsSidebar = {
 		favorite: $copy(Object.values(app.favorite)),
 		recent: $copy(Object.values(app.recent)),
+		workspace: $copy(app.workspaces.find(item => item.name === app.workspace)!),
 		toggleSetting: setting.toggleSetting,
 		closeSidebar: layout.toggleSidebar,
 		addPage: useMemoizedFn((module: Module) => stack.add({ type: 'page', module, id: module })),

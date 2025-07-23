@@ -28,9 +28,9 @@ import {
 } from '@lobehub/icons'
 import { BoulesIcon } from '@phosphor-icons/react'
 
-import type { ProviderType } from '@/ai'
 import type { IconType } from '@lobehub/icons'
 import type { Icon } from '@phosphor-icons/react'
+import type { ProviderKey } from 'fst/llm'
 
 export const module_icon = {
 	google_gemini: Gemini,
@@ -58,7 +58,7 @@ export const module_icon = {
 	volcengine: Volcengine,
 	xai: Grok,
 	zhipu: Zhipu
-} as Record<ProviderType, IconType | Icon>
+} as Record<ProviderKey, IconType | Icon>
 
 interface IProps {
 	name: string
@@ -67,7 +67,7 @@ interface IProps {
 }
 
 const Index = ({ name, ...props }: IProps) => {
-	const Icon = useMemo(() => module_icon[name], [name])
+	const Icon = useMemo(() => module_icon[name as ProviderKey], [name])
 
 	return <Icon {...props}></Icon>
 }

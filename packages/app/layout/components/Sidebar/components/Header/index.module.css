@@ -4,6 +4,19 @@
 	border-bottom: var(--border_glass);
 
 	:global {
+		.workspace_wrap {
+			width: calc(100% - 100px);
+			line-height: 1;
+			margin-left: 4px;
+			color: var(--color_text_greylight);
+			font-size: 12px;
+			gap: 4px;
+
+			.workspace {
+				text-transform: uppercase;
+			}
+		}
+
 		.actions_wrap {
 			gap: 6px;
 

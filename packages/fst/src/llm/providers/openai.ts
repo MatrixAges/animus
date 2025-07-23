@@ -12,7 +12,7 @@ export default {
 	api_key: '',
 	models: [
 		{
-			group: '',
+			group: 'GPT',
 			items: [
 				{
 					enabled: true,
@@ -55,7 +55,7 @@ export default {
 			]
 		},
 		{
-			group: '',
+			group: 'GPT-o',
 			items: [
 				{
 					enabled: true,

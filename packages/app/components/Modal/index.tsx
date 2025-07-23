@@ -21,7 +21,7 @@ export interface IProps {
 	height?: string | number
 	mask_closable?: boolean
 	z_index?: number
-	in_stack?: boolean
+	global?: boolean
 	header?: (onClose: IProps['onClose']) => ReactNode
 	onClose?: (e?: MouseEvent<HTMLElement>) => void
 	getContainer?: () => Element
@@ -40,7 +40,7 @@ const Index = (props: IProps) => {
 		height,
 		mask_closable,
 		z_index,
-		in_stack,
+		global,
 		header,
 		onClose,
 		getContainer,
@@ -53,7 +53,7 @@ const Index = (props: IProps) => {
 
 	const id = useStackId()
 
-	const container = in_stack ? document.getElementById(id)! : getContainer?.() || document.body
+	const container = global ? getContainer?.() || document.body : document.getElementById(id)!
 
 	useEffect(() => {
 		if (open) {

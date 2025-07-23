@@ -12,7 +12,7 @@ export default {
 	api_key: '',
 	models: [
 		{
-			group: '',
+			group: 'Claude',
 			items: [
 				{
 					enabled: true,

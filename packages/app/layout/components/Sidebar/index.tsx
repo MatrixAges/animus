@@ -12,11 +12,21 @@ import type { IPropsFileList } from '@/components'
 import type { IPropsSidebar, IPropsSidebarHeader, IPropsSidebarModules } from '@/layout'
 
 const Index = (props: IPropsSidebar) => {
-	const { favorite, recent, toggleSetting, closeSidebar, addPage, setFavoriteItems, setRecentItems, moveFavorite } =
-		props
+	const {
+		favorite,
+		recent,
+		workspace,
+		toggleSetting,
+		closeSidebar,
+		addPage,
+		setFavoriteItems,
+		setRecentItems,
+		moveFavorite
+	} = props
 	const { t } = useTranslation()
 
 	const props_header: IPropsSidebarHeader = {
+		workspace,
 		toggleSetting,
 		closeSidebar
 	}

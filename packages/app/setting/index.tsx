@@ -72,6 +72,7 @@ const Index = (props: IPropsSetting) => {
 			className={$cx('relative', styles.modal)}
 			open={visible}
 			mask_closable
+			global
 			getRef={v => (ref.current = v)}
 			onClose={onClose}
 		>

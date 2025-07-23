@@ -4,7 +4,7 @@ import type { MotionNodeAnimationOptions } from 'motion'
 import type { PropsWithChildren } from 'react'
 
 export interface IProps extends PropsWithChildren, Pick<MotionNodeAnimationOptions, 'initial' | 'animate' | 'exit'> {
-	visible: boolean
+	visible: boolean | null | undefined
 	className?: string
 }
 

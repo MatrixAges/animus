@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { locale_options, themes } from '@/appdata'
 import { useGlobal } from '@/context'
-import { Item } from '@/layout/components/Setting/components'
+import { Item } from '@/setting/components'
 import { clearStorage } from '@/utils'
 import { AppWindowIcon, CircuitryIcon, MoonIcon, PaletteIcon, SunIcon, TranslateIcon } from '@phosphor-icons/react'
 

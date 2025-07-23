@@ -22,8 +22,6 @@ export const schema = object({
 						web_search: boolean().optional(),
 						image_input: boolean().optional(),
 						image_output: boolean().optional(),
-						audio_input: boolean().optional(),
-						audio_output: boolean().optional(),
 						embedding: boolean().optional(),
 						reranking: boolean().optional()
 					}).optional()

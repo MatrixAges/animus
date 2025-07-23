@@ -12,7 +12,7 @@ export default {
 	api_key: '',
 	models: [
 		{
-			group: '',
+			group: 'Grok',
 			items: [
 				{
 					enabled: true,

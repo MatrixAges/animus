@@ -89,7 +89,8 @@ export default (theme: ThemeValue, glass: boolean) => {
 				fontSize: 12
 			},
 			Input: {
-				colorPrimaryHover: vars.color_text_grey
+				colorPrimaryHover: vars.color_text_grey,
+				paddingInline: 8
 			},
 			Segmented: {
 				borderRadiusSM: 6,

@@ -1,4 +1,6 @@
+import { Icon } from '@/components'
 import { useDelegate } from '@/hooks'
+import { is_win_electron } from '@/utils'
 import { GearSixIcon, MagnifyingGlassIcon, SidebarIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
@@ -15,7 +17,8 @@ const actions = (
 ).slice()
 
 const Index = (props: IPropsSidebarHeader) => {
-	const { toggleSetting, closeSidebar } = props
+	const { workspace, toggleSetting, closeSidebar } = props
+	const { name, icon, icon_type } = workspace
 
 	const ref = useDelegate((v: ElementOf<typeof actions>['key']) => {
 		switch (v) {
@@ -31,7 +34,19 @@ const Index = (props: IPropsSidebarHeader) => {
 	})
 
 	return (
-		<div className={$cx('w_100 border_box flex justify_end align_center is_drag', styles._local)}>
+		<div
+			className={$cx(
+				'w_100 border_box flex align_center is_drag',
+				styles._local,
+				is_win_electron ? 'justify_between' : 'justify_end'
+			)}
+		>
+			<If condition={is_win_electron}>
+				<div className='workspace_wrap flex align_center'>
+					<Icon id={icon} icon_type={icon_type} size={15}></Icon>
+					<span className='workspace'>{name}</span>
+				</div>
+			</If>
 			<div className='actions_wrap flex align_center' ref={ref}>
 				{actions.map(({ key, Icon }) => (
 					<div

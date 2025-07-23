@@ -1,6 +1,16 @@
 export default {
 	providers: {
-		title: '模型提供商'
+		title: '模型提供商',
+		links: {
+			website: '网站',
+			doc: '文档',
+			model_spec: '模型',
+			api_key: '获取密钥'
+		},
+		api_base_url: 'API 地址',
+		api_base_url_placeholder: '输入模型服务商提供的 API 地址',
+		api_key: 'API 密钥',
+		api_key_placeholder: '使用前请先获取并输入 API 密钥'
 	},
 	general: {
 		title: '通用设置',

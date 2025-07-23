@@ -1,6 +1,16 @@
 export default {
 	providers: {
-		title: 'Providers'
+		title: 'Providers',
+		links: {
+			website: 'Website',
+			doc: 'Doc',
+			model_spec: 'Models',
+			api_key: 'Get API Key'
+		},
+		api_base_url: 'API Base URL',
+		api_base_url_placeholder: 'Enter the API base url provided by the provider',
+		api_key: 'API Key',
+		api_key_placeholder: 'Please obtain and enter the API key before use'
 	},
 	general: {
 		title: 'General',

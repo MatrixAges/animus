@@ -14,7 +14,7 @@ export default {
 	api_version: '2024-10-01-preview',
 	models: [
 		{
-			group: '',
+			group: 'GPT',
 			items: [
 				{
 					enabled: true,

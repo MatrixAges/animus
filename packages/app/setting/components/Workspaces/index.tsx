@@ -86,6 +86,7 @@ const Index = () => {
 				className={styles.edit_wrap}
 				title={t('app.workspace.title')}
 				z_index={2000}
+				global
 				open={open}
 				onClose={toggle}
 			>

@@ -12,7 +12,7 @@ export default {
 	api_key: '',
 	models: [
 		{
-			group: '',
+			group: 'Command',
 			items: [
 				{
 					enabled: true,

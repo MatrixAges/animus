@@ -2,8 +2,9 @@ import { Switch } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 
-import Item from '@/layout/components/Setting/components/Item'
 import { ListDashesIcon, PulseIcon, TextAUnderlineIcon, TextHThreeIcon, TextTIcon } from '@phosphor-icons/react'
+
+import Item from '../../Item'
 
 const Index = () => {
 	const { t } = useTranslation()

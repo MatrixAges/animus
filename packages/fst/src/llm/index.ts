@@ -108,11 +108,6 @@ export const providers = {
 		config: openai.default,
 		schema: schema
 	},
-	openai_compatible: {
-		links: openai_compatible.links,
-		config: openai_compatible.default,
-		schema: openai_compatible_schema
-	},
 	openrouter: {
 		links: openrouter.links,
 		config: openrouter.default,
@@ -157,10 +152,16 @@ export const providers = {
 		links: zhipu.links,
 		config: zhipu.default,
 		schema: schema
+	},
+	openai_compatible: {
+		links: openai_compatible.links,
+		config: openai_compatible.default,
+		schema: openai_compatible_schema
 	}
 }
 
-export type ProviderType = keyof typeof providers | (string & {})
+export type ProviderKey = keyof typeof providers
 
+export * from './metadata'
 export * from './schema'
 export * from './types'

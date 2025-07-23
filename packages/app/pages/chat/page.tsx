@@ -68,7 +68,6 @@ const Index = () => {
 			<Recent {...props_recent}></Recent>
 			<Modal
 				title={t('conversation') + t('s')}
-				in_stack
 				width='min(90%,600px)'
 				height='min(100%,600px)'
 				open={x.visible_list_modal}

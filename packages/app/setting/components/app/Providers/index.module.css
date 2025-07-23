@@ -1,0 +1,134 @@
+._local {
+	:global {
+		.section_header {
+			margin-bottom: 12px;
+
+			.setting_title {
+				margin-bottom: 0;
+			}
+
+			.counts {
+				line-height: 1;
+				padding: 2px 6px;
+				margin-left: 6px;
+				border-radius: 12px;
+				color: var(--color_text_greylight);
+				background-color: var(--bg_card);
+				font-size: 12px;
+			}
+		}
+
+		.type_wrap {
+			padding: 4px 6px;
+			border-radius: var(--radius);
+			background-color: var(--bg_card);
+			gap: 4px;
+
+			.btn_type {
+				width: 18px;
+				height: 18px;
+				opacity: 0.3;
+				font-size: 16px;
+
+				&.active {
+					opacity: 1;
+				}
+			}
+		}
+
+		.providers_wrap {
+			.providers {
+				gap: 8px;
+
+				&.list {
+					gap: 4px;
+
+					.provider {
+						align-items: center;
+						flex-direction: row;
+						width: 100%;
+						padding: 9px 12px;
+
+						.icon_wrap {
+							font-size: 18px;
+						}
+
+						.name {
+							flex-direction: row;
+							font-size: 14px;
+							gap: 4px;
+						}
+
+						.switch {
+							top: unset;
+							right: 12px;
+							display: flex;
+						}
+					}
+				}
+
+				&.grid {
+					.provider {
+						&:hover {
+							.switch {
+								z-index: 10;
+								top: 6px;
+								right: 6px;
+								display: flex;
+							}
+						}
+
+						&.enabled {
+							&::after {
+								position: absolute;
+								z-index: 1;
+								top: 6px;
+								right: 6px;
+								width: 6px;
+								height: 6px;
+								border-radius: 50%;
+								background-color: var(--color_success);
+								content: '';
+							}
+						}
+					}
+				}
+
+				.provider {
+					width: calc((100% - 32px) / 5);
+					padding: 18px;
+					border-top: 1px solid transparent;
+					border-radius: var(--radius);
+					background-color: var(--bg_card);
+					transition:
+						0.3s ease border,
+						0.3s ease width;
+					gap: 12px;
+
+					&.active {
+						border-top: 1px solid var(--color_text);
+					}
+
+					.icon_wrap {
+						font-size: 36px;
+					}
+
+					.name {
+						text-transform: capitalize;
+						font-family: var(--font_serif);
+						font-size: 12px;
+						font-weight: 500;
+					}
+				}
+			}
+		}
+
+		.provider_form {
+			padding: 18px;
+			padding-top: 0;
+			margin-top: 4px;
+			border-radius: var(--radius);
+			background-color: var(--bg_card);
+		}
+	}
+}

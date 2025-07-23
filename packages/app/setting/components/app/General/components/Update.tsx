@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import { version } from '@/appdata'
 import { useGlobal } from '@/context'
-import { Item } from '@/layout/components/Setting/components'
+import { Item } from '@/setting/components'
 import { BoxArrowUpIcon } from '@phosphor-icons/react'
 
 import type { Downloading, HasUpdate } from '@/types'
