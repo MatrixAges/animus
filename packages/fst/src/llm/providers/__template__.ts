@@ -10,17 +10,20 @@ export const links = {
 export default {
 	enabled: false,
 	api_key: '',
-	models: {
-		'': [
-			{
-				enabled: true,
-				id: '',
-				name: '',
-				features: {
-					function_calling: true,
-					structured_output: true
+	models: [
+		{
+			group: '',
+			items: [
+				{
+					enabled: true,
+					id: '',
+					name: '',
+					features: {
+						function_calling: true,
+						structured_output: true
+					}
 				}
-			}
-		]
-	}
+			]
+		}
+	]
 } as Provider

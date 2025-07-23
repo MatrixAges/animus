@@ -10,5 +10,5 @@ export const links = {
 export default {
 	enabled: false,
 	api_key: '',
-	models: {}
+	models: []
 } as Provider

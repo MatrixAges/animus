@@ -1,33 +1,35 @@
-import { array, boolean, infer as Infer, object, record, string } from 'zod'
+import { array, boolean, infer as Infer, object, string } from 'zod'
 
 export const schema = object({
 	enabled: boolean(),
 	api_key: string(),
-	models: record(
-		string().meta({ name: 'group' }),
-		array(
-			object({
-				enabled: boolean(),
-				id: string(),
-				name: string(),
-				preset_id: string().optional(),
-				vision: boolean().optional(),
-				voice: boolean().optional(),
-				features: object({
-					function_calling: boolean().optional(),
-					structured_output: boolean().optional(),
-					reasoning: boolean().optional(),
-					reasoning_optional: boolean().optional(),
-					web_search: boolean().optional(),
-					image_input: boolean().optional(),
-					image_output: boolean().optional(),
-					audio_input: boolean().optional(),
-					audio_output: boolean().optional(),
-					embedding: boolean().optional(),
-					reranking: boolean().optional()
-				}).optional()
-			})
-		)
+	models: array(
+		object({
+			group: string().meta({ name: 'group' }),
+			items: array(
+				object({
+					enabled: boolean(),
+					id: string(),
+					name: string(),
+					preset_id: string().optional(),
+					vision: boolean().optional(),
+					voice: boolean().optional(),
+					features: object({
+						function_calling: boolean().optional(),
+						structured_output: boolean().optional(),
+						reasoning: boolean().optional(),
+						reasoning_optional: boolean().optional(),
+						web_search: boolean().optional(),
+						image_input: boolean().optional(),
+						image_output: boolean().optional(),
+						audio_input: boolean().optional(),
+						audio_output: boolean().optional(),
+						embedding: boolean().optional(),
+						reranking: boolean().optional()
+					}).optional()
+				})
+			)
+		})
 	)
 })
 

@@ -12,43 +12,49 @@ export default {
 	resourceName: '',
 	api_key: '',
 	api_version: '2024-10-01-preview',
-	models: {
-		'': [
-			{
-				enabled: true,
-				id: 'gpt-4.1',
-				name: 'GPT 4.1',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
+	models: [
+		{
+			group: '',
+			items: [
+				{
+					enabled: true,
+					id: 'gpt-4.1',
+					name: 'GPT 4.1',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						web_search: true,
+						image_input: true
+					}
 				}
-			}
-		],
-		'GPT 4o': [
-			{
-				enabled: true,
-				id: 'gpt-4o',
-				name: 'GPT 4o',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
+			]
+		},
+		{
+			group: 'GPT 4o',
+			items: [
+				{
+					enabled: true,
+					id: 'gpt-4o',
+					name: 'GPT 4o',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						web_search: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'gpt-4o-mini',
+					name: 'GPT 4o Mini',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						web_search: true,
+						image_input: true
+					}
 				}
-			},
-			{
-				enabled: true,
-				id: 'gpt-4o-mini',
-				name: 'GPT 4o Mini',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			}
-		]
-	}
+			]
+		}
+	]
 } as AzureOpenaiProvider

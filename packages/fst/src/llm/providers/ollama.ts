@@ -10,5 +10,5 @@ export const links = {
 export default {
 	enabled: false,
 	api_base_url: 'http://localhost:11434/api',
-	models: {}
+	models: []
 } as OllamaProvider

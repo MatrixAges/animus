@@ -10,52 +10,55 @@ export const links = {
 export default {
 	enabled: false,
 	api_key: '',
-	models: {
-		'': [
-			{
-				enabled: true,
-				id: 'sonar',
-				name: 'Sonar',
-				features: {
-					web_search: true
+	models: [
+		{
+			group: '',
+			items: [
+				{
+					enabled: true,
+					id: 'sonar',
+					name: 'Sonar',
+					features: {
+						web_search: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'sonar-pro',
+					name: 'Sonar Pro',
+					features: {
+						web_search: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'sonar-reasoning',
+					name: 'Sonar Reasoning',
+					features: {
+						web_search: true,
+						reasoning: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'sonar-reasoning-pro',
+					name: 'Sonar Reasoning Pro',
+					features: {
+						web_search: true,
+						reasoning: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'sonar-deep-research',
+					name: 'Sonar Deep Research',
+					features: {
+						web_search: true,
+						reasoning: true,
+						reasoning_optional: true
+					}
 				}
-			},
-			{
-				enabled: true,
-				id: 'sonar-pro',
-				name: 'Sonar Pro',
-				features: {
-					web_search: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'sonar-reasoning',
-				name: 'Sonar Reasoning',
-				features: {
-					web_search: true,
-					reasoning: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'sonar-reasoning-pro',
-				name: 'Sonar Reasoning Pro',
-				features: {
-					web_search: true,
-					reasoning: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'sonar-deep-research',
-				name: 'Sonar Deep Research',
-				features: {
-					web_search: true,
-					reasoning: true,
-					reasoning_optional: true
-				}
-			}
-		]
-	}
+			]
+		}
+	]
 } as Provider

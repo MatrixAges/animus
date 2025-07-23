@@ -13,85 +13,91 @@ export default {
 	accessKeyId: '',
 	secretAccessKey: '',
 	sessionToken: '',
-	models: {
-		Amazon: [
-			{
-				enabled: true,
-				id: 'amazon.nova-pro-v1:0',
-				name: 'Amazon Nova Pro',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					image_input: true
+	models: [
+		{
+			group: 'Amazon',
+			items: [
+				{
+					enabled: true,
+					id: 'amazon.nova-pro-v1:0',
+					name: 'Amazon Nova Pro',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'amazon.nova-lite-v1:0',
+					name: 'Amazon Nova Lite',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'amazon.nova-micro-v1:0',
+					name: 'Amazon Nova Micro',
+					features: {
+						function_calling: true,
+						structured_output: true
+					}
 				}
-			},
-			{
-				enabled: true,
-				id: 'amazon.nova-lite-v1:0',
-				name: 'Amazon Nova Lite',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					image_input: true
+			]
+		},
+		{
+			group: 'Claude',
+			items: [
+				{
+					enabled: true,
+					id: 'anthropic.claude-4-opus-20250514-v1:0',
+					name: 'Claude 4 Opus',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						reasoning: true,
+						web_search: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'anthropic.claude-4-sonnet-20250514-v1:0',
+					name: 'Claude 4 Sonnet',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						reasoning: true,
+						web_search: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'anthropic.claude-3-7-sonnet-20250219-v1:0',
+					name: 'Claude 3.7 Sonnet',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						web_search: true,
+						image_input: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'anthropic.claude-3-5-haiku-20241022-v1:0',
+					name: 'Claude 3.5 Haiku',
+					features: {
+						function_calling: true,
+						structured_output: true,
+						web_search: true,
+						image_input: true
+					}
 				}
-			},
-			{
-				enabled: true,
-				id: 'amazon.nova-micro-v1:0',
-				name: 'Amazon Nova Micro',
-				features: {
-					function_calling: true,
-					structured_output: true
-				}
-			}
-		],
-		Claude: [
-			{
-				enabled: true,
-				id: 'anthropic.claude-4-opus-20250514-v1:0',
-				name: 'Claude 4 Opus',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					reasoning: true,
-					web_search: true,
-					image_input: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'anthropic.claude-4-sonnet-20250514-v1:0',
-				name: 'Claude 4 Sonnet',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					reasoning: true,
-					web_search: true,
-					image_input: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'anthropic.claude-3-7-sonnet-20250219-v1:0',
-				name: 'Claude 3.7 Sonnet',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			},
-			{
-				enabled: true,
-				id: 'anthropic.claude-3-5-haiku-20241022-v1:0',
-				name: 'Claude 3.5 Haiku',
-				features: {
-					function_calling: true,
-					structured_output: true,
-					web_search: true,
-					image_input: true
-				}
-			}
-		]
-	}
+			]
+		}
+	]
 } as AmazonBedrockProvider

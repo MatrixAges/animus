@@ -11,5 +11,5 @@ export default {
 	enabled: false,
 	api_key: '',
 	api_base_url: 'https://ark.cn-beijing.volces.com/api/v3/',
-	models: {}
+	models: []
 } as CustomProvider

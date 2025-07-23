@@ -12,5 +12,5 @@ export default {
 	name: '',
 	api_key: '',
 	api_base_url: '',
-	models: {}
+	models: []
 } as OpenaiCompatibleProvider

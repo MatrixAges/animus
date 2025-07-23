@@ -11,5 +11,5 @@ export default {
 	enabled: false,
 	api_key: '',
 	api_base_url: '',
-	models: {}
+	models: []
 } as CustomProvider

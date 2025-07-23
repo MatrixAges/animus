@@ -10,26 +10,29 @@ export const links = {
 export default {
 	enabled: false,
 	api_key: '',
-	models: {
-		Mistral: [
-			{
-				enabled: true,
-				id: 'mistralai/Mixtral-8x22B-Instruct-v0.1',
-				name: 'Mixtral 22B Instruct',
-				features: {
-					function_calling: true,
-					structured_output: true
+	models: [
+		{
+			group: 'Mistral',
+			items: [
+				{
+					enabled: true,
+					id: 'mistralai/Mixtral-8x22B-Instruct-v0.1',
+					name: 'Mixtral 22B Instruct',
+					features: {
+						function_calling: true,
+						structured_output: true
+					}
+				},
+				{
+					enabled: true,
+					id: 'mistralai/Mistral-7B-Instruct-v0.3',
+					name: 'Mixtral 7B Instruct',
+					features: {
+						function_calling: true,
+						structured_output: true
+					}
 				}
-			},
-			{
-				enabled: true,
-				id: 'mistralai/Mistral-7B-Instruct-v0.3',
-				name: 'Mixtral 7B Instruct',
-				features: {
-					function_calling: true,
-					structured_output: true
-				}
-			}
-		]
-	}
+			]
+		}
+	]
 } as Provider
