@@ -1,4 +1,7 @@
 ._local {
+	border: var(--border_light);
+	border-radius: var(--radius);
+
 	:global {
 		a {
 			line-height: 1;
@@ -14,7 +17,12 @@
 		}
 
 		input {
+			background-color: var(--bg_card);
 			font-size: 12px !important;
+		}
+
+		.ani-input-affix-wrapper {
+			background-color: var(--bg_card);
 		}
 
 		.btn {
@@ -24,8 +32,7 @@
 			border-radius: 0;
 			color: var(--color_text_greylight);
 			background-color: unset;
-			text-transform: uppercase;
-			font-size: 12px;
+			font-size: 10px;
 			gap: 2px;
 
 			&:hover {
@@ -37,6 +44,11 @@
 			line-height: 1;
 			padding: 12px 0;
 			border-bottom: var(--border_light);
+
+			&.head {
+				padding-right: 18px;
+				padding-left: 18px;
+			}
 
 			.name {
 				margin-right: 12px;
@@ -63,13 +75,11 @@
 		}
 
 		.form_body {
+			padding: 18px;
+
 			.row_item {
 				margin-bottom: 16px;
 				gap: 8px;
-
-				&:nth-of-type(1) {
-					margin-top: 16px;
-				}
 
 				&:nth-of-type(2) {
 					margin-bottom: 12px;
@@ -84,7 +94,7 @@
 
 			.group_items {
 				.group_item {
-					margin-bottom: 18px;
+					margin-bottom: 12px;
 					font-family: var(--font_serif);
 
 					&:last-child {
@@ -97,19 +107,45 @@
 
 						.group {
 							gap: 4px;
+
+							.ani-form-item {
+								margin: 0;
+
+								.ani-form-item-control-input {
+									min-height: unset;
+								}
+							}
+
+							.input {
+								width: unset;
+								min-height: unset;
+								line-height: 1;
+								padding: 0;
+								border: unset;
+								border-radius: 0;
+								background-color: unset;
+								font-family: var(--font_serif);
+								font-size: 14px !important;
+								font-weight: 500;
+							}
 						}
 					}
 
 					.model_items {
-						gap: 6px;
+						gap: 12px;
 
 						.model_item {
-							width: calc((100% - 18px) / 4);
-							padding: 18px;
-							border: var(--border_light);
+							width: calc((100% - 36px) / 4);
+							padding: 18px 12px;
 							border-radius: var(--radius);
 							background-color: var(--bg_card);
 							gap: 12px;
+
+							&.not_enabled {
+								& > * {
+									opacity: 0.36;
+								}
+							}
 
 							.icon_wrap {
 								font-size: 36px;
@@ -143,6 +179,127 @@
 						}
 					}
 				}
+			}
+
+			.empty_wrap {
+				padding-top: 36px;
+				padding-bottom: 18px;
+
+				&.for_model {
+					padding: 24px 0;
+					border-radius: var(--radius);
+					background-color: var(--bg_card);
+				}
+			}
+		}
+	}
+}
+
+.model_form_modal {
+	padding: 0;
+}
+
+.model_form {
+	:global {
+		input {
+			background-color: var(--bg_card);
+		}
+
+		.header_wrap {
+			padding: 6px 12px;
+			border-bottom: var(--border_soft);
+
+			.left_wrap {
+				font-family: var(--font_serif);
+				font-weight: 500;
+				gap: 4px;
+			}
+		}
+
+		.body_wrap {
+			overflow: scroll;
+			max-height: 480px;
+			padding: 8px 12px;
+			padding-bottom: 18px;
+
+			.ani-form-item {
+				margin-bottom: 16px;
+
+				.ani-form-item-label {
+					line-height: 1;
+					padding-bottom: 6px;
+
+					label {
+						color: var(--color_text_greylight);
+						font-size: 12px;
+					}
+				}
+			}
+
+			.features_label {
+				line-height: 1;
+				padding-bottom: 6px;
+				color: var(--color_text_greylight);
+				font-size: 12px;
+			}
+
+			.features {
+				border-radius: var(--radius);
+				border-radius: var(--radius);
+				background-color: var(--bg_card);
+
+				.feature {
+					width: 50%;
+					line-height: 1;
+					padding: 10px 12px;
+					border-right: var(--border_soft);
+					border-bottom: var(--border_soft);
+					font-size: 12px;
+					gap: 8px;
+
+					&:nth-of-type(2n) {
+						border-right: unset;
+					}
+
+					&:nth-last-of-type(1) {
+						border-bottom: unset;
+					}
+
+					& > * {
+						opacity: 0.36;
+					}
+
+					&.enabled {
+						& > * {
+							opacity: 1;
+						}
+					}
+
+					.icon_wrap {
+						width: 24px;
+						height: 24px;
+						border-radius: 50%;
+						color: rgb(var(--color));
+						background-color: rgba(var(--color), 0.16);
+						font-size: 14px;
+					}
+
+					.name {
+						text-wrap: wrap;
+					}
+				}
+			}
+		}
+
+		.footer_wrap {
+			position: sticky;
+			bottom: 0;
+			padding: 12px;
+			padding-top: 0;
+			gap: 6px;
+
+			.ani-btn {
+				flex: 1;
 			}
 		}
 	}

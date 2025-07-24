@@ -107,7 +107,6 @@ const Index = (props: IPropsSetting) => {
 					items={[...app_setting_items, ...module_setting_items]}
 					activeKey={active}
 					renderTabBar={() => null as unknown as ReactElement}
-					destroyOnHidden
 				></Tabs>
 			</div>
 		</Modal>

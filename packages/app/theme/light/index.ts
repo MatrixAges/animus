@@ -23,5 +23,9 @@ export default {
 	color_border_soft: 'rgba(0, 0, 0, 0.036)',
 	color_border_softlight: 'rgba(0, 0, 0, 0.021)',
 	shadow: '0 0 30px rgba(var(--color_text_rgb), 0.072)',
-	wave: 'rgba(var(--color_main_rgb), 0.06)'
+	wave: 'rgba(var(--color_main_rgb), 0.06)',
+
+	color_blue: '#2979ff',
+	color_blue_rgb: '41,121,255',
+	color_blue_active: '#2962ff'
 }

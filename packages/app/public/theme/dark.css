@@ -23,4 +23,7 @@
 	--color_border_softlight: rgba(255, 255, 255, 0.021);
 	--shadow: 0 0 30px rgba(var(--color_contrast_rgb), 0.06);
 	--wave: rgba(var(--color_text_rgb), 0.3);
+	--color_blue: #42a5f5;
+	--color_blue_rgb: 66, 165, 245;
+	--color_blue_active: #1e88e5;
 }

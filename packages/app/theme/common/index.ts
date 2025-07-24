@@ -12,8 +12,5 @@ export default {
 	color_purple_rgb: '171,71,188',
 	color_gold: '#e6ba2a',
 	color_gold_rgb: '230,186,42',
-	color_blue: '#075cdd',
-	color_blue_rgb: '7,92,221',
-	color_blue_active: '#3d87f5',
 	color_bg_blur: 'rgba(var(--color_bg_rgb), 0.48)'
 }

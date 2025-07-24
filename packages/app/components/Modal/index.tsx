@@ -15,7 +15,7 @@ export interface IProps {
 	open: boolean
 	className?: HTMLDivElement['className']
 	mask_class_name?: HTMLDivElement['className']
-	title?: string | number
+	title?: ReactNode
 	width?: string | number
 	min_height?: string | number
 	height?: string | number

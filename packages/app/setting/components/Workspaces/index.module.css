@@ -136,3 +136,12 @@
 		}
 	}
 }
+
+.edit_wrap {
+	:global {
+		.tips_wrap {
+			color: var(--color_text_grey);
+			gap: 4px;
+		}
+	}
+}

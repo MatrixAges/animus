@@ -37,7 +37,7 @@ export const features_metadata = {
 		color: '#009688'
 	},
 	reranking: {
-		icon: 'text-align-lef',
+		icon: 'sort-ascending',
 		color: '#FF9800'
 	}
 } as Record<Keys, { icon: string; color: string }>

@@ -1,12 +1,12 @@
 import { Fragment, useMemo } from 'react'
 import { useToggle } from 'ahooks'
-import { Select } from 'antd'
+import { Select, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 
 import { Icon, Modal } from '@/components'
 import { useGlobal } from '@/context'
-import { CaretUpDownIcon, CheckIcon, PencilSimpleIcon } from '@phosphor-icons/react'
+import { CaretUpDownIcon, CheckIcon, InfoIcon, PencilSimpleIcon } from '@phosphor-icons/react'
 
 import { EditPanel } from './components'
 
@@ -84,7 +84,14 @@ const Index = () => {
 			</div>
 			<Modal
 				className={styles.edit_wrap}
-				title={t('app.workspace.title')}
+				title={
+					<span className='tips_wrap flex align_center'>
+						{t('app.workspace.title')}
+						<Tooltip title={t('app.workspace.tips')} arrow={false} zIndex={1000000}>
+							<InfoIcon size={16}></InfoIcon>
+						</Tooltip>
+					</span>
+				}
 				z_index={2000}
 				global
 				open={open}

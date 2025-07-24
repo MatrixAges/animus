@@ -8,6 +8,7 @@ export { default as onWheel } from './onWheel'
 export { default as conf } from './conf'
 export { default as getValuedObject } from './getValuedObject'
 export { default as splitLLMName } from './splitLLMName'
+export { default as checkParent } from './checkParent'
 
 export * from './i18n'
 export * from './theme'

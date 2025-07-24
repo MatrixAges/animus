@@ -1,4 +1,4 @@
-import { array, boolean, infer as Infer, object, string } from 'zod'
+import { array, boolean, infer as Infer, number, object, string } from 'zod'
 
 export const schema = object({
 	enabled: boolean(),
@@ -11,6 +11,7 @@ export const schema = object({
 					enabled: boolean(),
 					id: string(),
 					name: string(),
+					fee: number().optional(),
 					preset_id: string().optional(),
 					vision: boolean().optional(),
 					voice: boolean().optional(),

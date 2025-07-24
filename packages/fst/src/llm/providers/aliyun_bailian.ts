@@ -10,7 +10,7 @@ export const links = {
 export default {
 	enabled: false,
 	api_key: '',
-	api_base_url: '',
+	api_base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
 	models: [
 		{
 			group: 'Qwen',

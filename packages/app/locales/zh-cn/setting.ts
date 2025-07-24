@@ -10,7 +10,18 @@ export default {
 		api_base_url: 'API 地址',
 		api_base_url_placeholder: '输入模型服务商提供的 API 地址',
 		api_key: 'API 密钥',
-		api_key_placeholder: '使用前请先获取并输入 API 密钥'
+		api_key_placeholder: '使用前请先获取并输入 API 密钥',
+		features: {
+			function_calling: '函数调用',
+			structured_output: '结构化输出',
+			reasoning: '推理',
+			reasoning_optional: '可选推理',
+			web_search: '网络搜索',
+			image_input: '图像输入',
+			image_output: '图像输出',
+			embedding: '嵌入',
+			reranking: '重排序'
+		}
 	},
 	general: {
 		title: '通用设置',

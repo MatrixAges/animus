@@ -2,6 +2,7 @@
 	overflow-y: scroll;
 	width: 162px;
 	padding-bottom: 72px;
+	outline: none;
 
 	:global {
 		.menu_items {
@@ -154,6 +155,7 @@
 						overflow-y: scroll;
 						height: 100%;
 						padding: 18px 18px 60px;
+						outline: none !important;
 					}
 				}
 			}

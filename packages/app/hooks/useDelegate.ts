@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 
+import { checkParent } from '@/utils'
+
 export default <T extends HTMLElement>(
 	callback: (attr_value: any, event: HTMLElementEventMap[keyof HTMLElementEventMap]) => void,
 	options?: {
@@ -9,14 +11,26 @@ export default <T extends HTMLElement>(
 		event_type?: string
 		visible?: boolean
 		duration?: number
+		ignore_el?: string
 	}
 ) => {
-	const { attr = 'data-key', item_type = 'div', event_type = 'click', visible = true, duration } = options || {}
+	const {
+		attr = 'data-key',
+		item_type = 'div',
+		event_type = 'click',
+		visible = true,
+		duration,
+		ignore_el
+	} = options || {}
 
 	const ref = useRef<HTMLDivElement>(null)
 
 	const handler = useMemoizedFn((event: HTMLElementEventMap[keyof HTMLElementEventMap]) => {
 		let target = event.target as HTMLElement | null
+
+		if (target && ignore_el) {
+			if (checkParent(target, ignore_el)) return
+		}
 
 		while (target && !target?.matches?.(`${item_type}[${attr}]`)) {
 			target = target.parentNode as HTMLElement

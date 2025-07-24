@@ -10,7 +10,18 @@ export default {
 		api_base_url: 'API Base URL',
 		api_base_url_placeholder: 'Enter the API base url provided by the provider',
 		api_key: 'API Key',
-		api_key_placeholder: 'Please obtain and enter the API key before use'
+		api_key_placeholder: 'Please obtain and enter the API key before use',
+		features: {
+			function_calling: 'Function Calling',
+			structured_output: 'Structured Output',
+			reasoning: 'Reasoning',
+			reasoning_optional: 'Reasoning Optional',
+			web_search: 'Web Search',
+			image_input: 'Image Input',
+			image_output: 'Image Output',
+			embedding: 'Embedding',
+			reranking: 'Reranking'
+		}
 	},
 	general: {
 		title: 'General',
