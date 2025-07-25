@@ -1,40 +1,85 @@
+import { useEffect } from 'react'
+import { useMemoizedFn } from 'ahooks'
 import { Form, Input } from 'antd'
+import { debounce } from 'es-toolkit/compat'
+import { providers } from 'fst/llm'
 import { useTranslation } from 'react-i18next'
 
 import { Empty } from '@/components'
-import { PlusIcon, PulseIcon } from '@phosphor-icons/react'
+import { confirm } from '@/utils'
+import { ArrowCounterClockwiseIcon, PlusIcon, PulseIcon } from '@phosphor-icons/react'
 
 import GroupItem from './GroupItem'
 
 import styles from './index.module.css'
 
-import type { Links, Provider } from 'fst/llm'
+import type { Provider as ProviderModel } from '@/models'
+import type { Links, Provider, ProviderKey } from 'fst/llm'
 import type { JSONSchema7 } from 'json-schema'
 
 const { Item: FormItem, List, useForm, useWatch } = Form
 const { Password } = Input
 
 interface IProps {
+	id: ProviderKey
 	name: string
-	links: Links
 	schema: JSONSchema7
+	links: Links
 	config: Provider
+	setProvider: ProviderModel['setProvider']
 }
 
 const Index = (props: IProps) => {
-	const { name, links, schema, config } = props
+	const { id, name, links, schema, config, setProvider } = props
 	const { t } = useTranslation()
 	const [form] = useForm<Provider>()
 	const models = useWatch('models', form) || []
-
-	const { getFieldValue } = form
-
+	const { getFieldValue, setFieldsValue, getFieldsValue } = form
 	const properties = schema?.properties!
 
+	useEffect(() => {
+		setFieldsValue(config)
+	}, [config])
+
+	const onValuesChange = useMemoizedFn(
+		debounce((_, values) => {
+			setProvider(id, { config: values })
+		}, 450)
+	)
+
+	const onReset = useMemoizedFn(async () => {
+		const res = await confirm({ title: t('notice'), content: t('reset_confirm'), zIndex: 1000000 })
+
+		if (!res) return
+
+		setFieldsValue(providers[id].config)
+		setProvider(id, { config: getFieldsValue() })
+	})
+
 	return (
-		<Form className={$cx(styles._local, 'relative')} layout='vertical' form={form} initialValues={config}>
+		<Form
+			className={$cx(styles._local, 'relative')}
+			layout='vertical'
+			clearOnDestroy
+			form={form}
+			onValuesChange={onValuesChange}
+		>
 			<div className='form_header head flex justify_between align_center'>
-				<span className='name'>{name}</span>
+				<div className='left_wrap flex align_center'>
+					<span className='name'>{name}</span>
+					<If condition={id in providers}>
+						<button
+							className='btn_remove btn none flex align_center clickable'
+							onClick={onReset}
+						>
+							<ArrowCounterClockwiseIcon
+								weight='bold'
+								size={10}
+							></ArrowCounterClockwiseIcon>
+							<span>{t('reset')}</span>
+						</button>
+					</If>
+				</div>
 				<div className='link_items flex align_center'>
 					{(['website', 'doc', 'model_spec', 'api_key'] as const).map(i => (
 						<a
@@ -72,7 +117,7 @@ const Index = (props: IProps) => {
 				<List name='models'>
 					{(group_items, { add, remove }) => (
 						<div className='w_100 flex flex_column'>
-							<div className='form_header flex justify_between align_center'>
+							<div className='form_header models flex justify_between align_center'>
 								<span className='name'>{t('model') + t('s')}</span>
 								<button
 									className='btn flex align_center clickable'
@@ -99,6 +144,7 @@ const Index = (props: IProps) => {
 												<GroupItem
 													group={group}
 													group_index={group_index}
+													removeGroup={remove}
 													key={key}
 												></GroupItem>
 											)

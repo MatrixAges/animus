@@ -16,6 +16,10 @@ export default {
 	inspect: 'Inspect',
 	model: 'Model',
 	group: 'Group',
+	reset: 'Reset',
+	reset_confirm: 'Reset will remove all configuration changes, confirm reset?',
 	remove_confirm:
-		'Confirm removal? Deleting this item will also delete the corresponding local file. Please proceed with caution!'
+		'Confirm removal? Deleting this item will also delete the corresponding local file. Please proceed with caution!',
+	config_remove_confirm:
+		'Deleting this item will delete the corresponding configuration data. Are you sure you want to delete it?'
 }

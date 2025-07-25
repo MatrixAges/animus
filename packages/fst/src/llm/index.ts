@@ -35,129 +35,116 @@ import {
 export const providers = {
 	google_gemini: {
 		links: google_gemini.links,
-		config: google_gemini.default,
-		schema: schema
+		config: google_gemini.default
 	},
 	aliyun_bailian: {
 		links: aliyun_bailian.links,
-		config: aliyun_bailian.default,
-		schema: custom_schema
+		config: aliyun_bailian.default
 	},
 	amazon_bedrock: {
 		links: amazon_bedrock.links,
-		config: amazon_bedrock.default,
-		schema: amazon_bedrock_schema
+		config: amazon_bedrock.default
 	},
 	anthropic: {
 		links: anthropic.links,
-		config: anthropic.default,
-		schema: schema
+		config: anthropic.default
 	},
 	azure_openai: {
 		links: azure_openai.links,
-		config: azure_openai.default,
-		schema: azure_openai_schema
+		config: azure_openai.default
 	},
 	cerebras: {
 		links: cerebras.links,
-		config: cerebras.default,
-		schema: schema
+		config: cerebras.default
 	},
 	cohere: {
 		links: cohere.links,
-		config: cohere.default,
-		schema: schema
+		config: cohere.default
 	},
 	deepinfra: {
 		links: deepinfra.links,
-		config: deepinfra.default,
-		schema: schema
+		config: deepinfra.default
 	},
 	deepseek: {
 		links: deepseek.links,
-		config: deepseek.default,
-		schema: schema
+		config: deepseek.default
 	},
 	fireworks: {
 		links: fireworks.links,
-		config: fireworks.default,
-		schema: schema
+		config: fireworks.default
 	},
 	groq: {
 		links: groq.links,
-		config: groq.default,
-		schema: schema
+		config: groq.default
 	},
 	lmstudio: {
 		links: lmstudio.links,
-		config: lmstudio.default,
-		schema: custom_schema
+		config: lmstudio.default
 	},
 	mistral: {
 		links: mistral.links,
-		config: mistral.default,
-		schema: schema
+		config: mistral.default
 	},
 	ollama: {
 		links: ollama.links,
-		config: ollama.default,
-		schema: ollama_schema
+		config: ollama.default
 	},
 	openai: {
 		links: openai.links,
-		config: openai.default,
-		schema: schema
+		config: openai.default
 	},
 	openrouter: {
 		links: openrouter.links,
-		config: openrouter.default,
-		schema: schema
+		config: openrouter.default
 	},
 	perplexity: {
 		links: perplexity.links,
-		config: perplexity.default,
-		schema: schema
+		config: perplexity.default
 	},
 	siliconflow: {
 		links: siliconflow.links,
-		config: siliconflow.default,
-		schema: custom_schema
+		config: siliconflow.default
 	},
 	tencent_hunyuan: {
 		links: tencent_hunyuan.links,
-		config: tencent_hunyuan.default,
-		schema: custom_schema
+		config: tencent_hunyuan.default
 	},
 	together: {
 		links: together.links,
-		config: together.default,
-		schema: schema
+		config: together.default
 	},
 	vercel: {
 		links: vercel.links,
-		config: vercel.default,
-		schema: schema
+		config: vercel.default
 	},
 	volcengine: {
 		links: volcengine.links,
-		config: volcengine.default,
-		schema: custom_schema
+		config: volcengine.default
 	},
 	xai: {
 		links: xai.links,
-		config: xai.default,
-		schema: schema
+		config: xai.default
 	},
 	zhipu: {
 		links: zhipu.links,
-		config: zhipu.default,
-		schema: schema
+		config: zhipu.default
 	},
 	openai_compatible: {
 		links: openai_compatible.links,
-		config: openai_compatible.default,
-		schema: openai_compatible_schema
+		config: openai_compatible.default
 	}
+}
+
+export const providers_schema = {
+	aliyun_bailian: custom_schema,
+	amazon_bedrock: amazon_bedrock_schema,
+	azure_openai: azure_openai_schema,
+	lmstudio: custom_schema,
+	ollama: ollama_schema,
+	siliconflow: custom_schema,
+	tencent_hunyuan: custom_schema,
+	volcengine: custom_schema,
+	openai_compatible: openai_compatible_schema
 }
 
 export type ProviderKey = keyof typeof providers

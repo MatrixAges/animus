@@ -34,9 +34,9 @@ export interface IProps {
 
 const Index = (props: IProps) => {
 	const { className, id, items, flat, sortable, disable_favorite, setItems, removeItem, move } = props
-	const [focusing, setFocusing] = useState<number>()
-	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 	const { t } = useTranslation()
+	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
+	const [focusing, setFocusing] = useState<number>()
 
 	const { show } = useContextMenu({ id })
 

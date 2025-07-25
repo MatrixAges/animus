@@ -1,11 +1,14 @@
 import { Fragment, useMemo } from 'react'
-import { useToggle } from 'ahooks'
+import { useMemoizedFn, useToggle } from 'ahooks'
 import { Form } from 'antd'
 import Color from 'color'
 import { features_metadata } from 'fst/llm'
+import { useTranslation } from 'react-i18next'
 
 import { Icon, LLM, Modal } from '@/components'
-import { splitLLMName } from '@/utils'
+import { confirm, splitLLMName } from '@/utils'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 import ModelForm from './ModelForm'
 
@@ -19,15 +22,30 @@ interface IProps {
 	item: Model
 	group_index: number
 	model_index: number
+	remove: (index: number | number[]) => void
 }
 
 const Index = (props: IProps) => {
-	const { item, group_index, model_index } = props
+	const { item, group_index, model_index, remove } = props
 	const { enabled, id, name, features } = item
 	const [visible, { toggle }] = useToggle()
-	const { setFieldValue } = useFormInstance()
+	const { setFieldValue, getFieldValue } = useFormInstance()
+	const { t } = useTranslation()
+
+	const { attributes, listeners, transform, transition, setNodeRef } = useSortable({
+		id: item.id,
+		data: { index: model_index }
+	})
 
 	const { model, branch } = useMemo(() => splitLLMName(name), [name])
+
+	const onRemove = useMemoizedFn(async () => {
+		const res = await confirm({ title: t('notice'), content: t('config_remove_confirm'), zIndex: 1000000 })
+
+		if (!res) return
+
+		remove(model_index)
+	})
 
 	return (
 		<Fragment>
@@ -37,6 +55,10 @@ const Index = (props: IProps) => {
 					!enabled && 'not_enabled'
 				)}
 				onClick={toggle}
+				style={{ transform: CSS.Translate.toString(transform), transition }}
+				ref={setNodeRef}
+				{...attributes}
+				{...listeners}
 			>
 				<div className='icon_wrap flex justify_center align_center'>
 					<LLM name={id}></LLM>
@@ -78,7 +100,10 @@ const Index = (props: IProps) => {
 				open={visible}
 				onClose={toggle}
 			>
-				<ModelForm {...{ item, group_index, model_index, setFieldValue }} onClose={toggle}></ModelForm>
+				<ModelForm
+					{...{ item, group_index, model_index, onRemove, getFieldValue, setFieldValue }}
+					onClose={toggle}
+				></ModelForm>
 			</Modal>
 		</Fragment>
 	)

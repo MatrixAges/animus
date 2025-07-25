@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { providers } from 'fst/llm'
+import { useMemoizedFn } from 'ahooks'
+import { schema as default_schema, providers_schema } from 'fst/llm'
 import { observer } from 'mobx-react-lite'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { useTranslation } from 'react-i18next'
@@ -16,8 +17,7 @@ import styles from './index.module.css'
 
 import type { Provider, ProviderKey } from 'fst/llm'
 import type { JSONSchema7 } from 'json-schema'
-
-const provider_keys = Object.keys(providers)
+import type { ZodObject } from 'zod'
 
 const Index = () => {
 	const global = useGlobal()
@@ -25,35 +25,71 @@ const Index = () => {
 	const [type, setType] = useState<'list' | 'grid'>('grid')
 	const [current, setCurrent] = useState<ProviderKey | null>(null)
 
+	const provider = global.provider
+	const provider_list = $copy(provider.provider_list)
+
 	const ref_type = useDelegate(v => setType(v), { item_type: 'span' })
 	const ref_current = useDelegate(v => setCurrent(v === current ? null : v), { ignore_el: 'switch' })
 
-	const provider = useMemo(() => (current ? providers[current] : null), [current])
+	const provider_keys = useMemo(() => {
+		const enabled_keys = [] as Array<string>
+		const disabled_keys = [] as Array<string>
 
-	const schema = useMemo(
-		() =>
-			current
-				? (toJSONSchema(providers[current].schema, {
-						target: 'draft-7',
-						unrepresentable: 'any'
-					}) as JSONSchema7)
-				: null,
-		[current]
-	)
+		for (const key in provider_list) {
+			if (provider_list[key as ProviderKey].config.enabled) {
+				enabled_keys.push(key)
+			} else {
+				disabled_keys.push(key)
+			}
+		}
+
+		return [...enabled_keys, ...disabled_keys]
+	}, [provider_list])
+
+	const target = useMemo(() => (current ? provider_list[current] : null), [current])
+
+	const schema = useMemo(() => {
+		if (!current) return null
+
+		let target_schema = default_schema
+
+		if (current in providers_schema) {
+			target_schema = providers_schema[current as keyof typeof providers_schema] as ZodObject<any>
+		}
+
+		return toJSONSchema(target_schema, {
+			target: 'draft-7',
+			unrepresentable: 'any'
+		}) as JSONSchema7
+	}, [current])
+
+	const enableProvider = useMemoizedFn((name: ProviderKey, v: boolean) => {
+		provider.setProvider(name, { config: { enabled: v } })
+	})
 
 	const ProviderForm = (
 		<div className='provider_form w_100 border_box'>
 			<Form
+				id={current!}
 				name={current?.replace('_', ' ')!}
-				links={provider?.links!}
 				schema={schema!}
-				config={provider?.config as Provider}
+				links={target?.links!}
+				config={target?.config as Provider}
+				setProvider={provider.setProvider}
 			></Form>
 		</div>
 	)
 
 	const Providers = provider_keys.map(key => {
-		const Provider = <ProviderItem id={key} active={current === key} key={key}></ProviderItem>
+		const Provider = (
+			<ProviderItem
+				id={key as ProviderKey}
+				enabled={provider_list[key as ProviderKey].config.enabled}
+				active={current === key}
+				enableProvider={enableProvider}
+				key={key}
+			></ProviderItem>
+		)
 
 		return type === 'grid' ? (
 			Provider

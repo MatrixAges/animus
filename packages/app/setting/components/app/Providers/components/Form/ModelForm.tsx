@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { Button, Form, Input, Switch } from 'antd'
 import Color from 'color'
@@ -7,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Icon, LLM } from '@/components'
 import { useDelegate } from '@/hooks'
+import { TrashIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
@@ -18,6 +18,8 @@ interface IProps {
 	item: Model
 	group_index: number
 	model_index: number
+	onRemove: () => void
+	getFieldValue: (name: any) => any
 	setFieldValue: (name: any, value: any) => void
 	onClose: () => void
 }
@@ -67,12 +69,21 @@ const Features = $app.memo((props: IPropsFeatures) => {
 })
 
 const Index = (props: IProps) => {
-	const { item, group_index, model_index, setFieldValue, onClose } = props
+	const { item, group_index, model_index, onRemove, getFieldValue, setFieldValue, onClose } = props
 	const [form] = useForm<Model>()
 	const name = useWatch('name', form) || ''
 
-	const onFinish = useMemoizedFn((values: Model) => {
-		setFieldValue(['models', group_index, 'items', model_index], values)
+	const onFinish = useMemoizedFn((model: Model) => {
+		const name_path = ['models', group_index, 'items']
+
+		const items = getFieldValue(name_path) as Array<Model>
+		const exist_item_index = items.findIndex(item => item.id === model.id)
+
+		if (exist_item_index !== -1 && exist_item_index !== model_index) {
+			return $message.error('存在相同 ID 的模型，请修改模型 ID 后再保存', 0)
+		}
+
+		setFieldValue([...name_path, model_index], model)
 
 		onClose()
 	})
@@ -106,6 +117,13 @@ const Index = (props: IProps) => {
 				</Item>
 			</div>
 			<div className='footer_wrap flex'>
+				<Button
+					className='btn_remove flex justify_center align_center'
+					htmlType='button'
+					onClick={onRemove}
+				>
+					<TrashIcon></TrashIcon>
+				</Button>
 				<Button onClick={onClose}>Cancel</Button>
 				<Button type='primary' htmlType='submit'>
 					Save

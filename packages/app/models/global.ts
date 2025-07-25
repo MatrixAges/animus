@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe'
 
-import { Setting, Stack, Shortcuts, Layout, App } from '@/models'
+import { Setting, Stack, Shortcuts, Layout, App, Provider } from '@/models'
 
 @singleton()
 export default class GlobalModel {
@@ -9,6 +9,7 @@ export default class GlobalModel {
 		public layout: Layout,
 		public stack: Stack,
 		public app: App,
+		public provider: Provider,
 		public shortcuts: Shortcuts
 	) {}
 
@@ -17,6 +18,7 @@ export default class GlobalModel {
 		await this.layout.init()
 		await this.stack.init()
 		await this.app.init()
+		await this.provider.init()
 
 		this.shortcuts.init()
 	}

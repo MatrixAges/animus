@@ -1,22 +1,30 @@
+import { useMemoizedFn } from 'ahooks'
 import { Switch } from 'antd'
 
 import { ProviderIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
 
+import type { ProviderKey } from 'fst/llm'
+
 interface IProps {
-	id: string
+	id: ProviderKey
+	enabled: boolean
 	active?: boolean
+	enableProvider: (name: ProviderKey, v: boolean) => void
 }
 
 const Index = (props: IProps) => {
-	const { id, active } = props
+	const { id, enabled, active, enableProvider } = props
 
 	useScrollToItem(id, active)
+
+	const onChangeEnabled = useMemoizedFn(v => enableProvider(id, v))
 
 	return (
 		<div
 			className={$cx(
 				'provider border_box flex flex_column align_center relative cursor_point',
+				enabled && 'enabled',
 				active && 'active'
 			)}
 			data-key={id}
@@ -29,7 +37,12 @@ const Index = (props: IProps) => {
 					<span key={item}>{item}</span>
 				))}
 			</div>
-			<Switch className='switch absolute' size='small'></Switch>
+			<Switch
+				className='switch absolute'
+				size='small'
+				checked={enabled}
+				onChange={onChangeEnabled}
+			></Switch>
 		</div>
 	)
 }

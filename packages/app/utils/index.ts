@@ -9,6 +9,7 @@ export { default as conf } from './conf'
 export { default as getValuedObject } from './getValuedObject'
 export { default as splitLLMName } from './splitLLMName'
 export { default as checkParent } from './checkParent'
+export { default as capitalizeFirst } from './capitalizeFirst'
 
 export * from './i18n'
 export * from './theme'

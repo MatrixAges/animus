@@ -110,8 +110,11 @@
 				&.grid {
 					.provider {
 						&:hover {
+							&::after {
+								display: none;
+							}
+
 							.switch {
-								z-index: 10;
 								opacity: 1;
 							}
 						}
@@ -120,8 +123,8 @@
 							&::after {
 								position: absolute;
 								z-index: 1;
-								top: 6px;
-								right: 6px;
+								top: 8px;
+								right: 8px;
 								width: 6px;
 								height: 6px;
 								border-radius: 50%;
