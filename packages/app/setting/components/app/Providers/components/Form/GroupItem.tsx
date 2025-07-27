@@ -12,17 +12,12 @@ import { PlusIcon, TrashIcon } from '@phosphor-icons/react'
 import ModelItem from './ModelItem'
 
 import type { DragEndEvent } from '@dnd-kit/core'
-import type { Model, Provider } from 'fst/llm'
+import type { Model } from 'fst/llm'
+import type { IPropsFormGroupItem } from '../../types'
 
 const { Item, List, useFormInstance } = Form
 
-interface IProps {
-	group: Provider['models'][number]
-	group_index: number
-	removeGroup: (index: number | number[]) => void
-}
-
-const Index = (props: IProps) => {
+const Index = (props: IPropsFormGroupItem) => {
 	const { group, group_index, removeGroup } = props
 	const { t } = useTranslation()
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))

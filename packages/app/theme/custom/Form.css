@@ -1,0 +1,24 @@
+.ani-form {
+	&.ani-form-vertical {
+		.ani-form-item {
+			.ani-form-item-label {
+				position: relative;
+				line-height: 1;
+				padding-bottom: 4px;
+
+				.ani-form-item-required {
+					&::before {
+						position: absolute;
+						top: 1px;
+						right: 0;
+					}
+				}
+			}
+
+			.ani-form-item-explain {
+				margin-bottom: 12px;
+				font-size: 12px;
+			}
+		}
+	}
+}

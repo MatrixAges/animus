@@ -36,11 +36,6 @@ export const custom_schema = schema.extend({
 	api_base_url: string()
 })
 
-export const openai_compatible_schema = schema.extend({
-	name: string(),
-	api_base_url: string()
-})
-
 export const ollama_schema = schema.omit({ api_key: true }).extend({
 	api_base_url: string()
 })
@@ -58,7 +53,6 @@ export const amazon_bedrock_schema = schema.omit({ api_key: true }).extend({
 
 export type Provider = Infer<typeof schema>
 export type CustomProvider = Infer<typeof custom_schema>
-export type OpenaiCompatibleProvider = Infer<typeof custom_schema>
 export type OllamaProvider = Infer<typeof ollama_schema>
 export type AzureOpenaiProvider = Infer<typeof azure_openai_schema>
 export type AmazonBedrockProvider = Infer<typeof amazon_bedrock_schema>

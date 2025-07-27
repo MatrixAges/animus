@@ -1,4 +1,4 @@
-import type { Links, OpenaiCompatibleProvider } from '@fst/llm'
+import type { CustomProvider, Links } from '@fst/llm'
 
 export const links = {
 	website: '',
@@ -9,8 +9,7 @@ export const links = {
 
 export default {
 	enabled: false,
-	name: '',
 	api_key: '',
 	api_base_url: '',
 	models: []
-} as OpenaiCompatibleProvider
+} as CustomProvider

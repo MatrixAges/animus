@@ -1,6 +1,9 @@
 export default {
 	b: ' ',
 	s: 's',
+	a: 'a',
+	an: 'an',
+	unique: 'unique',
 	notice: 'Notice',
 	edit: 'Edit',
 	add: 'Add',
@@ -17,6 +20,8 @@ export default {
 	model: 'Model',
 	group: 'Group',
 	reset: 'Reset',
+	input: 'Input',
+	cancel: 'Cancel',
 	reset_confirm: 'Reset will remove all configuration changes, confirm reset?',
 	remove_confirm:
 		'Confirm removal? Deleting this item will also delete the corresponding local file. Please proceed with caution!',

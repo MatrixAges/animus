@@ -1,6 +1,9 @@
 export default {
 	b: ' ',
 	s: '',
+	a: '一个',
+	an: '一个',
+	unique: '唯一的',
 	notice: '注意',
 	edit: '编辑',
 	add: '添加',
@@ -17,6 +20,8 @@ export default {
 	model: '模型',
 	group: '分组',
 	reset: '重置',
+	input: '输入',
+	cancel: '取消',
 	reset_confirm: '重置会移除所有配置变更，确认重置？',
 	remove_confirm: '确认删除？删除该项将会删除对应的本地文件，请谨慎操作！',
 	config_remove_confirm: '删除该项将会删除对应的配置数据，确认删除？'

@@ -10,26 +10,12 @@ import { TrashIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
-import type { FeaturesKey, Model } from 'fst/llm'
+import type { FeaturesKey, Model, Provider } from 'fst/llm'
+import type { IPropsFormFeatures, IPropsFormModelForm } from '../../types'
 
 const { Item, useForm, useWatch } = Form
 
-interface IProps {
-	item: Model
-	group_index: number
-	model_index: number
-	onRemove: () => void
-	getFieldValue: (name: any) => any
-	setFieldValue: (name: any, value: any) => void
-	onClose: () => void
-}
-
-interface IPropsFeatures {
-	value?: Model['features']
-	onChange?: (v: IPropsFeatures['value']) => void
-}
-
-const Features = $app.memo((props: IPropsFeatures) => {
+const Features = $app.memo((props: IPropsFormFeatures) => {
 	const { value = {}, onChange } = props
 	const { t } = useTranslation()
 
@@ -68,22 +54,26 @@ const Features = $app.memo((props: IPropsFeatures) => {
 	)
 })
 
-const Index = (props: IProps) => {
+const Index = (props: IPropsFormModelForm) => {
 	const { item, group_index, model_index, onRemove, getFieldValue, setFieldValue, onClose } = props
+	const { t } = useTranslation()
 	const [form] = useForm<Model>()
 	const name = useWatch('name', form) || ''
 
 	const onFinish = useMemoizedFn((model: Model) => {
-		const name_path = ['models', group_index, 'items']
+		const groups = getFieldValue('models') as Provider['models']
 
-		const items = getFieldValue(name_path) as Array<Model>
-		const exist_item_index = items.findIndex(item => item.id === model.id)
+		let exist_item_index = -1
+
+		groups.forEach(group => {
+			exist_item_index = group.items.findIndex(item => item.id === model.id)
+		})
 
 		if (exist_item_index !== -1 && exist_item_index !== model_index) {
-			return $message.error('存在相同 ID 的模型，请修改模型 ID 后再保存', 0)
+			return $message.error(t('setting.providers.model_exist'), 0)
 		}
 
-		setFieldValue([...name_path, model_index], model)
+		setFieldValue(['models', group_index, 'items', model_index], model)
 
 		onClose()
 	})
@@ -124,9 +114,9 @@ const Index = (props: IProps) => {
 				>
 					<TrashIcon></TrashIcon>
 				</Button>
-				<Button onClick={onClose}>Cancel</Button>
+				<Button onClick={onClose}>{t('cancel')}</Button>
 				<Button type='primary' htmlType='submit'>
-					Save
+					{t('save')}
 				</Button>
 			</div>
 		</Form>

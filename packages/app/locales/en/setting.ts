@@ -21,7 +21,13 @@ export default {
 			image_output: 'Image Output',
 			embedding: 'Embedding',
 			reranking: 'Reranking'
-		}
+		},
+		add_provider_modal: {
+			provider_name: 'Provider Name',
+			link_to: 'link to'
+		},
+		provider_exsit: 'Provider name already exists, please modify the name',
+		model_exist: 'Models with the same ID exist in this group. Please modify the model ID before saving.'
 	},
 	general: {
 		title: 'General',

@@ -19,9 +19,36 @@
 		.ani-modal-content {
 			background-color: unset;
 
-			.ani-icon {
-				margin-top: 2.7px;
-				font-size: 18px;
+			.ani-modal-close {
+				top: 21px;
+				right: 20px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+
+				.ani-modal-close-x {
+					font-size: 12px;
+				}
+			}
+
+			.ani-modal-confirm-body-has-title {
+				.ani-icon {
+					position: absolute;
+					margin-top: 3.6px;
+					margin-right: 10px;
+					font-size: 14px;
+				}
+
+				.ani-modal-confirm-paragraph {
+					max-width: 100%;
+					gap: 12px;
+
+					.ani-modal-confirm-title {
+						padding-left: 21px;
+						font-size: 14px;
+						font-weight: 500;
+					}
+				}
 			}
 		}
 	}

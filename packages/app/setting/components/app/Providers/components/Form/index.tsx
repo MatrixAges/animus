@@ -1,41 +1,33 @@
 import { useEffect } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { Form, Input } from 'antd'
+import { omit } from 'es-toolkit'
 import { debounce } from 'es-toolkit/compat'
 import { providers } from 'fst/llm'
 import { useTranslation } from 'react-i18next'
 
 import { Empty } from '@/components'
 import { confirm } from '@/utils'
-import { ArrowCounterClockwiseIcon, PlusIcon, PulseIcon } from '@phosphor-icons/react'
+import { ArrowCounterClockwiseIcon, PencilSimpleIcon, PlusIcon, PulseIcon, TrashIcon } from '@phosphor-icons/react'
 
 import GroupItem from './GroupItem'
 
 import styles from './index.module.css'
 
-import type { Provider as ProviderModel } from '@/models'
-import type { Links, Provider, ProviderKey } from 'fst/llm'
-import type { JSONSchema7 } from 'json-schema'
+import type { Provider } from 'fst/llm'
+import type { IPropsForm } from '../../types'
 
 const { Item: FormItem, List, useForm, useWatch } = Form
 const { Password } = Input
 
-interface IProps {
-	id: ProviderKey
-	name: string
-	schema: JSONSchema7
-	links: Links
-	config: Provider
-	setProvider: ProviderModel['setProvider']
-}
-
-const Index = (props: IProps) => {
-	const { id, name, links, schema, config, setProvider } = props
+const Index = (props: IPropsForm) => {
+	const { id, name, links, schema, config, setProvider, onEditProvider, removeProvider } = props
 	const { t } = useTranslation()
 	const [form] = useForm<Provider>()
 	const models = useWatch('models', form) || []
 	const { getFieldValue, setFieldsValue, getFieldsValue } = form
 	const properties = schema?.properties!
+	const extra_properties = omit(properties, ['enabled', 'api_key', 'api_base_url', 'models'])
 
 	useEffect(() => {
 		setFieldsValue(config)
@@ -56,6 +48,9 @@ const Index = (props: IProps) => {
 		setProvider(id, { config: getFieldsValue() })
 	})
 
+	const onEdit = useMemoizedFn(() => onEditProvider(id))
+	const onRemove = useMemoizedFn(() => removeProvider(id))
+
 	return (
 		<Form
 			className={$cx(styles._local, 'relative')}
@@ -67,23 +62,43 @@ const Index = (props: IProps) => {
 			<div className='form_header head flex justify_between align_center'>
 				<div className='left_wrap flex align_center'>
 					<span className='name'>{name}</span>
-					<If condition={id in providers}>
-						<button
-							className='btn_remove btn none flex align_center clickable'
-							onClick={onReset}
-						>
-							<ArrowCounterClockwiseIcon
-								weight='bold'
-								size={10}
-							></ArrowCounterClockwiseIcon>
-							<span>{t('reset')}</span>
-						</button>
-					</If>
+					<Choose>
+						<When condition={id in providers}>
+							<button
+								className='btn_head btn none flex align_center clickable'
+								onClick={onReset}
+							>
+								<ArrowCounterClockwiseIcon
+									weight='bold'
+									size={10}
+								></ArrowCounterClockwiseIcon>
+								<span>{t('reset')}</span>
+							</button>
+						</When>
+						<Otherwise>
+							<div className='btn_head none align_center'>
+								<button
+									className='btn flex align_center clickable mr_6'
+									onClick={onEdit}
+								>
+									<PencilSimpleIcon weight='bold' size={10}></PencilSimpleIcon>
+									<span>{t('edit')}</span>
+								</button>
+								<button className='btn flex align_center clickable' onClick={onRemove}>
+									<TrashIcon weight='bold' size={10}></TrashIcon>
+									<span>{t('remove')}</span>
+								</button>
+							</div>
+						</Otherwise>
+					</Choose>
 				</div>
 				<div className='link_items flex align_center'>
 					{(['website', 'doc', 'model_spec', 'api_key'] as const).map(i => (
 						<a
-							className='link_item flex justify_center align_center clickable'
+							className={$cx(
+								'link_item flex justify_center align_center clickable',
+								!links[i] && 'disabled'
+							)}
 							target='_blank'
 							href={links[i]}
 							key={i}
@@ -102,18 +117,30 @@ const Index = (props: IProps) => {
 						</FormItem>
 					</div>
 				</If>
-				<div className='row_item w_100 flex flex_column'>
-					<div className='flex justify_between align_center'>
-						<span className='title'>{t('setting.providers.api_key')}</span>
-						<button className='btn flex align_center clickable'>
-							<PulseIcon weight='bold'></PulseIcon>
-							<span>{t('inspect')}</span>
-						</button>
+				<If condition={properties?.api_key as string}>
+					<div className='row_item w_100 flex flex_column'>
+						<div className='flex justify_between align_center'>
+							<span className='title'>{t('setting.providers.api_key')}</span>
+							<button className='btn flex align_center clickable'>
+								<PulseIcon weight='bold'></PulseIcon>
+								<span>{t('inspect')}</span>
+							</button>
+						</div>
+						<FormItem name='api_key' noStyle>
+							<Password placeholder={t('setting.providers.api_key_placeholder')}></Password>
+						</FormItem>
 					</div>
-					<FormItem name='api_key' noStyle>
-						<Password placeholder={t('setting.providers.api_key_placeholder')}></Password>
-					</FormItem>
-				</div>
+				</If>
+				<If condition={Object.keys(extra_properties).length}>
+					{Object.keys(extra_properties).map(key => (
+						<div className='row_item w_100 flex flex_column' key={key}>
+							<span className='title'>{key}</span>
+							<FormItem name={key} noStyle>
+								<Input placeholder={t('input') + t('b') + key}></Input>
+							</FormItem>
+						</div>
+					))}
+				</If>
 				<List name='models'>
 					{(group_items, { add, remove }) => (
 						<div className='w_100 flex flex_column'>

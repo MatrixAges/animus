@@ -1,0 +1,25 @@
+._local {
+	:global {
+		input {
+			font-size: 12px;
+		}
+
+		.links_wrap {
+			gap: 12px;
+
+			.ani-form-item {
+				width: calc((100% - 12px) / 2);
+				margin-bottom: 0;
+			}
+		}
+
+		.btn_wrap {
+			margin-top: 20px;
+			gap: 8px;
+
+			.ani-btn {
+				width: 72px;
+			}
+		}
+	}
+}

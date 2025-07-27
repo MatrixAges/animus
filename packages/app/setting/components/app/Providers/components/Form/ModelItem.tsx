@@ -14,18 +14,12 @@ import ModelForm from './ModelForm'
 
 import styles from './index.module.css'
 
-import type { FeaturesKey, Model } from 'fst/llm'
+import type { FeaturesKey } from 'fst/llm'
+import type { IPropsFormModelItem } from '../../types'
 
 const { useFormInstance } = Form
 
-interface IProps {
-	item: Model
-	group_index: number
-	model_index: number
-	remove: (index: number | number[]) => void
-}
-
-const Index = (props: IProps) => {
+const Index = (props: IPropsFormModelItem) => {
 	const { item, group_index, model_index, remove } = props
 	const { enabled, id, name, features } = item
 	const [visible, { toggle }] = useToggle()
@@ -40,7 +34,12 @@ const Index = (props: IProps) => {
 	const { model, branch } = useMemo(() => splitLLMName(name), [name])
 
 	const onRemove = useMemoizedFn(async () => {
-		const res = await confirm({ title: t('notice'), content: t('config_remove_confirm'), zIndex: 1000000 })
+		const res = await confirm({
+			title: t('notice'),
+			content: t('config_remove_confirm'),
+			zIndex: 1000000,
+			width: 300
+		})
 
 		if (!res) return
 

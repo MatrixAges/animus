@@ -23,35 +23,16 @@ import * as vercel from './providers/vercel'
 import * as volcengine from './providers/volcengine'
 import * as xai from './providers/xai'
 import * as zhipu from './providers/zhipu'
-import {
-	amazon_bedrock_schema,
-	azure_openai_schema,
-	custom_schema,
-	ollama_schema,
-	openai_compatible_schema,
-	schema
-} from './schema'
+import { amazon_bedrock_schema, azure_openai_schema, custom_schema, ollama_schema } from './schema'
 
 export const providers = {
 	google_gemini: {
 		links: google_gemini.links,
 		config: google_gemini.default
 	},
-	aliyun_bailian: {
-		links: aliyun_bailian.links,
-		config: aliyun_bailian.default
-	},
-	amazon_bedrock: {
-		links: amazon_bedrock.links,
-		config: amazon_bedrock.default
-	},
 	anthropic: {
 		links: anthropic.links,
 		config: anthropic.default
-	},
-	azure_openai: {
-		links: azure_openai.links,
-		config: azure_openai.default
 	},
 	cerebras: {
 		links: cerebras.links,
@@ -105,10 +86,6 @@ export const providers = {
 		links: siliconflow.links,
 		config: siliconflow.default
 	},
-	tencent_hunyuan: {
-		links: tencent_hunyuan.links,
-		config: tencent_hunyuan.default
-	},
 	together: {
 		links: together.links,
 		config: together.default
@@ -116,10 +93,6 @@ export const providers = {
 	vercel: {
 		links: vercel.links,
 		config: vercel.default
-	},
-	volcengine: {
-		links: volcengine.links,
-		config: volcengine.default
 	},
 	xai: {
 		links: xai.links,
@@ -129,6 +102,26 @@ export const providers = {
 		links: zhipu.links,
 		config: zhipu.default
 	},
+	aliyun_bailian: {
+		links: aliyun_bailian.links,
+		config: aliyun_bailian.default
+	},
+	tencent_hunyuan: {
+		links: tencent_hunyuan.links,
+		config: tencent_hunyuan.default
+	},
+	volcengine: {
+		links: volcengine.links,
+		config: volcengine.default
+	},
+	azure_openai: {
+		links: azure_openai.links,
+		config: azure_openai.default
+	},
+	amazon_bedrock: {
+		links: amazon_bedrock.links,
+		config: amazon_bedrock.default
+	},
 	openai_compatible: {
 		links: openai_compatible.links,
 		config: openai_compatible.default
@@ -136,15 +129,15 @@ export const providers = {
 }
 
 export const providers_schema = {
-	aliyun_bailian: custom_schema,
-	amazon_bedrock: amazon_bedrock_schema,
-	azure_openai: azure_openai_schema,
 	lmstudio: custom_schema,
 	ollama: ollama_schema,
 	siliconflow: custom_schema,
+	aliyun_bailian: custom_schema,
 	tencent_hunyuan: custom_schema,
 	volcengine: custom_schema,
-	openai_compatible: openai_compatible_schema
+	azure_openai: azure_openai_schema,
+	amazon_bedrock: amazon_bedrock_schema,
+	openai_compatible: custom_schema
 }
 
 export type ProviderKey = keyof typeof providers

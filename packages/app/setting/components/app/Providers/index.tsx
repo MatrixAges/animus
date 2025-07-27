@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { schema as default_schema, providers_schema } from 'fst/llm'
 import { observer } from 'mobx-react-lite'
@@ -6,12 +6,12 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { useTranslation } from 'react-i18next'
 import { toJSONSchema } from 'zod'
 
-import { Show } from '@/components'
+import { Modal, Show } from '@/components'
 import { useGlobal } from '@/context'
 import { useDelegate } from '@/hooks'
 import { GridFourIcon, PlusIcon, RowsIcon } from '@phosphor-icons/react'
 
-import { Form, ProviderItem } from './components'
+import { Form, MutateProviderForm, ProviderItem } from './components'
 
 import styles from './index.module.css'
 
@@ -22,14 +22,17 @@ import type { ZodObject } from 'zod'
 const Index = () => {
 	const global = useGlobal()
 	const { t } = useTranslation()
-	const [type, setType] = useState<'list' | 'grid'>('grid')
-	const [current, setCurrent] = useState<ProviderKey | null>(null)
 
-	const provider = global.provider
-	const provider_list = $copy(provider.provider_list)
+	const x = global.provider
+	const type = x.type
+	const current = x.current
+	const provider_list = $copy(x.provider_list)
 
-	const ref_type = useDelegate(v => setType(v), { item_type: 'span' })
-	const ref_current = useDelegate(v => setCurrent(v === current ? null : v), { ignore_el: 'switch' })
+	const ref_type = useDelegate(v => (x.type = v), { item_type: 'span' })
+
+	const ref_current = useDelegate(v => (x.current = v === current ? null : v), {
+		ignore_el: 'switch'
+	})
 
 	const provider_keys = useMemo(() => {
 		const enabled_keys = [] as Array<string>
@@ -46,7 +49,7 @@ const Index = () => {
 		return [...enabled_keys, ...disabled_keys]
 	}, [provider_list])
 
-	const target = useMemo(() => (current ? provider_list[current] : null), [current])
+	const target = useMemo(() => (current ? provider_list[current] : null), [provider_list, current])
 
 	const schema = useMemo(() => {
 		if (!current) return null
@@ -64,7 +67,17 @@ const Index = () => {
 	}, [current])
 
 	const enableProvider = useMemoizedFn((name: ProviderKey, v: boolean) => {
-		provider.setProvider(name, { config: { enabled: v } })
+		x.setProvider(name, { config: { enabled: v } })
+	})
+
+	const onEditProvider = useMemoizedFn(v => {
+		x.mutate_provider_item = { name: v, ...provider_list[v as ProviderKey].links }
+		x.visible_mutate_modal = true
+	})
+
+	const toggleMutateProviderModal = useMemoizedFn(() => {
+		x.visible_mutate_modal = !x.visible_mutate_modal
+		x.mutate_provider_item = null
 	})
 
 	const ProviderForm = (
@@ -75,7 +88,9 @@ const Index = () => {
 				schema={schema!}
 				links={target?.links!}
 				config={target?.config as Provider}
-				setProvider={provider.setProvider}
+				setProvider={x.setProvider}
+				onEditProvider={onEditProvider}
+				removeProvider={x.removeProvider}
 			></Form>
 		</div>
 	)
@@ -117,7 +132,10 @@ const Index = () => {
 					<span className='counts'>{provider_keys.length}</span>
 				</div>
 				<div className='right_wrap flex align_center'>
-					<div className='btn_add flex justify_center align_center clickable'>
+					<div
+						className='btn_add flex justify_center align_center clickable'
+						onClick={toggleMutateProviderModal}
+					>
 						<PlusIcon></PlusIcon>
 					</div>
 					<div className='type_wrap flex' ref={ref_type}>
@@ -164,6 +182,18 @@ const Index = () => {
 			>
 				{ProviderForm}
 			</Show>
+			<Modal
+				title='Add Provider'
+				global
+				z_index={100000}
+				open={x.visible_mutate_modal}
+				onClose={toggleMutateProviderModal}
+			>
+				<MutateProviderForm
+					mutate_provider_item={x.mutate_provider_item}
+					mutateProvider={x.mutateProvider}
+				></MutateProviderForm>
+			</Modal>
 		</div>
 	)
 }

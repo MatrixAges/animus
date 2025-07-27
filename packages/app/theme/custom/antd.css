@@ -6,6 +6,7 @@
 @import './Slider.css';
 @import './Modal.css';
 @import './Dropdown.css';
+@import './Form.css';
 
 .ani {
 	color: var(--color_text);

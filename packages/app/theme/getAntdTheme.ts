@@ -51,6 +51,11 @@ export default (theme: ThemeValue, glass: boolean) => {
 			borderRadius: 6
 		},
 		components: {
+			Form: {
+				itemMarginBottom: 16,
+				labelFontSize: 12,
+				labelColor: 'var(--color_text_grey)'
+			},
 			Button: {
 				defaultShadow: 'unset',
 				primaryColor: vars.color_bg

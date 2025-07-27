@@ -5,21 +5,23 @@ interface Args {
 	title: string
 	content: string
 	zIndex?: number
-	footer?: ModalProps['footer']
+	width?: number | string
 	danger?: boolean
+	footer?: ModalProps['footer']
 	props?: ModalFuncProps
 }
 
-export const confirm = async ({ id, title, content, zIndex, footer, danger, props }: Args) => {
+export const confirm = async ({ id, title, content, zIndex, width, footer, danger, props }: Args) => {
 	return new Promise(resolve => {
 		$modal.confirm({
 			className: danger ? 'danger' : '',
 			title,
 			content,
 			centered: true,
+			closable: true,
 			zIndex,
+			width: width ?? 360,
 			footer,
-			width: 360,
 			...props,
 			getContainer: () => (id ? document.getElementById(id) : document.body)!,
 			onOk() {
@@ -32,13 +34,15 @@ export const confirm = async ({ id, title, content, zIndex, footer, danger, prop
 	})
 }
 
-export const info = async ({ id, title, content, zIndex, footer, props }: Args) => {
+export const info = async ({ id, title, content, zIndex, width, footer, props }: Args) => {
 	return new Promise(resolve => {
 		$modal.info({
 			title,
 			content,
 			centered: true,
+			closable: true,
 			zIndex,
+			width: width ?? 360,
 			footer,
 			...props,
 			getContainer: () => (id ? document.getElementById(id) : document.body)!,

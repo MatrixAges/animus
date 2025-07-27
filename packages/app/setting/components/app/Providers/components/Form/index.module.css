@@ -1,5 +1,4 @@
 ._local {
-	border: var(--border_light);
 	border-radius: var(--radius);
 
 	:global {
@@ -36,7 +35,7 @@
 			gap: 2px;
 
 			&:hover {
-				border-bottom: 1px solid var(--color_text_greylight);
+				color: var(--color_text);
 			}
 		}
 
@@ -46,12 +45,11 @@
 			border-bottom: var(--border_light);
 
 			&.head {
-				padding-right: 18px;
-				padding-left: 18px;
+				margin-bottom: 12px;
 
 				&:hover {
 					.left_wrap {
-						.btn_remove {
+						.btn_head {
 							display: flex;
 						}
 					}
@@ -85,13 +83,15 @@
 						margin: 0 6px;
 						content: '·';
 					}
+
+					&.disabled {
+						color: var(--color_text_light);
+					}
 				}
 			}
 		}
 
 		.form_body {
-			padding: 18px;
-
 			.row_item {
 				margin-bottom: 16px;
 				gap: 8px;
@@ -168,7 +168,7 @@
 
 						.model_item {
 							width: calc((100% - 36px) / 4);
-							padding: 18px 12px;
+							padding: 18px;
 							border-radius: var(--radius);
 							background-color: var(--bg_card);
 							gap: 12px;

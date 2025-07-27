@@ -26,7 +26,7 @@ import {
 	Volcengine,
 	Zhipu
 } from '@lobehub/icons'
-import { BoulesIcon } from '@phosphor-icons/react'
+import { BoulesIcon, RobotIcon } from '@phosphor-icons/react'
 
 import type { IconType } from '@lobehub/icons'
 import type { Icon } from '@phosphor-icons/react'
@@ -67,7 +67,7 @@ interface IProps {
 }
 
 const Index = ({ name, ...props }: IProps) => {
-	const Icon = useMemo(() => module_icon[name as ProviderKey], [name])
+	const Icon = useMemo(() => (name in module_icon ? module_icon[name as ProviderKey] : RobotIcon), [name])
 
 	return <Icon {...props}></Icon>
 }
