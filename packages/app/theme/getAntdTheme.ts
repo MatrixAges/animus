@@ -51,6 +51,11 @@ export default (theme: ThemeValue, glass: boolean) => {
 			borderRadius: 6
 		},
 		components: {
+			Tabs: {
+				horizontalItemPadding: '0 0 6px 0',
+				horizontalItemGutter: 16,
+				titleFontSize: 12
+			},
 			Form: {
 				itemMarginBottom: 16,
 				labelFontSize: 12,

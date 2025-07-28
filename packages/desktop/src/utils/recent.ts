@@ -7,10 +7,11 @@ interface Args {
 	filename: string
 	items?: Array<string>
 	type?: 'remove' | 'clear'
+	capacity?: number
 }
 
 export const setLRUMap = async (args: Args) => {
-	const { module, filename, items = [], type } = args
+	const { module, filename, items = [], type, capacity = 6 } = args
 
 	const res = await read({ module, filename })
 
@@ -18,9 +19,9 @@ export const setLRUMap = async (args: Args) => {
 		res
 			? LRUMapWithDelete.from(
 					Object.fromEntries((res as Array<string>).reverse().map(key => [key, null])),
-					12
+					capacity
 				)
-			: new LRUMapWithDelete(12)
+			: new LRUMapWithDelete(capacity)
 	) as LRUMapWithDelete<string, null>
 
 	if (type === 'remove') {
@@ -34,7 +35,7 @@ export const setLRUMap = async (args: Args) => {
 	await write({ module, filename, data: Array.from(recent.keys()) })
 }
 
-export const getLRUMap = async (args: Omit<Args, 'id'>) => {
+export const getLRUMap = async (args: Omit<Args, 'id' | 'capacity'>) => {
 	const { module, filename } = args
 
 	return read({ module, filename })

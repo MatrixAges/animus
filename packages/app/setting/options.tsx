@@ -1,6 +1,6 @@
-import { CommandIcon, InfoIcon, OpenAiLogoIcon, SlidersHorizontalIcon } from '@phosphor-icons/react'
+import { CommandIcon, InfoIcon, MagicWandIcon, OpenAiLogoIcon, SlidersHorizontalIcon } from '@phosphor-icons/react'
 
-import { About, General, Providers, Shortcuts } from './components/app'
+import { About, General, Preset, Providers, Shortcuts } from './components/app'
 import { Note } from './components/module'
 
 import type { ElementOf } from 'ts-essentials'
@@ -12,6 +12,12 @@ export const app_setting_items = (
 			Icon: OpenAiLogoIcon,
 			key: 'providers',
 			children: <Providers></Providers>
+		},
+		{
+			label: 'setting.preset.title',
+			Icon: MagicWandIcon,
+			key: 'preset',
+			children: <Preset></Preset>
 		},
 		{
 			label: 'setting.general.title',

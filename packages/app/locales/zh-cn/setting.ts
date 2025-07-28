@@ -29,6 +29,15 @@ export default {
 		provider_exsit: '提供商名称已存在，请修改名称',
 		model_exist: '该分组存在相同 ID 的模型，请修改模型 ID 后再保存'
 	},
+	preset: {
+		title: '预设',
+		config: {
+			title: '配置'
+		},
+		prompt: {
+			title: '提示词'
+		}
+	},
 	general: {
 		title: '通用设置',
 		normal: {

@@ -29,6 +29,15 @@ export default {
 		provider_exsit: 'Provider name already exists, please modify the name',
 		model_exist: 'Models with the same ID exist in this group. Please modify the model ID before saving.'
 	},
+	preset: {
+		title: 'Preset',
+		config: {
+			title: 'Config'
+		},
+		prompt: {
+			title: 'Prompt'
+		}
+	},
 	general: {
 		title: 'General',
 		normal: {

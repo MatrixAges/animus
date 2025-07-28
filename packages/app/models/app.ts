@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
 import { Util } from '@/models/common'
-import { ipc, is_electron, info, store_options, getValuedObject } from '@/utils'
+import { ipc, is_electron, info, store_options, getValuedObject, relaunch } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { uniqBy } from 'es-toolkit'
@@ -210,6 +210,8 @@ export default class Index {
 
 	onSelectWorkspace(index: number) {
 		this.workspace = this.workspaces[index].name
+
+		relaunch()
 	}
 
 	setWorkspaces(v: Index['workspaces']) {
