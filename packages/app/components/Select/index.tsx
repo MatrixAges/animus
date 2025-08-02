@@ -20,7 +20,6 @@ const Index = (props: IProps) => {
 			classNames={deepmerge({ popup: { root: $cx(styles.popup, popupClassName) } }, classNames)}
 			variant='filled'
 			suffixIcon={<CaretDownIcon></CaretDownIcon>}
-			defaultValue='Gemini 2.0 Flash'
 			{...rest_props}
 		></Select>
 	)

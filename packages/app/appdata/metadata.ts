@@ -1,3 +1,5 @@
+import { id } from 'stk/common'
+
 import Baidu from '@/public/images/baidu.svg?react'
 import Bing from '@/public/images/bing.svg?react'
 import Google from '@/public/images/google.svg?react'
@@ -24,3 +26,13 @@ export const engines = [
 	{ key: 'bing', logo: Bing },
 	{ key: 'baidu', logo: Baidu }
 ]
+
+export const preset_config = {
+	name: 'Gemini ' + id({ size: 3 }),
+	temperature: 0.6,
+	top_p: 0.9,
+	max_ouput_tokens: 32000,
+	system_prompt: 'You are Gemini, an AI assistant created by Google Deepmind.'
+}
+
+export const preset_prompts = {}

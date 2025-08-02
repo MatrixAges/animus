@@ -1,3 +1,9 @@
+.ani-select {
+	.ani-select-selector {
+		padding: 0 8px !important;
+	}
+}
+
 .ani-select-dropdown {
 	backdrop-filter: var(--glass_blur);
 

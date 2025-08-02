@@ -4,7 +4,9 @@
 			.ani-form-item-label {
 				position: relative;
 				line-height: 1;
-				padding-bottom: 4px;
+				padding-bottom: 6px;
+				color: var(--color_text_greylight);
+				font-size: 12px;
 
 				.ani-form-item-required {
 					&::before {

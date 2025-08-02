@@ -18,7 +18,7 @@ import type { IPropsFormGroupItem } from '../../types'
 const { Item, List, useFormInstance } = Form
 
 const Index = (props: IPropsFormGroupItem) => {
-	const { group, group_index, removeGroup } = props
+	const { group, group_index, removeGroup, submit } = props
 	const { t } = useTranslation()
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 	const { setFieldValue } = useFormInstance()
@@ -100,6 +100,7 @@ const Index = (props: IPropsFormGroupItem) => {
 														group_index={group_index}
 														model_index={model_index}
 														remove={remove}
+														submit={submit}
 														key={item.id}
 													></ModelItem>
 												)

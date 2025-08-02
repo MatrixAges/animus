@@ -25,7 +25,7 @@ const Index = (props: IPropsForm) => {
 	const { t } = useTranslation()
 	const [form] = useForm<Provider>()
 	const models = useWatch('models', form) || []
-	const { getFieldValue, setFieldsValue, getFieldsValue } = form
+	const { getFieldValue, setFieldsValue, getFieldsValue, submit } = form
 	const properties = schema?.properties!
 	const extra_properties = omit(properties, ['enabled', 'api_key', 'api_base_url', 'models'])
 
@@ -38,6 +38,8 @@ const Index = (props: IPropsForm) => {
 			setProvider(id, { config: values })
 		}, 450)
 	)
+
+	const onFinish = useMemoizedFn(values => setProvider(id, { config: values }))
 
 	const onReset = useMemoizedFn(async () => {
 		const res = await confirm({ title: t('notice'), content: t('reset_confirm'), zIndex: 1000000 })
@@ -58,6 +60,7 @@ const Index = (props: IPropsForm) => {
 			clearOnDestroy
 			form={form}
 			onValuesChange={onValuesChange}
+			onFinish={onFinish}
 		>
 			<div className='form_header head flex justify_between align_center'>
 				<div className='left_wrap flex align_center'>
@@ -172,6 +175,7 @@ const Index = (props: IPropsForm) => {
 													group={group}
 													group_index={group_index}
 													removeGroup={remove}
+													submit={submit}
 													key={key}
 												></GroupItem>
 											)

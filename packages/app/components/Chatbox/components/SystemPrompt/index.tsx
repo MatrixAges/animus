@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Fragment } from 'react/jsx-runtime'
 
 import { Modal } from '@/components'
-import { AnchorSimpleIcon } from '@phosphor-icons/react'
+import { ChatTeardropTextIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
@@ -20,7 +20,7 @@ const Index = (props: IPropsSystemPrompt) => {
 	return (
 		<Fragment>
 			<div className='option_item flex justify_center align_center clickit' onClick={toggle}>
-				<AnchorSimpleIcon></AnchorSimpleIcon>
+				<ChatTeardropTextIcon></ChatTeardropTextIcon>
 			</div>
 			<Modal
 				className={styles._local}

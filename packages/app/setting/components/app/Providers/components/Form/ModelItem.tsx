@@ -20,7 +20,7 @@ import type { IPropsFormModelItem } from '../../types'
 const { useFormInstance } = Form
 
 const Index = (props: IPropsFormModelItem) => {
-	const { item, group_index, model_index, remove } = props
+	const { item, group_index, model_index, remove, submit } = props
 	const { enabled, id, name, features } = item
 	const [visible, { toggle }] = useToggle()
 	const { setFieldValue, getFieldValue } = useFormInstance()
@@ -100,7 +100,7 @@ const Index = (props: IPropsFormModelItem) => {
 				onClose={toggle}
 			>
 				<ModelForm
-					{...{ item, group_index, model_index, onRemove, getFieldValue, setFieldValue }}
+					{...{ item, group_index, model_index, onRemove, getFieldValue, setFieldValue, submit }}
 					onClose={toggle}
 				></ModelForm>
 			</Modal>

@@ -7,6 +7,7 @@
 @import './Modal.css';
 @import './Dropdown.css';
 @import './Form.css';
+@import './InputNumber.css';
 
 .ani {
 	color: var(--color_text);

@@ -1,61 +1,23 @@
 ._local {
 	:global {
 		.header_wrap {
+			margin-bottom: 12px;
+
 			.setting_title {
 				margin-bottom: 0;
 			}
 
-			.ani-tabs {
-				.ani-tabs-nav {
-					margin-bottom: 0;
+			.tab_items {
+				font-size: 12px;
+				gap: 12px;
 
-					&::before {
-						display: none;
+				.tab_item {
+					opacity: 0.48;
+					gap: 4px;
+
+					&.active {
+						opacity: 1;
 					}
-				}
-
-				.ani-tabs-nav-wrap {
-					.ani-tabs-nav-list {
-						.ani-tabs-tab {
-							padding-bottom: 0;
-							opacity: 0.48;
-							user-select: none;
-							transition:
-								opacity ease 0.3s,
-								scale ease 0.3s;
-
-							&:hover {
-								opacity: 0.72;
-							}
-
-							&:active {
-								scale: 0.9;
-							}
-
-							&-active {
-								opacity: 1;
-							}
-
-							.ani-tabs-tab-btn {
-								display: flex;
-								align-items: center;
-
-								.ani-tabs-tab-icon {
-									display: flex;
-									margin-right: 4px;
-									font-size: 14px;
-								}
-							}
-						}
-
-						.ani-tabs-ink-bar {
-							display: none;
-						}
-					}
-				}
-
-				.ani-tabs-content-holder {
-					display: none;
 				}
 			}
 		}

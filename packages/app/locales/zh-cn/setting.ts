@@ -11,6 +11,12 @@ export default {
 		api_base_url_placeholder: '输入模型服务商提供的 API 地址',
 		api_key: 'API 密钥',
 		api_key_placeholder: '使用前请先获取并输入 API 密钥',
+		model_form: {
+			id: '序列号',
+			name: '名称',
+			fee: '费用',
+			features: '特性'
+		},
 		features: {
 			function_calling: '函数调用',
 			structured_output: '结构化输出',

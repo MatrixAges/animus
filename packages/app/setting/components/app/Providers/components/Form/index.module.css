@@ -254,20 +254,6 @@
 			padding: 8px 12px;
 			padding-bottom: 18px;
 
-			.ani-form-item {
-				margin-bottom: 16px;
-
-				.ani-form-item-label {
-					line-height: 1;
-					padding-bottom: 6px;
-
-					label {
-						color: var(--color_text_greylight);
-						font-size: 12px;
-					}
-				}
-			}
-
 			.features_label {
 				line-height: 1;
 				padding-bottom: 6px;
@@ -276,7 +262,6 @@
 			}
 
 			.features {
-				border-radius: var(--radius);
 				border-radius: var(--radius);
 				background-color: var(--bg_card);
 

@@ -1,8 +1,14 @@
 ._local {
+	height: 24px;
+
 	:global {
 		.ani-select-selector {
 			border: unset !important;
 			background-color: unset !important;
+		}
+
+		.ani-select-arrow {
+			right: 0px;
 		}
 	}
 }

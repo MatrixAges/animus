@@ -1,5 +1,5 @@
 import { useMemoizedFn } from 'ahooks'
-import { Button, Form, Input, Switch } from 'antd'
+import { Button, Form, Input, InputNumber, Switch } from 'antd'
 import Color from 'color'
 import { features_metadata } from 'fst/llm'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +55,7 @@ const Features = $app.memo((props: IPropsFormFeatures) => {
 })
 
 const Index = (props: IPropsFormModelForm) => {
-	const { item, group_index, model_index, onRemove, getFieldValue, setFieldValue, onClose } = props
+	const { item, group_index, model_index, onRemove, getFieldValue, setFieldValue, submit, onClose } = props
 	const { t } = useTranslation()
 	const [form] = useForm<Model>()
 	const name = useWatch('name', form) || ''
@@ -75,6 +75,7 @@ const Index = (props: IPropsFormModelForm) => {
 
 		setFieldValue(['models', group_index, 'items', model_index], model)
 
+		submit()
 		onClose()
 	})
 
@@ -96,13 +97,26 @@ const Index = (props: IPropsFormModelForm) => {
 				</Item>
 			</div>
 			<div className='body_wrap w_100 border_box flex flex_column'>
-				<Item name='id' label='Model ID'>
-					<Input placeholder='Model ID'></Input>
+				<Item name='id' label={t('setting.providers.model_form.id')} rules={[{ required: true }]}>
+					<Input placeholder={t('setting.providers.model_form.id')}></Input>
 				</Item>
-				<Item name='name' label='Model Name'>
-					<Input placeholder='Model name'></Input>
+				<Item name='name' label={t('setting.providers.model_form.name')} rules={[{ required: true }]}>
+					<Input placeholder={t('setting.providers.model_form.name')}></Input>
 				</Item>
-				<Item name='features' label='Features' style={{ marginBottom: 0 }}>
+				<Item name='fee' label={t('setting.providers.model_form.fee')}>
+					<InputNumber
+						className='w_100'
+						placeholder={t('setting.providers.model_form.fee')}
+						suffix={`${t('$')} / ${t('million')}`}
+						min={0}
+						step={1}
+					></InputNumber>
+				</Item>
+				<Item
+					name='features'
+					label={t('setting.providers.model_form.features')}
+					style={{ marginBottom: 0 }}
+				>
 					<Features></Features>
 				</Item>
 			</div>

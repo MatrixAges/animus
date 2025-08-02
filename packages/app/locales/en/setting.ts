@@ -11,6 +11,12 @@ export default {
 		api_base_url_placeholder: 'Enter the API base url provided by the provider',
 		api_key: 'API Key',
 		api_key_placeholder: 'Please obtain and enter the API key before use',
+		model_form: {
+			id: 'Model ID',
+			name: 'Model Name',
+			fee: 'Model Fee',
+			features: 'Features'
+		},
 		features: {
 			function_calling: 'Function Calling',
 			structured_output: 'Structured Output',

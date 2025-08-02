@@ -1,4 +1,5 @@
 import type { Provider as ProviderModel } from '@/models'
+import type { FormInstance } from 'antd'
 import type { Links, Model, Provider, ProviderKey } from 'fst/llm'
 import type { JSONSchema7 } from 'json-schema'
 
@@ -17,16 +18,7 @@ export interface IPropsFormGroupItem {
 	group: Provider['models'][number]
 	group_index: number
 	removeGroup: (index: number | number[]) => void
-}
-
-export interface IPropsFormModelForm {
-	item: Model
-	group_index: number
-	model_index: number
-	onRemove: () => void
-	getFieldValue: (name: any) => any
-	setFieldValue: (name: any, value: any) => void
-	onClose: () => void
+	submit: () => void
 }
 
 export interface IPropsFormFeatures {
@@ -39,6 +31,18 @@ export interface IPropsFormModelItem {
 	group_index: number
 	model_index: number
 	remove: (index: number | number[]) => void
+	submit: () => void
+}
+
+export interface IPropsFormModelForm {
+	item: Model
+	group_index: number
+	model_index: number
+	onRemove: () => void
+	getFieldValue: FormInstance['getFieldValue']
+	setFieldValue: FormInstance['setFieldValue']
+	submit: () => void
+	onClose: () => void
 }
 
 export interface IPropsMutateProviderForm {

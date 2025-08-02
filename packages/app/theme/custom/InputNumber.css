@@ -1,0 +1,6 @@
+.ani-input-number-affix-wrapper {
+	.ani-input-number-suffix {
+		color: var(--color_text_greylight);
+		font-size: 12px;
+	}
+}

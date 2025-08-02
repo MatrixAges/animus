@@ -1,6 +1,4 @@
 ._local {
-	height: 24px;
-
 	&:global(.ani-select-open) {
 		:global {
 			.ani-select-arrow {
@@ -77,11 +75,6 @@
 							height: 1em;
 							min-height: unset;
 							margin-left: 4px;
-
-							.ani-select-selection-search {
-								.ani-select-selection-search-input {
-								}
-							}
 						}
 					}
 				}
@@ -106,7 +99,7 @@
 		}
 
 		.ani-select-arrow {
-			right: 6px;
+			right: 8px;
 			color: var(--color_text_grey);
 			font-size: 14px;
 		}

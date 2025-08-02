@@ -1,0 +1,25 @@
+.popup {
+	:global {
+		.rc-virtual-list-holder-inner {
+			.ani-select-item-group {
+				min-height: 18px;
+				line-height: 18px;
+				padding: 0 4px;
+				margin-top: 4px;
+				border-radius: unset;
+
+				&:first-child {
+					margin-top: unset;
+				}
+			}
+
+			.ani-select-item-option-grouped {
+				padding: 0 4px;
+
+				.model_item {
+					gap: 4px;
+				}
+			}
+		}
+	}
+}

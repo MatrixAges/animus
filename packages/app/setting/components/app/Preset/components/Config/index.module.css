@@ -1,0 +1,75 @@
+._local {
+	:global {
+		.btn_action {
+			width: 24px;
+			height: 24px;
+			border-radius: var(--radius);
+		}
+
+		.config_items {
+			gap: 12px;
+
+			.ani-form-item {
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				.ani-form-item-control-input-content {
+					display: flex;
+				}
+			}
+
+			.config_item {
+				width: calc((100% - 12px) / 2);
+				border-radius: var(--radius);
+				background-color: var(--bg_card);
+
+				.config_header {
+					padding: 4px 12px;
+					border-bottom: var(--border_soft);
+
+					.ani-input {
+						width: 120px;
+						line-height: 1;
+						padding: 0;
+						border: unset;
+						border-radius: unset;
+						background-color: unset;
+					}
+				}
+
+				.fields_wrap {
+					padding: 12px;
+				}
+
+				.textarea_wrap {
+					.ani-form-item-control-input-content {
+						overflow-y: scroll;
+						max-height: 240px;
+					}
+				}
+
+				.textarea {
+					min-height: 72px;
+					line-height: var(--line_height);
+					padding: 8px 12px;
+					border: none;
+					border: var(--border_soft);
+					border-radius: var(--radius);
+					outline: unset;
+					background-color: var(--bg_component);
+					resize: none;
+					font-family: var(--font_serif);
+					font-size: 14px;
+					field-sizing: content;
+				}
+
+				.ani-input-number {
+					input {
+						font-family: var(--font_stiff);
+					}
+				}
+			}
+		}
+	}
+}

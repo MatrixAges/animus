@@ -1,4 +1,5 @@
 export default {
+	$: '$',
 	b: ' ',
 	s: 's',
 	a: 'a',
@@ -22,6 +23,7 @@ export default {
 	reset: 'Reset',
 	input: 'Input',
 	cancel: 'Cancel',
+	million: 'Million',
 	reset_confirm: 'Reset will remove all configuration changes, confirm reset?',
 	remove_confirm:
 		'Confirm removal? Deleting this item will also delete the corresponding local file. Please proceed with caution!',

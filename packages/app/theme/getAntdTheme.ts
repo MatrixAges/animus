@@ -102,6 +102,10 @@ export default (theme: ThemeValue, glass: boolean) => {
 				colorPrimaryHover: vars.color_text_grey,
 				paddingInline: 8
 			},
+			InputNumber: {
+				colorPrimaryHover: vars.color_text_grey,
+				paddingInline: 8
+			},
 			Segmented: {
 				borderRadiusSM: 6,
 				borderRadiusXS: 4,

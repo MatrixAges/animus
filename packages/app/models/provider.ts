@@ -3,7 +3,7 @@ import { injectable } from 'tsyringe'
 import { providers } from 'fst/llm'
 import { ipc, capitalizeFirst, confirm } from '@/utils'
 
-import type { Provider, Model, ProviderKey, Links } from 'fst/llm'
+import type { Provider, ProviderKey, Links } from 'fst/llm'
 
 @injectable()
 export default class Index {
@@ -20,21 +20,31 @@ export default class Index {
 
 				if (item.config.enabled) {
 					total.push({
-						name: key
+						label: key
 							.split('_')
 							.map(i => capitalizeFirst(i))
 							.join(' '),
-						models: item.config.models.reduce((to, i) => {
-							to.push(...i.items.filter(m => m.enabled))
+						options: item.config.models.reduce(
+							(to, i) => {
+								const target_items = i.items
+									.filter(m => m.enabled)
+									.map(m => ({
+										label: m.name,
+										value: m.id
+									}))
 
-							return to
-						}, [] as Array<Model>)
+								to.push(...target_items)
+
+								return to
+							},
+							[] as Array<{ label: string; value: string }>
+						)
 					})
 				}
 
 				return total
 			},
-			[] as Array<{ name: string; models: Array<Model> }>
+			[] as Array<{ label: string; options: Array<{ label: string; value: string }> }>
 		)
 	}
 
