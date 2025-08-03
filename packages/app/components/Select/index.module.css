@@ -86,7 +86,6 @@
 		.ani-select-selector {
 			padding: 0 6px;
 			margin-right: 0;
-			color: var(--color_text_grey);
 			font-family: var(--font_serif);
 
 			.ani-select-selection-search {

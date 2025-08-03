@@ -18,7 +18,6 @@ const Index = (props: IProps) => {
 		<Select
 			className={$cx('border_box', styles._local, className)}
 			classNames={deepmerge({ popup: { root: $cx(styles.popup, popupClassName) } }, classNames)}
-			variant='filled'
 			suffixIcon={<CaretDownIcon></CaretDownIcon>}
 			{...rest_props}
 		></Select>

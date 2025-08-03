@@ -270,6 +270,9 @@ importers:
       erpc:
         specifier: workspace:*
         version: link:../erpc
+      es-toolkit:
+        specifier: ^1.39.7
+        version: 1.39.7
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0

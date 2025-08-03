@@ -24,6 +24,9 @@ export default {
 	input: '输入',
 	cancel: '取消',
 	million: '百万',
+	select: '选择',
+	naming: '命名',
+	translate: '翻译',
 	reset_confirm: '重置会移除所有配置变更，确认重置？',
 	remove_confirm: '确认删除？删除该项将会删除对应的本地文件，请谨慎操作！',
 	config_remove_confirm: '删除该项将会删除对应的配置数据，确认删除？'

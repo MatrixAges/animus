@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 import { Util } from '@/models/common'
-import { store_options as default_store_options } from '@/utils'
+import { getUserStoreOptions } from '@/utils'
 import { setStoreWhenChange } from 'stk/mobx'
 import { config_keys } from '@/appdata'
 import { id as ID } from 'stk/common'
@@ -57,7 +57,7 @@ export default class Index {
 				{ [config_keys['chat.select_model']]: 'select_model' }
 			],
 			this,
-			store_options ?? default_store_options
+			store_options ?? getUserStoreOptions('global', 'chatbox')
 		)
 
 		this.util.acts = [off]

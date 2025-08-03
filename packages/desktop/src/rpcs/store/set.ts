@@ -1,15 +1,24 @@
+import { set } from 'es-toolkit/compat'
 import { any, object, string } from 'zod'
 
-import { p, write } from '@desktop/utils'
+import { p, read, write } from '@desktop/utils'
 
 const input_type = object({
 	module: string(),
 	key: string(),
-	value: any()
+	value: any(),
+	filename: string().optional()
 })
 
 export default p.input(input_type).mutation(async ({ input }) => {
-	const { module, key, value } = input
+	const { module, key, value, filename } = input
 
-	await write({ module, filename: key, data: value })
+	if (filename) {
+		const data = (await read({ module, filename })) || {}
+
+		set(data, key, value)
+		await write({ module, filename, data })
+	} else {
+		await write({ module, filename: key, data: value })
+	}
 })

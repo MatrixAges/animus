@@ -1,18 +1,33 @@
 ._local {
 	height: 24px;
+	margin-right: 8px;
 
 	:global {
 		.ani-select-selector {
+			overflow: scroll;
+			max-width: 360px;
+			padding-right: 0 !important;
 			border: unset !important;
+			color: var(--color_text_grey);
 			background-color: unset !important;
 		}
 
 		.ani-select-arrow {
-			right: 0px;
+			right: -8px;
+			background-color: var(--bg_component);
+		}
+
+		.ani-select-selection-overflow {
+			flex-wrap: nowrap;
+		}
+
+		.ani-select-selection-overflow-item-suffix {
+			margin-left: 6px !important;
 		}
 	}
 }
 
 .popup {
-	min-width: 180px !important;
+	min-width: 210px !important;
+	max-width: 240px !important;
 }

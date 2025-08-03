@@ -1,24 +1,33 @@
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 
 import { LLM, Select } from '@/components'
 import { useGlobal } from '@/context'
 
 import styles from './index.module.css'
 
-export interface IProps {
-	value?: string
-	onChange?: (v: string) => void
+import type { SelectProps } from 'antd'
+
+export interface IProps extends SelectProps {
+	className?: string
+	popupClassName?: string
+	value?: string | Array<string>
+	onChange?: (v: any) => void
 }
 
 const Index = (props: IProps) => {
-	const { value, onChange } = props
+	const { className, popupClassName, value, onChange, ...rest_props } = props
 	const global = useGlobal()
+	const { t } = useTranslation()
+
 	const providers = $copy(global.provider.providers)
 
 	return (
 		<Select
-			popupClassName={styles.popup}
+			className={className}
+			popupClassName={$cx(styles.popup, popupClassName)}
 			showSearch
+			placeholder={`${t('select')}${t('b')}${t('model')}`}
 			optionRender={({ label, value }) => (
 				<div className='model_item flex align_center'>
 					<div className='icon_wrap flex justify_center align_center'>
@@ -30,6 +39,7 @@ const Index = (props: IProps) => {
 			options={providers}
 			value={value}
 			onChange={onChange}
+			{...rest_props}
 		></Select>
 	)
 }

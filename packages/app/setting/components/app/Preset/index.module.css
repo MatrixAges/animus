@@ -8,10 +8,16 @@
 			}
 
 			.tab_items {
+				line-height: 1;
+				padding: 4px 6px;
+				border: var(--border_soft);
+				border-radius: var(--radius);
+				background-color: var(--bg_card);
 				font-size: 12px;
 				gap: 12px;
 
 				.tab_item {
+					height: 16px;
 					opacity: 0.48;
 					gap: 4px;
 

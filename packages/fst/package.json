@@ -18,6 +18,11 @@
 			"types": "./dist/llm/index.d.ts",
 			"import": "./dist/llm/index.js",
 			"default": "./dist/llm/index.js"
+		},
+		"./prompt": {
+			"types": "./dist/prompt/index.d.ts",
+			"import": "./dist/prompt/index.js",
+			"default": "./dist/prompt/index.js"
 		}
 	},
 	"dependencies": {

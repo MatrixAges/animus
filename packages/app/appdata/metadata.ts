@@ -34,5 +34,3 @@ export const preset_config = {
 	max_ouput_tokens: 32000,
 	system_prompt: 'You are Gemini, an AI assistant created by Google Deepmind.'
 }
-
-export const preset_prompts = {}

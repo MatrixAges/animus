@@ -4,7 +4,7 @@ import { rslib } from '../../config'
 
 import type { RslibConfig } from '@rslib/core'
 
-const modules = ['llm']
+const modules = ['llm', 'prompt']
 
 export default deepmerge(rslib, {
 	lib: [{ format: 'esm' }],

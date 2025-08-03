@@ -24,6 +24,9 @@ export default {
 	input: 'Input',
 	cancel: 'Cancel',
 	million: 'Million',
+	select: 'Select',
+	naming: 'Naming',
+	translate: 'Translate',
 	reset_confirm: 'Reset will remove all configuration changes, confirm reset?',
 	remove_confirm:
 		'Confirm removal? Deleting this item will also delete the corresponding local file. Please proceed with caution!',

@@ -1,4 +1,39 @@
 ._local {
+	gap: 12px;
+
 	:global {
+		.prompt_item {
+			padding: 12px;
+			border-radius: var(--radius);
+			background-color: var(--bg_card);
+			gap: 8px;
+
+			.title {
+				line-height: 1;
+				margin-bottom: 2px;
+				font-weight: 500;
+			}
+
+			.textarea_wrap {
+				overflow-y: scroll;
+				max-height: 360px;
+			}
+
+			.textarea {
+				min-height: 72px;
+				line-height: var(--line_height);
+				padding: 8px 12px;
+				border: none;
+				border: var(--border_soft);
+				border-radius: var(--radius);
+				outline: unset;
+				background-color: unset;
+				background-color: var(--bg_component);
+				resize: none;
+				font-family: var(--font_serif);
+				font-size: 14px;
+				field-sizing: content;
+			}
+		}
 	}
 }

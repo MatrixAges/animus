@@ -1,29 +1,20 @@
-import { Select } from '@/components'
+import { observer } from 'mobx-react-lite'
+
+import { ModelSelect } from '@/components'
+import { useGlobal } from '@/context'
 
 import styles from './index.module.css'
 
 import type { IPropsModelSelect } from '../../types'
 
-const options = [
-	{
-		label: 'Gemini 2.0 Flash',
-		value: 'Gemini 2.0 Flash'
-	},
-	{
-		label: 'Claude opus 4',
-		value: 'Claude opus 4'
-	},
-	{
-		label: 'Claude sonnet 4',
-		value: 'Claude sonnet 4'
-	}
-]
-
 const Index = (props: IPropsModelSelect) => {
 	const { select_model, setSelectModel } = props
+	const global = useGlobal()
+
+	const providers = $copy(global.provider.providers)
 
 	return (
-		<Select
+		<ModelSelect
 			className={styles._local}
 			popupClassName={styles.popup}
 			placement='bottomRight'
@@ -31,12 +22,12 @@ const Index = (props: IPropsModelSelect) => {
 			mode='multiple'
 			maxCount={12}
 			popupMatchSelectWidth={false}
-			defaultValue={[options[0]['value']]}
-			options={options}
+			defaultValue={[providers?.[0]?.['options']?.[0]?.['value']]}
+			options={providers}
 			value={select_model}
 			onChange={setSelectModel}
-		></Select>
+		></ModelSelect>
 	)
 }
 
-export default $app.memo(Index)
+export default new $app.handle(Index).by(observer).by($app.memo).get()

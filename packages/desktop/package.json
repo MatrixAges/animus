@@ -26,14 +26,15 @@
 		"electron-conf": "^1.3.0",
 		"electron-updater": "^6.6.7",
 		"erpc": "workspace:*",
+		"es-toolkit": "^1.39.7",
 		"fs-extra": "^11.3.0",
 		"i18next": "^25.3.2",
 		"memfs": "^4.17.2",
 		"mnemonist": "^0.40.3",
 		"ofetch": "^1.4.1",
+		"stk": "workspace:*",
 		"watchpack": "^2.4.4",
-		"zod": "^4.0.5",
-		"stk": "workspace:*"
+		"zod": "^4.0.5"
 	},
 	"devDependencies": {
 		"@electron/notarize": "^3.0.1",
