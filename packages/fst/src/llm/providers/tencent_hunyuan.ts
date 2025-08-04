@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://cloud.tencent.com/document/product/1729/104753'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	api_base_url: '',

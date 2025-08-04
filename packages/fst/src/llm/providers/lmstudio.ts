@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://lmstudio.ai/models'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	api_base_url: 'http://localhost:1234/v1',

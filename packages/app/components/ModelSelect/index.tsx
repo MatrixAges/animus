@@ -11,8 +11,8 @@ import type { SelectProps } from 'antd'
 export interface IProps extends SelectProps {
 	className?: string
 	popupClassName?: string
-	value?: string | Array<string>
-	onChange?: (v: any) => void
+	value?: string | Array<any>
+	onChange?: (v: any, option: any) => void
 }
 
 const Index = (props: IProps) => {

@@ -13,19 +13,20 @@ import type { IPropsChatbox } from '@/components'
 import type { Stack } from '@/types'
 
 const Index = (props: Stack.ModuleProps) => {
-	const { id, filename, create } = props
+	const { id } = props
 	const [x] = useState(container.resolve(Model))
 
 	const { bind } = useStackEffect({
-		mounted: () => x.init({ id, filename, create }),
+		mounted: () => x.init({ id }),
 		unmounted: () => x.off(),
-		deps: [id, filename, create]
+		deps: [id]
 	})
 
 	const props_chatbox: IPropsChatbox = {}
 
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
+			123
 			{/* <Chatbox {...props_chatbox}></Chatbox> */}
 		</div>
 	)

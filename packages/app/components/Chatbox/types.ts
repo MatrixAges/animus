@@ -36,5 +36,5 @@ export interface IPropsSetting {
 
 export interface IPropsModelSelect {
 	select_model: Model['select_model']
-	setSelectModel: (v: Model['select_model']) => void
+	setSelectModel: (_: any, v: Model['select_model']) => void
 }

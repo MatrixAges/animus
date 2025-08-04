@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
-import { GlobalModel } from '@/context'
 import { Util } from '@/models/common'
 import { ipc } from '@/utils'
 
@@ -11,21 +10,32 @@ export default class Index {
 	id = ''
 	options = {} as Chat.Options
 
-	constructor(
-		public util: Util,
-		public global: GlobalModel
-	) {
-		makeAutoObservable(this, { util: false, global: false, id: false }, { autoBind: true })
+	constructor(public util: Util) {
+		makeAutoObservable(this, { util: false, id: false }, { autoBind: true })
 	}
 
 	init(args: Stack.ModuleProps) {
-		const { id, create } = args
+		const { id } = args
 
 		this.id = id
 
-		this.options = this.global.stack.getTemp(id)
+		this.getFile()
+	}
 
-		// ipc.app.setRecent()
+	async getFile() {
+		const file = await ipc.file.read.query({ module: 'chat', filename: this.id })
+
+		if (!file) return
+
+		this.options = file.options
+
+		const res = await ipc.chat.init.mutate({
+			provider: this.options.model.provider,
+			model: this.options.model.value,
+			question: this.options.question
+		})
+
+		if (res?.err) return $message.error(res.err)
 	}
 
 	off() {}

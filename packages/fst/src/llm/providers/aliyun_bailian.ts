@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://bailian.console.aliyun.com/?tab=model#/model-market'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	api_base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',

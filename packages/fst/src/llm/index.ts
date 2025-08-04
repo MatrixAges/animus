@@ -26,106 +26,31 @@ import * as zhipu from './providers/zhipu'
 import { amazon_bedrock_schema, azure_openai_schema, custom_schema, ollama_schema } from './schema'
 
 export const providers = {
-	google_gemini: {
-		links: google_gemini.links,
-		config: google_gemini.default
-	},
-	anthropic: {
-		links: anthropic.links,
-		config: anthropic.default
-	},
-	cerebras: {
-		links: cerebras.links,
-		config: cerebras.default
-	},
-	cohere: {
-		links: cohere.links,
-		config: cohere.default
-	},
-	deepinfra: {
-		links: deepinfra.links,
-		config: deepinfra.default
-	},
-	deepseek: {
-		links: deepseek.links,
-		config: deepseek.default
-	},
-	fireworks: {
-		links: fireworks.links,
-		config: fireworks.default
-	},
-	groq: {
-		links: groq.links,
-		config: groq.default
-	},
-	lmstudio: {
-		links: lmstudio.links,
-		config: lmstudio.default
-	},
-	mistral: {
-		links: mistral.links,
-		config: mistral.default
-	},
-	ollama: {
-		links: ollama.links,
-		config: ollama.default
-	},
-	openai: {
-		links: openai.links,
-		config: openai.default
-	},
-	openrouter: {
-		links: openrouter.links,
-		config: openrouter.default
-	},
-	perplexity: {
-		links: perplexity.links,
-		config: perplexity.default
-	},
-	siliconflow: {
-		links: siliconflow.links,
-		config: siliconflow.default
-	},
-	together: {
-		links: together.links,
-		config: together.default
-	},
-	vercel: {
-		links: vercel.links,
-		config: vercel.default
-	},
-	xai: {
-		links: xai.links,
-		config: xai.default
-	},
-	zhipu: {
-		links: zhipu.links,
-		config: zhipu.default
-	},
-	aliyun_bailian: {
-		links: aliyun_bailian.links,
-		config: aliyun_bailian.default
-	},
-	tencent_hunyuan: {
-		links: tencent_hunyuan.links,
-		config: tencent_hunyuan.default
-	},
-	volcengine: {
-		links: volcengine.links,
-		config: volcengine.default
-	},
-	azure_openai: {
-		links: azure_openai.links,
-		config: azure_openai.default
-	},
-	amazon_bedrock: {
-		links: amazon_bedrock.links,
-		config: amazon_bedrock.default
-	},
-	openai_compatible: {
-		links: openai_compatible.links,
-		config: openai_compatible.default
-	}
+	google_gemini,
+	anthropic,
+	cerebras,
+	cohere,
+	deepinfra,
+	deepseek,
+	fireworks,
+	groq,
+	lmstudio,
+	mistral,
+	ollama,
+	openai,
+	openrouter,
+	perplexity,
+	siliconflow,
+	together,
+	vercel,
+	xai,
+	zhipu,
+	aliyun_bailian,
+	tencent_hunyuan,
+	volcengine,
+	azure_openai,
+	amazon_bedrock,
+	openai_compatible
 }
 
 export const providers_schema = {

@@ -25,7 +25,7 @@ export default class Index {
 	temperature = 0.9
 	top_p = 0.9
 	max_ouput_tokens = 0
-	select_model = [] as Array<string>
+	select_model = [] as Array<Chat.Options['model']>
 
 	ref_textarea = null as unknown as HTMLTextAreaElement
 	compositing = false
@@ -91,7 +91,7 @@ export default class Index {
 
 		if (this.select_model.length === 1) {
 			const id = ID()
-			const model = this.select_model[0]
+			const model = $copy(this.select_model[0])
 			const target_options = { ...options, model }
 
 			const file_index = { module: 'chat', id, name, create_at: now } as FileIndex
@@ -109,7 +109,7 @@ export default class Index {
 			this.select_model.forEach((item, index) => {
 				const id = ID()
 				const view = { ...stack_item, id, active: true }
-				const target_options = { ...options, model: item }
+				const target_options = { ...options, model: $copy(item) }
 
 				const file_index = { module: 'chat', id, name, create_at: now } as FileIndex
 

@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/models'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	resourceName: '',
 	api_key: '',

@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://v0.dev/docs/v0-model-api'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

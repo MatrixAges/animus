@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://cloud.siliconflow.cn/sft-d1oggoj3jrms73brdfsg/models'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	api_base_url: '',

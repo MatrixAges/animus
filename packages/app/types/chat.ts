@@ -8,8 +8,8 @@ export namespace Chat {
 		temperature: number
 		top_p: number
 		max_ouput_tokens: number
-		model: string
 		question: string
 		name: string
+		model: { provider: string; group: string; label: string; value: string }
 	}
 }

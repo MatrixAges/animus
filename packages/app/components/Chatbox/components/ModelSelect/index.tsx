@@ -20,6 +20,7 @@ const Index = (props: IPropsModelSelect) => {
 			placement='bottomRight'
 			showSearch
 			mode='multiple'
+			labelInValue
 			maxCount={12}
 			popupMatchSelectWidth={false}
 			defaultValue={[providers?.[0]?.['options']?.[0]?.['value']]}

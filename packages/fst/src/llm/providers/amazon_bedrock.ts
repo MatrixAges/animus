@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://docs.aws.amazon.com/bedrock/latest/userguide/foundation-models-reference.html'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	region: 'us-east-1',
 	accessKeyId: '',

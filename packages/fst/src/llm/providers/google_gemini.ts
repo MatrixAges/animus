@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://ai.google.dev/gemini-api/docs/models/gemini'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

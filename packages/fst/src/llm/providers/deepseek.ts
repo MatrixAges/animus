@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://api-docs.deepseek.com/quick_start/pricing'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

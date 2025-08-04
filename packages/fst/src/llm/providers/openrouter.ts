@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://openrouter.ai/models'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

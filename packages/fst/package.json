@@ -6,7 +6,8 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"dev": "concurrently \"cross-env NODE_ENV=development rslib build -w\" \"tsc -w\"",
-		"build": "cross-env NODE_ENV=production rslib build && tsc"
+		"build": "cross-env NODE_ENV=production rslib build && tsc",
+		"test": "rstest"
 	},
 	"exports": {
 		".": {
@@ -23,26 +24,61 @@
 			"types": "./dist/prompt/index.d.ts",
 			"import": "./dist/prompt/index.js",
 			"default": "./dist/prompt/index.js"
+		},
+		"./graph": {
+			"types": "./dist/graph/index.d.ts",
+			"import": "./dist/graph/index.js",
+			"default": "./dist/graph/index.js"
+		},
+		"./conversation": {
+			"types": "./dist/conversation/index.d.ts",
+			"import": "./dist/conversation/index.js",
+			"default": "./dist/conversation/index.js"
 		}
 	},
 	"dependencies": {
+		"@ai-sdk/amazon-bedrock": "^3.0.0",
+		"@ai-sdk/anthropic": "^2.0.0",
+		"@ai-sdk/azure": "^2.0.0",
+		"@ai-sdk/cerebras": "^1.0.0",
+		"@ai-sdk/cohere": "^2.0.0",
+		"@ai-sdk/deepinfra": "^1.0.0",
+		"@ai-sdk/deepseek": "^1.0.0",
+		"@ai-sdk/fireworks": "^1.0.0",
+		"@ai-sdk/google": "^2.0.0",
+		"@ai-sdk/groq": "^2.0.0",
+		"@ai-sdk/mistral": "^2.0.0",
+		"@ai-sdk/openai": "^2.0.0",
+		"@ai-sdk/openai-compatible": "^1.0.0",
+		"@ai-sdk/perplexity": "^2.0.0",
+		"@ai-sdk/togetherai": "^1.0.0",
+		"@ai-sdk/vercel": "^1.0.0",
+		"@ai-sdk/xai": "^2.0.0",
+		"@openrouter/ai-sdk-provider": "^0.7.3",
+		"ai": "^5.0.0",
 		"atomically": "^2.0.3",
 		"await-to-js": "^3.0.0",
 		"classic-level": "^3.0.0",
 		"dayjs": "^1.11.13",
 		"deepmerge-ts": "^7.1.5",
+		"lmdb": "^3.4.2",
 		"mnemonist": "^0.40.3",
 		"ofetch": "^1.4.1",
+		"ollama-ai-provider": "^1.2.0",
+		"stk": "workspace:*",
+		"zhipu-ai-provider": "^0.1.1",
 		"zod": "^4.0.5",
-		"stk": "workspace:*"
+		"es-toolkit": "^1.39.8",
+		"fs-extra": "^11.3.0"
 	},
 	"devDependencies": {
 		"@rslib/core": "catalog:",
-		"@types/node": "^24.0.14",
-		"bun": "^1.2.18",
-		"bun-types": "^1.2.18",
+		"@rstest/core": "^0.1.0",
+		"@types/node": "^24.1.0",
+		"bun": "catalog:",
+		"bun-types": "^1.2.19",
 		"concurrently": "^9.2.0",
 		"cross-env": "^7.0.3",
-		"typescript": "^5.8.3"
+		"typescript": "^5.9.2"
 	}
 }

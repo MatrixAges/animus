@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://ollama.com/search'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_base_url: 'http://localhost:11434/api',
 	models: []

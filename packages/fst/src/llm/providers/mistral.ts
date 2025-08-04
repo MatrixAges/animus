@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://docs.mistral.ai/getting-started/models/models_overview'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

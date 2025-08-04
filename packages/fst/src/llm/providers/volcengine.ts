@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://console.volcengine.com/ark/region:ark+cn-beijing/model'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	api_base_url: 'https://ark.cn-beijing.volces.com/api/v3/',

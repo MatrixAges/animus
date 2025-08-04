@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://open.bigmodel.cn/dev/howuse/model'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: []

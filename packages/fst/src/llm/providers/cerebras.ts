@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://inference-docs.cerebras.ai/models/llama-4-scout'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [

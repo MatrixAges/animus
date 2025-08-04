@@ -1,3 +1,7 @@
 import { router } from '@desktop/utils'
 
-export default router({})
+import conversation from './conversation'
+
+export default router({
+	conversation
+})

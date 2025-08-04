@@ -56,7 +56,7 @@ const Index = (props: IProps) => {
 
 	const props_model_select: IPropsModelSelect = {
 		select_model: $copy(x.select_model),
-		setSelectModel: useMemoizedFn(v => (x.select_model = v))
+		setSelectModel: useMemoizedFn((_, v) => (x.select_model = v))
 	}
 
 	const setRefTextArea = useMemoizedFn(v => v && (x.ref_textarea = v))

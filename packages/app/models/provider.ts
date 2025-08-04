@@ -30,7 +30,9 @@ export default class Index {
 									.filter(m => m.enabled)
 									.map(m => ({
 										label: m.name,
-										value: m.id
+										value: m.id,
+										provider: key,
+										group: i.group
 									}))
 
 								to.push(...target_items)

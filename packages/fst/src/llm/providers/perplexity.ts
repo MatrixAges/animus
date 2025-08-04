@@ -7,7 +7,7 @@ export const links = {
 	model_spec: 'https://docs.perplexity.ai/guides/model-cards'
 } as Links
 
-export default {
+export const config = {
 	enabled: false,
 	api_key: '',
 	models: [
