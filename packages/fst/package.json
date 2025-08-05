@@ -5,8 +5,9 @@
 	"version": "0.0.0",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "concurrently \"cross-env NODE_ENV=development rslib build -w\" \"tsc -w\"",
-		"build": "cross-env NODE_ENV=production rslib build && tsc",
+		"dev": "cross-env NODE_ENV=development rslib build -w",
+		"build": "cross-env NODE_ENV=production rslib build",
+		"tsc": "tsc",
 		"test": "rstest"
 	},
 	"exports": {
@@ -61,15 +62,15 @@
 		"classic-level": "^3.0.0",
 		"dayjs": "^1.11.13",
 		"deepmerge-ts": "^7.1.5",
+		"es-toolkit": "^1.39.8",
+		"fs-extra": "^11.3.0",
 		"lmdb": "^3.4.2",
 		"mnemonist": "^0.40.3",
 		"ofetch": "^1.4.1",
 		"ollama-ai-provider": "^1.2.0",
 		"stk": "workspace:*",
 		"zhipu-ai-provider": "^0.1.1",
-		"zod": "^4.0.5",
-		"es-toolkit": "^1.39.8",
-		"fs-extra": "^11.3.0"
+		"zod": "^4.0.5"
 	},
 	"devDependencies": {
 		"@rslib/core": "catalog:",

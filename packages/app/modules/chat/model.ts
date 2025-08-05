@@ -19,23 +19,11 @@ export default class Index {
 
 		this.id = id
 
-		this.getFile()
+		this.sub()
 	}
 
-	async getFile() {
-		const file = await ipc.file.read.query({ module: 'chat', filename: this.id })
-
-		if (!file) return
-
-		this.options = file.options
-
-		const res = await ipc.chat.init.mutate({
-			provider: this.options.model.provider,
-			model: this.options.model.value,
-			question: this.options.question
-		})
-
-		if (res?.err) return $message.error(res.err)
+	sub() {
+		ipc.chat.conversation.subscribe({ id: this.id }, { onData: res => {} })
 	}
 
 	off() {}

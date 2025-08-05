@@ -16,8 +16,7 @@
 		"allowImportingTsExtensions": true,
 		"forceConsistentCasingInFileNames": true,
 		"paths": {
-			"@fst/*": ["./fst/src/*"],
-			"@app/*": ["./app/*"]
+			"@fst/*": ["./fst/src/*"]
 		},
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true

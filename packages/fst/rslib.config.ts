@@ -7,7 +7,7 @@ import type { RslibConfig } from '@rslib/core'
 const modules = ['llm', 'prompt', 'graph', 'conversation']
 
 export default deepmerge(rslib, {
-	lib: [{ format: 'esm' }],
+	lib: [{ format: 'esm', dts: true }],
 	output: { target: 'node' },
 	source: {
 		entry: modules.reduce(

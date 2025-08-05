@@ -1,7 +1,11 @@
 import { router } from '@desktop/utils'
 
-import conversation from './conversation'
+import ask from './ask'
+import init from './init'
+import updateOptions from './updateOptions'
 
 export default router({
-	conversation
+	init,
+	ask,
+	updateOptions
 })
