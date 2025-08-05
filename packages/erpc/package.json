@@ -19,7 +19,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "rslib build && tsc"
+		"build": "rslib build"
 	},
 	"devDependencies": {
 		"@rslib/core": "catalog:",
