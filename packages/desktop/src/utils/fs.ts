@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { readFile, writeFile } from 'atomically'
 import to from 'await-to-js'
-import { deepmerge } from 'deepmerge-ts'
+import { deepmerge as Deepmerge } from 'deepmerge-ts'
 
 import { workspace_data_path } from '@desktop/utils'
 
@@ -12,20 +12,26 @@ interface Args {
 	ext?: string
 }
 
-export const write = async (args: Args & { merge?: boolean; default_value?: any }) => {
-	const { filename, data, merge, default_value = {}, module, ext = 'json' } = args
+export const write = async (args: Args & { merge?: boolean; deepmerge?: boolean }) => {
+	const { filename, data, module, ext = 'json', merge, deepmerge } = args
 
-	let target_data = data
+	let target = data
 
-	if (merge) {
-		const prev_data = await read({ module, filename })
+	if (merge || deepmerge) {
+		const [err, res] = await to(read({ module, filename }))
 
-		target_data = deepmerge(prev_data || default_value, data)
+		if (!err && res) {
+			if (merge) {
+				target = { ...res, ...data }
+			} else {
+				target = Deepmerge(res, data)
+			}
+		}
 	}
 
 	await writeFile(
 		join(workspace_data_path, module && module !== 'global' ? `/${module}` : '', `/${filename}.${ext}`),
-		JSON.stringify(target_data, null, 6)
+		JSON.stringify(target, null, 6)
 	)
 }
 

@@ -60,8 +60,6 @@ export default class Index {
 			}
 		}
 
-		console.log(state)
-
 		switch (state) {
 			case 'sync':
 				event.emit(`${this.id}/CHANGE`, {
@@ -88,6 +86,7 @@ export default class Index {
 	async ask(question: string) {
 		const message = {
 			id: genId(),
+			role: 'user',
 			timestamp: dayjs().valueOf(),
 			items: [{ role: 'user', content: question }]
 		} as Conversation.Message
@@ -135,7 +134,6 @@ export default class Index {
 		})
 
 		for await (const text of textStream) {
-			console.log(text)
 			this.current += text
 
 			this.event.emit(`${this.id}/CHANGE`, { type: 'streaming', text } as Conversation.EventRes)
@@ -151,6 +149,7 @@ export default class Index {
 
 		this.messages.push({
 			id,
+			role: 'assistant',
 			timestamp: timestamp.valueOf(),
 			items: messages,
 			tokens: {
@@ -166,6 +165,7 @@ export default class Index {
 	private async onStop() {
 		this.messages.push({
 			id: genId(),
+			role: 'assistant',
 			timestamp: dayjs().valueOf(),
 			items: [{ role: 'assistant', content: [{ type: 'text', text: this.current }] }]
 		})

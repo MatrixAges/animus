@@ -32,6 +32,7 @@ export namespace Conversation {
 
 	export interface Message {
 		id: string
+		role: 'user' | 'assistant'
 		timestamp: number
 		items: Array<ModelMessage>
 		tokens?: {
