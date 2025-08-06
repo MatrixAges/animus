@@ -26,6 +26,7 @@ export default {
 	million: 'Million',
 	select: 'Select',
 	naming: 'Naming',
+	summary: 'Summary',
 	translate: 'Translate',
 	reset_confirm: 'Reset will remove all configuration changes, confirm reset?',
 	remove_confirm:

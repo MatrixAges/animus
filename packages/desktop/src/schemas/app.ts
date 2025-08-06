@@ -4,6 +4,7 @@ export const schema_file_index = object({
 	module: string(),
 	id: string(),
 	name: string(),
+	summary: string().optional(),
 	icon: string().optional(),
 	icon_type: Enum(['icon', 'emoji']).optional(),
 	loading: boolean().optional(),

@@ -1,5 +1,6 @@
+import type { ModelMessage } from 'ai'
 import type { EventEmitter } from 'events'
-import type Conversation from '.'
+import type ConversationClass from '.'
 
 export interface ArgsInit {
 	id: string
@@ -16,7 +17,10 @@ export interface ArgsInit {
 }
 
 export namespace Conversation {
-	export type Options = {
+	export interface Options {
+		type: 'chat' | 'role'
+		question: string
+		model: { provider: string; group: string; label: string; value: string }
 		system_prompt: string
 		prompt_rewriting: boolean
 		web_search_enabled: boolean
@@ -24,13 +28,23 @@ export namespace Conversation {
 		temperature: number
 		top_p: number
 		max_ouput_tokens: number
-		question: string
-		name: string
-		model: { provider: string; group: string; label: string; value: string }
+	}
+
+	export interface Message {
+		id: string
+		timestamp: number
+		items: Array<ModelMessage>
+		tokens?: {
+			input?: number
+			output?: number
+			total?: number
+		}
 	}
 
 	export type EventRes =
-		| { type: 'ask'; question: string }
-		| { type: 'sync'; messages: Conversation['messages']; current: string }
+		| { type: 'ask'; message: Message }
+		| { type: 'sync'; messages: ConversationClass['messages']; current: string }
 		| { type: 'streaming'; text: string }
+		| { type: 'sync_options'; options: Options }
+		| { type: 'sync_loading'; loading: boolean }
 }

@@ -1,0 +1,1 @@
+export default `Extract the input question as a question summary of {{lang}}, no more than 24 characters for Chinese, no more than 12 words for English, and other languages follow the convention. Output the plain text name, without punctuation or special characters`

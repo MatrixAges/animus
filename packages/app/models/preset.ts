@@ -1,4 +1,4 @@
-import { naming, translate } from 'fst/prompt'
+import { chat_naming, chat_summary, translate } from 'fst/prompt'
 import { makeAutoObservable } from 'mobx'
 
 import { ipc } from '@/utils'
@@ -6,10 +6,11 @@ import { ipc } from '@/utils'
 export default class Index {
 	tab = 'config' as 'config' | 'prompt'
 	configs = []
-	prompts = { naming: { prompt: naming }, translate: { prompt: translate } } as unknown as Record<
-		string,
-		{ model: string; prompt: string }
-	>
+	prompts = {
+		naming: { prompt: chat_naming },
+		summary: { prompt: chat_summary },
+		translate: { prompt: translate }
+	} as unknown as Record<string, { model: string; prompt: string }>
 
 	constructor() {
 		makeAutoObservable(this, {}, { autoBind: true })

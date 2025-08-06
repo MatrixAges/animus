@@ -77,6 +77,8 @@ export default class Index {
 		const now = dayjs().valueOf()
 
 		const options = {
+			type: 'chat',
+			question: value,
 			system_prompt: this.system_prompt,
 			prompt_rewriting: this.prompt_rewriting,
 			newline_by_enter: this.newline_by_enter,
@@ -84,9 +86,7 @@ export default class Index {
 			web_search_engine: this.web_search_engine,
 			temperature: this.temperature,
 			top_p: this.top_p,
-			max_ouput_tokens: this.max_ouput_tokens,
-			question: value,
-			name
+			max_ouput_tokens: this.max_ouput_tokens
 		} as Chat.Options
 
 		if (this.select_model.length === 1) {

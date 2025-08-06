@@ -6,6 +6,8 @@ import { p, read, write } from '@desktop/utils'
 
 import { event } from './utils'
 
+import type { Conversation as NConversation } from 'fst/conversation'
+
 const input_type = object({
 	id: string()
 })
@@ -23,7 +25,7 @@ export default p.input(input_type).subscription(async function* (args) {
 
 	try {
 		for await (const [data] of on(event, `${id}/CHANGE`, { signal })) {
-			yield data
+			yield data as NConversation.EventRes
 		}
 	} finally {
 		event.removeAllListeners()

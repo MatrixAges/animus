@@ -47,6 +47,17 @@ const Index = (props: IPropsPrompt) => {
 				</div>
 			</div>
 			<div className='prompt_item border_box flex flex_column'>
+				<span className='title'>{t('summary')}</span>
+				<Item name={['summary', 'model']} noStyle>
+					<ModelSelect allowClear></ModelSelect>
+				</Item>
+				<div className='textarea_wrap w_100 flex'>
+					<Item name={['summary', 'prompt']} noStyle>
+						<textarea className='textarea w_100 border_box'></textarea>
+					</Item>
+				</div>
+			</div>
+			<div className='prompt_item border_box flex flex_column'>
 				<span className='title'>{t('translate')}</span>
 				<Item name={['translate', 'model']} noStyle>
 					<ModelSelect allowClear></ModelSelect>

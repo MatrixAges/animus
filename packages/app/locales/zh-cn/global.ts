@@ -26,6 +26,7 @@ export default {
 	million: '百万',
 	select: '选择',
 	naming: '命名',
+	summary: '摘要',
 	translate: '翻译',
 	reset_confirm: '重置会移除所有配置变更，确认重置？',
 	remove_confirm: '确认删除？删除该项将会删除对应的本地文件，请谨慎操作！',

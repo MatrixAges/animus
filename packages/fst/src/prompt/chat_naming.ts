@@ -1,0 +1,1 @@
+export default `Extract input content into {{lang}} character name or plain text topic (prioritize characters), Chinese within 10 characters, English within 3 words, other languages follow conventions. Output plain text name, no punctuation or special characters`

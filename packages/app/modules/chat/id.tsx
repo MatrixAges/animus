@@ -26,7 +26,7 @@ const Index = (props: Stack.ModuleProps) => {
 
 	return (
 		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
-			123
+			{x.current}
 			{/* <Chatbox {...props_chatbox}></Chatbox> */}
 		</div>
 	)

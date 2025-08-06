@@ -1,11 +1,11 @@
+import { randomUUID as genId } from 'crypto'
 import { streamText } from 'ai'
 import dayjs from 'dayjs'
-import { id as genId } from 'stk/common'
 
 import { getProvider } from './provider'
 
 import type { Provider, ProviderKey } from '@fst/llm'
-import type { ModelMessage, StreamTextOnFinishCallback, ToolSet } from 'ai'
+import type { CallSettings, ModelMessage, Prompt, StreamTextOnFinishCallback, ToolSet } from 'ai'
 import type { EventEmitter } from 'events'
 import type { ArgsInit, Conversation } from './types'
 
@@ -15,16 +15,7 @@ export default class Index {
 	options = {} as Conversation.Options
 	provider = null as unknown as Provider
 
-	messages = [] as Array<{
-		id: string
-		timestamp: number
-		items: Array<ModelMessage>
-		tokens?: {
-			input?: number
-			output?: number
-			total?: number
-		}
-	}>
+	messages = [] as Array<Conversation.Message>
 	current = ''
 	streamed = false
 
@@ -41,29 +32,69 @@ export default class Index {
 		this.read = read
 		this.write = write
 
-		const { loading, options, messages } = await read({ module: 'chat', filename: id })
+		const { loading } = await read({ module: 'file_index', filename: id })
+		const { options, messages } = await read({ module: 'chat', filename: id })
 		const providers = await read({ module: 'global', filename: 'providers' })
+
+		event.emit(`${this.id}/CHANGE`, { type: 'sync_options', options: options } as Conversation.EventRes)
 
 		this.options = options
 		this.messages = messages || []
 		this.provider = providers[options.model.provider].config as Provider
 
-		if (loading && this.streamed) {
-			event.emit(`${this.id}/CHANGE`, { type: 'sync', messages: this.messages, current: this.current })
+		let state = '' as 'sync' | 'sync_hide_loading' | 'ask'
+
+		if (loading) {
+			if (this.streamed) {
+				state = 'sync'
+			} else {
+				state = 'sync_hide_loading'
+			}
 		} else {
-			this.ask(this.options.question)
-			this.streaming()
+			if (messages?.length > 1) {
+				state = 'sync'
+			} else {
+				if (this.options.type === 'chat') {
+					state = 'ask'
+				}
+			}
+		}
+
+		console.log(state)
+
+		switch (state) {
+			case 'sync':
+				event.emit(`${this.id}/CHANGE`, {
+					type: 'sync',
+					messages: this.messages,
+					current: this.current
+				} as Conversation.EventRes)
+				break
+			case 'sync_hide_loading':
+				this.setLoading(false)
+
+				event.emit(`${this.id}/CHANGE`, {
+					type: 'sync',
+					messages: this.messages
+				} as Conversation.EventRes)
+				break
+			case 'ask':
+				this.ask(this.options.question)
+				this.streaming()
+				break
 		}
 	}
 
 	async ask(question: string) {
-		this.messages.push({
+		const message = {
 			id: genId(),
 			timestamp: dayjs().valueOf(),
 			items: [{ role: 'user', content: question }]
-		})
+		} as Conversation.Message
 
-		this.event.emit(`${this.id}/CHANGE`, { type: 'ask', question: question })
+		this.messages.push(message)
+
+		this.event.emit(`${this.id}/CHANGE`, { type: 'ask', message } as Conversation.EventRes)
 
 		this.persist()
 	}
@@ -75,34 +106,39 @@ export default class Index {
 	}
 
 	private async streaming() {
-		const { model, question, system_prompt, temperature, top_p, max_ouput_tokens } = this.options
+		const { model, system_prompt, temperature, top_p, max_ouput_tokens } = this.options
 		const { provider, value } = model
 
 		this.streamed = true
 
 		this.setLoading(true)
 
+		const settings: CallSettings & Prompt = {}
+
+		if (max_ouput_tokens) settings['maxOutputTokens'] = max_ouput_tokens
+		if (system_prompt) settings['system'] = system_prompt
+
 		const { textStream } = streamText({
 			model: getProvider({ name: provider as ProviderKey, api_key: this.provider.api_key })!(value),
-			system: system_prompt,
 			temperature,
 			topP: top_p,
-			maxOutputTokens: max_ouput_tokens,
 			messages: this.messages.reduce((total, item) => {
 				total.push(...item.items)
 
 				return total
 			}, [] as Array<ModelMessage>),
 			abortSignal: this.abort_controller.signal,
-			onFinish: this.onFinish,
-			onAbort: this.onStop,
-			onError: this.onStop
+			...settings,
+			onFinish: this.onFinish.bind(this),
+			onAbort: this.onStop.bind(this),
+			onError: this.onStop.bind(this)
 		})
 
 		for await (const text of textStream) {
+			console.log(text)
 			this.current += text
 
-			this.event.emit(`${this.id}/CHANGE`, { type: 'steaming', text })
+			this.event.emit(`${this.id}/CHANGE`, { type: 'streaming', text } as Conversation.EventRes)
 		}
 	}
 
@@ -139,10 +175,9 @@ export default class Index {
 	}
 
 	private async setLoading(v: boolean) {
-		await Promise.all([
-			this.write({ module: 'chat', filename: this.id, merge: true, data: { loading: v } }),
-			this.write({ module: 'file_index', filename: this.id, merge: true, data: { loading: v } })
-		])
+		this.event.emit(`${this.id}/CHANGE`, { type: 'sync_loading', loading: v } as Conversation.EventRes)
+
+		await this.write({ module: 'file_index', filename: this.id, merge: true, data: { loading: v } })
 	}
 
 	private async persist() {

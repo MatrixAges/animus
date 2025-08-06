@@ -26,10 +26,10 @@
 			"import": "./dist/prompt/index.js",
 			"default": "./dist/prompt/index.js"
 		},
-		"./graph": {
-			"types": "./dist/graph/index.d.ts",
-			"import": "./dist/graph/index.js",
-			"default": "./dist/graph/index.js"
+		"./graphii": {
+			"types": "./dist/graphii/index.d.ts",
+			"import": "./dist/graphii/index.js",
+			"default": "./dist/graphii/index.js"
 		},
 		"./conversation": {
 			"types": "./dist/conversation/index.d.ts",

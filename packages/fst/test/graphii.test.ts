@@ -3,9 +3,9 @@ import path from 'path'
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@rstest/core'
 
-import Graph from '../src/graph'
+import Graph from '../src/graphii'
 
-import type { Query, Triple } from '../src/graph'
+import type { Query, Triple } from '../src/graphii'
 
 const triples_data: Triple[] = [
 	{ subject: 'user:1', predicate: 'name', object: 'Alice' },
