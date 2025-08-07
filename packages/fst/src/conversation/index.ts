@@ -117,7 +117,7 @@ export default class Index {
 		if (max_ouput_tokens) settings['maxOutputTokens'] = max_ouput_tokens
 		if (system_prompt) settings['system'] = system_prompt
 
-		const { textStream } = streamText({
+		const { textStream, toUIMessageStreamResponse } = streamText({
 			model: getProvider({ name: provider as ProviderKey, api_key: this.provider.api_key })!(value),
 			temperature,
 			topP: top_p,
@@ -132,6 +132,8 @@ export default class Index {
 			onAbort: this.onStop.bind(this),
 			onError: this.onStop.bind(this)
 		})
+
+		this.abort_controller.abort()
 
 		for await (const text of textStream) {
 			this.current += text

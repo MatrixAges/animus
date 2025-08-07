@@ -47,6 +47,10 @@ export default class Index extends BrowserWindow {
 			shell.openExternal(url)
 		})
 
+		window.webContents.on('did-finish-load', () => {
+			window.webContents.executeJavaScript(`window.$port = ${conf.get('serve_port')}`)
+		})
+
 		window.on('moved', () => {
 			conf.set('win_bounds', window.getBounds())
 		})

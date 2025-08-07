@@ -7,11 +7,13 @@ import { createIPCHandler } from 'erpc/main'
 import config from '../config'
 import { Main, Menu, Tray } from './app'
 import { routers } from './rpcs'
-import { conf, getThemeColor, is_mac, show_devtool } from './utils'
+import { conf, getThemeColor, is_mac, serve, show_devtool } from './utils'
 
 import type { Tray as TrayType } from 'electron'
 
-console.log(2222221)
+const port = await serve()
+
+conf.set('serve_port', port)
 
 class App {
 	private window: BrowserWindow | null

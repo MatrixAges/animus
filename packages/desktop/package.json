@@ -17,6 +17,8 @@
 		"release:win": " pnpm run main:prod && electron-builder -w"
 	},
 	"dependencies": {
+		"@hono/node-server": "^1.18.1",
+		"@hono/zod-validator": "^0.7.2",
 		"@trpc/server": "^11.4.3",
 		"atomically": "^2.0.3",
 		"await-to-js": "^3.0.0",
@@ -27,11 +29,12 @@
 		"erpc": "workspace:*",
 		"es-toolkit": "^1.39.8",
 		"fs-extra": "^11.3.0",
+		"fst": "workspace:*",
+		"hono": "^4.8.12",
 		"i18next": "^25.3.2",
 		"mnemonist": "^0.40.3",
 		"ofetch": "^1.4.1",
 		"stk": "workspace:*",
-		"fst": "workspace:*",
 		"watchpack": "^2.4.4",
 		"zod": "^4.0.14"
 	},

@@ -24,7 +24,7 @@ export default class Index {
 
 		this.id = id
 
-		this.sub()
+		// this.sub()
 	}
 
 	sub() {

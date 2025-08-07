@@ -2,6 +2,7 @@ export { default as relaunch } from './relaunch'
 export { default as conf } from './conf'
 export { default as getThemeColor } from './getThemeColor'
 export { default as setWindowGlass } from './setWindowGlass'
+export { default as serve } from './serve'
 
 export * from './is'
 export * from './trpc'

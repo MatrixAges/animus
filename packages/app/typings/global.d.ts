@@ -20,6 +20,7 @@ interface $App {
 declare global {
 	interface Window {
 		$erpc?: GlobalERPC
+		$port: number
 
 		$shell?: {
 			type: 'electron'
