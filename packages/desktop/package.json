@@ -18,8 +18,8 @@
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.18.1",
-		"@hono/zod-validator": "^0.7.2",
 		"@trpc/server": "^11.4.3",
+		"ai": "^5.0.8",
 		"atomically": "^2.0.3",
 		"await-to-js": "^3.0.0",
 		"dayjs": "^1.11.13",

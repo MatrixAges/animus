@@ -4,19 +4,19 @@ import { Util } from '@/models/common'
 import { ipc } from '@/utils'
 
 import type { Chat, Stack } from '@/types'
-import type Conversation from 'fst/conversation'
-import type { Conversation as NConversation } from 'fst/conversation'
+import type { Message } from 'fst/chat'
 
 @injectable()
 export default class Index {
 	id = ''
 	options = {} as Chat.Options
-	messages = [] as Conversation['messages']
-	current = ''
+	messages = [] as Array<Message>
+
 	loading = false
+	signal = 0
 
 	constructor(public util: Util) {
-		makeAutoObservable(this, { util: false, id: false }, { autoBind: true })
+		makeAutoObservable(this, { util: false, id: false, messages: false }, { autoBind: true })
 	}
 
 	init(args: Stack.ModuleProps) {
@@ -24,41 +24,29 @@ export default class Index {
 
 		this.id = id
 
-		// this.sub()
+		this.sub()
 	}
 
 	sub() {
-		ipc.chat.init.subscribe(
-			{ id: this.id },
-			{
-				onData: res => {
-					console.log(res)
-					switch (res.type) {
-						case 'ask':
-							this.messages.push(res.message as NConversation.Message)
+		ipc.chat.init.subscribe(this.id, {
+			onData: res => {
+				switch (res.type) {
+					case 'init':
+						this.messages = res.messages as Array<Message>
+						this.signal += 1
 
-							break
-						case 'sync':
-							this.messages = res.messages
-							this.current = res.current
+						break
+					case 'sync_options':
+						this.options = res.options as Chat.Options
 
-							break
-						case 'streaming':
-							this.current += res.text
+						break
+					case 'sync_loading':
+						this.loading = res.loading
 
-							break
-						case 'sync_options':
-							this.options = res.options as Chat.Options
-
-							break
-						case 'sync_loading':
-							this.loading = res.loading
-
-							break
-					}
+						break
 				}
 			}
-		)
+		})
 	}
 
 	off() {}

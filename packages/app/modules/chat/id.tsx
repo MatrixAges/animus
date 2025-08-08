@@ -14,15 +14,14 @@ import styles from './index.module.css'
 import type { IPropsChatbox } from '@/components'
 import type { Stack } from '@/types'
 
-const controller = new AbortController()
-const signal = controller.signal
-
 const Index = (props: Stack.ModuleProps) => {
 	const { id } = props
 	const [x] = useState(container.resolve(Model))
 	const [input, setInput] = useState('')
 
 	const { messages, sendMessage } = useChat({
+		id,
+		messages: x.messages,
 		transport: new DefaultChatTransport({
 			api: `http://localhost:${window.$port}/api/chat`
 		})
@@ -37,7 +36,7 @@ const Index = (props: Stack.ModuleProps) => {
 	const props_chatbox: IPropsChatbox = {}
 
 	return (
-		<div className={$cx('w_100 border_box flex flex_column', styles._local)} ref={bind}>
+		<div className={$cx('w_100 border_box flex flex_column', styles._local, x.signal)} ref={bind}>
 			<div className='w_100 flex flex_column'>
 				{messages.map(message => (
 					<div key={message.id} className='whitespace-pre-wrap'>

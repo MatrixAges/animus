@@ -4,7 +4,7 @@ import { rslib } from '../../config'
 
 import type { RslibConfig } from '@rslib/core'
 
-const modules = ['llm', 'prompt', 'graphii', 'conversation']
+const modules = ['llm', 'prompt', 'graphii', 'chat']
 
 export default deepmerge(rslib, {
 	lib: [{ format: 'esm', dts: true }],

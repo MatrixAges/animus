@@ -5,6 +5,6 @@ import chat from './chat'
 
 const app = new Hono()
 
-app.use(cors({ origin: '*' })).route('/chat', chat)
+app.use(cors({ origin: '*' })).post('/api/chat', chat)
 
 export default app

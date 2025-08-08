@@ -31,10 +31,10 @@
 			"import": "./dist/graphii/index.js",
 			"default": "./dist/graphii/index.js"
 		},
-		"./conversation": {
-			"types": "./dist/conversation/index.d.ts",
-			"import": "./dist/conversation/index.js",
-			"default": "./dist/conversation/index.js"
+		"./chat": {
+			"types": "./dist/chat/index.d.ts",
+			"import": "./dist/chat/index.js",
+			"default": "./dist/chat/index.js"
 		}
 	},
 	"dependencies": {

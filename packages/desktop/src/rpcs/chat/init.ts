@@ -1,34 +1,35 @@
 import { on } from 'events'
-import Conversation from 'fst/conversation'
-import { object, string } from 'zod'
+import Chat from 'fst/chat'
+import { string } from 'zod'
 
-import { p, read, write } from '@desktop/utils'
+import { ChatEventStore, ChatStore, p, read, write } from '@desktop/utils'
 
-import { event } from './utils'
+import type { ChatEventRes } from 'fst/chat'
 
-import type { Conversation as NConversation } from 'fst/conversation'
+export default p.input(string()).subscription(async function* (args) {
+	const { signal, input: id } = args
 
-const input_type = object({
-	id: string()
-})
+	let chat = ChatStore.get(id) as Chat
 
-export default p.input(input_type).subscription(async function* (args) {
-	const { signal, input } = args
-	const { id } = input
+	if (!chat) {
+		chat = new Chat()
 
-	const conversation = new Conversation()
+		const messages = await chat.init({ id, event: ChatEventStore, read, write })
 
-	conversation.init({ id, event, read, write })
+		ChatStore.set(id, chat)
 
-	event.on(`${id}/ASK`, (question: string) => conversation.ask(question))
-	event.on(`${id}/UPDATE_OPTIONS`, () => conversation.updateOptions())
+		yield { type: 'init', messages } as ChatEventRes
+	}
+
+	ChatEventStore.on(`${id}/UPDATE_OPTIONS`, () => chat.updateOptions())
+	ChatEventStore.on(`${id}/DESTORY`, () => ChatStore.delete(id))
 
 	try {
-		for await (const [data] of on(event, `${id}/CHANGE`, { signal })) {
-			yield data as NConversation.EventRes
+		for await (const [data] of on(ChatEventStore, `${id}/CHANGE`, { signal })) {
+			yield data as ChatEventRes
 		}
 	} finally {
-		event.removeAllListeners()
-		conversation.abort()
+		ChatEventStore.removeAllListeners()
+		chat.abort()
 	}
 })

@@ -24,7 +24,8 @@ const start = () => {
 			'Autofill.enable',
 			'Autofill.setAddresses',
 			`Unexpected token 'H'`,
-			'_ISSetPhysicalKeyboardCapsLockLED'
+			'_ISSetPhysicalKeyboardCapsLockLED',
+			'task_policy_set'
 		]
 
 		if (!new RegExp(ignore.join('|')).test(err)) {

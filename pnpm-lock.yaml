@@ -12,12 +12,6 @@ catalogs:
     bun:
       specifier: 1.2.18
       version: 1.2.18
-    react:
-      specifier: 0.0.0-experimental-06e89951-20250620
-      version: 0.0.0-experimental-06e89951-20250620
-    react-dom:
-      specifier: 0.0.0-experimental-06e89951-20250620
-      version: 0.0.0-experimental-06e89951-20250620
 
 importers:
 
@@ -255,12 +249,12 @@ importers:
       '@hono/node-server':
         specifier: ^1.18.1
         version: 1.18.1(hono@4.8.12)
-      '@hono/zod-validator':
-        specifier: ^0.7.2
-        version: 0.7.2(hono@4.8.12)(zod@4.0.14)
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.4.3(typescript@5.9.2)
+      ai:
+        specifier: ^5.0.8
+        version: 5.0.8(zod@4.0.14)
       atomically:
         specifier: ^2.0.3
         version: 2.0.3
@@ -924,6 +918,12 @@ packages:
 
   '@ai-sdk/gateway@1.0.3':
     resolution: {integrity: sha512-QRGz2vH1WR9NvCv8gWocoebAKiXcuqj22mug6i8COeVsp33x5K5cK2DT4TwiQx5SfYbqJbVoBT+UqnHF7A3PHA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4
+
+  '@ai-sdk/gateway@1.0.4':
+    resolution: {integrity: sha512-1roLdgMbFU3Nr4MC97/te7w6OqxsWBkDUkpbCcvxF3jz/ku91WVaJldn/PKU8feMKNyI5W9wnqhbjb1BqbExOQ==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4
@@ -2546,12 +2546,6 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
-
-  '@hono/zod-validator@0.7.2':
-    resolution: {integrity: sha512-ub5eL/NeZ4eLZawu78JpW/J+dugDAYhwqUIdp9KYScI6PZECij4Hx4UsrthlEUutqDDhPwRI0MscUfNkvn/mqQ==}
-    peerDependencies:
-      hono: '>=3.9.0'
-      zod: ^3.25.0 || ^4.0.0
 
   '@ianvs/prettier-plugin-sort-imports@4.5.1':
     resolution: {integrity: sha512-vOQwIyQHnHz0ikvHEQDzwUkNfX74o/7qNEpm9LiPtyBvCg/AU/DOkhwe1o92chPS1QzS6G7HeiO+OwIt8a358A==}
@@ -4490,6 +4484,12 @@ packages:
 
   ai@5.0.5:
     resolution: {integrity: sha512-NPQ8Yv4lR7o/1rM+HQ0JT18zKxVFy/DrFDpvxlBQqmemSwsf3FlLNTK0asWXo9YtDAc0BOFL/y4kB56Hffi4yg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4
+
+  ai@5.0.8:
+    resolution: {integrity: sha512-qbnhj046UvG30V1S5WhjBn+RBGEAmi8PSZWqMhRsE3EPxvO5BcePXTZFA23e9MYyWS9zr4Vm8Mv3wQXwLmtIBw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4
@@ -8960,6 +8960,12 @@ snapshots:
       '@ai-sdk/provider-utils': 3.0.1(zod@4.0.14)
       zod: 4.0.14
 
+  '@ai-sdk/gateway@1.0.4(zod@4.0.14)':
+    dependencies:
+      '@ai-sdk/provider': 2.0.0
+      '@ai-sdk/provider-utils': 3.0.1(zod@4.0.14)
+      zod: 4.0.14
+
   '@ai-sdk/google@2.0.0(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.0
@@ -11524,11 +11530,6 @@ snapshots:
     dependencies:
       hono: 4.8.12
 
-  '@hono/zod-validator@0.7.2(hono@4.8.12)(zod@4.0.14)':
-    dependencies:
-      hono: 4.8.12
-      zod: 4.0.14
-
   '@ianvs/prettier-plugin-sort-imports@4.5.1(prettier@3.6.2)':
     dependencies:
       '@babel/generator': 7.27.3
@@ -13947,6 +13948,14 @@ snapshots:
   ai@5.0.5(zod@4.0.14):
     dependencies:
       '@ai-sdk/gateway': 1.0.3(zod@4.0.14)
+      '@ai-sdk/provider': 2.0.0
+      '@ai-sdk/provider-utils': 3.0.1(zod@4.0.14)
+      '@opentelemetry/api': 1.9.0
+      zod: 4.0.14
+
+  ai@5.0.8(zod@4.0.14):
+    dependencies:
+      '@ai-sdk/gateway': 1.0.4(zod@4.0.14)
       '@ai-sdk/provider': 2.0.0
       '@ai-sdk/provider-utils': 3.0.1(zod@4.0.14)
       '@opentelemetry/api': 1.9.0
